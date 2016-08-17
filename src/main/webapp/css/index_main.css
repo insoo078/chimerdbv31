@@ -1,0 +1,13 @@
+/* add main search li*/
+.amsli{
+    margin-left: 35px;
+    height: 30px;
+    vertical-align : middle;
+    text-align: left;
+    
+}
+
+/* add main search li txt bar*/
+.amslitxtbar{
+    width: 600px;
+}
