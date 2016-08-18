@@ -51,7 +51,7 @@
                 <div class="col-md-12 margin-bottom-30">
                     <div class="panel panel-primary">
                         <div class="panel-body" style="text-align: center;">
-                            <img alt="" src="images/chimerdbv3_main1.png" style="width: 95%; height: 95%;" />
+                            <img alt="" src="images/chimerdbv3_main2.png" style="width: 95%; height: 95%;" />
                         </div>
                     </div>
                 </div>
