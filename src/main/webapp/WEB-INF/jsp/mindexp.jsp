@@ -110,7 +110,7 @@
                                     <span style="font-size: 14px;">an enhanced database of fusion genes with cancer transcriptome and literature data mining. in press</span>
                                 </li>
                                 <li>
-                                    <span style="font-weight: bold;">ChimerDB 2.0 :</span>
+                                    <a href="http://biome.ewha.ac.kr:8080/FusionGene" target="_blank"><span style="font-weight: bold;">ChimerDB 2.0 :</span></a>
                                     <span style="font-size: 13px;">a knowledgebase for fusion genes updated. Kim P, Yoon S, Kim N, Lee S, Ko M, Lee H, Kang H, Kim J, Lee S. Nucleic Acids Res. 2010 Jan;38(Database issue):D81-5.</span>
                                 </li>
                                 <li>
