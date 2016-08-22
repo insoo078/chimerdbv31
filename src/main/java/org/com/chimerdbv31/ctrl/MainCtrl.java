@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package aMainp.ctrl;
+package org.com.chimerdbv31.ctrl;
 
-import aMainp.iface.MainDaoIF;
-import aMainp.vo.CimrKBVo;
-import aMainp.vo.CimrSeqVo;
-import aMainp.vo.ParamVo;
+import org.com.chimerdbv31.iface.MainDaoIF;
+import org.com.chimerdbv31.vo.CimrKBVo;
+import org.com.chimerdbv31.vo.CimrSeqVo;
+import org.com.chimerdbv31.vo.ParamVo;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;

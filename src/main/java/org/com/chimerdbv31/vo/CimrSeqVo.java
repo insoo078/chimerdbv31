@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package aMainp.vo;
+package org.com.chimerdbv31.vo;
 
 /**
  *
