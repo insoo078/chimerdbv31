@@ -75,17 +75,17 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li><span style="font-weight: bold;">ChimerSeq</span>
-                                    <ul>
-                                        <li style="list-style: none;">
-                                            We have analyzed all the TCGA transcriptome sequencing data using FusionScan and TopHat-Fusion, two most reliable programs in our benchmark test. The result from the PRADA pipeline was added as well. We further compiled the existing predictions from ChimerDB 2.0 and ChiTarS databases.
-                                        </li>
-                                    </ul>
-                                </li>
                                 <li><span style="font-weight: bold;">ChimerPub</span>
                                     <ul>
                                         <li style="list-style: none;">
                                             We developed a literature-based fusion gene extraction tool using text mining and machine learning. Abstract sentences in 26 million PubMed articles were analyzed for two co-occurring genes with additional information on disease, experimental methods, and translocation position. Elaborate feature selection and machine learning processes were applied to identify reliable PubMed records for gene fusion.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><span style="font-weight: bold;">ChimerSeq</span>
+                                    <ul>
+                                        <li style="list-style: none;">
+                                            We have analyzed all the TCGA transcriptome sequencing data using FusionScan and TopHat-Fusion, two most reliable programs in our benchmark test. The result from the PRADA pipeline was added as well. We further compiled the existing predictions from ChimerDB 2.0 and ChiTarS databases.
                                         </li>
                                     </ul>
                                 </li>
@@ -114,7 +114,7 @@
                                     <span style="font-size: 13px;">a knowledgebase for fusion genes updated. Kim P, Yoon S, Kim N, Lee S, Ko M, Lee H, Kang H, Kim J, Lee S. Nucleic Acids Res. 2010 Jan;38(Database issue):D81-5.</span>
                                 </li>
                                 <li>
-                                    <span style="font-weight: bold;">ChimerDB :</span>
+                                    <a href="http://genome.ewha.ac.kr/ChimerDB" target="_blank"><span style="font-weight: bold;">ChimerDB :</span></a>
                                     <span style="font-size: 14px;">a knowledgebase for fusion sequences. Kim N, Kim P, Nam S, Shin S, Lee S. Nucleic Acids Res. 2006 Jan 1;34(Database issue):D21-4.</span>
                                 </li>
                             </ul>

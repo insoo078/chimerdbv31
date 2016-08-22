@@ -18,7 +18,7 @@
 <script type="text/javascript" src="jq/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/templatemo_script.js"></script>
-
+<script type="text/javascript" src="jqlib/jQuery.equalHeights.js"></script>
 <script type="text/javascript" src="js/hoy.js"></script>
 <script type="text/javascript" src="js/mchimerseqp.js"></script>
 
@@ -28,253 +28,274 @@
     <%@include file="part/h.jsp" %>
     
 <!-- content -->
-<div class="container">
-        
-    
-    
-            <div class="row margin-bottom-30" style="margin-top: 30px; ">
-                    <div class="templatemo-panels">
 
-                            <div class="col-md-12">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
+<div id="main-wrapper">
+    <div class="template-page-wrapper">
+        <div class="templatemo-content-wrapper">
+            
+            
+            <div class="row margin-bottom-30" style="margin-top: 30px;">
+                <div class="col-md-1"></div>
+                <div class="col-md-10" style="background-color: #fdfdfd;">
+                    <div class="row margin-bottom-30" style="margin-left: 5px; margin-top: 15px;">
+                        <span style="font-size: 30px; font-weight: bold; color: #808080;">Search</span>
+                    </div>
+                    <div class="chimerkbsearchdiv row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
+                        
+                        <div class="col-md-4 col-md-offset-1 margin-bottom-30" style="border-right: 1px #dcdcdc dotted;">
+                            
+                            <div class="row margin-bottom-15">
+                                <div class="col-md-6">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="search_type_rdo" id="search_type_rdo1" value="by_gene" >Gene
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="by_gene_chk_5" value="5" >5'
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="by_gene_chk_3" value="3" >3'
+                                    </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);">
+                                </div>
+                            </div>
+                            
+                            <div class="row margin-bottom-15">
+                                <div class="col-md-6">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="search_type_rdo" value="by_gene_pair">Gene pair
+                                    </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="search_type_rdo" value="by_chr_locus">Chromosome locus
+                                    </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input id="by_chr_locus_txt" class="form-control" title="type &quot;T&quot;" value="2p23" onfocus="clearText(this);" onblur="clearText(this);">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-4 margin-bottom-30" style="border-right: 1px #dcdcdc dotted;">
+                            <div class="row margin-bottom-15">
+                                <div class="col-md-4">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="search_type_rdo" value="by_disease">Disease
+                                    </label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" value="" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 margin-bottom-30">
+                            <label class="radio-inline">
+                                <input type="radio" name="search_type_rdo" value="all_genes" checked="checked">Show all entries
+                            </label>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            
+            
+            <div class="row margin-bottom-30">
+                <div class="col-md-1"></div>
+                <div class="col-md-10" style="background-color: #fdfdfd;">
+                    
+                    <div class="row margin-bottom-30" style="margin-left: 5px; margin-top: 15px;">
+                        <span style="font-size: 30px; font-weight: bold; color: #808080;">Options</span>
+                    </div>
+                    <div class="row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
+                        <div class="col-md-11 col-md-offset-1 margin-bottom-30">
+                            <div class="row margin-bottom-15">
+                                <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Data Source</span>
+                            </div>
+                            <div class="row margin-bottom-15">
+                                <div class="col-md-11 col-md-offset-1">
+                                    <label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_all_chk" onclick="chimerSeq_all_source_toggle();" >All Sources</label>
+                                </div>
+                            </div>
+                            
+                            <div class="row margin-bottom-15">
+                                <div class="col-md-11 col-md-offset-1">
+                                    <label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_tcga_chk" onclick="chimrSeq_1_tcga_toggle();" checked="checked">TCGA RNA-Seq</label>
+                                </div>
+                            </div>
+                            
+                            <div class="row margin-bottom-15">
+                                <div class="col-md-4 col-md-offset-2">
+                                    <div class="row">
+                                        <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Cancer type</span>
                                     </div>
-                                    <div class="panel-body" style="background-color: #dcdcdc;">
-                                        
-                                        
-                                        
-                                                <!-- ----------------- Top Component -----------------  -->
-                                                <div style="padding: 30px 0px 30px 0px; margin-bottom: 10px; background-color: #fdfdfd;">
-                                                    
-                                                    <ul style="list-style: none;">
-                                                        <li>
-                                                            <span style="font-size: 20px; font-weight: bold;">&#9658;&nbsp;&nbsp;Search</span>
-                                                            <ul style="list-style: none;">
-                                                                <li>
-                                                                    <div class="radio">
-                                                                        <label><input type="radio" name="search_type_rdo" value="all_genes" checked="checked">All genes</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <div style="clear: both;">
-                                                                        <div class="radio" style="float: left; width: 230px;">
-                                                                            <label><input type="radio" name="search_type_rdo" value="by_gene">by gene</label>
-                                                                        </div>
-                                                                        <div style="float: left; width: 280px;">
-                                                                            <input id="by_gene_txt" class="form-control" style="width: 250px;" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);">
-                                                                        </div>
-                                                                        <div  style="float: left;">
-                                                                            <label class="checkbox-inline"><input type="checkbox" id="by_gene_chk_5" value="5" >5'</label>&nbsp;&nbsp;
-                                                                            <label class="checkbox-inline"><input type="checkbox" id="by_gene_chk_3" value="3" >3'</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-
-                                                                <li>
-                                                                    <div style="clear: both;">
-                                                                        <div class="radio" style="float: left; width: 230px;">
-                                                                            <label><input type="radio" name="search_type_rdo" value="by_gene_pair">by gene pair</label>
-                                                                        </div>
-                                                                        <div style="float: left; width: 280px;">
-                                                                            <input id="by_gene_pair_txt" class="form-control" style="width: 250px;" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);">
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <div style="clear: both;">
-                                                                        <div class="radio" style="float: left; width: 230px;">
-                                                                            <label><input type="radio" name="search_type_rdo" value="by_chr_locus">by chromosome locus</label>
-                                                                        </div>
-                                                                        <div style="float: left; width: 280px;">
-                                                                            <input id="by_chr_locus_txt" class="form-control" style="width: 250px;" title="type &quot;T&quot;" value="2p23" onfocus="clearText(this);" onblur="clearText(this);">
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                        
-                                                </div>
-                                                
-                                                <div id="chimer_seq" style="background-color: #fdfdfd;">
-                                                    <ul style="list-style: none;">
-                                                        <li>
-                                                            <span style="font-size: 20px; font-weight: bold;">&#9658;&nbsp;&nbsp;Options</span>
-                                                            <ul style="list-style: none;">
-                                                                <li style="margin-top: 10px;">
-                                                                    <span>&ndash;&nbsp;&nbsp;Data Source</span>
-                                                                    <ul style="list-style: none;">
-                                                                        <li style="margin-top: 10px;">
-                                                                            <label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_all_chk" onclick="chimerSeq_all_source_toggle();" >All Sources</label>
-                                                                        </li>
-                                                                        <li style="margin-top: 10px;">
-                                                                            <label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_tcga_chk" onclick="chimrSeq_1_tcga_toggle();" checked="checked">TCGA RNA-Seq</label>
-                                                                            <ul style="list-style: none;">
-                                                                                <li style="margin-top: 10px;">
-                                                                                    <table style="width: 100%;">
-                                                                                        <tr>
-                                                                                            <td colspan="2" style="width: 40%;">
-                                                                                                <span>&bull;&nbsp;&nbsp;Cancer Type</span>
-                                                                                            </td>
-                                                                                            <td colspan="2" style="width: 60%;"><span>&bull;&nbsp;&nbsp;Fusion Prediction Tool</span></td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td style="width: 5%;"></td>
-                                                                                            <td style="width: 35%;">
-                                                                                                <select class="form-control" id="chimrSeq_1_cancertype_slt" size="6" style="width: 190px; margin-top: 10px;" multiple>
-                                                                                                    <option value="ALL" onclick="chimrSeq_1_cancer_type_toggle2();">ALL</option>
-                                                                                                    <option value="HNSC">HNSC</option>
-                                                                                                    <option value="THYM">THYM</option>
-                                                                                                    <option value="UCS">UCS</option>
-                                                                                                    <option value="CESC">CESC</option>
-                                                                                                    <option value="PRAD">PRAD</option>
-                                                                                                    <option value="LGG">LGG</option>
-                                                                                                    <option value="MESO">MESO</option>
-                                                                                                    <option value="BRCA">BRCA</option>
-                                                                                                    <option value="ESCA">ESCA</option>
-                                                                                                    <option value="UCEC">UCEC</option>
-                                                                                                    <option value="LUAD">LUAD</option>
-                                                                                                    <option value="LAML">LAML</option>
-                                                                                                    <option value="DLBC">DLBC</option>
-                                                                                                    <option value="SARC">SARC</option>
-                                                                                                    <option value="KIRC">KIRC</option>
-                                                                                                    <option value="COAD">COAD</option>
-                                                                                                    <option value="OV">OV</option>
-                                                                                                    <option value="CHOL">CHOL</option>
-                                                                                                    <option value="LUSC">LUSC</option>
-                                                                                                    <option value="THCA">THCA</option>
-                                                                                                    <option value="BLCA">BLCA</option>
-                                                                                                    <option value="GBM">GBM</option>
-                                                                                                    <option value="SKCM">SKCM</option>
-                                                                                                    <option value="PCPG">PCPG</option>
-                                                                                                    <option value="UVM">UVM</option>
-                                                                                                    <option value="STAD">STAD</option>
-                                                                                                    <option value="ACC">ACC</option>
-                                                                                                    <option value="READ">READ</option>
-                                                                                                </select>
-                                                                                            </td>
-                                                                                            <td style="width: 5%;"></td>
-                                                                                            <td style="width: 55%;">
-                                                                                                <table style="width: 100%;">
-                                                                                                    <tr>
-                                                                                                        <td style="width: 35%;">
-                                                                                                            <label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_fusnscan_chk" checked="checked">FusionScan</label>
-                                                                                                        </td>
-                                                                                                        <td style="width: 45%;">
-                                                                                                            <span style="font-size: 13px;">Number of seed reads &#62;&#61;</span>
-                                                                                                        </td>
-                                                                                                        <td style="width: 20%;">
-                                                                                                            <input class="form-control" id="chimrSeq_1_num_of_seed_reads" style="width: 70px; height: 25px;" value="2">
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                    <tr>
-                                                                                                        <td>
-                                                                                                            <label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_tophat_chk" checked="checked">TopHat-Fusion</label>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <span style="font-size: 13px;">Number of spanning pairs &#62;&#61;</span>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <input class="form-control" id="chimrSeq_1_num_of_s_pairs" style="width: 70px; height: 25px;" value="100">
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                    <tr>
-                                                                                                        <td>
-                                                                                                            <label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_prada_chk" checked="checked">PRADA</label>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <span style="font-size: 13px;">Number of junction reads &#62;&#61;</span>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <input class="form-control" id="chimrSeq_1_num_of_junc_reads" style="width: 70px; height: 25px;" value="2">
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                </table>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td></td>
-                                                                                            <td>
-                                                                                                <span style="font-size: 13px;">* Use Ctrl for multiple selection.</span>
-                                                                                            </td>
-                                                                                            <td></td>
-                                                                                            <td></td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </li>
-                                                                        <li style="margin-top: 10px;">
-                                                                            <label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_chimr2_chk" checked="checked">ChimerDB 2.0 SRA</label>
-                                                                        </li>
-                                                                        <li style="margin-top: 10px;">
-                                                                            <label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_chitars_chk" checked="checked">ChiTaRs</label>
-                                                                        </li>
-                                                                    </ul>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                    
-                                                </div>
-                                                
-                                                
-                                                
-                                                <!-- ----------------- Footer -----------------  -->
-                                                <div style="padding: 30px 0px 30px 0px; border: 0px; background-color: #fdfdfd;">
-                                                    
-                                                    <ul style="list-style: none;">
-                                                        <li>
-                                                            <span style="font-size: 20px; font-weight: bold;">&#9658;&nbsp;&nbsp;Filter</span>
-                                                            <ul style="list-style: none;">
-                                                                <li style="margin-top: 10px;">
-                                                                    <span>&ndash;&nbsp;&nbsp;Function</span>
-                                                                    <ul style="list-style: none;">
-                                                                        <li>
-                                                                            <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_kinase_chk" >Kinase fusion</label>
-                                                                            <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_onco_chk" checked="checked">Oncogene</label>
-                                                                            <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_tumor_chk" >Tumor suppressor</label>
-                                                                            <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_recpt_chk" >Receptor</label>
-                                                                            <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_transcript_chk" checked="checked">Transcription Factor</label>
-                                                                        </li>
-                                                                    </ul>
-                                                                </li>
-                                                                <li style="margin-top: 10px;">
-                                                                    <span>&ndash;&nbsp;&nbsp;Function type</span>
-                                                                    <ul style="list-style: none;">
-                                                                        <li>
-                                                                            <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfusn_inter_chr_chk" value="inter_chr" checked="checked">Inter chromosomal</label>
-                                                                            <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfusn_intra_chr_chk" value="intra_chr" >Intra chromosomal</label>
-                                                                        </li>
-                                                                    </ul>
-                                                                </li>
-                                                                <li style="margin-top: 10px;">
-                                                                    <span>&ndash;&nbsp;&nbsp;Supporting information</span>
-                                                                    <ul style="list-style: none;">
-                                                                        <li>
-                                                                            <label class="checkbox-inline" id="chimrKb_fbySupot_chimrKBS_lvl"><input type="checkbox" id="chimrKb_fbySupot_chimrKBS_chk" >ChimerKB supported</label>
-                                                                            <label class="checkbox-inline" id="chimrKb_fbySupot_chimrPubS_lvl"><input type="checkbox" id="chimrKb_fbySupot_chimrPubS_chk" >ChimerPub supported</label>
-                                                                        </li>
-                                                                    </ul>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                    
-                                                </div>
-                                                
-                                        
-                                        
+                                    <div class="row">
+                                        <div class="col-md-11 col-md-offset-1">
+                                            <select class="form-control" id="chimrSeq_1_cancertype_slt" size="6" style="width: 190px; margin-top: 10px;" multiple>
+                                                <option value="ALL" onclick="chimrSeq_1_cancer_type_toggle2();">ALL</option>
+                                                <option value="HNSC">HNSC</option>
+                                                <option value="THYM">THYM</option>
+                                                <option value="UCS">UCS</option>
+                                                <option value="CESC">CESC</option>
+                                                <option value="PRAD">PRAD</option>
+                                                <option value="LGG">LGG</option>
+                                                <option value="MESO">MESO</option>
+                                                <option value="BRCA">BRCA</option>
+                                                <option value="ESCA">ESCA</option>
+                                                <option value="UCEC">UCEC</option>
+                                                <option value="LUAD">LUAD</option>
+                                                <option value="LAML">LAML</option>
+                                                <option value="DLBC">DLBC</option>
+                                                <option value="SARC">SARC</option>
+                                                <option value="KIRC">KIRC</option>
+                                                <option value="COAD">COAD</option>
+                                                <option value="OV">OV</option>
+                                                <option value="CHOL">CHOL</option>
+                                                <option value="LUSC">LUSC</option>
+                                                <option value="THCA">THCA</option>
+                                                <option value="BLCA">BLCA</option>
+                                                <option value="GBM">GBM</option>
+                                                <option value="SKCM">SKCM</option>
+                                                <option value="PCPG">PCPG</option>
+                                                <option value="UVM">UVM</option>
+                                                <option value="STAD">STAD</option>
+                                                <option value="ACC">ACC</option>
+                                                <option value="READ">READ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-11 col-md-offset-1">
+                                            <span style="font-size: 13px;">* Use Ctrl for multiple selection.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Fusion prediction tool</span>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-11 col-md-offset-1">
+                                            <table>
+                                                <tr>
+                                                    <td><label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_fusnscan_chk" checked="checked">FusionScan</label></td>
+                                                    <td><span style="font-size: 13px;">Number of seed reads &#62;&#61;</span></td>
+                                                    <td><input class="form-control" id="chimrSeq_1_num_of_seed_reads" style="width: 70px; height: 25px;" value="2"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-11 col-md-offset-1">
+                                            <table>
+                                                <tr>
+                                                    <td><label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_tophat_chk" checked="checked">TopHat-Fusion</label></td>
+                                                    <td><span style="font-size: 13px;">Number of spanning pairs &#62;&#61;</span></td>
+                                                    <td><input class="form-control" id="chimrSeq_1_num_of_s_pairs" style="width: 70px; height: 25px;" value="100"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-11 col-md-offset-1">
+                                            <table>
+                                                <tr>
+                                                    <td><label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_prada_chk" checked="checked">PRADA</label></td>
+                                                    <td><span style="font-size: 13px;">Number of junction reads &#62;&#61;</span></td>
+                                                    <td><input class="form-control" id="chimrSeq_1_num_of_junc_reads" style="width: 70px; height: 25px;" value="2"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
+                            
+                            <div class="row margin-bottom-15">
+                                <div class="col-md-11 col-md-offset-1">
+                                    <label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_chimr2_chk" checked="checked">ChimerDB 2.0 SRA</label>
+                                </div>
+                            </div>
+                            <div class="row margin-bottom-15">
+                                <div class="col-md-11 col-md-offset-1">
+                                    <label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_chitars_chk" checked="checked">ChiTaRs</label>
+                                </div>
+                            </div>
+                            
+                        </div>
                     </div>
+                </div>
+                <div class="col-md-1"></div>
             </div>
-    
-    
-    
             
+            
+            <div class="row margin-bottom-30">
+                <div class="col-md-1"></div>
+                <div class="col-md-10" style="background-color: #fdfdfd;">
+                    
+                    <div class="row margin-bottom-30" style="margin-left: 5px; margin-top: 15px;">
+                        <span style="font-size: 30px; font-weight: bold; color: #808080;">Filter</span>
+                    </div>
+                    <div class="row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
+                            <div class="col-md-11 col-md-offset-1 margin-bottom-30">
+                                
+                                <div class="row margin-bottom-15">
+                                    <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Function</span>
+                                </div>
+                                <div class="row margin-bottom-15">
+                                    <div class="col-md-11 col-md-offset-1">
+                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_kinase_chk" >Kinase fusion</label>
+                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_onco_chk" checked="checked">Oncogene</label>
+                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_tumor_chk" >Tumor suppressor</label>
+                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_recpt_chk" >Receptor</label>
+                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_transcript_chk" checked="checked">Transcription factor</label>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="row margin-bottom-15">
+                                    <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Function type</span>
+                                </div>
+                                <div class="row margin-bottom-15">
+                                    <div class="col-md-11 col-md-offset-1">
+                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfusn_inter_chr_chk" value="inter_chr" checked="checked">Inter chromosomal</label>
+                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfusn_intra_chr_chk" value="intra_chr" >Intra chromosomal</label>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="row margin-bottom-15">
+                                    <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Supporting information</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-11 col-md-offset-1">
+                                        <label class="checkbox-inline" id="chimrKb_fbySupot_chimrSeqS_lvl"><input type="checkbox" id="chimrKb_fbySupot_chimrSeqS_chk" >ChimerSeq supported</label>
+                                        <label class="checkbox-inline" id="chimrKb_fbySupot_chimrPubS_lvl"><input type="checkbox" id="chimrKb_fbySupot_chimrPubS_chk" >ChimerPub supported</label>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+<div class="container">
+        
     
         
             

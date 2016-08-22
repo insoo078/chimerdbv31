@@ -7,7 +7,7 @@
 $(document).ready(function () {
     check_m_state("mmchimerseqbtn");
     init_variable_values();
-    
+    $(".chimerkbsearchdiv").equalHeights();
     
     //// Fusion Prediction Tool ///////////////////////////////////////////////////////////////
     $("#chimrSeq_1_fusnscan_chk").bind("click",function(){

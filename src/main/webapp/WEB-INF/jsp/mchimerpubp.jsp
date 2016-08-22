@@ -18,6 +18,7 @@
 <script type="text/javascript" src="jq/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/templatemo_script.js"></script>
+<script type="text/javascript" src="jqlib/jQuery.equalHeights.js"></script>
 
 <script type="text/javascript" src="js/hoy.js"></script>
 <script type="text/javascript" src="js/mchimerpubp.js"></script>
@@ -60,14 +61,25 @@
                                 </div>
                             </div>
                             
-                            <div class="row">
+                            <div class="row margin-bottom-15">
                                 <div class="col-md-6">
                                     <label class="radio-inline">
-                                        <input type="radio" name="search_type_rdo" value="by_gene_pair">Gene Pair
+                                        <input type="radio" name="search_type_rdo" value="by_gene_pair">Gene pair
                                     </label>
                                 </div>
                                 <div class="col-md-6">
                                     <input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="search_type_rdo" value="by_chr_locus">Chromosome locus
+                                    </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input id="by_chr_locus_txt" class="form-control" title="type &quot;T&quot;" value="2p23" onfocus="clearText(this);" onblur="clearText(this);">
                                 </div>
                             </div>
                             
@@ -106,20 +118,22 @@
                     <div class="row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
                         <div class="col-md-11 col-md-offset-1 margin-bottom-30">
                             <div class="row margin-bottom-15">
-                                <div class="col-md-4">
-                                    <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Number of Publications&nbsp;&nbsp;>=&nbsp;&nbsp;</span>
-                                </div>
-                                <div class="col-md-4">
-                                    <input class="form-control" style="width: 70px; height: 25px;" onfocus="clearText(this);" onblur="clearText(this);">
-                                </div>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Number of Publications&nbsp;&nbsp;>=&nbsp;&nbsp;</span>
+                                            </td>
+                                            <td>
+                                                <input class="form-control" style="width: 70px; height: 25px;" onfocus="clearText(this);" onblur="clearText(this);">
+                                            </td>
+                                        </tr>
+                                    </table>
                             </div>
                             
                             
                             
                             <div class="row margin-bottom-15">
-                                <div class="col-md-4">
-                                    <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Validation method</span>
-                                </div>
+                                <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Validation Method</span>
                             </div>
                             <div class="row">
                                 <div class="col-md-11 col-md-offset-1">
@@ -155,7 +169,7 @@
                                         <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_onco_chk" checked="checked">Oncogene</label>
                                         <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_tumor_chk" >Tumor suppressor</label>
                                         <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_recpt_chk" >Receptor</label>
-                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_transcript_chk" checked="checked">Transcription Factor</label>
+                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_transcript_chk" checked="checked">Transcription factor</label>
                                     </div>
                                 </div>
 
