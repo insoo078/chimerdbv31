@@ -10,8 +10,8 @@ $(document).ready(function () {
     sletd_tab = $("#main_tabs .active .main_tabs_span").text();
     
     
-    $("#chimrKb_fbySupot_chimrKBS_chk").hide();
-    $("#chimrKb_fbySupot_chimrKBS_lvl").hide();
+    
+    
 //    var availableTags = ["ActionScript","AppleScript","Asp","BASIC","C","C++"];
 //    var gene_exmp = ["TMPRSS2","TMPRSS2_ERG"];
 //    $("#gene_symbol").autocomplete({
@@ -193,7 +193,7 @@ function init_variable_values(){
     chimrSeqCancerTypeState = true;
     chimrSeqCancerTypeState2 = true;
     //chimrSeq_1_cancer_type_toggle();
-    chimrSeq_1_cancer_type_toggle2();
+    //chimrSeq_1_cancer_type_toggle2();
 }
 
 //-----------

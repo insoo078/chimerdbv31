@@ -38,6 +38,9 @@
                 <prop key="mainresult_dp_exons.cdb">mainCtrl</prop>
                 
                 <prop key="nextp.cdb">mainCtrl</prop>
+                
+                <prop key="descofgene.cdb">mainCtrl</prop>
+                
             </props>
         </property>
     </bean>

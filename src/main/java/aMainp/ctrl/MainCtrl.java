@@ -809,10 +809,29 @@ public class MainCtrl {
     @ResponseBody
     public String showDescTheFGene( HttpServletRequest request )throws RuntimeException{
         
-        JSONObject jsonData = new JSONObject();
-//        jsonData.put("iTotalRecords", totalNum);
-//        jsonData.put("iTotalDisplayRecords", totalNum);
-//        jsonData.put("aaData", jsonArray.toString() );
+        JSONObject jsonData;
+        CimrKBVo row = new CimrKBVo();
+        row.setFusion_pair("PML_RARA");
+        row.setH_gene("PML");
+        row.setT_gene("RARA");
+        row.setH_chr("H Chr.");
+        row.setT_chr("T Chr.");
+        row.setGene5Junc("5' Gene Junction");
+        row.setGene3Junc("3' Gene Junction");
+        row.setH_strand("H strand");
+        row.setT_strand("T strand");
+        //fusion
+        //chimerdb type : chimerKB
+        row.setSource("Source");
+        row.setGenome_Build_Version("Genome ver.");
+        row.setDisease("Disease");
+        row.setValidation("Validation");
+        row.setPMID("PMID");
+        row.setFrame("Frame");
+        row.setChr_info("Chromosome");
+        //supported
+        
+        jsonData = JSONObject.fromObject(row);
         
         return jsonData.toString();
     }

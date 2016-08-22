@@ -7,7 +7,7 @@ var sletd_tab;
 $(document).ready(function () {
     check_m_state("mmchimerkbbtn");
     init_variable_values();
-    
+    $(".chimerkbsearchdiv").equalHeights();
 });
 
 

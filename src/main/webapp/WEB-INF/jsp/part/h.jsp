@@ -8,8 +8,8 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="mindex.cdb"> <span id="mmhomebtn" class="mmAtagcss" >Home</span> </a></li>
         <li><a href="mchimerkb.cdb"> <span id="mmchimerkbbtn" class="mmAtagcss" >ChimerKB</span> </a></li>
-        <li><a href="mchimerseq.cdb"> <span id="mmchimerseqbtn" class="mmAtagcss" >ChimerSeq</span> </a></li>
         <li><a href="mchimerpub.cdb"> <span id="mmchimerpubbtn" class="mmAtagcss" >ChimerPub</span> </a></li>
+        <li><a href="mchimerseq.cdb"> <span id="mmchimerseqbtn" class="mmAtagcss" >ChimerSeq</span> </a></li>
         <li><a href="mstatistic.cdb"> <span id="mmstatisticbtn" class="mmAtagcss" >Statistic</span> </a></li>
         <li><a href="mhelp.cdb"> <span id="mmhelpbtn" class="mmAtagcss" >Help</span> </a></li>
         <li><a href="#"> <span id="mmdownloadbtn" class="mmAtagcss" >Download</span> </a></li>
