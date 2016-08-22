@@ -38,7 +38,7 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-10" style="background-color: #fdfdfd;">
                     <div class="row margin-bottom-30" style="margin-left: 5px; margin-top: 15px;">
-                        <span style="font-size: 30px; font-weight: bold; color: #808080;">Search</span>
+                        <span style="font-size: 30px; font-weight: bold; color: #428bca;">Search</span>
                     </div>
                     <div class="chimerkbsearchdiv row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
                         
@@ -113,7 +113,7 @@
                 <div class="col-md-10" style="background-color: #fdfdfd;">
                     
                     <div class="row margin-bottom-30" style="margin-left: 5px; margin-top: 15px;">
-                        <span style="font-size: 30px; font-weight: bold; color: #808080;">Options</span>
+                        <span style="font-size: 30px; font-weight: bold; color: #428bca;">Options</span>
                     </div>
                     <div class="row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
                         <div class="col-md-11 col-md-offset-1 margin-bottom-30">
@@ -155,7 +155,7 @@
                 <div class="col-md-10" style="background-color: #fdfdfd;">
                     
                     <div class="row margin-bottom-30" style="margin-left: 5px; margin-top: 15px;">
-                        <span style="font-size: 30px; font-weight: bold; color: #808080;">Filter</span>
+                        <span style="font-size: 30px; font-weight: bold; color: #428bca;">Filter</span>
                     </div>
                     <div class="row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
                             <div class="col-md-11 col-md-offset-1 margin-bottom-30">
