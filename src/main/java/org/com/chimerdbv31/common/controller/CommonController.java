@@ -50,7 +50,7 @@ public class CommonController {
 		
 	
     
-    @RequestMapping(value="descofgene",method=RequestMethod.POST)
+    @RequestMapping(value="/descofgene",method=RequestMethod.POST)
     @ResponseBody
     public String showDescTheFGene( HttpServletRequest request )throws RuntimeException{
         
