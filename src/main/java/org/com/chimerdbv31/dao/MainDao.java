@@ -9,10 +9,15 @@ package org.com.chimerdbv31.dao;
 import org.com.chimerdbv31.iface.MainDaoIF;
 import org.com.chimerdbv31.chimerkb.vo.ChimerKBVo;
 import org.com.chimerdbv31.chimerseq.vo.CimrSeqVo;
-import org.com.chimerdbv31.vo.MainTableVo;
-import org.com.chimerdbv31.vo.ParamVo;
+import org.com.chimerdbv31.common.vo.ParamVo;
 import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
+
+
+//010-8632-4185
+//박소현
+//
+//(김민서, 최진혁, 장인수)
 
 /**
  *

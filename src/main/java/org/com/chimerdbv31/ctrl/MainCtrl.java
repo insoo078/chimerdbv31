@@ -9,7 +9,7 @@ package org.com.chimerdbv31.ctrl;
 import org.com.chimerdbv31.iface.MainDaoIF;
 import org.com.chimerdbv31.chimerkb.vo.ChimerKBVo;
 import org.com.chimerdbv31.chimerseq.vo.CimrSeqVo;
-import org.com.chimerdbv31.vo.ParamVo;
+import org.com.chimerdbv31.common.vo.ParamVo;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;
