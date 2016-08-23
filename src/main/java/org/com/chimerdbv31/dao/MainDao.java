@@ -7,8 +7,8 @@
 package org.com.chimerdbv31.dao;
 
 import org.com.chimerdbv31.iface.MainDaoIF;
-import org.com.chimerdbv31.vo.CimrKBVo;
-import org.com.chimerdbv31.vo.CimrSeqVo;
+import org.com.chimerdbv31.chimerkb.vo.ChimerKBVo;
+import org.com.chimerdbv31.chimerseq.vo.CimrSeqVo;
 import org.com.chimerdbv31.vo.MainTableVo;
 import org.com.chimerdbv31.vo.ParamVo;
 import java.util.List;
@@ -83,8 +83,8 @@ public class MainDao implements MainDaoIF{
     }
 
     @Override
-    public List<CimrKBVo> getChimerKBResult(ParamVo param) {
-        List<CimrKBVo> result = null;
+    public List<ChimerKBVo> getChimerKBResult(ParamVo param) {
+        List<ChimerKBVo> result = null;
         try {
             result = sqlTemplate.selectList("main_mper.q10_result_of_chimerkb",param);
         } catch (Exception e) {

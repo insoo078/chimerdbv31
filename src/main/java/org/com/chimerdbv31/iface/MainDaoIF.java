@@ -8,8 +8,8 @@ package org.com.chimerdbv31.iface;
 
 
 
-import org.com.chimerdbv31.vo.CimrKBVo;
-import org.com.chimerdbv31.vo.CimrSeqVo;
+import org.com.chimerdbv31.chimerkb.vo.ChimerKBVo;
+import org.com.chimerdbv31.chimerseq.vo.CimrSeqVo;
 import org.com.chimerdbv31.vo.MainTableVo;
 import org.com.chimerdbv31.vo.ParamVo;
 import java.util.List;
@@ -24,7 +24,7 @@ public interface MainDaoIF {
     public int getChimerSeqTotalNumber(ParamVo param);
     public List<CimrSeqVo> getChimerSeqResult(ParamVo param);
     public int getChimerKBTotalNumber(ParamVo param);
-    public List<CimrKBVo> getChimerKBResult(ParamVo param);
+    public List<ChimerKBVo> getChimerKBResult(ParamVo param);
     public List<CimrSeqVo> getResult(ParamVo param);
     public List<CimrSeqVo> getResultTest(ParamVo param);
 }

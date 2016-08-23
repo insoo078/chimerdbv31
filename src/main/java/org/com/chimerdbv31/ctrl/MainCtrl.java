@@ -7,8 +7,8 @@
 package org.com.chimerdbv31.ctrl;
 
 import org.com.chimerdbv31.iface.MainDaoIF;
-import org.com.chimerdbv31.vo.CimrKBVo;
-import org.com.chimerdbv31.vo.CimrSeqVo;
+import org.com.chimerdbv31.chimerkb.vo.ChimerKBVo;
+import org.com.chimerdbv31.chimerseq.vo.CimrSeqVo;
 import org.com.chimerdbv31.vo.ParamVo;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -35,11 +35,11 @@ public class MainCtrl {
     
     
     
-    @RequestMapping("mindex")
-    public ModelAndView indexPage() throws RuntimeException{
-        ModelAndView result = new ModelAndView("mindexp");
-        return result;
-    }
+//    @RequestMapping("mindex")
+//    public ModelAndView indexPage() throws RuntimeException{
+//        ModelAndView result = new ModelAndView("mindexp");
+//        return result;
+//    }
     
     
 //    @RequestMapping("mchimerkb")
@@ -54,26 +54,26 @@ public class MainCtrl {
 //        
 //        return result;
 //    }
-    @RequestMapping("mchimerpub")
-    public ModelAndView chimerpubPage() throws RuntimeException{
-        ModelAndView result = new ModelAndView("mchimerpubp");
-        
-        return result;
-    }
+//    @RequestMapping("mchimerpub")
+//    public ModelAndView chimerpubPage() throws RuntimeException{
+//        ModelAndView result = new ModelAndView("mchimerpubp");
+//        
+//        return result;
+//    }
     
     
     
-    @RequestMapping("mstatistic")
-    public ModelAndView statisticPage() throws RuntimeException{
-        ModelAndView result = new ModelAndView("mstatisticp");
-        return result;
-    }
-    
-    @RequestMapping("mhelp")
-    public ModelAndView helpPage() throws RuntimeException{
-        ModelAndView result = new ModelAndView("mhelpp");
-        return result;
-    }
+//    @RequestMapping("mstatistic")
+//    public ModelAndView statisticPage() throws RuntimeException{
+//        ModelAndView result = new ModelAndView("mstatisticp");
+//        return result;
+//    }
+//    
+//    @RequestMapping("mhelp")
+//    public ModelAndView helpPage() throws RuntimeException{
+//        ModelAndView result = new ModelAndView("mhelpp");
+//        return result;
+//    }
     
     
     
@@ -374,7 +374,7 @@ public class MainCtrl {
                         }
                     }
                 }
-                List<CimrKBVo> chimerKbLst = main_dao.getChimerKBResult(sParam);
+                List<ChimerKBVo> chimerKbLst = main_dao.getChimerKBResult(sParam);
                 result.addObject("chimerKb_lst", chimerKbLst);
                 // out query ////////////////////////////////////////////////////////////////////////////////////////////
                 String outPutQueryStr = "select distinct * from ChimerDB3.ChimerKB_ver5 where 1=1 ";
@@ -810,7 +810,7 @@ public class MainCtrl {
     public String showDescTheFGene( HttpServletRequest request )throws RuntimeException{
         
         JSONObject jsonData;
-        CimrKBVo row = new CimrKBVo();
+        ChimerKBVo row = new ChimerKBVo();
         row.setFusion_pair("PML_RARA");
         row.setH_gene("PML");
         row.setT_gene("RARA");

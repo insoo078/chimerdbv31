@@ -21,9 +21,9 @@ public class ChimerKbController {
 //	private InterproService interproService;
 //        
 
-        @RequestMapping(value="/mchimerkb", method = RequestMethod.GET)
+        @RequestMapping(value="/mchimerpub", method = RequestMethod.GET)
         public ModelAndView chimerseqPage() throws RuntimeException{
-            ModelAndView result = new ModelAndView("mchimerkbp");
+            ModelAndView result = new ModelAndView("mchimerpub");
             
             return result;
         }

@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-package org.com.chimerdbv31.vo;
+package org.com.chimerdbv31.chimerkb.vo;
 
 /**
  *
  * @author Ik-Jung Choi <cij@ewha.ac.kr>
  */
-public class CimrKBVo {
+public class ChimerKBVo {
     private String ChimerDB_Type;
     private String Source;
     private String webSource;
