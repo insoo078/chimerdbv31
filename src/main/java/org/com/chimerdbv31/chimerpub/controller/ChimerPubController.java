@@ -4,6 +4,7 @@ import java.util.Locale;
 import javax.annotation.Resource;
 import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
+import org.com.chimerdbv31.chimerpub.services.ChimerPubService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,9 @@ public class ChimerPubController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ChimerPubController.class);
 	
-//	@Resource(name = "interproService")
-//	private InterproService interproService;
-//        
+	@Resource(name = "chimerPubService")
+	private ChimerPubService chimerPubService;
+        
 
         @RequestMapping(value="/mchimerkb", method = RequestMethod.GET)
         public ModelAndView chimerseqPage() throws RuntimeException{

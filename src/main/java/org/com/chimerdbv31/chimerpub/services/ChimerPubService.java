@@ -7,11 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-@Service(value = "ChimerPubService")
+@Service(value = "chimerPubService")
 public class ChimerPubService {	
     @SuppressWarnings("unused")
     private static final Logger logger = LoggerFactory.getLogger(ChimerPubService.class);
 
-    @Resource(name = "ChimerPubMapper")
+    @Resource(name = "chimerPubMapper")
     private ChimerPubMapper chimerPubMapper;
 }
