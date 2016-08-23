@@ -10,14 +10,14 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width">
 
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
-<link type="text/css" rel="stylesheet" href="css/jquery.dataTables.min.css"/>
-<link type="text/css" rel="stylesheet" href="css/dataTables.tableTools.min.css"/>
+<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css"/>
+<link type="text/css" rel="stylesheet" href="resources/css/jquery.dataTables.min.css"/>
+<link type="text/css" rel="stylesheet" href="resources/css/dataTables.tableTools.min.css"/>
 
 
-<link type="text/css" rel="stylesheet" href="css/templatemo_main.css"/>
+<link type="text/css" rel="stylesheet" href="resources/css/templatemo_main.css"/>
 
-<link type="text/css" rel="stylesheet" href="css/chimerdbv3.css"/>
+<link type="text/css" rel="stylesheet" href="resources/css/chimerdbv3.css"/>
 <style type="text/css">
     .kFont{font-weight: bold;color: #F00;}
     .base_line{
@@ -35,22 +35,22 @@
         font-size: 12px;
     }
 </style>
-<script type="text/javascript" src="jq/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="dt/d3.min.js"></script>
+<script type="text/javascript" src="resources/js/jq/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="resources/js/dt/d3.min.js"></script>
 
-<script type="text/javascript" src="jqdt/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="jqdt/dataTables.tableTools.min.js"></script>
+<script type="text/javascript" src="resources/js/jqdt/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="resources/js/jqdt/dataTables.tableTools.min.js"></script>
 
-<script type="text/javascript" src="js/templatemo_script.js"></script>
-<script type="text/javascript" src="js/hoy.js"></script>
+<script type="text/javascript" src="resources/js/templatemo_script.js"></script>
+<script type="text/javascript" src="resources/js/hoy.js"></script>
 
 <script type="text/javascript">
     var activatedTab = "<c:out value="${activated_tab}" />";
     var searchType = "<c:out value="${search_type}" />";
 </script>
 
-<script type="text/javascript" src="js/msRstOfChimerPubp.js"></script>
+<script type="text/javascript" src="resources/js/msRstOfChimerPubp.js"></script>
 
 </head>
 <body>

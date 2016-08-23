@@ -10,15 +10,15 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width">
 
-<link type="text/css" rel="stylesheet" href="css/templatemo_main.css"/>
-<link type="text/css" rel="stylesheet" href="css/chimerdbv3.css"/>
-<link type="text/css" rel="stylesheet" href="css/index_main.css"/>
+<link type="text/css" rel="stylesheet" href="resources/css/templatemo_main.css"/>
+<link type="text/css" rel="stylesheet" href="resources/css/chimerdbv3.css"/>
+<link type="text/css" rel="stylesheet" href="resources/css/index_main.css"/>
 
-<script type="text/javascript" src="jq/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/templatemo_script.js"></script>
-<script type="text/javascript" src="js/hoy.js"></script>
-<script type="text/javascript" src="js/mstatisticp.js"></script>
+<script type="text/javascript" src="resources/js/jq/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="resources/js/templatemo_script.js"></script>
+<script type="text/javascript" src="resources/js/hoy.js"></script>
+<script type="text/javascript" src="resources/js/mstatisticp.js"></script>
 
 </head>
 <body>
@@ -206,7 +206,7 @@
                             <span style="font-size: 16px; font-weight: bold;">Number of fusion gene pairs from each module</span>
                         </div>
                         <div class="panel-body" style="text-align: center;">
-                            <img alt="" src="images/chimerdbv3_statistic_01.png" style="width: 85%; height: 85%;" />
+                            <img alt="" src="resources/images/chimerdbv3_statistic_01.png" style="width: 85%; height: 85%;" />
                         </div>
                     </div>
                 </div>

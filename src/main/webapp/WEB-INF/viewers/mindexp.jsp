@@ -11,15 +11,15 @@
 <meta name="viewport" content="width=device-width">
 
 
-<link type="text/css" rel="stylesheet" href="css/templatemo_main.css"/>
-<link type="text/css" rel="stylesheet" href="css/chimerdbv3.css"/>
-<link type="text/css" rel="stylesheet" href="css/index_main.css"/>
+<link type="text/css" rel="stylesheet" href="resources/css/templatemo_main.css"/>
+<link type="text/css" rel="stylesheet" href="resources/css/chimerdbv3.css"/>
+<link type="text/css" rel="stylesheet" href="resources/css/index_main.css"/>
 
-<script type="text/javascript" src="jq/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="resources/js/jq/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="resources/js/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="js/hoy.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="resources/js/js/hoy.js"></script>
+<script type="text/javascript" src="resources/js/js/index.js"></script>
 
 </head>
 <body>
@@ -51,7 +51,7 @@
                 <div class="col-md-12 margin-bottom-30">
                     <div class="panel panel-primary">
                         <div class="panel-body" style="text-align: center;">
-                            <img alt="" src="images/chimerdbv3_main2.png" style="width: 95%; height: 95%;" />
+                            <img alt="" src="resources/images/chimerdbv3_main2.png" style="width: 95%; height: 95%;" />
                         </div>
                     </div>
                 </div>
