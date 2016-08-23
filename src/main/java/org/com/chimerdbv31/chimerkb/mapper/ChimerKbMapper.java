@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository(value = "chimerKbMapper")
 public interface ChimerKbMapper {
-    public int getChimerKBTotalNumber(ParamVo param);
-    public List<ChimerKBVo> getChimerKBResult(ParamVo param);
+	public int getChimerKBTotalNumber(ParamVo param);
+	public List<ChimerKBVo> getChimerKBResult(ParamVo param);
 }
