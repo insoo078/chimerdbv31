@@ -42,18 +42,18 @@ public class MainCtrl {
     }
     
     
-    @RequestMapping("mchimerkb")
-    public ModelAndView chimerkbPage() throws RuntimeException{
-        ModelAndView result = new ModelAndView("mchimerkbp");
-        
-        return result;
-    }
-    @RequestMapping("mchimerseq")
-    public ModelAndView chimerseqPage() throws RuntimeException{
-        ModelAndView result = new ModelAndView("mchimerseqp");
-        
-        return result;
-    }
+//    @RequestMapping("mchimerkb")
+//    public ModelAndView chimerkbPage() throws RuntimeException{
+//        ModelAndView result = new ModelAndView("mchimerkbp");
+//        
+//        return result;
+//    }
+//    @RequestMapping("mchimerseq")
+//    public ModelAndView chimerseqPage() throws RuntimeException{
+//        ModelAndView result = new ModelAndView("mchimerseqp");
+//        
+//        return result;
+//    }
     @RequestMapping("mchimerpub")
     public ModelAndView chimerpubPage() throws RuntimeException{
         ModelAndView result = new ModelAndView("mchimerpubp");
