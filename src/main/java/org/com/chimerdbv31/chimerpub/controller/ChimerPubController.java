@@ -22,12 +22,11 @@ public class ChimerPubController {
 	private ChimerPubService chimerPubService;
         
 
-        @RequestMapping(value="/mchimerkb", method = RequestMethod.GET)
-        public ModelAndView chimerseqPage() throws RuntimeException{
-            ModelAndView result = new ModelAndView("mchimerkbp");
-            
-            return result;
-        }
+	@RequestMapping(value="msrstofchimerpub",method=RequestMethod.POST)
+	public ModelAndView rstChimerPub( HttpServletRequest request ) throws RuntimeException{
+		ModelAndView result = new ModelAndView("msRstOfChimerPubp");
+		return result;
+	}
 //	
 //	@RequestMapping(value = "/interpro", method = RequestMethod.GET)
 //	public String interproscan(Locale locale, Model model) {

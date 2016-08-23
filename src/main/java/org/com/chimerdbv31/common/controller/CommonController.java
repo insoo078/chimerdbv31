@@ -1,10 +1,16 @@
 package org.com.chimerdbv31.common.controller;
 
+import java.util.List;
 import java.util.Locale;
 import javax.annotation.Resource;
 import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import org.com.chimerdbv31.chimerkb.vo.ChimerKBVo;
 import org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper;
+import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
+import org.com.chimerdbv31.common.vo.ParamVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -17,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class CommonController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
+	
+	private ParamVo sParam;
 	
 //	@Resource(name = "CoMapper")
 //	private ChimerSeqMapper chimerSeqService;
@@ -39,6 +47,39 @@ public class CommonController {
             ModelAndView result = new ModelAndView("mhelpp");
             return result;
         }
+		
+	
+    
+    @RequestMapping(value="descofgene",method=RequestMethod.POST)
+    @ResponseBody
+    public String showDescTheFGene( HttpServletRequest request )throws RuntimeException{
+        
+        JSONObject jsonData;
+        ChimerKBVo row = new ChimerKBVo();
+        row.setFusion_pair("PML_RARA");
+        row.setH_gene("PML");
+        row.setT_gene("RARA");
+        row.setH_chr("H Chr.");
+        row.setT_chr("T Chr.");
+        row.setGene5Junc("5' Gene Junction");
+        row.setGene3Junc("3' Gene Junction");
+        row.setH_strand("H strand");
+        row.setT_strand("T strand");
+        //fusion
+        //chimerdb type : chimerKB
+        row.setSource("Source");
+        row.setGenome_Build_Version("Genome ver.");
+        row.setDisease("Disease");
+        row.setValidation("Validation");
+        row.setPMID("PMID");
+        row.setFrame("Frame");
+        row.setChr_info("Chromosome");
+        //supported
+        
+        jsonData = JSONObject.fromObject(row);
+        
+        return jsonData.toString();
+    }
 //	
 //	@RequestMapping(value = "/interpro", method = RequestMethod.GET)
 //	public String interproscan(Locale locale, Model model) {
