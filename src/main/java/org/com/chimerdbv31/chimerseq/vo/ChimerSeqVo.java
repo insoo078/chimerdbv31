@@ -10,7 +10,7 @@ package org.com.chimerdbv31.chimerseq.vo;
  *
  * @author Ik-Jung Choi <cij@ewha.ac.kr>
  */
-public class CimrSeqVo {
+public class ChimerSeqVo {
     private String Fusion_pair;
     private String gene5Junc;
     private String gene3Junc;

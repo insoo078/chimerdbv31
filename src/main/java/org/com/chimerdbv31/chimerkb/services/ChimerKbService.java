@@ -10,12 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-@Service(value = "ChimerKbService")
+@Service(value = "chimerKbService")
 public class ChimerKbService {	
     @SuppressWarnings("unused")
     private static final Logger logger = LoggerFactory.getLogger(ChimerKbService.class);
 
-    @Resource(name = "ChimerKbMapper")
+    @Resource(name = "chimerKbMapper")
     private ChimerKbMapper chimerKbMapper;
     
     public int getChimerKBTotalNumber(ParamVo param) {

@@ -8,7 +8,7 @@ package org.com.chimerdbv31.ctrl;
 
 import org.com.chimerdbv31.iface.MainDaoIF;
 import org.com.chimerdbv31.chimerkb.vo.ChimerKBVo;
-import org.com.chimerdbv31.chimerseq.vo.CimrSeqVo;
+import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -787,7 +787,7 @@ public class MainCtrl {
         int totalNum = 0;
         totalNum = main_dao.getChimerSeqTotalNumber(sParam);
         sParam.setTotaln(totalNum);
-        List<CimrSeqVo> mainList = main_dao.getChimerSeqResult(sParam);
+        List<ChimerSeqVo> mainList = main_dao.getChimerSeqResult(sParam);
         jsonArray = JSONArray.fromObject(mainList);
         
          

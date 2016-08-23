@@ -1,9 +1,10 @@
-package org.com.chimerdbv31.chimerseq.controller;
+package org.com.chimerdbv31.chimerkb.controller;
 
 import java.util.Locale;
 import javax.annotation.Resource;
 import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
+import org.com.chimerdbv31.chimerkb.services.ChimerKbService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,20 +14,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ChimerPubController {
+public class ChimerKbController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ChimerPubController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ChimerKbController.class);
 	
-//	@Resource(name = "interproService")
-//	private InterproService interproService;
+//	@Resource(name = "chimerKbService")
+//	private ChimerKbService chimerKbService;
 //        
 
-        @RequestMapping(value="/mchimerkb", method = RequestMethod.GET)
-        public ModelAndView chimerseqPage() throws RuntimeException{
-            ModelAndView result = new ModelAndView("mchimerkbp");
-            
-            return result;
-        }
+	@RequestMapping(value="/mchimerpub", method = RequestMethod.GET)
+	public ModelAndView chimerseqPage() throws RuntimeException{
+		ModelAndView result = new ModelAndView("mchimerpub");
+
+		return result;
+	}
 //	
 //	@RequestMapping(value = "/interpro", method = RequestMethod.GET)
 //	public String interproscan(Locale locale, Model model) {

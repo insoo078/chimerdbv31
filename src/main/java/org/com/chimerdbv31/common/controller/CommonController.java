@@ -1,9 +1,10 @@
-package org.com.chimerdbv31.chimerseq.controller;
+package org.com.chimerdbv31.common.controller;
 
 import java.util.Locale;
 import javax.annotation.Resource;
 import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
+import org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,18 +14,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ChimerSeqController {
+public class CommonController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ChimerSeqController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
 	
-//	@Resource(name = "interproService")
-//	private InterproService interproService;
-//        
+//	@Resource(name = "CoMapper")
+//	private ChimerSeqMapper chimerSeqService;
+//
+        
+        @RequestMapping(value="/mindex", method = RequestMethod.GET)
+        public ModelAndView indexPage() throws RuntimeException{
+            ModelAndView result = new ModelAndView("mindexp");
+            return result;
+        }
 
-        @RequestMapping(value="/mchimerseq", method = RequestMethod.GET)
-        public ModelAndView chimerseqPage() throws RuntimeException{
-            ModelAndView result = new ModelAndView("mchimerseqp");
-            
+        @RequestMapping(value="/mstatistic", method = RequestMethod.GET)
+        public ModelAndView statisticPage() throws RuntimeException{
+            ModelAndView result = new ModelAndView("mstatisticp");
+            return result;
+        }
+
+        @RequestMapping(value="/mhelp", method = RequestMethod.GET)
+        public ModelAndView helpPage() throws RuntimeException{
+            ModelAndView result = new ModelAndView("mhelpp");
             return result;
         }
 //	

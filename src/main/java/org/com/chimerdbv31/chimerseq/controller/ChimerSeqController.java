@@ -4,6 +4,8 @@ import java.util.Locale;
 import javax.annotation.Resource;
 import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
+
+import org.com.chimerdbv31.chimerseq.services.ChimerSeqService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,17 +15,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ChimerKbController {
+public class ChimerSeqController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ChimerKbController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ChimerSeqController.class);
 	
-//	@Resource(name = "interproService")
-//	private InterproService interproService;
+	@Resource(name = "chimerSeqService")
+	private ChimerSeqService chimerSeqService;
 //        
 
-        @RequestMapping(value="/mchimerpub", method = RequestMethod.GET)
+        @RequestMapping(value="/mchimerseq", method = RequestMethod.GET)
         public ModelAndView chimerseqPage() throws RuntimeException{
-            ModelAndView result = new ModelAndView("mchimerpub");
+            ModelAndView result = new ModelAndView("mchimerseqp");
             
             return result;
         }

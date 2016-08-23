@@ -1,4 +1,4 @@
-package org.com.chimerdbv31.chimerseq.controller;
+package org.com.chimerdbv31.chimerpub.controller;
 
 import java.util.Locale;
 import javax.annotation.Resource;
@@ -13,29 +13,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class CommonController {
+public class ChimerPubController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ChimerPubController.class);
 	
 //	@Resource(name = "interproService")
 //	private InterproService interproService;
-//
-        
-        @RequestMapping(value="/mindex", method = RequestMethod.GET)
-        public ModelAndView indexPage() throws RuntimeException{
-            ModelAndView result = new ModelAndView("mindexp");
-            return result;
-        }
+//        
 
-        @RequestMapping(value="/mstatistic", method = RequestMethod.GET)
-        public ModelAndView statisticPage() throws RuntimeException{
-            ModelAndView result = new ModelAndView("mstatisticp");
-            return result;
-        }
-
-        @RequestMapping(value="/mhelp", method = RequestMethod.GET)
-        public ModelAndView helpPage() throws RuntimeException{
-            ModelAndView result = new ModelAndView("mhelpp");
+        @RequestMapping(value="/mchimerkb", method = RequestMethod.GET)
+        public ModelAndView chimerseqPage() throws RuntimeException{
+            ModelAndView result = new ModelAndView("mchimerkbp");
+            
             return result;
         }
 //	
