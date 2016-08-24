@@ -66,12 +66,12 @@ public class ChimerSeqService {
 	public List<GeneInfoVo> getGeneInfo(List<String> genes) {
 		List<GeneInfoVo> list = new ArrayList<GeneInfoVo>();
 		for(String gene:genes) {
-			GeneInfoVo obj = (GeneInfoVo)this.chimerSeqMapper.getGeneInfo( gene );
+			String[] props = gene.split(":");
+			
+			GeneInfoVo obj = (GeneInfoVo)this.chimerSeqMapper.getGeneInfo( props[1] );
+			obj.rearrangeFeatures( this.chimerSeqMapper.getExonElementsWithIndex( props[1] ) );
+			obj.setFusionLocation( props[0] );
 			list.add(obj);
-//			
-//			List<Gff3Vo> gff3Features = this.chimerSeqMapper.getGeneFeatureInfo(gene);
-//			
-//			this.addGeneFeatures(obj, gff3Features);
 		}
 		return list;
 	}

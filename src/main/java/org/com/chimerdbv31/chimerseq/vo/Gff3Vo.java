@@ -5,6 +5,7 @@
  */
 package org.com.chimerdbv31.chimerseq.vo;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -22,6 +23,16 @@ public class Gff3Vo {
 	private String phase;
 	private String attributes;
 	private Map<String, String> attributesMap;
+	
+	private int elementIndex;
+
+	public int getElementIndex() {
+		return elementIndex;
+	}
+
+	public void setElementIndex(int elementIndex) {
+		this.elementIndex = elementIndex;
+	}
 
 	public void setSeqid(String seqid) {
 		this.seqid = seqid;
@@ -57,6 +68,14 @@ public class Gff3Vo {
 
 	public void setAttributes(String attributes) {
 		this.attributes = attributes;
+		Map<String, String> map = new LinkedHashMap<String, String>();
+//		ID=gene17180;Name=ABL1;Dbxref=GeneID:25,HGNC:76,HPRD:01809,MIM:189980;gbkey=Gene;gene=ABL1;gene_synonym=ABL,bcr%2Fabl,c-ABL,JTK7,p150,v-abl
+		String[] attributeArray = attributes.split(";");
+		for(String attribute : attributeArray) {
+			String[] set = attribute.split("=");
+			map.put(set[0], set[1]);
+		}
+		this.setAttributesMap( map );
 	}
 
 	public void setAttributesMap(Map<String, String> attributesMap) {

@@ -15,8 +15,23 @@ import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
  */
 public class TranscriptObj extends Gff3Vo{
 	private List<Gff3Vo> exons;
-	
+
 	public TranscriptObj() {
+		this(null);
+	}
+	
+	public TranscriptObj( Gff3Vo vo ) {
+		if( vo != null ) {
+			this.setSeqid( vo.getSeqid() );
+			this.setEnd( vo.getEnd() );
+			this.setStart( vo.getStart() );
+			this.setAttributes( vo.getAttributes() );
+			this.setPhase( vo.getPhase() );
+			this.setScore( vo.getScore() );
+			this.setSource( vo.getSource() );
+			this.setStrand( vo.getStrand() );
+			this.setType( vo.getType() );
+		}
 		this.exons = new ArrayList<Gff3Vo>();
 	}
 	

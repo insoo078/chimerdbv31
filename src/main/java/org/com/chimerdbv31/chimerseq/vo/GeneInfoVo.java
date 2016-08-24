@@ -6,6 +6,7 @@
 package org.com.chimerdbv31.chimerseq.vo;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.com.chimerdbv31.chimerseq.obj.TranscriptObj;
@@ -32,7 +33,63 @@ public class GeneInfoVo{
 	private String other_designations;
 	private String modification_date;
 
+	private String fusionLocation;
 	private List<Gff3Vo> features;
+	
+	private Gff3Vo geneFeature;
+	private List<TranscriptObj> transcripts;
+	private List<Gff3Vo> exonElementsWithIndex;
+	
+	public void rearrangeFeatures( List<Gff3Vo> exonElementsWithIndex ) {
+		if( this.transcripts == null )	this.transcripts = new ArrayList<TranscriptObj>();
+
+		TranscriptObj obj = null;
+		for(Gff3Vo vo : this.features ) {
+			if( vo != null ) {
+				if( vo.getType().equals("gene") )	this.geneFeature = vo;
+				else if( vo.getType().equals("mRNA") || vo.getType().equals("transcript") ) {
+					obj = new TranscriptObj( vo );
+					this.transcripts.add( obj );
+				}else {
+					obj.addExon(vo);
+				}
+			}
+		}
+		this.exonElementsWithIndex = exonElementsWithIndex;
+	}
+
+	public String getFusionLocation() {
+		return fusionLocation;
+	}
+
+	public void setFusionLocation(String fusionLocation) {
+		this.fusionLocation = fusionLocation;
+	}
+	
+
+	public Gff3Vo getGeneFeature() {
+		return geneFeature;
+	}
+
+	public void setGeneFeature(Gff3Vo geneFeature) {
+		this.geneFeature = geneFeature;
+	}
+
+	public List<TranscriptObj> getTranscripts() {
+		return transcripts;
+	}
+
+	public void setTranscripts(List<TranscriptObj> transcripts) {
+		this.transcripts = transcripts;
+	}
+
+	public List<Gff3Vo> getExonElementsWithIndex() {
+		return exonElementsWithIndex;
+	}
+
+	public void setExonElementsWithIndex(List<Gff3Vo> exonElementsWithIndex) {
+		this.exonElementsWithIndex = exonElementsWithIndex;
+	}
 
 	public List<Gff3Vo> getFeatures() {
 		return features;

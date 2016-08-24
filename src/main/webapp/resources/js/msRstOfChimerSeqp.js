@@ -37,6 +37,9 @@ $(document).ready(function () {
 		
 		var genes = rowdata.fusion_pair.split("_");
 		
+		genes[0] = "5':" + genes[0];
+		genes[1] = "3':" + genes[1];
+		
 		getGeneInformation( genes );
 
 //        showDesc(rowdata[0], rowdata[1], rowdata[2], rowdata[5], rowdata[8]);
