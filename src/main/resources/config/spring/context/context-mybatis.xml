@@ -19,7 +19,7 @@
 
 	<!-- scan for mappers and let them be autowired -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="org.com.chimerdbv3" />
+		<property name="basePackage" value="org.com.chimerdbv31" />
 		<property name="annotationClass" value="org.springframework.stereotype.Repository" />
 	</bean>
 </beans>
