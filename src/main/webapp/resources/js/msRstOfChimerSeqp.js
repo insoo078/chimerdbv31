@@ -17,7 +17,7 @@ $(document).ready(function () {
             "url":"nextp.cdb",
             "type": "POST"
         },
-        "iDisplayLength": 25,
+        "iDisplayLength": 10,
         "columns":[
             {"data":"fusion_pair"},
             {"data":"gene5Junc"},
@@ -34,12 +34,11 @@ $(document).ready(function () {
 
 
     $('#chimerSeqTbl tbody').on('click', 'tr', function(){
-        var rowdata = table.row( this ).data();
-        showDesc(rowdata[0], rowdata[1], rowdata[2], rowdata[5], rowdata[8]);
+        var rowdata = mainTable.row( this ).data();
+
+console.log( rowdata );
+//        showDesc(rowdata[0], rowdata[1], rowdata[2], rowdata[5], rowdata[8]);
     });
-    
-    
-   
 });
 
 

@@ -16,10 +16,10 @@
 <link type="text/css" rel="stylesheet" href="resources/css/index_main.css"/>
 
 <script type="text/javascript" src="resources/js/jq/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="resources/js/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="resources/js/js/hoy.js"></script>
-<script type="text/javascript" src="resources/js/js/index.js"></script>
+<script type="text/javascript" src="resources/js/hoy.js"></script>
+<script type="text/javascript" src="resources/js/index.js"></script>
 
 </head>
 <body>

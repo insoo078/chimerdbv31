@@ -18,7 +18,7 @@
 <script type="text/javascript" src="resources/js/jq/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/templatemo_script.js"></script>
-<script type="text/javascript" src="resources/jqlib/jQuery.equalHeights.js"></script>
+<script type="text/javascript" src="resources/js/jqlib/jQuery.equalHeights.js"></script>
 <script type="text/javascript" src="resources/js/hoy.js"></script>
 <script type="text/javascript" src="resources/js/mchimerseqp.js"></script>
 
