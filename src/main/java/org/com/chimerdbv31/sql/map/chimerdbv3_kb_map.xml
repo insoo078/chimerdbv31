@@ -3,7 +3,7 @@
 
 <mapper namespace="org.com.chimerdbv31.chimerkb.mapper.ChimerKbMapper">
 
-    <select id="getChimerKBTotalNumber" parameterType="aMainp.vo.ParamVo" resultType="aMainp.vo.CimrKBVo">
+    <select id="getChimerKBTotalNumber" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerkb.vo.ChimerKbVo">
         SELECT count( * ) allNum
         FROM ChimerDB3.ChimerKB_ver4 
         WHERE 1=1
@@ -16,7 +16,7 @@
     </select>
     
     
-    <select id="getChimerKBResult" parameterType="aMainp.vo.ParamVo" resultType="aMainp.vo.CimrKBVo">
+    <select id="getChimerKBResult" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerkb.vo.ChimerKbVo">
         select distinct
           ChimerDB_Type, Source, webSource
         , Fusion_pair

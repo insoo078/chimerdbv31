@@ -2,7 +2,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper">
-    <select id="getResult" parameterType="aMainp.vo.ParamVo" resultType="aMainp.vo.CimrSeqVo">
+    <select id="getResult" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
         SELECT DISTINCT Fusion_pair,
         CONCAT(H_chr,':',H_position) AS Gene5_Junction, 
         CONCAT(T_chr,':',T_position) AS Gene3_Junction,
@@ -22,7 +22,7 @@
         limit 1000;
         
     </select>
-    <select id="getResultTest" parameterType="aMainp.vo.ParamVo" resultType="aMainp.vo.CimrSeqVo">
+    <select id="getResultTest" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
         SELECT DISTINCT Fusion_pair,CONCAT(H_chr,':',H_position) AS Gene5_Junction, CONCAT(T_chr,':',T_position) AS Gene3_Junction,Exon_breakpoint AS Breakpoint_Type,
         Cancertype AS Cancer_Type,BarcodeID AS TCGA_Sample_Id,Frame,Chr_info AS Chromosome_Information,
         Source,CONCAT(ChimerKB,' ',ChimerPub) AS Supported,
@@ -35,7 +35,7 @@
         limit ${strtn},${lntn};
     </select>
  
-    <select id="getChimerSeqResult" parameterType="aMainp.vo.ParamVo" resultType="aMainp.vo.CimrSeqVo">
+    <select id="getChimerSeqResult" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
         select distinct Fusion_pair , 5Gene_Junction as gene5Junc , 3Gene_Junction as gene3Junc , Breakpoint_Type , Cancertype , BarcodeID
             , if(Frame = "NA","",Frame) as Frame
             , Chr_info , Source , ChimerKB , ChimerPub, concat(ChimerKB, "_", ChimerPub) as supported
@@ -73,7 +73,7 @@
             <if test="sortedKeyword != null"> ORDER BY ${sortedKeyword} ${sortType} </if>
             limit ${strtn},${lntn};
     </select>
-    <select id="getChimerSeqTotalNumber" parameterType="aMainp.vo.ParamVo" resultType="int">
+    <select id="getChimerSeqTotalNumber" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="int">
         select distinct count( * ) as allNum
             from ChimerDB3.ChimerSeq_ver5 
             where 1=1
