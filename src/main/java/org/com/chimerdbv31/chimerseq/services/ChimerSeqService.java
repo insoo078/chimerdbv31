@@ -1,9 +1,11 @@
 package org.com.chimerdbv31.chimerseq.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
+import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
 
 import org.slf4j.Logger;
@@ -57,4 +59,14 @@ public class ChimerSeqService {
         }
         return result;
     }
+	
+	public List<GeneInfoVo> getGeneInfo(List<String> genes) {
+		List<GeneInfoVo> list = new ArrayList<GeneInfoVo>();
+		for(String gene:genes) {
+			GeneInfoVo vo = this.chimerSeqMapper.geneGeneInfo( gene );
+			System.out.println( vo );
+			list.add(vo);
+		}
+		return list;
+	}
 }

@@ -34,13 +34,28 @@ $(document).ready(function () {
 
     $('#chimerSeqTbl tbody').on('click', 'tr', function(){
         var rowdata = mainTable.row( this ).data();
+		
+		var genes = rowdata.fusion_pair.split("_");
+		
+		getGeneInformation( genes );
 
-        showDesc(rowdata[0], rowdata[1], rowdata[2], rowdata[5], rowdata[8]);
+//        showDesc(rowdata[0], rowdata[1], rowdata[2], rowdata[5], rowdata[8]);
     });
 });
 
+function getGeneInformation(genes) {
+	var data = JSON.stringify(genes);
 
-
+	$.ajax({
+		url: "getGeneInfo.cdb",
+		type : 'POST',
+		data : {"genes":data},
+		dataType: "json",
+		success: function(jData) {
+			console.log( jData );
+		}
+	});
+}
 
 function showDesc(fuspair, gene5junc, gene3junc, barcodeid, source){
 

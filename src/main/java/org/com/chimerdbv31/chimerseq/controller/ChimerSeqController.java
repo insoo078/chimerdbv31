@@ -1,5 +1,8 @@
 package org.com.chimerdbv31.chimerseq.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import javax.annotation.Resource;
@@ -7,6 +10,7 @@ import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import java.lang.reflect.Type;
 
 import org.com.chimerdbv31.chimerseq.services.ChimerSeqService;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
@@ -34,6 +38,20 @@ public class ChimerSeqController {
 		ModelAndView result = new ModelAndView("mchimerseqp");
 
 		return result;
+	}
+	
+	@RequestMapping(value="getGeneInfo",method=RequestMethod.POST)
+	@ResponseBody
+	public String getGeneInfo(HttpServletRequest request) throws Exception{
+		String queryGenes = request.getParameter("genes");
+
+		Gson gson = new Gson();
+		Type type = new TypeToken<List<String>>() {}.getType();
+                            
+		List<String> geneList = gson.fromJson( queryGenes, type );
+		String json = gson.toJson( this.chimerSeqService.getGeneInfo( geneList ) );
+
+		return json;
 	}
 	
 	@RequestMapping(value="msrstofchimerseq",method=RequestMethod.POST)

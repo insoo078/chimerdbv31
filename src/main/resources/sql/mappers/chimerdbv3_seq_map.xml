@@ -106,4 +106,9 @@
             <if test="queryForFusType != null and queryForFusType != ''"> and Chr_info in (${queryForFusType}) </if>
             <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>
     </select>
+	
+	<select id="geneGeneInfo" parameterType="java.lang.String" resultType="org.com.chimerdbv31.chimerseq.vo.GeneInfoVo">
+		SELECT * FROM Gene_Info
+		WHERE symbol=#{symbol}
+	</select>
 </mapper>
