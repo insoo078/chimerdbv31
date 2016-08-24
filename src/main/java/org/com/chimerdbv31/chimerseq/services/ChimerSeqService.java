@@ -68,25 +68,25 @@ public class ChimerSeqService {
 		for(String gene:genes) {
 			GeneInfoVo obj = (GeneInfoVo)this.chimerSeqMapper.getGeneInfo( gene );
 			list.add(obj);
-			
-			List<Gff3Vo> gff3Features = this.chimerSeqMapper.getGeneFeatureInfo(gene);
-			
-			this.addGeneFeatures(obj, gff3Features);
+//			
+//			List<Gff3Vo> gff3Features = this.chimerSeqMapper.getGeneFeatureInfo(gene);
+//			
+//			this.addGeneFeatures(obj, gff3Features);
 		}
 		return list;
 	}
 	
-	private GeneInfoVo addGeneFeatures( GeneInfoVo gene, List<Gff3Vo> gff3Features ) {
-		TranscriptObj obj = null;
-		for(Gff3Vo vo : gff3Features ) {
-			if( vo.getType().equals("gene") )	gene.setGeneGffFeature( vo );
-			else if( vo.getType().equals("mRNA") || vo.getType().equals("transcript") ) {
-				obj = (TranscriptObj)vo;
-				gene.addTranscript( obj );
-			}else {
-				obj.addExon(vo);
-			}
-		}
-		return gene;
-	}
+//	private GeneInfoVo addGeneFeatures( GeneInfoVo gene, List<Gff3Vo> gff3Features ) {
+//		TranscriptObj obj = null;
+//		for(Gff3Vo vo : gff3Features ) {
+//			if( vo.getType().equals("gene") )	gene.setGeneGffFeature( vo );
+//			else if( vo.getType().equals("mRNA") || vo.getType().equals("transcript") ) {
+//				obj = (TranscriptObj)vo;
+//				gene.addTranscript( obj );
+//			}else {
+//				obj.addExon(vo);
+//			}
+//		}
+//		return gene;
+//	}
 }

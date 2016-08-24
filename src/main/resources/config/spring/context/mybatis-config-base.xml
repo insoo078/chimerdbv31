@@ -4,6 +4,12 @@
     "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+<!--	<typeAliases>
+		<typeAlias alias="GeneInfoVo" type="org.com.chimerdbv31.chimerseq.vo.GeneInfoVo"/>
+		<typeAlias alias="Gff3Vo" type="org.com.chimerdbv31.chimerseq.vo.Gff3Vo"/>
+		<typeAlias alias="ChimerSeqVo" type="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo"/>
+		<typeAlias alias="ParamVo" type="org.com.chimerdbv31.common.vo.ParamVo"/>
+	</typeAliases>-->
 
     <settings>  
         <setting name="cacheEnabled"              value="true"/>  
@@ -15,12 +21,4 @@
         <setting name="defaultStatementTimeout"  value="600000"/>  
         <setting name="localCacheScope" value="STATEMENT" />
     </settings>
-
-    <typeHandlers>
-        <!--  java.sql.Timestamp 를 java.util.Date 형으로 반환 -->
-        <typeHandler javaType="java.sql.Timestamp" handler="org.apache.ibatis.type.DateTypeHandler"/>
-        <typeHandler javaType="java.sql.Time"      handler="org.apache.ibatis.type.DateTypeHandler"/>
-        <typeHandler javaType="java.sql.Date"      handler="org.apache.ibatis.type.DateTypeHandler"/>
-    </typeHandlers>
-
 </configuration>

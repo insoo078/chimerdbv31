@@ -15,7 +15,7 @@ import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
  *
  * @author insoo078
  */
-public class GeneInfoVo extends Gff3Vo{
+public class GeneInfoVo{
 	private String tax_id;
 	private String gene_id;
 	private String symbol;
@@ -32,22 +32,14 @@ public class GeneInfoVo extends Gff3Vo{
 	private String other_designations;
 	private String modification_date;
 
-	private List<TranscriptObj> transcripts;
+	private List<Gff3Vo> features;
 
-	public GeneInfoVo() {
-		this.transcripts = new ArrayList<TranscriptObj>();
-	}
-	
-	public GeneInfoVo(List<TranscriptObj> transcripts) {
-		this.transcripts = transcripts;
-	}
-	
-	public void addTranscript( TranscriptObj transcript ) {
-		this.transcripts.add( transcript );
+	public List<Gff3Vo> getFeatures() {
+		return features;
 	}
 
-	public List<TranscriptObj> getTranscripts() {
-		return transcripts;
+	public void setFeatures(List<Gff3Vo> features) {
+		this.features = features;
 	}
 
 	public String getTax_id() {
@@ -168,9 +160,5 @@ public class GeneInfoVo extends Gff3Vo{
 
 	public void setModification_date(String modification_date) {
 		this.modification_date = modification_date;
-	}
-
-	public void setTranscripts(List<TranscriptObj> transcripts) {
-		this.transcripts = transcripts;
 	}
 }

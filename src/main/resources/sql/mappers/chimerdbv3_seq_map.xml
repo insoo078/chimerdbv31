@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper">
-
     <resultMap id="GeneInfoVoMap" type="org.com.chimerdbv31.chimerseq.vo.GeneInfoVo">
         <result property="tax_id" column="tax_id"/>
         <result property="gene_id" column="gene_id"/>
@@ -19,6 +18,8 @@
 		<result property="nomenclature_status" column="nomenclature_status"/>
 		<result property="other_designations" column="other_designations"/>
 		<result property="modification_date" column="modification_date"/>
+
+		<collection property="features" javaType="java.util.ArrayList" resultMap="Gff3VoMap"/>
     </resultMap>
 
     <resultMap id="Gff3VoMap" type="org.com.chimerdbv31.chimerseq.vo.Gff3Vo">
@@ -138,9 +139,14 @@
     </select>
 	
 	<select id="getGeneInfo" parameterType="java.lang.String" resultMap="GeneInfoVoMap">
-		SELECT * FROM Gene_Info
-		WHERE symbol=#{symbol}
+		SELECT * FROM Gene_Info a LEFT JOIN GRCh37_GFF b
+		ON b.Gene_ID=a.gene_id
+		AND b.no BETWEEN a.gff_start AND a.gff_end
+		AND b.type IN ('gene', 'exon', 'mRNA', 'transcript')
+		WHERE a.symbol=#{symbol}
+		ORDER BY b.no
 	</select>
+
 	
 	<select id="getGeneFeatureInfo" parameterType="java.lang.String" resultMap="Gff3VoMap">
 		SELECT * FROM GRCH37_GFF a, (
