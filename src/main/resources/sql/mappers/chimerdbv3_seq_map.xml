@@ -3,6 +3,24 @@
 
 <mapper namespace="org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper">
 
+    <resultMap id="GeneInfoVoMap" type="org.com.chimerdbv31.chimerseq.vo.GeneInfoVo">
+        <result property="tax_id" column="tax_id"/>
+        <result property="gene_id" column="gene_id"/>
+		<result property="symbol" column="symbol"/>
+		<result property="locus_tag" column="locus_tag"/>
+		<result property="synonyms" column="synonyms"/>
+		<result property="dbxrefs" column="dbxrefs"/>
+		<result property="chromosome" column="chromosome"/>
+		<result property="map_location" column="map_location"/>
+		<result property="description" column="description"/>
+		<result property="type_of_gene" column="type_of_gene"/>
+		<result property="symbol_from_nomenclature_authority" column="symbol_from_nomenclature_authority"/>
+		<result property="full_name_from_nomenclature_authority" column="full_name_from_nomenclature_authority"/>
+		<result property="nomenclature_status" column="nomenclature_status"/>
+		<result property="other_designations" column="other_designations"/>
+		<result property="modification_date" column="modification_date"/>
+    </resultMap>
+
     <select id="getResult" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
         SELECT DISTINCT Fusion_pair,
         CONCAT(H_chr,':',H_position) AS Gene5_Junction, 
@@ -107,7 +125,7 @@
             <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>
     </select>
 	
-	<select id="geneGeneInfo" parameterType="java.lang.String" resultType="org.com.chimerdbv31.chimerseq.vo.GeneInfoVo">
+	<select id="geneGeneInfo" parameterType="java.lang.String" resultMap="GeneInfoVoMap">
 		SELECT * FROM Gene_Info
 		WHERE symbol=#{symbol}
 	</select>

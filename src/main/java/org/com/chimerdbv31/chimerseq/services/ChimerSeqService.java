@@ -64,7 +64,6 @@ public class ChimerSeqService {
 		List<GeneInfoVo> list = new ArrayList<GeneInfoVo>();
 		for(String gene:genes) {
 			GeneInfoVo vo = this.chimerSeqMapper.geneGeneInfo( gene );
-			System.out.println( vo );
 			list.add(vo);
 		}
 		return list;
