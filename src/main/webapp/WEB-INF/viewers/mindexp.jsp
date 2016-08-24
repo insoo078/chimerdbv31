@@ -24,7 +24,7 @@
 </head>
 <body>
 
-    <%@include file="part/h.jsp" %>
+    <%@include file="part/header.jsp" %>
     
 <!-- content -->
 <div class="container">
@@ -127,6 +127,6 @@
 
 </div>
 
-<%@include file="part/f.jsp" %>
+<%@include file="part/footer.jsp" %>
 </body>
 </html>

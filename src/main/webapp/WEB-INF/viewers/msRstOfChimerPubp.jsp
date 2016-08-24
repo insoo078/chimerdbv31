@@ -55,7 +55,7 @@
 </head>
 <body>
 
-    <%@include file="part/h.jsp" %>
+    <%@include file="part/header.jsp" %>
 
     
 <!-- content -->
@@ -170,7 +170,7 @@
             
 
     
-    <%@include file="part/f.jsp" %>
+    <%@include file="part/footer.jsp" %>
     
 </div>
 

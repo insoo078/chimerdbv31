@@ -55,7 +55,7 @@
 </head>
 <body>
 
-    <%@include file="part/h.jsp" %>
+    <%@include file="part/header.jsp" %>
 
     
 <!-- content -->
@@ -110,7 +110,7 @@
                                 <span style="font-size: 20px; font-weight: bold;">Fusion Structure</span>
                             </div>
                             <div class="panel-body" style="text-align: center;">
-                                <img alt="" src="images/exon_img.png" style="width: 95%; height: 95%;" />
+                                <img alt="" src="./resources/images/exon_img.png" style="width: 95%; height: 95%;" />
                             </div>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
             
 
     
-    <%@include file="part/f.jsp" %>
+    <%@include file="part/footer.jsp" %>
     
 </div>
 

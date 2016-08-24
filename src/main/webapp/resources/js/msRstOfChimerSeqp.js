@@ -10,7 +10,7 @@ $(document).ready(function () {
     mainTable = $("#chimerSeqTbl").DataTable({
         "dom":"T<'clear'>frtilp",
         "scrollX":true,
-        "tableTools":{"sSwfPath": "./swf/copy_csv_xls_pdf.swf"},
+        "tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
         "processing": true,
         "serverSide": true,
         "ajax": {
