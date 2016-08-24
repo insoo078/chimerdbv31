@@ -35,6 +35,12 @@ public class CommonController {
             ModelAndView result = new ModelAndView("mindexp");
             return result;
         }
+		
+		@RequestMapping(value="/description_popup", method = RequestMethod.GET)
+        public ModelAndView descPopup() throws RuntimeException{
+            ModelAndView result = new ModelAndView("/popup/description");
+            return result;
+        }
 
         @RequestMapping(value="/mstatistic", method = RequestMethod.GET)
         public ModelAndView statisticPage() throws RuntimeException{

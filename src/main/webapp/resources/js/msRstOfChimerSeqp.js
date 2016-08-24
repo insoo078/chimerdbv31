@@ -32,12 +32,10 @@ $(document).ready(function () {
         ]
     });
 
-
     $('#chimerSeqTbl tbody').on('click', 'tr', function(){
         var rowdata = mainTable.row( this ).data();
 
-console.log( rowdata );
-//        showDesc(rowdata[0], rowdata[1], rowdata[2], rowdata[5], rowdata[8]);
+        showDesc(rowdata[0], rowdata[1], rowdata[2], rowdata[5], rowdata[8]);
     });
 });
 
@@ -48,15 +46,15 @@ function showDesc(fuspair, gene5junc, gene3junc, barcodeid, source){
 
     var data = "fuspair=" + fuspair + "&gene5junc=" + gene5junc + "&gene3junc=" + gene3junc + "&barcodeid=" + barcodeid + "&source=" + source;
 
-    
     $.ajax({
           url: "descofgene.cdb",
           type : 'POST',
           data : data,
           dataType: "json",
           success: function(jData) {
-              var mypopup = window.open("/popup/description.html", 'mypopup', "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=400");
-              mypopup.pdata = jData;
+
+              var mypopup = window.open("description_popup.cdb", 'mypopup', "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=400");
+//              mypopup.pdata = jData;
               //mypopup.document.write();
               
 //              <table><tr><td rowspan="2">Funsion Gene(5'_3')</td><td></td><td></td></tr>
