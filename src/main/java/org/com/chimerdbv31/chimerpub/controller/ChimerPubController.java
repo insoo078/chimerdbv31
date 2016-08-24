@@ -20,7 +20,13 @@ public class ChimerPubController {
 	
 	@Resource(name = "chimerPubService")
 	private ChimerPubService chimerPubService;
-        
+
+	@RequestMapping(value="/mchimerpub", method = RequestMethod.GET)
+	public ModelAndView chimerseqPage() throws RuntimeException{
+		ModelAndView result = new ModelAndView("mchimerpubp");
+
+		return result;
+	}
 
 	@RequestMapping(value="msrstofchimerpub",method=RequestMethod.POST)
 	public ModelAndView rstChimerPub( HttpServletRequest request ) throws RuntimeException{

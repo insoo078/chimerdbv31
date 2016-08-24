@@ -26,12 +26,13 @@ public class ChimerKbController {
 	
 	private ParamVo sParam;
 
-	@RequestMapping(value="/mchimerpub", method = RequestMethod.GET)
-	public ModelAndView chimerseqPage() throws RuntimeException{
-		ModelAndView result = new ModelAndView("mchimerpub");
+	@RequestMapping(value="/mchimerkb", method = RequestMethod.GET)
+	public ModelAndView chimerKbPage() throws RuntimeException{
+		ModelAndView result = new ModelAndView("mchimerkbp");
 
 		return result;
 	}
+
 
 	@RequestMapping(value="/msrstofchimerkb",method=RequestMethod.POST)
     public ModelAndView rstChimerKB( HttpServletRequest request ) throws RuntimeException{
