@@ -11,7 +11,7 @@
 		<property name="configLocation" value="classpath:config/spring/context/mybatis-config-base.xml" />
 		<property name="mapperLocations">
 			<list>
-				<value>classpath*:org/com/chimerdbv31/sql/mappers/*_map.xml</value>
+				<value>classpath*:/sql/mappers/*_map.xml</value>
 			</list>
 		</property>
 	</bean>

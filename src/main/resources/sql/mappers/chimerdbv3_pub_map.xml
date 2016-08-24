@@ -1,13 +1,10 @@
-<!--
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="chimerCommonMapper">
-    
-    
-    
-    
-    
-    <select id="q1_result_for_search" parameterType="aMainp.vo.ParamVo" resultType="aMainp.vo.CimrSeqVo">
+
+<mapper namespace="org.com.chimerdbv31.chimerpub.mapper.ChimerPubMapper">
+
+<!--    
+    <select id="q1_result_for_search" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
         SELECT DISTINCT Fusion_pair,
         CONCAT(H_chr,':',H_position) AS Gene5_Junction, 
         CONCAT(T_chr,':',T_position) AS Gene3_Junction,
@@ -27,7 +24,7 @@
         limit 1000;
         
     </select>
-    <select id="q2_result_for_search" parameterType="aMainp.vo.ParamVo" resultType="aMainp.vo.CimrSeqVo">
+    <select id="q2_result_for_search" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
         SELECT DISTINCT Fusion_pair,CONCAT(H_chr,':',H_position) AS Gene5_Junction, CONCAT(T_chr,':',T_position) AS Gene3_Junction,Exon_breakpoint AS Breakpoint_Type,
         Cancertype AS Cancer_Type,BarcodeID AS TCGA_Sample_Id,Frame,Chr_info AS Chromosome_Information,
         Source,CONCAT(ChimerKB,' ',ChimerPub) AS Supported,
@@ -41,7 +38,7 @@
     </select>
     
     
-    <select id="q3_result_of_chimerseq" parameterType="aMainp.vo.ParamVo" resultType="aMainp.vo.CimrSeqVo">
+    <select id="q3_result_of_chimerseq" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
         SELECT Fusion_pair AS Fusion_Pair,CONCAT(H_chr,':',H_position) AS Gene5_Junction, CONCAT(T_chr,':',T_position) AS Gene3_Junction,Breakpoint_Type,
         Cancertype AS Cancer_Type,BarcodeID AS TCGA_Sample_Id,Frame,Chr_info AS Chromosome_Information,
         Source,CONCAT(ChimerKB,' ',ChimerPub) AS Supported, 'rslt_tbl_row' as DT_RowClass
@@ -57,7 +54,7 @@
     </select>
     
     
-    <select id="q4_count_result_of_chimerseq" parameterType="aMainp.vo.ParamVo" resultType="int">
+    <select id="q4_count_result_of_chimerseq" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="int">
         SELECT count( * ) allNum
         FROM ChimerDB3.ChimerSeq_ver3
         WHERE 1=1
@@ -69,7 +66,7 @@
     </select>
     
     
-    <select id="q5_result_of_chimerkb" parameterType="aMainp.vo.ParamVo" resultType="aMainp.vo.CimrKBVo">
+    <select id="q5_result_of_chimerkb" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
         SELECT Fusion_pair AS Fusion_Pair,CONCAT(H_chr,':',H_position) AS Gene5_Junction, CONCAT(T_chr,':',T_position) AS Gene3_Junction,Breakpoint_Type,
         Disease,Frame,Chr_info AS Chromosome_Information,
         Source,CONCAT(ChimerSeq,' ',ChimerPub) AS Supported,PMID
@@ -85,7 +82,7 @@
         limit ${strtn},${lntn};
     </select>
     
-    <select id="q5_count_result_of_chimerkb" parameterType="aMainp.vo.ParamVo" resultType="aMainp.vo.CimrKBVo">
+    <select id="q5_count_result_of_chimerkb" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
         SELECT count( * ) allNum
         FROM ChimerDB3.ChimerKB_ver4 
         WHERE 1=1
@@ -98,7 +95,7 @@
     </select>
     
     
-    <select id="q10_result_of_chimerkb" parameterType="aMainp.vo.ParamVo" resultType="aMainp.vo.CimrKBVo">
+    <select id="q10_result_of_chimerkb" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
         select distinct
           ChimerDB_Type, Source, webSource
         , Fusion_pair
@@ -156,7 +153,7 @@
     
     
     
-    <select id="q100_result_of_chimerseq" parameterType="aMainp.vo.ParamVo" resultType="aMainp.vo.CimrSeqVo">
+    <select id="q100_result_of_chimerseq" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
         select distinct
             Fusion_pair
             , 5Gene_Junction as gene5Junc
@@ -208,7 +205,7 @@
             and ChimerSeq = "1"
     </select>
     
-    <select id="q10_result_of_chimerseq" parameterType="aMainp.vo.ParamVo" resultType="aMainp.vo.CimrSeqVo">
+    <select id="q10_result_of_chimerseq" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
         select distinct Fusion_pair , 5Gene_Junction as gene5Junc , 3Gene_Junction as gene3Junc , Breakpoint_Type , Cancertype , BarcodeID
             , if(Frame = "NA","",Frame) as Frame
             , Chr_info , Source , ChimerKB , ChimerPub, concat(ChimerKB, "_", ChimerPub) as supported
@@ -246,7 +243,7 @@
             <if test="sortedKeyword != null"> ORDER BY ${sortedKeyword} ${sortType} </if>
             limit ${strtn},${lntn};
     </select>
-    <select id="q10_count_result_of_chimerseq" parameterType="aMainp.vo.ParamVo" resultType="int">
+    <select id="q10_count_result_of_chimerseq" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="int">
         select distinct count( * ) as allNum
             from ChimerDB3.ChimerSeq_ver5 
             where 1=1
@@ -277,6 +274,6 @@
             <if test="queryForFilterByFunc != null and queryForFilterByFunc != ''"> and (${queryForFilterByFunc}) </if>
             <if test="queryForFusType != null and queryForFusType != ''"> and Chr_info in (${queryForFusType}) </if>
             <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>
-    </select>
+    </select>-->
     
-</mapper>-->
+</mapper>

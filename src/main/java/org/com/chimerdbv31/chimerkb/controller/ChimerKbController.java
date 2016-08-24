@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
 import org.com.chimerdbv31.chimerkb.services.ChimerKbService;
-import org.com.chimerdbv31.chimerkb.vo.ChimerKBVo;
+import org.com.chimerdbv31.chimerkb.vo.ChimerKbVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -324,7 +324,7 @@ public class ChimerKbController {
                         }
                     }
                 }
-                List<ChimerKBVo> chimerKbLst = this.chimerKbService.getChimerKBResult(sParam);
+                List<ChimerKbVo> chimerKbLst = this.chimerKbService.getChimerKBResult(sParam);
                 result.addObject("chimerKb_lst", chimerKbLst);
                 // out query ////////////////////////////////////////////////////////////////////////////////////////////
                 String outPutQueryStr = "select distinct * from ChimerDB3.ChimerKB_ver5 where 1=1 ";

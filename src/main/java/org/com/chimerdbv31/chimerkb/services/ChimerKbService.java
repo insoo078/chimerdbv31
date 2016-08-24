@@ -3,7 +3,7 @@ package org.com.chimerdbv31.chimerkb.services;
 import java.util.List;
 import javax.annotation.Resource;
 import org.com.chimerdbv31.chimerkb.mapper.ChimerKbMapper;
-import org.com.chimerdbv31.chimerkb.vo.ChimerKBVo;
+import org.com.chimerdbv31.chimerkb.vo.ChimerKbVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
 
 import org.slf4j.Logger;
@@ -28,8 +28,8 @@ public class ChimerKbService {
         return result;
     }
 
-    public List<ChimerKBVo> getChimerKBResult(ParamVo param) {
-        List<ChimerKBVo> result = null;
+    public List<ChimerKbVo> getChimerKBResult(ParamVo param) {
+        List<ChimerKbVo> result = null;
         try {
             result = this.getChimerKBResult(param);
         } catch (Exception e) {

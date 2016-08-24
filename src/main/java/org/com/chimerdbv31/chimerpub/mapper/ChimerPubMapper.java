@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository(value = "chimerPubMapper")
 public interface ChimerPubMapper {
-    public List<ChimerSeqVo> getChimerPubResult(ParamVo param);
+//    public List<ChimerSeqVo> getChimerPubResult(ParamVo param);
 }

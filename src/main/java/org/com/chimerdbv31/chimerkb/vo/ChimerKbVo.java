@@ -10,7 +10,7 @@ package org.com.chimerdbv31.chimerkb.vo;
  *
  * @author Ik-Jung Choi <cij@ewha.ac.kr>
  */
-public class ChimerKBVo {
+public class ChimerKbVo {
     private String ChimerDB_Type;
     private String Source;
     private String webSource;

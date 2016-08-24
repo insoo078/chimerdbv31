@@ -7,7 +7,7 @@ import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.com.chimerdbv31.chimerkb.vo.ChimerKBVo;
+import org.com.chimerdbv31.chimerkb.vo.ChimerKbVo;
 import org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
@@ -55,7 +55,7 @@ public class CommonController {
     public String showDescTheFGene( HttpServletRequest request )throws RuntimeException{
         
         JSONObject jsonData;
-        ChimerKBVo row = new ChimerKBVo();
+        ChimerKbVo row = new ChimerKbVo();
         row.setFusion_pair("PML_RARA");
         row.setH_gene("PML");
         row.setT_gene("RARA");
