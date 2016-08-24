@@ -6,6 +6,9 @@ import javax.annotation.Resource;
 import org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
+import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
+import org.com.chimerdbv31.chimerseq.obj.GeneInfoObj;
+import org.com.chimerdbv31.chimerseq.obj.TranscriptObj;
 import org.com.chimerdbv31.common.vo.ParamVo;
 
 import org.slf4j.Logger;
@@ -60,12 +63,30 @@ public class ChimerSeqService {
         return result;
     }
 	
-	public List<GeneInfoVo> getGeneInfo(List<String> genes) {
-		List<GeneInfoVo> list = new ArrayList<GeneInfoVo>();
+	public List<GeneInfoObj> getGeneInfo(List<String> genes) {
+		List<GeneInfoObj> list = new ArrayList<GeneInfoObj>();
 		for(String gene:genes) {
-			GeneInfoVo vo = this.chimerSeqMapper.geneGeneInfo( gene );
-			list.add(vo);
+			GeneInfoObj obj = (GeneInfoObj)this.chimerSeqMapper.getGeneInfo( gene );
+			list.add(obj);
+			
+			List<Gff3Vo> gff3Features = this.chimerSeqMapper.getGeneFeatureInfo(gene);
+			
+			this.addGeneFeatures(obj, gff3Features);
 		}
 		return list;
+	}
+	
+	private GeneInfoObj addGeneFeatures( GeneInfoObj gene, List<Gff3Vo> gff3Features ) {
+		TranscriptObj obj = null;
+		for(Gff3Vo vo : gff3Features ) {
+			if( vo.getType().equals("gene") )	gene.setGeneGffFeature( vo );
+			else if( vo.getType().equals("mRNA") || vo.getType().equals("transcript") ) {
+				obj = (TranscriptObj)vo;
+				gene.addTranscript( obj );
+			}else {
+				obj.addExon(vo);
+			}
+		}
+		return gene;
 	}
 }

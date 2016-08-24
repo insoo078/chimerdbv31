@@ -5,6 +5,7 @@
  */
 package org.com.chimerdbv31.chimerseq.obj;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
 
@@ -14,4 +15,12 @@ import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
  */
 public class TranscriptObj extends Gff3Vo{
 	private List<Gff3Vo> exons;
+	
+	public TranscriptObj() {
+		this.exons = new ArrayList<Gff3Vo>();
+	}
+	
+	public void addExon( Gff3Vo exonFeaure ) {
+		this.exons.add(exonFeaure);
+	}
 }

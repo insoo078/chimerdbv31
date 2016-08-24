@@ -199,6 +199,12 @@
             <version>1.2.17</version>
         </dependency>
         <dependency>
+            <groupId>ercsb</groupId>
+            <artifactId>chimerdbv31</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>6.0</version>

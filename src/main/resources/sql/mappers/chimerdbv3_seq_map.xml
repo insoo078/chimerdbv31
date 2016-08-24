@@ -21,6 +21,18 @@
 		<result property="modification_date" column="modification_date"/>
     </resultMap>
 
+    <resultMap id="Gff3VoMap" type="org.com.chimerdbv31.chimerseq.vo.Gff3Vo">
+		<result property="seqid" column="seqid"/>
+        <result property="source" column="source"/>
+		<result property="type" column="type"/>
+		<result property="start" column="start"/>
+		<result property="end" column="end"/>
+		<result property="score" column="score"/>
+		<result property="strand" column="strand"/>
+		<result property="phase" column="phase"/>
+		<result property="attributes" column="attributes"/>
+    </resultMap>
+
     <select id="getResult" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
         SELECT DISTINCT Fusion_pair,
         CONCAT(H_chr,':',H_position) AS Gene5_Junction, 
@@ -125,8 +137,19 @@
             <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>
     </select>
 	
-	<select id="geneGeneInfo" parameterType="java.lang.String" resultMap="GeneInfoVoMap">
+	<select id="getGeneInfo" parameterType="java.lang.String" resultMap="GeneInfoVoMap">
 		SELECT * FROM Gene_Info
 		WHERE symbol=#{symbol}
+	</select>
+	
+	<select id="getGeneFeatureInfo" parameterType="java.lang.String" resultMap="Gff3VoMap">
+		SELECT * FROM GRCH37_GFF a, (
+			SELECT gene_id, gff_start, gff_end FROM Gene_Info a
+			WHERE symbol=#{symbol}
+		) b
+		WHERE a.Gene_ID=b.gene_id
+		AND a.no BETWEEN b.gff_start AND b.gff_end
+		AND a.type IN ('gene', 'exon', 'mRNA', 'transcript')
+		ORDER BY a.no
 	</select>
 </mapper>
