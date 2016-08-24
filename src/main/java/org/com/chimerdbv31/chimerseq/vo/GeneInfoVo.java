@@ -5,11 +5,17 @@
  */
 package org.com.chimerdbv31.chimerseq.vo;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import org.com.chimerdbv31.chimerseq.obj.TranscriptObj;
+import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
+
 /**
  *
  * @author insoo078
  */
-public class GeneInfoVo {
+public class GeneInfoVo extends Gff3Vo{
 	private String tax_id;
 	private String gene_id;
 	private String symbol;
@@ -25,6 +31,24 @@ public class GeneInfoVo {
 	private String nomenclature_status;
 	private String other_designations;
 	private String modification_date;
+
+	private List<TranscriptObj> transcripts;
+
+	public GeneInfoVo() {
+		this.transcripts = new ArrayList<TranscriptObj>();
+	}
+	
+	public GeneInfoVo(List<TranscriptObj> transcripts) {
+		this.transcripts = transcripts;
+	}
+	
+	public void addTranscript( TranscriptObj transcript ) {
+		this.transcripts.add( transcript );
+	}
+
+	public List<TranscriptObj> getTranscripts() {
+		return transcripts;
+	}
 
 	public String getTax_id() {
 		return tax_id;
@@ -146,5 +170,7 @@ public class GeneInfoVo {
 		this.modification_date = modification_date;
 	}
 
-	
+	public void setTranscripts(List<TranscriptObj> transcripts) {
+		this.transcripts = transcripts;
+	}
 }

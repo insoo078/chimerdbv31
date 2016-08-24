@@ -7,7 +7,7 @@ import org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
-import org.com.chimerdbv31.chimerseq.obj.GeneInfoObj;
+import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.chimerseq.obj.TranscriptObj;
 import org.com.chimerdbv31.common.vo.ParamVo;
 
@@ -63,10 +63,10 @@ public class ChimerSeqService {
         return result;
     }
 	
-	public List<GeneInfoObj> getGeneInfo(List<String> genes) {
-		List<GeneInfoObj> list = new ArrayList<GeneInfoObj>();
+	public List<GeneInfoVo> getGeneInfo(List<String> genes) {
+		List<GeneInfoVo> list = new ArrayList<GeneInfoVo>();
 		for(String gene:genes) {
-			GeneInfoObj obj = (GeneInfoObj)this.chimerSeqMapper.getGeneInfo( gene );
+			GeneInfoVo obj = (GeneInfoVo)this.chimerSeqMapper.getGeneInfo( gene );
 			list.add(obj);
 			
 			List<Gff3Vo> gff3Features = this.chimerSeqMapper.getGeneFeatureInfo(gene);
@@ -76,7 +76,7 @@ public class ChimerSeqService {
 		return list;
 	}
 	
-	private GeneInfoObj addGeneFeatures( GeneInfoObj gene, List<Gff3Vo> gff3Features ) {
+	private GeneInfoVo addGeneFeatures( GeneInfoVo gene, List<Gff3Vo> gff3Features ) {
 		TranscriptObj obj = null;
 		for(Gff3Vo vo : gff3Features ) {
 			if( vo.getType().equals("gene") )	gene.setGeneGffFeature( vo );
