@@ -436,9 +436,6 @@ public class ChimerSeqController {
 		jsonArray = JSONArray.fromObject(mainList);
 
 
-
-
-
 		jsonData.put("iTotalRecords", totalNum);
 		jsonData.put("iTotalDisplayRecords", totalNum);
 		jsonData.put("aaData", jsonArray.toString() );

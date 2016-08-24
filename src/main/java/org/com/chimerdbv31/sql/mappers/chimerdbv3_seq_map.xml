@@ -1,7 +1,9 @@
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper">
+
     <select id="getResult" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
         SELECT DISTINCT Fusion_pair,
         CONCAT(H_chr,':',H_position) AS Gene5_Junction, 
@@ -71,7 +73,7 @@
             <if test="queryForFusType != null and queryForFusType != ''"> and Chr_info in (${queryForFusType}) </if>
             <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>
             <if test="sortedKeyword != null"> ORDER BY ${sortedKeyword} ${sortType} </if>
-            limit ${strtn},${lntn};
+            limit ${strtn},${lntn}
     </select>
     <select id="getChimerSeqTotalNumber" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="int">
         select distinct count( * ) as allNum
@@ -105,5 +107,4 @@
             <if test="queryForFusType != null and queryForFusType != ''"> and Chr_info in (${queryForFusType}) </if>
             <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>
     </select>
-    
 </mapper>
