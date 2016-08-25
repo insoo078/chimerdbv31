@@ -1715,7 +1715,7 @@ ChimeraDbV3Viewer.prototype.getTaxids = function(callback) {
 		if (taxids.length === 0) {
 			promise = new Promise(function(resolve, reject) {
 				ideo.getTaxidFromEutils(resolve);
-			});
+			})
 			promise.then(function(data){
 			taxid = data;
 			taxids.push(taxid);
@@ -1966,10 +1966,10 @@ ChimeraDbV3Viewer.prototype.init = function() {
 	numBandDataResponses = 0,
 	resolution = this.config.resolution,
 	accession;
-	
+
 	var promise = new Promise(function(resolve, reject) {
 		ideo.getTaxids(resolve);
-	});
+	})
 	
 	promise.then(function(taxids) {
 		taxid = taxids[0];
@@ -2397,11 +2397,11 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 	
 	if( 1 === 1 ) {
 		// exon과 intron을 고정으로 그려주는 부분
-		var rnas = gene.rnas;
+		var rnas = gene.transcripts;
 
 		var exon_cnt = 0;
 		for(i=0; i<rnas.length; i++) {
-		var exons = rnas[i].features;
+		var exons = rnas[i].exons;
 		exon_cnt += exons.length;
 	}
 	
@@ -2410,7 +2410,7 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 	if( rnas.length > 1 ) {
 		var unique_exon_set = {};
 		for(i=0; i<rnas.length; i++) {
-			var exons = rnas[i].features;
+			var exons = rnas[i].exons;
 			for(j=0; j<exons.length; j++) {
 				var key = exons[j].start+"-"+exons[j].end;
 				if( !unique_exon_set.hasOwnProperty() ){
@@ -2467,12 +2467,12 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 	}
 	}else if( 1 === 2) {
 		// exon의 길이를 비례대로 그려주는 부분
-		var rnas = gene.rnas;
+		var rnas = gene.transcripts;
 		
 		var exon_length = 0;
 		var exon_cnt = 0;
 		for(i=0; i<rnas.length; i++) {
-			var exons = rnas[i].features;
+			var exons = rnas[i].exons;
 
 			for(j=0; j<exons.length; j++){
 				exon_length += (exons[j].end-exons[j].start+1);
@@ -2514,14 +2514,14 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 		}
 	}else {
 		// exon, intron을 실제 길이 비율대로 그려주는 부분
-		var rnas = gene.rnas;
+		var rnas = gene.transcripts;
 		
 		var unit_len_nt = (backbone_width - 2*MARGIN) / (gene.end-gene.start+1);
 		
 		for(i=0; i<rnas.length; i++) {
 			var rna = rnas[i];
 			
-			var exons = rna.features;
+			var exons = rna.exons;
 			
 			for(j=0; j<exons.length; j++) {
 				var start = exons[j].start - gene.start;

@@ -45,6 +45,16 @@
 <script type="text/javascript" src="resources/js/templatemo_script.js"></script>
 <script type="text/javascript" src="resources/js/hoy.js"></script>
 
+
+
+<link type="text/css" rel="stylesheet" href="resources/ideogram/src/css/ideogram.css"/>
+<link type="text/css" rel="stylesheet" href="resources/ideogram/src/css/chimerdbv3.css"/>
+  
+
+<script type="text/javascript" src="resources/ideogram/src/js/es6-promise.js"></script>
+<script type="text/javascript" src="resources/ideogram/src/js/d3.promise.js"></script>
+<script type="text/javascript" src="resources/ideogram/src/js/chimeradbv3.viewer.js"></script>
+
 <script type="text/javascript">
     var activatedTab = "<c:out value="${activated_tab}" />";
     var searchType = "<c:out value="${search_type}" />";
@@ -116,8 +126,19 @@
                     </div>
 
             </div>
-        
-        
+        <div class="templatemo-panels">
+                    
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+							<div class="panel-heading">
+                                <span style="font-size: 20px; font-weight: bold;">Fusion structure</span>
+                            </div>
+							<div class="panel-body" style="text-align: left;">
+								<div id='chimer-seq-viewer' style='background:green;border:1px solid gray;'></div>
+							</div>
+						</div>
+					</div>
+		</div>
         
         <div class="templatemo-panels">
                     
@@ -138,8 +159,7 @@
             
         
     </div>
-    
-    
+  
     
             
             
@@ -149,7 +169,6 @@
     <%@include file="part/footer.jsp" %>
     
 </div>
-
 
 </body>
 </html>

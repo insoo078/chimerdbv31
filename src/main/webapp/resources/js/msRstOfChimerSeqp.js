@@ -55,7 +55,34 @@ function getGeneInformation(genes) {
 		data : {"genes":data},
 		dataType: "json",
 		success: function(jData) {
-			console.log( jData );
+			var config = {
+				organism: "human",
+				orientation: "horizontal",
+				chromosomes: [jData[0].chromosome, jData[1].chromosome],
+				chrMargin: 300,
+				chrHeight: 1024,
+				chrWidth: 20,
+				topMargin : 20,
+				showBandLabels: true,
+		  //          brush: true,
+					container: "#chimer-seq-viewer",
+		  //          rows : 10,
+		  //          annotationsPath: "./resources/ideogram/data/annotations/all_human_genes.json",
+		  //          annotationTracks: annotationTracks,
+		  //          annotationHeight: 3.5
+		  //          
+		  //          
+		  //	  perspective: "comparative"
+		  //	  onLoad: onIdeogramLoad
+			  };
+			  
+			  var gene1 = jData[0];
+			  var gene2 = jData[1];
+			  
+			  console.log( gene1 );
+			  console.log( gene2 );
+
+			  var viewer = new ChimeraDbV3Viewer(config, gene1, gene2);
 		}
 	});
 }
