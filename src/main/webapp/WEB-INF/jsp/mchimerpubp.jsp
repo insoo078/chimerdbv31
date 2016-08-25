@@ -46,7 +46,7 @@
                             
                             <div class="row margin-bottom-15">
                                 <div class="col-md-6">
-                                    <label class="radio-inline">
+                                    <label class="radio-inline" style="margin-right: 20px;">
                                         <input type="radio" name="search_type_rdo" id="search_type_rdo1" value="by_gene" >Gene
                                     </label>
                                     <label class="checkbox-inline">
@@ -137,10 +137,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-11 col-md-offset-1">
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_3_fish_chk" >FISH</label>
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_3_sanger_chk" >SangerSeq</label>
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_3_rtpcr_chk" >RT-PCR</label>
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_3_none_chk" onclick="chimerkb_no_evidence_toggle();" checked="checked">No Evidence</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_fish_chk" >FISH</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_sanger_chk" >SangerSeq</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_rtpcr_chk" >RT-PCR</label>
+                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_3_none_chk" onclick="chimerkb_no_evidence_toggle();" checked="checked">No evidence</label>
                                 </div>
                             </div>
                             
@@ -165,32 +165,32 @@
                                 </div>
                                 <div class="row margin-bottom-15">
                                     <div class="col-md-11 col-md-offset-1">
-                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_kinase_chk" >Kinase fusion</label>
-                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_onco_chk" checked="checked">Oncogene</label>
-                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_tumor_chk" >Tumor suppressor</label>
-                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_recpt_chk" >Receptor</label>
+                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbyfunc_kinase_chk" >Kinase fusion</label>
+                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbyfunc_onco_chk" checked="checked">Oncogene</label>
+                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbyfunc_tumor_chk" >Tumor suppressor</label>
+                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbyfunc_recpt_chk" >Receptor</label>
                                         <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_transcript_chk" checked="checked">Transcription factor</label>
                                     </div>
                                 </div>
 
                                 
                                 <div class="row margin-bottom-15">
-                                    <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Function type</span>
+                                    <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Function Type</span>
                                 </div>
                                 <div class="row margin-bottom-15">
                                     <div class="col-md-11 col-md-offset-1">
-                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfusn_inter_chr_chk" value="inter_chr" checked="checked">Inter chromosomal</label>
+                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbyfusn_inter_chr_chk" value="inter_chr" checked="checked">Inter chromosomal</label>
                                         <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfusn_intra_chr_chk" value="intra_chr" >Intra chromosomal</label>
                                     </div>
                                 </div>
 
                                 
                                 <div class="row margin-bottom-15">
-                                    <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Supporting information</span>
+                                    <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Supporting Information</span>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-11 col-md-offset-1">
-                                        <label class="checkbox-inline" id="chimrKb_fbySupot_chimrKBS_lvl"><input type="checkbox" id="chimrKb_fbySupot_chimrKBS_chk" >ChimerKB supported</label>
+                                        <label class="checkbox-inline" id="chimrKb_fbySupot_chimrKBS_lvl" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbySupot_chimrKBS_chk" >ChimerKB supported</label>
                                         <label class="checkbox-inline" id="chimrKb_fbySupot_chimrSeqS_lvl"><input type="checkbox" id="chimrKb_fbySupot_chimrSeqS_chk" >ChimerSeq supported</label>
                                     </div>
                                 </div>
