@@ -1995,34 +1995,38 @@ ChimeraDbV3Viewer.prototype.init = function() {
 				// Drosophila melanogaster (fly)
 				"7227": "ucsc/drosophila_melanogaster_dm6.tsv"
 			};
-	
-			if (typeof chrBands === "undefined" && taxid in bandDataFileNames) {
-	
-				d3.request(ideo.config.bandDir + bandDataFileNames[taxid])
-				.on("beforesend", function(data) {
-					// Ensures correct taxid is processed in response callback; using
-					// simply 'taxid' variable gives the last *requested* taxid, which
-					// fails when dealing with multiple taxa.
-					data.taxid = taxid;
-				})
-				.get(function(error, data) {
-					ideo.bandData[data.taxid] = data.response;
-					numBandDataResponses += 1;
-	
-					if (numBandDataResponses === taxids.length) {
-						processBandData();
-						writeContainer();
+
+			try {
+				if (typeof chrBands === "undefined" && taxid in bandDataFileNames) {
+					d3.request(ideo.config.bandDir + bandDataFileNames[taxid])
+					.on("beforesend", function(data) {
+						// Ensures correct taxid is processed in response callback; using
+						// simply 'taxid' variable gives the last *requested* taxid, which
+						// fails when dealing with multiple taxa.
+						data.taxid = taxid;
+					})
+					.get(function(error, data) {
+						ideo.bandData[data.taxid] = data.response;
+						numBandDataResponses += 1;
+
+						if (numBandDataResponses === taxids.length) {
+							processBandData();
+							writeContainer();
+						}
+					});
+				} else {
+					if (typeof chrBands !== "undefined") {
+						// If bands already available,
+						// e.g. via <script> tag in initial page load
+						ideo.bandData[taxid] = chrBands;
 					}
-				});
-			} else {
-				if (typeof chrBands !== "undefined") {
-					// If bands already available,
-					// e.g. via <script> tag in initial page load
-					ideo.bandData[taxid] = chrBands;
+					processBandData();
+					writeContainer();
 				}
-				processBandData();
-				writeContainer();
+			}catch(e){
+				console.log(e);
 			}
+
 		}
 	});
 	
