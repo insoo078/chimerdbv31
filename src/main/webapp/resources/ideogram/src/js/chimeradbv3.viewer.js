@@ -95,7 +95,7 @@ var ChimeraDbV3Viewer = function(config, gene1, gene2) {
 			this.config.rotatable = false;
 		}
 	}
-	
+
 	this.initAnnotSettings();
 	
 	this.config.chrMargin = (
@@ -167,19 +167,41 @@ var ChimeraDbV3Viewer = function(config, gene1, gene2) {
 	this.chromosomes = {};
 	this.numChromosomes = 0;
 	this.bandData = {};
-
 	
+	// When same choromosome are inserted
+	if( this.config.chromosomes.length === 2 ) {
+		if( this.config.chromosomes[0] === this.config.chromosomes[1] ) {
+			this.config.chromosomes = this.config.chromosomes[0];
+			this.fusion_type = "intra";
+		}else {
+			this.fusion_type = "inter";
+		}
+	}	
 	
 	// Fusion gene의 유전자 정보를 저장할 변수 선언 및 세팅  
 	this.genes = {};
 	
 	var gene1 = JSON.parse(JSON.stringify(gene1));
 	var gene2 = JSON.parse(JSON.stringify(gene2));
-	this.genes[ gene1.chromosome ] = gene1;
-	this.genes[ gene2.chromosome ] = gene2;
 	
+	if( this.fusion_type === "inter") {
+		this.genes[ gene1.chromosome ] = gene1;
+		this.genes[ gene2.chromosome ] = gene2;
+	}else {
+		this.genes[gene1.chromosome] = [gene1, gene2];
+	}
+
 	this.init();
 };
+
+
+//	// When same choromosome are inserted
+//	if( config.chromosomes.length === 2 ) {
+//		if( config.chromosomes[0] === config.chromosomes[1] ) {
+//			config.chromosomes = config.chromosomes[0];
+//		}
+//	}
+
 
 /**
 * Gets chromosome band data from a
@@ -369,7 +391,6 @@ ChimeraDbV3Viewer.prototype.colorArms = function(pArmColor, qArmColor) {
 	});
 	d3.selectAll(".p-ter.chromosomeBorder").style("fill", pArmColor);
 	d3.selectAll(".q-ter.chromosomeBorder").style("fill", qArmColor);
-
 };
 
 /**
@@ -596,7 +617,6 @@ ChimeraDbV3Viewer.prototype.drawBandLabels = function(chromosomes, chrNos) {
 	}
 
 	for (var i = 0; i < chrs.length; i++) {
-
 		chrModel = chrs[i];
 
 		var textsLength = textOffsets[chrModel.id].length,
@@ -2112,6 +2132,8 @@ ChimeraDbV3Viewer.prototype.init = function() {
 	
 	if ("chromosomes" in ideo.config) {
 		chrs = ideo.config.chromosomes;
+		
+		console.log( ideo.config.chromosomes );
 	}
 	if (ideo.config.multiorganism) {
 		chrsByTaxid = chrs;
@@ -2160,7 +2182,6 @@ ChimeraDbV3Viewer.prototype.init = function() {
 }
 
 function finishInit() {
-
 	try {
 		var t0_a = new Date().getTime();
 		
@@ -2168,7 +2189,7 @@ function finishInit() {
 		taxids,
 		chr, chrModel, chromosome,
 		i, j, m, n;
-		
+
 		ideo.initDrawChromosomes(bandsArray);
 		
 		ideo.initDrawGeneStructure();
@@ -2299,9 +2320,16 @@ ChimeraDbV3Viewer.prototype.initDrawGeneStructure = function() {
 	for(i=0; i<chrs.length; i++) {
 		var gene = genes[chrs[i]];
 
-		gene_length += gene.geneFeature.end - gene.geneFeature.start + 1;
+		if( ideo.fusion_type === "inter" ) {
+			gene_length += gene.geneFeature.end - gene.geneFeature.start + 1;
+		}else {
+			for(j=0; j<gene.length; j++) {
+				var oneGene= gene[j];
+				gene_length += oneGene.geneFeature.end - oneGene.geneFeature.start + 1;
+			}
+		}
 	}
-	
+
 	for (m = 0; m < taxids.length; m++) {
 		taxid = taxids[m];
 		chrs = ideo.config.chromosomes[taxid];
@@ -2311,14 +2339,24 @@ ChimeraDbV3Viewer.prototype.initDrawGeneStructure = function() {
 			chrIndex = chrModel.chrIndex;
 
 			gene = genes[chromosome];
-			length_ratio = (gene.geneFeature.end-gene.geneFeature.start + 1) / gene_length;
-	
-			ideo.drawGeneStructure( chrModel, gene, length_ratio );
+			if( ideo.fusion_type === "inter" ) {
+				length_ratio = (gene.geneFeature.end-gene.geneFeature.start + 1) / gene_length;
+				ideo.drawGeneStructure( chrModel, gene, length_ratio, chrIndex );
+				
+				console.log( chrModel );
+			}else {
+				for(idx=0; idx<gene.length; idx++) {
+					var oneGene = gene[idx];
+					length_ratio = (oneGene.geneFeature.end-oneGene.geneFeature.start + 1) / gene_length;
+
+					ideo.drawGeneStructure( chrModel, oneGene, length_ratio, idx );
+				}
+			}
 		}
 	}
 };
 
-ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length_ratio ) {
+ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length_ratio, idx ) {
 	var ideo = this;
 
 	container = this.config.container,
@@ -2332,7 +2370,7 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 	var MARGIN = 50;
 	var start_x = 0;
 	var end_x = 0;
-	if( chrModel.chrIndex === 0 ) {
+	if( idx === 0 ) {
 		start_x = MARGIN;
 		end_x = backbone_width - MARGIN;
 	}else {
@@ -2447,7 +2485,7 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 		}else {
 			var rna = rnas[0];
 
-			var exons = rna.features;
+			var exons = rna.exons;
 
 			var previous = start_x + unit_len_nt;
 			for(j=0; j<exons.length; j++) {

@@ -80,9 +80,6 @@ function getGeneInformation(genes) {
 			  
 			  var gene1 = jData[0];
 			  var gene2 = jData[1];
-			  
-			  console.log( gene1 );
-			  console.log( gene2 );
 
 			  var viewer = new ChimeraDbV3Viewer(config, gene1, gene2);
 		}
