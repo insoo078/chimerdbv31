@@ -176,9 +176,14 @@
 		) a, (SELECT @rownum:=0) b
 	</select>
 	
-	<select id="getAutocompleteInfo" parameterType="java.util.Map" resultType="String">
+	<select id="getAutocompleteInfo" parameterType="java.util.Map" resultType="java.lang.String">
 		SELECT text FROM I2_AutocompleteTable
 		WHERE service=#{service} AND type=${type}
 		AND MATCH(text) AGAINST('${text}*' IN BOOLEAN MODE)
+	</select>
+	
+	<select id="getTcgaCancerTypes" resultType="java.lang.String">
+		SELECT DISTINCT CancerType FROM ChimerSeq_ver6
+		ORDER BY CancerType
 	</select>
 </mapper>

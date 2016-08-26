@@ -19,4 +19,5 @@ public interface ChimerSeqMapper {
 	public List<Gff3Vo> getGeneFeatureInfo(@Param("symbol") String symbol);
 	public List<Gff3Vo> getExonElementsWithIndex(@Param("symbol") String symbol);
 	public List<String> getAutocompleteInfo(Map<String, String> map);
+	public List<String> getTcgaCancerTypes();
 }

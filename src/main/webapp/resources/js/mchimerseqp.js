@@ -13,6 +13,17 @@ var ChimerSeq = {
 $(document).ready(function () {
 	
 });
+
+
+function chimrSeq_1_cancer_type_toggle2(){
+    $("#chimrSeq_1_cancertype_slt > option").prop("selected",function(){
+        return chimrSeqCancerTypeState;
+    });
+    chimrSeqCancerTypeState = !chimrSeqCancerTypeState;
+}
+
+//
+//
 ////	check_m_state("mmchimerseqbtn");
 //	init_variable_values();
 //	$(".chimerkbsearchdiv").equalHeights();

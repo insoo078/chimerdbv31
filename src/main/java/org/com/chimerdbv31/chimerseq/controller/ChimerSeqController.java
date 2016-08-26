@@ -37,6 +37,8 @@ public class ChimerSeqController {
 	public ModelAndView chimerseqPage() throws RuntimeException{
 		ModelAndView result = new ModelAndView("mchimerseqp");
 
+		result.addObject("cancer_type", this.chimerSeqService.getTcgaCancerTypes());
+
 		return result;
 	}
 	

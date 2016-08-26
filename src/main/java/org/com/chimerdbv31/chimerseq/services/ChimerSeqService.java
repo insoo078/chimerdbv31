@@ -87,6 +87,10 @@ public class ChimerSeqService {
 		return this.chimerSeqMapper.getAutocompleteInfo(paramMap);
 	}
 	
+	public List<String> getTcgaCancerTypes() {
+		return this.chimerSeqMapper.getTcgaCancerTypes();
+	}
+	
 //	private GeneInfoVo addGeneFeatures( GeneInfoVo gene, List<Gff3Vo> gff3Features ) {
 //		TranscriptObj obj = null;
 //		for(Gff3Vo vo : gff3Features ) {
@@ -100,8 +104,4 @@ public class ChimerSeqService {
 //		}
 //		return gene;
 //	}
-
-	public Object getGeneInfo(String service, String type, String text) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
 }

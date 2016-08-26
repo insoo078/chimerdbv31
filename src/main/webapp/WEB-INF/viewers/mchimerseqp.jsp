@@ -26,7 +26,6 @@
 
 </head>
 <body>
-
     <%@include file="part/header.jsp" %>
     
 <!-- content -->
@@ -141,35 +140,12 @@
                                     <div class="row">
                                         <div class="col-md-11 col-md-offset-1">
                                             <select class="form-control" id="chimrSeq_1_cancertype_slt" size="6" style="width: 190px; margin-top: 10px;" multiple>
-                                                <option value="ALL" onclick="chimrSeq_1_cancer_type_toggle2();">ALL</option>
-                                                <option value="HNSC">HNSC</option>
-                                                <option value="THYM">THYM</option>
-                                                <option value="UCS">UCS</option>
-                                                <option value="CESC">CESC</option>
-                                                <option value="PRAD">PRAD</option>
-                                                <option value="LGG">LGG</option>
-                                                <option value="MESO">MESO</option>
-                                                <option value="BRCA">BRCA</option>
-                                                <option value="ESCA">ESCA</option>
-                                                <option value="UCEC">UCEC</option>
-                                                <option value="LUAD">LUAD</option>
-                                                <option value="LAML">LAML</option>
-                                                <option value="DLBC">DLBC</option>
-                                                <option value="SARC">SARC</option>
-                                                <option value="KIRC">KIRC</option>
-                                                <option value="COAD">COAD</option>
-                                                <option value="OV">OV</option>
-                                                <option value="CHOL">CHOL</option>
-                                                <option value="LUSC">LUSC</option>
-                                                <option value="THCA">THCA</option>
-                                                <option value="BLCA">BLCA</option>
-                                                <option value="GBM">GBM</option>
-                                                <option value="SKCM">SKCM</option>
-                                                <option value="PCPG">PCPG</option>
-                                                <option value="UVM">UVM</option>
-                                                <option value="STAD">STAD</option>
-                                                <option value="ACC">ACC</option>
-                                                <option value="READ">READ</option>
+												<option value="ALL" onclick="chimrSeq_1_cancer_type_toggle2();">ALL</option>
+												<c:if test="${not empty cancer_type}">
+													<c:forEach var="type" items="${cancer_type}">
+														<option value="${type}">${type}</option>
+													</c:forEach>
+												</c:if>
                                             </select>
                                         </div>
                                     </div>
