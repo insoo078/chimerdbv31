@@ -110,7 +110,20 @@
 
                     </div>
             </div>
-        
+
+			<div class="templatemo-panels">
+
+				<div class="col-md-12">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<span style="font-size: 20px; font-weight: bold;">Fusion structure</span>
+						</div>
+						<div class="panel-body" style="text-align: left;">
+							<div id='chimer-seq-viewer' style='background:none;border:1px solid gray;'></div>
+						</div>
+					</div>
+				</div>
+			</div>
         
             <div class="templatemo-panels">
                     
@@ -124,21 +137,7 @@
                             </div>
                         </div>
                     </div>
-
             </div>
-        <div class="templatemo-panels">
-                    
-                    <div class="col-md-12">
-                        <div class="panel panel-primary">
-							<div class="panel-heading">
-                                <span style="font-size: 20px; font-weight: bold;">Fusion structure</span>
-                            </div>
-							<div class="panel-body" style="text-align: left;">
-								<div id='chimer-seq-viewer' style='background:none;border:1px solid gray;'></div>
-							</div>
-						</div>
-					</div>
-		</div>
         
         <div class="templatemo-panels">
                     
