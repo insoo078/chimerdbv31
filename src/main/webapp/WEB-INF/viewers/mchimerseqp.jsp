@@ -32,90 +32,89 @@
 <!-- content -->
 
 <div id="main-wrapper">
-    <div class="template-page-wrapper">
-        <div class="templatemo-content-wrapper">
-            
-            
-            <div class="row margin-bottom-30" style="margin-top: 30px;">
-                <div class="col-md-1"></div>
-                <div class="col-md-10" style="background-color: #fdfdfd;">
-                    <div class="row margin-bottom-30" style="margin-left: 5px; margin-top: 15px;">
-                        <span style="font-size: 30px; font-weight: bold; color: #428bca;">Search</span>
-                    </div>
-                    <div class="chimerkbsearchdiv row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
-                        
-                        <div class="col-md-4 col-md-offset-1 margin-bottom-30" style="border-right: 1px #dcdcdc dotted;">
+	<div class="template-page-wrapper">
+		<div class="templatemo-content-wrapper">
+
+		    <div class="row margin-bottom-30" style="margin-top: 30px;">
+				<div class="col-md-1"></div>
+
+				<div class="col-md-10 rcorner" style="background-color: #fdfdfd;">
+
+					<div class="row margin-bottom-30" style="margin-left: 5px; margin-top: 0px;">
+						<span class="bold-sub-title">Search</span>
+					</div>
+
+					<div class="chimerkbsearchdiv row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
+						<div class="col-md-4 col-md-offset-1 margin-bottom-30" style="border-right: 1px #dcdcdc dotted;">    
+							<div class="row margin-bottom-15">
+								<div class="col-md-6">
+									<label class="radio-inline">
+										<input type="radio" name="search_type_rdo" id="search_type_rdo1" value="by_gene" >Gene
+									</label>
+									<label class="checkbox-inline">
+										<input type="checkbox" id="by_gene_chk_5" value="5" >5'
+									</label>
+									<label class="checkbox-inline">
+										<input type="checkbox" id="by_gene_chk_3" value="3" >3'
+									</label>
+								</div>
+								<div class="col-md-6">
+									<input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);">
+								</div>
+							</div>
                             
-                            <div class="row margin-bottom-15">
-                                <div class="col-md-6">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="search_type_rdo" id="search_type_rdo1" value="by_gene" >Gene
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" id="by_gene_chk_5" value="5" >5'
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" id="by_gene_chk_3" value="3" >3'
-                                    </label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);">
-                                </div>
-                            </div>
+							<div class="row margin-bottom-15">
+								<div class="col-md-6">
+									<label class="radio-inline">
+										<input type="radio" name="search_type_rdo" value="by_gene_pair">Gene pair
+									</label>
+								</div>
+								<div class="col-md-6">
+									<input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);">
+								</div>
+							</div>
                             
-                            <div class="row margin-bottom-15">
-                                <div class="col-md-6">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="search_type_rdo" value="by_gene_pair">Gene pair
-                                    </label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);">
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="search_type_rdo" value="by_chr_locus">Chromosome locus
-                                    </label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input id="by_chr_locus_txt" class="form-control" title="type &quot;T&quot;" value="2p23" onfocus="clearText(this);" onblur="clearText(this);">
-                                </div>
-                            </div>
+							<div class="row">
+								<div class="col-md-6">
+									<label class="radio-inline">
+										<input type="radio" name="search_type_rdo" value="by_chr_locus">Chromosome locus
+									</label>
+								</div>
+								<div class="col-md-6">
+									<input id="by_chr_locus_txt" class="form-control" title="type &quot;T&quot;" value="2p23" onfocus="clearText(this);" onblur="clearText(this);">
+								</div>
+							</div>
                             
                         </div>
-                        <div class="col-md-4 margin-bottom-30" style="border-right: 1px #dcdcdc dotted;">
-                            <div class="row margin-bottom-15">
-                                <div class="col-md-4">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="search_type_rdo" value="by_disease">Disease
-                                    </label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" value="" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 margin-bottom-30">
-                            <label class="radio-inline">
-                                <input type="radio" name="search_type_rdo" value="all_genes" checked="checked">Show all entries
-                            </label>
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="col-md-1"></div>
-            </div>
-            
-            
+						<div class="col-md-4 margin-bottom-30" style="border-right: 1px #dcdcdc dotted;">
+							<div class="row margin-bottom-15">
+								<div class="col-md-4">
+									<label class="radio-inline">
+										<input type="radio" name="search_type_rdo" value="by_disease">Disease
+									</label>
+								</div>
+								<div class="col-md-8">
+									<input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" value="" >
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 margin-bottom-30">
+							<label class="radio-inline">
+								<input type="radio" name="search_type_rdo" value="all_genes" checked="checked">Show all entries
+							</label>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+
             <div class="row margin-bottom-30">
                 <div class="col-md-1"></div>
                 <div class="col-md-10" style="background-color: #fdfdfd;">
                     
                     <div class="row margin-bottom-30" style="margin-left: 5px; margin-top: 15px;">
-                        <span style="font-size: 30px; font-weight: bold; color: #428bca;">Options</span>
+						<span class="bold-sub-title">Options</span>
                     </div>
                     <div class="row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
                         <div class="col-md-11 col-md-offset-1 margin-bottom-30">
@@ -246,7 +245,7 @@
                 <div class="col-md-10" style="background-color: #fdfdfd;">
                     
                     <div class="row margin-bottom-30" style="margin-left: 5px; margin-top: 15px;">
-                        <span style="font-size: 30px; font-weight: bold; color: #428bca;">Filter</span>
+                        <span class="bold-sub-title">Filters</span>
                     </div>
                     <div class="row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
                             <div class="col-md-11 col-md-offset-1 margin-bottom-30">

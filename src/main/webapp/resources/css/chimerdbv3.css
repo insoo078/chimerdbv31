@@ -237,11 +237,14 @@ text.text-hover {
     font-weight: bold; 
     color: #ffffff;
 }
+
 .mmAtagcss:hover{
     color: #fbb450;
     text-decoration: none;
 }
 
+
+.bold-sub-title{font-size: 30px; font-weight: bold; color: #428bca;}
 
 
 .ui-autocomplete {
@@ -255,4 +258,9 @@ text.text-hover {
  */
 * html .ui-autocomplete {
 	height: 100px;
+}
+
+.rcorner {
+    border-radius: 10px;
+    padding: 20px;
 }
