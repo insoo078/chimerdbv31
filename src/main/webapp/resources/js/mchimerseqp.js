@@ -21,22 +21,8 @@ var ChimerSeq = {
 		this.setDefaultValues();
 	},
 	init_functions: function() {	
-		addAutocompleteField( "#by_gene_txt",		1);
-		addAutocompleteField( "#by_gene_pair_txt",	2);
-		addAutocompleteField( "#by_chr_locus_txt",	3);
-		addAutocompleteField( "#by_disease_txt",	4);
-		
 		this.setSearchPanelSetting();
-		
-		$(".form-control").focus(function() {
-			clearText(this);
-		});
-
-		$("#cancer_type_all").click(function(){
-			this.chimrSeqTcgaState = !this.chimrSeqTcgaState;
-			$("#chimrSeq_1_cancertype_slt > option").prop("selected", this.chimrSeqTcgaState);
-		});
-		
+		this.setOptionPanelSetting();
 	},
 	toggleCancerTypeInOption: function() {
 		$("#chimrSeq_1_cancertype_slt > option").prop("selected", function(){
@@ -45,6 +31,11 @@ var ChimerSeq = {
 		this.chimrSeqCancerTypeState = !this.chimrSeqCancerTypeState;
 	},
 	setSearchPanelSetting: function() {
+		addAutocompleteField( "#by_gene_txt",		1);
+		addAutocompleteField( "#by_gene_pair_txt",	2);
+		addAutocompleteField( "#by_chr_locus_txt",	3);
+		addAutocompleteField( "#by_disease_txt",	4);
+
 		// If user choose one radio button, then other radios are disabled
 		// and active filed is moving their text filed
 		$("input[name='search_type_rdo']").change(function() {
@@ -70,6 +61,52 @@ var ChimerSeq = {
 					$(this).prop("disabled", true);
 				});
 			}
+		});
+		
+		$(".form-control").focus(function() {
+			clearText(this);
+		});
+	},
+	setOptionPanelSetting: function() {
+		$("#chimrSeq_1_tcga_chk").change(function(){
+			var flag = $(this).is(':checked');
+
+			$("div#fusion_prediction_tool_options input[type=checkbox]").each(function(){
+				$(this).prop("checked", flag);
+			});
+			
+			if( flag === false ) {
+				$("#chimrSeq_1_all_chk").prop("checked", false);
+			}
+		});
+		
+		$("#chimrSeq_1_chimr2_chk").change(function(){
+			var flag = $(this).is(':checked');
+			
+			if( flag === false ) {
+				$("#chimrSeq_1_all_chk").prop("checked", false);
+			}
+		});
+		
+		$("#chimrSeq_1_chitars_chk").change(function(){
+			var flag = $(this).is(':checked');
+			
+			if( flag === false ) {
+				$("#chimrSeq_1_all_chk").prop("checked", false);
+			}
+		});
+		
+		$("#chimrSeq_1_all_chk").change(function(){
+			var flag = $(this).is(':checked');
+
+			$("#chimrSeq_1_tcga_chk").trigger('click');
+			$("#chimrSeq_1_chimr2_chk").prop("checked", flag);
+			$("#chimrSeq_1_chitars_chk").prop("checked", flag);
+		});
+		
+		$("#cancer_type_all").click(function(){
+			this.chimrSeqTcgaState = !this.chimrSeqTcgaState;
+			$("#chimrSeq_1_cancertype_slt > option").prop("selected", this.chimrSeqTcgaState);
 		});
 	},
 	setDefaultValues: function() {

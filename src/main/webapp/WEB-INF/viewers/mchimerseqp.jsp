@@ -124,13 +124,13 @@
 							</div>
 							<div class="row margin-bottom-15">
 								<div class="col-md-11 col-md-offset-1">
-									<label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_all_chk" onclick="chimerSeq_all_source_toggle();" >All Sources</label>
+									<label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_all_chk" >All Sources</label>
 								</div>
 							</div>
 
 							<div class="row margin-bottom-15">
 								<div class="col-md-11 col-md-offset-1">
-									<label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_tcga_chk" onclick="chimrSeq_1_tcga_toggle();" checked="checked">TCGA RNA-Seq</label>
+									<label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_tcga_chk">TCGA RNA-Seq</label>
 								</div>
 							</div>
 
@@ -157,7 +157,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6" id="fusion_prediction_tool_options">
 									<div class="row">
 										<span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Fusion prediction tool</span>
 									</div>
@@ -166,7 +166,7 @@
 										<div class="col-md-11 col-md-offset-1">
 											<table>
 												<tr>
-													<td><label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_fusnscan_chk" checked="checked">FusionScan</label></td>
+													<td><label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_fusnscan_chk">FusionScan</label></td>
 													<td><span style="font-size: 13px;">Number of seed reads &#62;&#61;</span></td>
 													<td><input class="form-control" id="chimrSeq_1_num_of_seed_reads" style="width: 70px; height: 25px;" value="2"></td>
 												</tr>
@@ -178,7 +178,7 @@
 										<div class="col-md-11 col-md-offset-1">
 											<table>
 												<tr>
-													<td><label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_tophat_chk" checked="checked">TopHat-Fusion</label></td>
+													<td><label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_tophat_chk">TopHat-Fusion</label></td>
 													<td><span style="font-size: 13px;">Number of spanning pairs &#62;&#61;</span></td>
 													<td><input class="form-control" id="chimrSeq_1_num_of_s_pairs" style="width: 70px; height: 25px;" value="100"></td>
 												</tr>
@@ -190,7 +190,7 @@
 										<div class="col-md-11 col-md-offset-1">
 											<table>
 												<tr>
-													<td><label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_prada_chk" checked="checked">PRADA</label></td>
+													<td><label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_prada_chk">PRADA</label></td>
 													<td><span style="font-size: 13px;">Number of junction reads &#62;&#61;</span></td>
 													<td><input class="form-control" id="chimrSeq_1_num_of_junc_reads" style="width: 70px; height: 25px;" value="2"></td>
 												</tr>
@@ -202,12 +202,12 @@
 
 							<div class="row margin-bottom-15">
 								<div class="col-md-11 col-md-offset-1">
-									<label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_chimr2_chk" checked="checked">ChimerDB 2.0 SRA</label>
+									<label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_chimr2_chk">ChimerDB 2.0 SRA</label>
 								</div>
 							</div>
 							<div class="row margin-bottom-15">
 								<div class="col-md-11 col-md-offset-1">
-									<label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_chitars_chk" checked="checked">ChiTaRs</label>
+									<label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_chitars_chk">ChiTaRs</label>
 								</div>
 							</div>
 
