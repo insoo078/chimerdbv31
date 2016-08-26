@@ -1,7 +1,9 @@
 package org.com.chimerdbv31.chimerseq.services;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.Resource;
 import org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
@@ -76,6 +78,15 @@ public class ChimerSeqService {
 		return list;
 	}
 	
+	public List<String> getAutocompleteInfo(String service, String type, String text) {
+		Map<String, String> paramMap = new LinkedHashMap<String, String>();
+		paramMap.put("service", service);
+		paramMap.put("type", type);
+		paramMap.put("text", text);
+		
+		return this.chimerSeqMapper.getAutocompleteInfo(paramMap);
+	}
+	
 //	private GeneInfoVo addGeneFeatures( GeneInfoVo gene, List<Gff3Vo> gff3Features ) {
 //		TranscriptObj obj = null;
 //		for(Gff3Vo vo : gff3Features ) {
@@ -89,4 +100,8 @@ public class ChimerSeqService {
 //		}
 //		return gene;
 //	}
+
+	public Object getGeneInfo(String service, String type, String text) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
 }

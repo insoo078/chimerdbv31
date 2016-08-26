@@ -40,6 +40,20 @@ public class ChimerSeqController {
 		return result;
 	}
 	
+	@RequestMapping(value="autocomplete",method=RequestMethod.POST)
+	@ResponseBody
+	public String autocomplete(HttpServletRequest request) throws Exception{
+		String service = request.getParameter("service");
+		String type = request.getParameter("type");
+		String text = request.getParameter("text");
+
+		Gson gson = new Gson();
+
+		String json = gson.toJson( this.chimerSeqService.getAutocompleteInfo(service, type, text ) );
+
+		return json;
+	}
+	
 	@RequestMapping(value="getGeneInfo",method=RequestMethod.POST)
 	@ResponseBody
 	public String getGeneInfo(HttpServletRequest request) throws Exception{
@@ -375,52 +389,9 @@ public class ChimerSeqController {
                 
                 result.addObject("output_query_str", outPutQueryStr);
                 // out query ////////////////////////////////////////////////////////////////////////////////////////////
-                
-                
-            
-            
-        
-        
-        
+
         return result;
     }
-//	
-//	@RequestMapping(value = "/interpro", method = RequestMethod.GET)
-//	public String interproscan(Locale locale, Model model) {
-//		
-//		logger.debug("[interpro]");
-//		
-//		return "analysis/genome_analysis";
-//	}
-//	
-//	@RequestMapping(value = "/geneGroupSearch", method = RequestMethod.GET)
-//	public String geneGroupSearch(Locale locale, Model model) {
-//		logger.info("Welcome home! The client locale is {}.", locale);
-//		
-//		return "viewer/geneGroupSearch";
-//	}
-//	
-//
-//	//all data
-//	@RequestMapping(value = "/getPagedGeneGroupSearchDesyncResult", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-//	@ResponseBody
-//	public String getPagedGeneGroupSearchDesyncResult(HttpServletRequest request) throws Exception {
-//		//예제 013783, 015129, 013098
-//		//IPR002944,IPR000175	protein 20개
-//		//IPR012284,IPR012473	ptotein 2개
-//
-//		String iprIds[] = request.getParameterValues("ipr_ids");
-//		String iprFamilies[] = request.getParameterValues("ipr_families");
-//		String iprSubTypes[] = request.getParameterValues("ipr_subtypes");
-//		String radio = request.getParameter("radio");
-//		String perfectMatch = request.getParameter("chkPerfectMatch");
-//		String pagingSize = request.getParameter("pagingSize");
-//		String pagingIndex = request.getParameter("pagingIndex");
-//		String baseSubType = request.getParameter("baseSubType");
-//		String kingdom = Utility.emptyToNull( request.getParameter("kingdom") );
-//		
-//		return this.getComparedGroupGeneSearch(request, iprIds, iprFamilies, iprSubTypes, radio, perfectMatch, pagingSize, pagingIndex, baseSubType, true, kingdom);
-//	}
 	
 		@RequestMapping(value="nextp",method=RequestMethod.POST)
 		@ResponseBody

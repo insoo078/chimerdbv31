@@ -175,4 +175,10 @@
 			WHERE a.no=b.no
 		) a, (SELECT @rownum:=0) b
 	</select>
+	
+	<select id="getAutocompleteInfo" parameterType="java.util.Map" resultType="String">
+		SELECT text FROM I2_AutocompleteTable
+		WHERE service=#{service} AND type=${type}
+		AND MATCH(text) AGAINST('${text}*' IN BOOLEAN MODE)
+	</select>
 </mapper>

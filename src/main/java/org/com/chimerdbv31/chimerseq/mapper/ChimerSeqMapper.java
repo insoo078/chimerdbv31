@@ -1,6 +1,7 @@
 package org.com.chimerdbv31.chimerseq.mapper;
 
 import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
@@ -17,4 +18,5 @@ public interface ChimerSeqMapper {
 	public GeneInfoVo getGeneInfo(@Param("symbol") String symbol);
 	public List<Gff3Vo> getGeneFeatureInfo(@Param("symbol") String symbol);
 	public List<Gff3Vo> getExonElementsWithIndex(@Param("symbol") String symbol);
+	public List<String> getAutocompleteInfo(Map<String, String> map);
 }

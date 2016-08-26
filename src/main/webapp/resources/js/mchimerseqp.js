@@ -5,9 +5,29 @@
 
 
 $(document).ready(function () {
-    check_m_state("mmchimerseqbtn");
-    init_variable_values();
-    $(".chimerkbsearchdiv").equalHeights();
+	check_m_state("mmchimerseqbtn");
+	init_variable_values();
+	$(".chimerkbsearchdiv").equalHeights();
+	
+	$("#by_gene_txt").autocomplete({
+		source: function(request, response) {
+			$.ajax({
+				type: 'post',
+				url: 'autocomplete.cdb',
+				dataType: 'json',
+				data:{service:'ChimerSeq', type:1, text:request.term},
+				success:function(data) {
+					response($.map(data, function(item){
+						return {
+							label: item,
+							value: item
+						}
+					}))
+				}
+			})
+		},
+		minLength:2
+	});
     
     //// Fusion Prediction Tool ///////////////////////////////////////////////////////////////
     $("#chimrSeq_1_fusnscan_chk").bind("click",function(){

@@ -10,12 +10,14 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width">
 
-
 <link type="text/css" rel="stylesheet" href="resources/css/templatemo_main.css"/>
 <link type="text/css" rel="stylesheet" href="resources/css/chimerdbv3.css"/>
 <link type="text/css" rel="stylesheet" href="resources/css/index_main.css"/>
 
-<script type="text/javascript" src="resources/js/jq/jquery-1.11.2.min.js"></script>
+<link rel="stylesheet" href="resources/css/jquery-ui.css">
+
+<script type="text/javascript" src="resources/js/jq/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="resources/js/jq/jquery-ui.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/templatemo_script.js"></script>
 <script type="text/javascript" src="resources/js/jqlib/jQuery.equalHeights.js"></script>
