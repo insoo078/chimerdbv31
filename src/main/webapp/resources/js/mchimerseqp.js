@@ -3,6 +3,12 @@
  * and open the template in the editor.
  */
 
+var ChimerSeq = {
+	name:'ChimerSeq',
+	init: function(){
+		
+	}
+};
 
 $(document).ready(function () {
 	check_m_state("mmchimerseqbtn");
