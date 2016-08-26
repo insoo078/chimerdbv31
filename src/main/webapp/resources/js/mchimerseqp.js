@@ -18,6 +18,7 @@ var ChimerSeq = {
 //		this.chimrSeqCancerTypeState2 = true;
 
 		this.init_functions();
+		this.setDefaultValues();
 	},
 	init_functions: function() {	
 		addAutocompleteField( "#by_gene_txt",		1);
@@ -27,6 +28,10 @@ var ChimerSeq = {
 		
 		this.setSearchPanelSetting();
 		
+		$(".form-control").focus(function() {
+			clearText(this);
+		});
+
 		$("#cancer_type_all").click(function(){
 			this.chimrSeqTcgaState = !this.chimrSeqTcgaState;
 			$("#chimrSeq_1_cancertype_slt > option").prop("selected", this.chimrSeqTcgaState);
@@ -40,12 +45,37 @@ var ChimerSeq = {
 		this.chimrSeqCancerTypeState = !this.chimrSeqCancerTypeState;
 	},
 	setSearchPanelSetting: function() {
+		// If user choose one radio button, then other radios are disabled
+		// and active filed is moving their text filed
 		$("input[name='search_type_rdo']").change(function() {
+			var value = $(this).val();
 			var inputs = $("#search-Panel").find("input:text");
 			inputs.each(function(){
-				console.log()
-			})
+				if( this.id === (value+"_txt") ){
+					$(this).prop('disabled', false);
+//					$("#" + (value+"_txt") ).focus();
+				}else{
+					$(this).prop('disabled', true);
+//					$(this).val('');
+				}
+			});
+
+			// When user click 'by_gene' option, 5' or 3' checkboxes are changing to clickable else un-clickable
+			if( value==='by_gene' ) {
+				$("div#search-Panel input[type=checkbox]").each(function(){
+					$(this).prop("disabled", false);
+				});
+			}else {
+				$("div#search-Panel input[type=checkbox]").each(function(){
+					$(this).prop("disabled", true);
+				});
+			}
 		});
+	},
+	setDefaultValues: function() {
+		// The default value of Search panel is 'by_gene' and '5''
+		$("#search_type_rdo1").prop("checked", true).change();
+		$("#by_gene_chk_5").prop("checked", true);
 	}
 };
 
@@ -62,10 +92,10 @@ function addAutocompleteField( selector, type ) {
 						return {
 							label: item,
 							value: item
-						}
-					}))
+						};
+					}));
 				}
-			})
+			});
 		},
 		minLength:2
 	});

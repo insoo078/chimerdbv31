@@ -140,7 +140,7 @@
     </select>
 	
 	<select id="getGeneInfo" parameterType="java.lang.String" resultMap="GeneInfoVoMap">
-		SELECT * FROM Gene_Info a LEFT JOIN GRCh37_GFF b
+		SELECT * FROM I1_Gene_Info a LEFT JOIN I1_GRCh37_GFF b
 		ON b.Gene_ID=a.gene_id
 		AND b.no BETWEEN a.gff_start AND a.gff_end
 		AND b.type IN ('gene', 'exon', 'mRNA', 'transcript')
@@ -150,7 +150,7 @@
 	
 	<select id="getGeneFeatureInfo" parameterType="java.lang.String" resultMap="Gff3VoMap">
 		SELECT * FROM GRCH37_GFF a, (
-			SELECT gene_id, gff_start, gff_end FROM Gene_Info a
+			SELECT gene_id, gff_start, gff_end FROM I1_Gene_Info a
 			WHERE symbol=#{symbol}
 		) b
 		WHERE a.Gene_ID=b.gene_id
@@ -164,8 +164,8 @@
 			@rownum:=@rownum+1 AS elementIndex
 			, a.*
 		FROM (
-			SELECT a.* FROM GRCh37_GFF a, (
-				SELECT max(no) no FROM Gene_Info a LEFT JOIN GRCh37_GFF b
+			SELECT a.* FROM I1_GRCh37_GFF a, (
+				SELECT max(no) no FROM I1_Gene_Info a LEFT JOIN I1_GRCh37_GFF b
 						ON b.Gene_ID=a.gene_id
 						AND b.no BETWEEN a.gff_start AND a.gff_end
 						AND b.type IN ('exon')
@@ -183,7 +183,7 @@
 	</select>
 	
 	<select id="getTcgaCancerTypes" resultType="java.lang.String">
-		SELECT DISTINCT CancerType FROM ChimerSeq_ver6
+		SELECT DISTINCT CancerType FROM ChimerSeq_ver7
 		ORDER BY CancerType
 	</select>
 </mapper>
