@@ -55,6 +55,8 @@ function getGeneInformation(genes) {
 		data : {"genes":data},
 		dataType: "json",
 		success: function(jData) {
+			$("#chimer-seq-viewer").empty();
+
 			var config = {
 				organism: "human",
 				orientation: "horizontal",

@@ -37,8 +37,7 @@
 </style>
 <script type="text/javascript" src="resources/js/jq/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
-<!--<script type="text/javascript" src="resources/js/dt/d3.min.js"></script>-->
-<script type="text/javascript" src="resources/js/d3.min.js"></script>
+<script type="text/javascript" src="resources/js/dt/d3.min.js"></script>
 
 <script type="text/javascript" src="resources/js/jqdt/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="resources/js/jqdt/dataTables.tableTools.min.js"></script>
@@ -135,7 +134,7 @@
                                 <span style="font-size: 20px; font-weight: bold;">Fusion structure</span>
                             </div>
 							<div class="panel-body" style="text-align: left;">
-								<div id='chimer-seq-viewer' style='background:green;border:1px solid gray;'></div>
+								<div id='chimer-seq-viewer' style='background:none;border:1px solid gray;'></div>
 							</div>
 						</div>
 					</div>

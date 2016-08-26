@@ -2299,7 +2299,7 @@ ChimeraDbV3Viewer.prototype.initDrawGeneStructure = function() {
 	for(i=0; i<chrs.length; i++) {
 		var gene = genes[chrs[i]];
 
-		gene_length += gene.end - gene.start + 1;
+		gene_length += gene.geneFeature.end - gene.geneFeature.start + 1;
 	}
 	
 	for (m = 0; m < taxids.length; m++) {
@@ -2311,7 +2311,7 @@ ChimeraDbV3Viewer.prototype.initDrawGeneStructure = function() {
 			chrIndex = chrModel.chrIndex;
 
 			gene = genes[chromosome];
-			length_ratio = (gene.end-gene.start + 1) / gene_length;
+			length_ratio = (gene.geneFeature.end-gene.geneFeature.start + 1) / gene_length;
 	
 			ideo.drawGeneStructure( chrModel, gene, length_ratio );
 		}
@@ -2352,7 +2352,7 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 	.attr('x2', end_x)
 	.attr("y2", BASE_Y);
 
-	var tmp = [{"point":gene.start, "x":start_x, "direction":"5'"}, {"point":gene.end, "x":end_x, "direction":"3'"}];
+	var tmp = [{"point":gene.geneFeature.start, "x":start_x, "direction":"5'"}, {"point":gene.geneFeature.end, "x":end_x, "direction":"3'"}];
 
 	gene_backbone.append("line")
 	.attr("style", "stroke:#aaa;stroke-width:0.5;")
@@ -2405,70 +2405,68 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 
 		var exon_cnt = 0;
 		for(i=0; i<rnas.length; i++) {
-		var exons = rnas[i].exons;
-		exon_cnt += exons.length;
-	}
-	
-	var unit_len_nt =  (backbone_width - 2*MARGIN) / (exon_cnt * 2 + 1);
-	
-	if( rnas.length > 1 ) {
-		var unique_exon_set = {};
-		for(i=0; i<rnas.length; i++) {
 			var exons = rnas[i].exons;
-			for(j=0; j<exons.length; j++) {
-				var key = exons[j].start+"-"+exons[j].end;
-				if( !unique_exon_set.hasOwnProperty() ){
-					unique_exon_set[key] = exons[j];
+			exon_cnt += exons.length;
+		}
+
+		var unit_len_nt =  (backbone_width - 2*MARGIN) / (exon_cnt * 2 + 1);
+
+		if( rnas.length > 1 ) {
+			var unique_exon_set = {};
+			for(i=0; i<rnas.length; i++) {
+				var exons = rnas[i].exons;
+				for(j=0; j<exons.length; j++) {
+					var key = exons[j].start+"-"+exons[j].end;
+					if( !unique_exon_set.hasOwnProperty() ){
+						unique_exon_set[key] = exons[j];
+					}
 				}
 			}
+
+			unique_exon_set = Object.keys(unique_exon_set).map(function(k) { return unique_exon_set[k]; });
+
+			unit_len_nt =  (backbone_width - 2*MARGIN) / (unique_exon_set.length * 2 + 1);
+
+			var previous = start_x + unit_len_nt;
+			for(j=0; j<unique_exon_set.length; j++) {
+				var x1 = previous;
+				var y1 = BASE_Y - 10;
+				var width = unit_len_nt;
+
+				gene_backbone.append("rect")
+				.style("fill", "#ff3ee8")
+				.attr("rx", 2)
+				.attr("ry", 2)
+				.attr("x", x1)
+				.attr("y", y1)
+				.attr("width", width)
+				.attr("height", 20);
+
+				previous = (x1 + width) + unit_len_nt;
+			}
+		}else {
+			var rna = rnas[0];
+
+			var exons = rna.features;
+
+			var previous = start_x + unit_len_nt;
+			for(j=0; j<exons.length; j++) {
+				var x1 = previous;
+				var y1 = BASE_Y - 10;
+				var width = unit_len_nt;
+
+				gene_backbone.append("rect")
+				.style("fill", "#ff3ee8")
+				.attr("rx", 2)
+				.attr("ry", 2)
+				.attr("x", x1)
+				.attr("y", y1)
+				.attr("width", width)
+				.attr("height", 20);
+
+				previous = (x1 + width) + unit_len_nt;
+			}
 		}
-
-		unique_exon_set = Object.keys(unique_exon_set).map(function(k) { return unique_exon_set[k]; });
-
-		unit_len_nt =  (backbone_width - 2*MARGIN) / (unique_exon_set.length * 2 + 1);
-
-		var previous = start_x + unit_len_nt;
-		for(j=0; j<unique_exon_set.length; j++) {
-			var x1 = previous;
-			var y1 = BASE_Y - 10;
-			var width = unit_len_nt;
-
-			gene_backbone.append("rect")
-			.style("fill", "#ff3ee8")
-			.attr("rx", 2)
-			.attr("ry", 2)
-			.attr("x", x1)
-			.attr("y", y1)
-			.attr("width", width)
-			.attr("height", 20);
-	
-			previous = (x1 + width) + unit_len_nt;
-		}
-		console.log( (width * unique_exon_set.length) + (width * (unique_exon_set.length+1)) );
-		console.log( (backbone_width - 2*MARGIN) );
-	}else {
-		var rna = rnas[0];
-		
-		var exons = rna.features;
-		
-		var previous = start_x + unit_len_nt;
-		for(j=0; j<exons.length; j++) {
-			var x1 = previous;
-			var y1 = BASE_Y - 10;
-			var width = unit_len_nt;
-			
-			gene_backbone.append("rect")
-			.style("fill", "#ff3ee8")
-			.attr("rx", 2)
-			.attr("ry", 2)
-			.attr("x", x1)
-			.attr("y", y1)
-			.attr("width", width)
-			.attr("height", 20);
-			
-			previous = (x1 + width) + unit_len_nt;
-		}
-	}
 	}else if( 1 === 2) {
 		// exon의 길이를 비례대로 그려주는 부분
 		var rnas = gene.transcripts;
@@ -2496,8 +2494,8 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 			
 			var previous = start_x;
 			for(j=0; j<exons.length; j++) {
-				var start = exons[j].start - gene.start;
-				var end = exons[j].end - gene.start;
+				var start = exons[j].start - gene.geneFeature.start;
+				var end = exons[j].end - gene.geneFeature.start;
 				
 				var x1 = (INTRON_BASES * unit_len_nt) + previous;
 				var y1 = BASE_Y - 10;
@@ -2520,7 +2518,7 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 		// exon, intron을 실제 길이 비율대로 그려주는 부분
 		var rnas = gene.transcripts;
 		
-		var unit_len_nt = (backbone_width - 2*MARGIN) / (gene.end-gene.start+1);
+		var unit_len_nt = (backbone_width - 2*MARGIN) / (gene.geneFeature.end-gene.geneFeature.start+1);
 		
 		for(i=0; i<rnas.length; i++) {
 			var rna = rnas[i];
@@ -2528,8 +2526,8 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 			var exons = rna.exons;
 			
 			for(j=0; j<exons.length; j++) {
-				var start = exons[j].start - gene.start;
-				var end = exons[j].end - gene.start;
+				var start = exons[j].start - gene.geneFeature.start;
+				var end = exons[j].end - gene.geneFeature.start;
 				
 				var x1 = start_x + (start*unit_len_nt);
 				var y1 = BASE_Y - 10;
@@ -2548,8 +2546,8 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 		}
 	}
 
-	var startPx1 = ideo.convertBpToPx(chrModel, gene.start);
-	var stopPx1 = ideo.convertBpToPx(chrModel, gene.end);
+	var startPx1 = ideo.convertBpToPx(chrModel, gene.geneFeature.start);
+	var stopPx1 = ideo.convertBpToPx(chrModel, gene.geneFeature.end);
 
 	var aa = d3.selectAll(".chromosome").each(function(d, i) {
 		if( this.id.startsWith("chr" + gene.chromosome) ){
