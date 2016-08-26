@@ -58,10 +58,10 @@
 									</label>
 								</div>
 								<div class="col-md-6">
-									<input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);">
+									<input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);">
 								</div>
 							</div>
-                            
+
 							<div class="row margin-bottom-15">
 								<div class="col-md-6">
 									<label class="radio-inline">
@@ -69,7 +69,7 @@
 									</label>
 								</div>
 								<div class="col-md-6">
-									<input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);">
+									<input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);">
 								</div>
 							</div>
                             
@@ -99,7 +99,7 @@
 						</div>
 						<div class="col-md-3 margin-bottom-30">
 							<label class="radio-inline">
-								<input type="radio" name="search_type_rdo" value="all_genes" checked="checked">Show all entries
+								<input type="radio" name="search_type_rdo" value="all_genes">Show all entries
 							</label>
 						</div>
 					</div>
@@ -140,7 +140,7 @@
 									<div class="row">
 										<div class="col-md-11 col-md-offset-1">
 											<select class="form-control" id="chimrSeq_1_cancertype_slt" size="6" style="width: 190px; margin-top: 10px;" multiple>
-												<option value="ALL" onclick="chimrSeq_1_cancer_type_toggle2();">ALL</option>
+												<option id="cancer_type_all">All Cancer types</option>
 												<c:if test="${not empty cancer_type}">
 													<c:forEach var="type" items="${cancer_type}">
 														<option value="${type}">${type}</option>
