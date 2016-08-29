@@ -420,6 +420,7 @@ public class ChimerSeqController {
 		String start = request.getParameter("start") ;
 		String length = request.getParameter("length");
 		String sortKey = request.getParameter("order[0][column]");
+		String searchKeyword = request.getParameter("search[value]");
 		
 		System.out.println( "test =====> " + start + " " + length + " " + sortKey );
 //		sParam.setStrtn( Integer.parseInt( request.getParameter("start") ) );
