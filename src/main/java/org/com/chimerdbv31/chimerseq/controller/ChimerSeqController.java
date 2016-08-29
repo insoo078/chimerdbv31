@@ -417,6 +417,11 @@ public class ChimerSeqController {
 		com.google.gson.JsonObject obj = new com.google.gson.JsonObject();
 		
 		ChimerSeqQueryForm model = gson.fromJson(request.getParameter("formData"), ChimerSeqQueryForm.class);
+		String start = request.getParameter("start") ;
+		String length = request.getParameter("length");
+		String sortKey = request.getParameter("order[0][column]");
+		
+		System.out.println( "test =====> " + start + " " + length + " " + sortKey );
 //		sParam.setStrtn( Integer.parseInt( request.getParameter("start") ) );
 //		sParam.setLntn( Integer.parseInt( request.getParameter("length") ) );
 //		String sortedKey = request.getParameter("order[0][column]");
@@ -432,8 +437,8 @@ public class ChimerSeqController {
 //
 //
 
-		int totalNum = 0;
-		totalNum = this.chimerSeqService.getChimerSeqTotalNumber(model);
+//		int totalNum = 0;
+//		totalNum = this.chimerSeqService.getChimerSeqTotalNumber(model);
 //		sParam.setTotaln(totalNum);
 //		List<ChimerSeqVo> mainList = this.chimerSeqService.getChimerSeqResult(sParam);
 //		jsonArray = JSONArray.fromObject(mainList);
