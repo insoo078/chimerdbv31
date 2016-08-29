@@ -68,12 +68,31 @@
 				AND Disease LIKE CONCAT(CONCAT('%', #{byDiseaseTxt}), '%')
 			</when>
 		</choose>
-		<when test="cancerTypes.size != 0">
-			AND Source IN
-			<foreach collection="cancerTypes" item="item" index="index" separator="," open="(" close=")">
-				#{item}
-			</foreach>
-		</when>
+		<choose>
+			<when test="cancerTypes.size != 0">
+				AND Cancertype IN
+				<foreach collection="cancerTypes" item="cancer" index="index" separator="," open="(" close=")">
+					#{cancer}
+				</foreach>
+			</when>
+		</choose>
+		<choose>
+			<when test="sources.size != 0 ">
+				AND Source IN
+				<foreach collection="sources" item="source" index="index" separator="," open="(" close=")">
+					#{source}
+				</foreach>
+			</when>
+		</choose>
+		<if test="noOfSeedReads != null and noOfSeedReads >= 0">
+			AND Seed_reads_num >= ${noOfSeedReads}
+		</if>
+		<if test="noOfSpaningPairs != null and noOfSpaningPairs >= 0">
+			AND Spanning_pairs_num >= ${noOfSpaningPairs}
+		</if>
+		<if test="noOfJunctionReads != null and noOfJunctionReads >= 0">
+			AND Junction_reads_num >= ${noOfJunctionReads}
+		</if>
 <!--		<if test="queryForWebSource != null and queryForWebSource != ''"> AND webSource in (${queryForWebSource}) </if>
 		<if test="queryForCancerType != null and queryForCancerType != ''"> and Cancertype in (${queryForCancerType}) </if>
 		<if test="queryForSource != null and queryForSource != ''"> and (${queryForSource}) </if>
