@@ -11,12 +11,14 @@
 <meta name="viewport" content="width=device-width">
 
 <link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css"/>
+<link type="text/css" rel="stylesheet" href="resources/css/jquery-ui.min.css"/>
 <link type="text/css" rel="stylesheet" href="resources/css/templatemo_main.css"/>
 
 <link type="text/css" rel="stylesheet" href="resources/css/chimerdbv3.css"/>
 <link type="text/css" rel="stylesheet" href="resources/css/index_main.css"/>
 
 <script type="text/javascript" src="resources/js/jq/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="resources/js/jqui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/templatemo_script.js"></script>
 <script type="text/javascript" src="resources/js/jqlib/jQuery.equalHeights.js"></script>
@@ -41,56 +43,65 @@
                     <div class="row margin-bottom-30" style="margin-left: 5px; margin-top: 15px;">
                         <span style="font-size: 30px; font-weight: bold; color: #428bca;">Search</span>
                     </div>
-                    <div class="chimerkbsearchdiv row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
+                    <div class="row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
                         
-                        <div class="col-md-4 col-md-offset-1 margin-bottom-30" style="border-right: 1px #dcdcdc dotted;">
+                        
+                        <div class="chimerkbsearchdiv col-md-11 col-md-offset-1 margin-bottom-30">
                             
-                            <div class="row margin-bottom-15">
-                                <div class="col-md-6">
-                                    <label class="radio-inline" style="margin-right: 20px;">
-                                        <input type="radio" name="search_type_rdo" id="search_type_rdo1" value="by_gene" >Gene
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" id="by_gene_chk_5" value="5" >5'
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" id="by_gene_chk_3" value="3" >3'
-                                    </label>
+                                <div class="col-md-4" style="border-right: 2px #999999 dotted;">
+
+                                    <div class="row margin-bottom-15">
+                                        <div class="col-md-7">
+                                            <label class="radio-inline" style="margin-right: 20px;">
+                                                <input type="radio" name="search_type_rdo" id="search_type_rdo1" value="by_gene" >Gene
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" id="by_gene_chk_5" value="5" >5'
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" id="by_gene_chk_3" value="3" >3'
+                                            </label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="search_type_rdo" value="by_gene_pair">Gene pair
+                                            </label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);">
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <div class="col-md-6">
-                                    <input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);">
+                                <div class="col-md-4" style="border-right: 2px #999999 dotted;">
+                                    <div class="row margin-bottom-15">
+                                        <div class="col-md-4">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="search_type_rdo" value="by_disease">Disease
+                                            </label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;" value="" >
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4" style="text-align: center;">
                                     <label class="radio-inline">
-                                        <input type="radio" name="search_type_rdo" value="by_gene_pair">Gene pair
+                                        <input type="radio" name="search_type_rdo" value="all_genes" checked="checked">Show all entries
                                     </label>
                                 </div>
-                                <div class="col-md-6">
-                                    <input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);">
-                                </div>
-                            </div>
                             
                         </div>
-                        <div class="col-md-4 margin-bottom-30" style="border-right: 1px #dcdcdc dotted;">
-                            <div class="row margin-bottom-15">
-                                <div class="col-md-4">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="search_type_rdo" value="by_disease">Disease
-                                    </label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" value="" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 margin-bottom-30">
-                            <label class="radio-inline">
-                                <input type="radio" name="search_type_rdo" value="all_genes" checked="checked">Show all entries
-                            </label>
-                        </div>
+                        
+                        
+                        
+                        
                     </div>
                     
                 </div>
@@ -252,7 +263,7 @@
     
     <form id="resultmain_form" method="POST" action="msrstofchimerkb.cdb">
         
-        <input id="key_activated_tab" type="hidden" name="key_activated_tab" /> <!-- chimerKB, chimerSeq, chimerPub -->
+        
         <input id="key_a_search_type" type="hidden" name="key_a_search_type" />
         <input id="key_data_for_search_type" type="hidden" name="key_data_for_search_type" />
         
@@ -262,15 +273,6 @@
         <input id="key_kb_selt_the_breakpoint" type="hidden" name="key_kb_selt_the_breakpoint" />
         <input id="key_kb_selt_the_validtn_mtd" type="hidden" name="key_kb_selt_the_validtn_mtd" />
         
-        <input id="key_seq_selt_the_source" type="hidden" name="key_seq_selt_the_source" />
-        <input id="key_seq_cancer_type" type="hidden" name="key_seq_cancer_type" />
-        <input id="key_seq_val_of_number" type="hidden" name="key_seq_val_of_number" />
-        
-        <input id="key_seq_num_of_seed_reads" type="hidden" name="key_seq_num_of_seed_reads" />
-        <input id="key_seq_num_of_s_pairs" type="hidden" name="key_seq_num_of_s_pairs" />
-        <input id="key_seq_num_of_junc_reads" type="hidden" name="key_seq_num_of_junc_reads" />
-        
-
         <input id="key_flt_by_func" type="hidden" name="key_flt_by_func" />
         <input id="key_flt_by_fusn_type" type="hidden" name="key_flt_by_fusn_type" />
         <input id="key_flt_by_supted_info" type="hidden" name="key_flt_by_supted_info" />

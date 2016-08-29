@@ -16,6 +16,7 @@ public class ParamVo {
     private String dataForSearchType;
     private boolean gene5;
     private boolean gene3;
+    private boolean gene53;
     
     private String queryForSearch;
     
@@ -51,6 +52,7 @@ public class ParamVo {
         if(initValForBoolean){
             this.gene5 = false;
             this.gene3 = false;
+            this.gene53 = false;
         }
     }
 
@@ -94,6 +96,15 @@ public class ParamVo {
         this.gene3 = gene3;
     }
 
+    public boolean isGene53() {
+        return gene53;
+    }
+
+    public void setGene53(boolean gene53) {
+        this.gene53 = gene53;
+    }
+
+    
     public String getQueryForSearch() {
         return queryForSearch;
     }

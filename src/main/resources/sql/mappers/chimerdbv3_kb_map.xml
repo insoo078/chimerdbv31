@@ -20,8 +20,8 @@
         select distinct
           ChimerDB_Type, Source, webSource
         , Fusion_pair
-        , if( instr(5Gene_Junction, "NA") > -1, substring_index(5Gene_Junction,":",-1), 5Gene_Junction ) as gene5Junc
-        , if( instr(3Gene_Junction, "NA") > -1, substring_index(3Gene_Junction,":",-1), 3Gene_Junction ) as gene3Junc
+        , if( instr(5Gene_Junction, "NA") > -1, if(  substring_index(5Gene_Junction,":",-1) = "NA", "", substring_index(5Gene_Junction,":",-1) )  , 5Gene_Junction ) as gene5Junc 
+        , if( instr(3Gene_Junction, "NA") > -1, if(  substring_index(3Gene_Junction,":",-1) = "NA", "", substring_index(3Gene_Junction,":",-1) ) , 3Gene_Junction ) as gene3Junc
         , H_gene
         , if(H_chr = "NA","",H_chr) as H_chr
         , H_position
@@ -30,7 +30,9 @@
         , if(T_chr = "NA","",T_chr) as T_chr
         , T_position
         , if(T_strand = "NA","",T_strand) as T_strand
-        , Genomic_breakpoint, Exon_breakpoint, Breakpoint_Type, Genome_Build_Version
+        , Genomic_breakpoint, Exon_breakpoint
+        , if(Breakpoint_Type = "NA", "", Breakpoint_Type) as Breakpoint_Type
+        , Genome_Build_Version
         , H_tanscript, H_exon, T_tanscript, T_exon
         , if(PMID = "NA","",PMID) as PMID
         , if(Disease = "NA","",Disease) as Disease
@@ -50,7 +52,7 @@
                     <when test="gene3">
                         and T_gene = "${dataForSearchType}" 
                     </when>
-                    <when test="gene5 and gene3">
+                    <when test="gene53">
                         and H_gene = "${dataForSearchType}" or T_gene = "${dataForSearchType}" 
                     </when>
                 </choose>

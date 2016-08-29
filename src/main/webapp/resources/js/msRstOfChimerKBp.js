@@ -9,9 +9,9 @@ $(document).ready(function () {
     var mainTable = null;
     
     mainTable =  mainTable = $("#chimerKbTbl").DataTable({
-        "dom":"T<'clear'>frtilp",
+        "dom":"Tfrt<'row'<'col-md-2'l><'col-md-5'i><'col-md-5'p>>",
          "scrollX":true,
-         "tableTools":{"sSwfPath": "./swf/copy_csv_xls_pdf.swf"},
+         "tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
          "iDisplayLength": 25
     });
     
@@ -59,7 +59,7 @@ function showDesc(fuspair, gene5junc, gene3junc, barcodeid, source){
                   x += window.screenLeft;
               }
               
-              var mypopup = window.open("popup/description.html", "mypopup", "top="+y+", left="+x+", width=200, height=200, scrollbars=no, menubar=no, status=no, toolbar=no");
+              var mypopup = window.open("viewers/popup/genedesc.html", "mypopup", "top="+y+", left="+x+", width=200, height=200, scrollbars=no, menubar=no, status=no, toolbar=no");
               mypopup.pdata = jData;
               if(window.focus){mypopup.focus()}
 

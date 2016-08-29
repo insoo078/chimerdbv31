@@ -34,6 +34,13 @@
     .rslt_tbl_row{
         font-size: 12px;
     }
+    
+    .dataTables_length{
+        margin-top: 10px;
+    }
+    .dataTables_info{
+        text-align: center;
+    }
 </style>
 <script type="text/javascript" src="resources/js/jq/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="resources/js/js/bootstrap.min.js"></script>

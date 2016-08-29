@@ -40,67 +40,75 @@
                     <div class="row margin-bottom-30" style="margin-left: 5px; margin-top: 15px;">
                         <span style="font-size: 30px; font-weight: bold; color: #428bca;">Search</span>
                     </div>
-                    <div class="chimerkbsearchdiv row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
+                    <div class="row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
                         
-                        <div class="col-md-4 col-md-offset-1 margin-bottom-30" style="border-right: 1px #dcdcdc dotted;">
+                        <div class="chimerkbsearchdiv col-md-11 col-md-offset-1 margin-bottom-30">
                             
-                            <div class="row margin-bottom-15">
-                                <div class="col-md-6">
-                                    <label class="radio-inline" style="margin-right: 20px;">
-                                        <input type="radio" name="search_type_rdo" id="search_type_rdo1" value="by_gene" >Gene
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" id="by_gene_chk_5" value="5" >5'
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" id="by_gene_chk_3" value="3" >3'
-                                    </label>
+                                <div class="col-md-4" style="border-right: 2px #999999 dotted;">
+
+                                    <div class="row margin-bottom-15">
+                                        <div class="col-md-7">
+                                            <label class="radio-inline" style="margin-right: 20px;">
+                                                <input type="radio" name="search_type_rdo" id="search_type_rdo1" value="by_gene" >Gene
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" id="by_gene_chk_5" value="5" >5'
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" id="by_gene_chk_3" value="3" >3'
+                                            </label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);">
+                                        </div>
+                                    </div>
+
+                                    <div class="row margin-bottom-15">
+                                        <div class="col-md-6">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="search_type_rdo" value="by_gene_pair">Gene pair
+                                            </label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="search_type_rdo" value="by_chr_locus">Chromosome locus
+                                            </label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input id="by_chr_locus_txt" class="form-control" title="type &quot;T&quot;" value="2p23" onfocus="clearText(this);" onblur="clearText(this);">
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <div class="col-md-6">
-                                    <input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);">
-                                </div>
-                            </div>
                             
-                            <div class="row margin-bottom-15">
-                                <div class="col-md-6">
+                                <div class="col-md-4" style="border-right: 2px #999999 dotted;">
+                                    <div class="row margin-bottom-15">
+                                        <div class="col-md-4">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="search_type_rdo" value="by_disease">Disease
+                                            </label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;" value="" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="text-align: center;">
                                     <label class="radio-inline">
-                                        <input type="radio" name="search_type_rdo" value="by_gene_pair">Gene pair
+                                        <input type="radio" name="search_type_rdo" value="all_genes" checked="checked">Show all entries
                                     </label>
                                 </div>
-                                <div class="col-md-6">
-                                    <input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);">
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="search_type_rdo" value="by_chr_locus">Chromosome locus
-                                    </label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input id="by_chr_locus_txt" class="form-control" title="type &quot;T&quot;" value="2p23" onfocus="clearText(this);" onblur="clearText(this);">
-                                </div>
-                            </div>
                             
                         </div>
-                        <div class="col-md-4 margin-bottom-30" style="border-right: 1px #dcdcdc dotted;">
-                            <div class="row margin-bottom-15">
-                                <div class="col-md-4">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="search_type_rdo" value="by_disease">Disease
-                                    </label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" value="" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 margin-bottom-30">
-                            <label class="radio-inline">
-                                <input type="radio" name="search_type_rdo" value="all_genes" checked="checked">Show all entries
-                            </label>
-                        </div>
+                        
+                        
+                        
                     </div>
                     
                 </div>
