@@ -432,7 +432,6 @@ public class ChimerSeqController {
 //
 //
 
-gson.
 		int totalNum = 0;
 		totalNum = this.chimerSeqService.getChimerSeqTotalNumber(model);
 //		sParam.setTotaln(totalNum);
