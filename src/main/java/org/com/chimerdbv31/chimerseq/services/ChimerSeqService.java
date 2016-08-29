@@ -48,15 +48,25 @@ public class ChimerSeqService {
 		return result;
 	}
 
-    public int getChimerSeqTotalNumber(ParamVo param) {
-        int result = 0;
-        try {
-            result = this.chimerSeqMapper.getChimerSeqTotalNumber(param);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return result;
-    }
+	public int getChimerSeqTotalNumber(ChimerSeqQueryForm param) {
+		int result = 0;
+		try {
+			result = this.chimerSeqMapper.getChimerSeqTotalNumber(param);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
+	
+//    public int getChimerSeqTotalNumber(ParamVo param) {
+//        int result = 0;
+//        try {
+//            result = this.chimerSeqMapper.getChimerSeqTotalNumber(param);
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return result;
+//    }
 
     public List<ChimerSeqVo> getResult(ParamVo param) {
         List<ChimerSeqVo> result = null;

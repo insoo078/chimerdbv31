@@ -141,7 +141,7 @@
 		<if test="sortedKeyword != null"> ORDER BY ${sortedKeyword} ${sortType} </if>-->
 <!--            limit ${strtn},${lntn}-->
     </select>
-    <select id="getChimerSeqTotalNumber" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="int">
+    <select id="getChimerSeqTotalNumber" parameterType="org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm" resultType="int">
         SELECT DISTINCT COUNT( * ) AS allNum
 		FROM ChimerDB3.ChimerSeq_ver7
 		WHERE 1=1

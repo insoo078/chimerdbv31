@@ -14,7 +14,8 @@ import org.springframework.stereotype.Repository;
 public interface ChimerSeqMapper {
 //    public List<ChimerSeqVo> getChimerSeqResult(ParamVo param);
 	public List<ChimerSeqVo> getChimerSeqResult(ChimerSeqQueryForm param);
-    public int getChimerSeqTotalNumber(ParamVo param);
+//    public int getChimerSeqTotalNumber(ParamVo param);
+	public int getChimerSeqTotalNumber(ChimerSeqQueryForm param);
     public List<ChimerSeqVo> getResult(ParamVo param);
     public List<ChimerSeqVo> getResultTest(ParamVo param);
 	public GeneInfoVo getGeneInfo(@Param("symbol") String symbol);

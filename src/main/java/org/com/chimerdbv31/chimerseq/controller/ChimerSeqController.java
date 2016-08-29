@@ -414,6 +414,8 @@ public class ChimerSeqController {
 	public String getTheRowLeft( HttpServletRequest request) throws RuntimeException{
 		Gson gson = new Gson();
 		
+		com.google.gson.JsonObject obj = new com.google.gson.JsonObject();
+		
 		ChimerSeqQueryForm model = gson.fromJson(request.getParameter("formData"), ChimerSeqQueryForm.class);
 //		sParam.setStrtn( Integer.parseInt( request.getParameter("start") ) );
 //		sParam.setLntn( Integer.parseInt( request.getParameter("length") ) );
@@ -429,8 +431,10 @@ public class ChimerSeqController {
 //		JSONArray jsonArray = null;
 //
 //
-//		int totalNum = 0;
-//		totalNum = this.chimerSeqService.getChimerSeqTotalNumber(sParam);
+
+gson.
+		int totalNum = 0;
+		totalNum = this.chimerSeqService.getChimerSeqTotalNumber(model);
 //		sParam.setTotaln(totalNum);
 //		List<ChimerSeqVo> mainList = this.chimerSeqService.getChimerSeqResult(sParam);
 //		jsonArray = JSONArray.fromObject(mainList);
