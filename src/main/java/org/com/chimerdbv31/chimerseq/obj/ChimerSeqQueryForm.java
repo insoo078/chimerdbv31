@@ -43,6 +43,14 @@ public class ChimerSeqQueryForm {
 	private String chkChimerPubSupport;
 	
 	private List<String> cancerTypes;
+	
+	
+	
+	
+	private int start;
+	private int length;
+	private int sortKey;
+	private String searchKeyword;
 //	private List<String> sources;
 	
 	public void revalidateData() {
@@ -289,5 +297,36 @@ public class ChimerSeqQueryForm {
 	public void setChkPrada(String chkPrada) {
 		this.chkPrada = chkPrada;
 	}
-	
+
+	public int getStart() {
+		return start;
+	}
+
+	public void setStart(int start) {
+		this.start = start;
+	}
+
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	public int getSortKey() {
+		return sortKey;
+	}
+
+	public void setSortKey(int sortKey) {
+		this.sortKey = sortKey;
+	}
+
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
 }

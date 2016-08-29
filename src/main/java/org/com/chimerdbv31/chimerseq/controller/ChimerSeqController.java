@@ -417,20 +417,16 @@ public class ChimerSeqController {
 		com.google.gson.JsonObject obj = new com.google.gson.JsonObject();
 		
 		ChimerSeqQueryForm model = gson.fromJson(request.getParameter("formData"), ChimerSeqQueryForm.class);
-		String start = request.getParameter("start") ;
-		String length = request.getParameter("length");
-		String sortKey = request.getParameter("order[0][column]");
 		String searchKeyword = request.getParameter("search[value]");
-		
-		System.out.println( "test =====> " + start + " " + length + " " + sortKey );
-//		sParam.setStrtn( Integer.parseInt( request.getParameter("start") ) );
-//		sParam.setLntn( Integer.parseInt( request.getParameter("length") ) );
-//		String sortedKey = request.getParameter("order[0][column]");
-//		if(sortedKey.equals("0")){
-//		 sortedKey = "1";
-//		}
+	
+		model.setStart(Integer.parseInt( request.getParameter("start") ) );
+		model.setLength(Integer.parseInt( request.getParameter("length") ) );
+		String sortedKey = request.getParameter("order[0][column]");
+		if(sortedKey.equals("0")){
+			sortedKey = "1";
+		}
 //		sParam.setSortedKeyword( sortedKey );
-//		sParam.setSortType( request.getParameter("order[0][dir]") );
+		model.setSearchKeyword( request.getParameter("order[0][dir]") );
 //
 //		JSONObject jsonData = new JSONObject();
 //
