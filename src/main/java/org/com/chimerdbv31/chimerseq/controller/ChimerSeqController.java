@@ -2,15 +2,13 @@ package org.com.chimerdbv31.chimerseq.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import javax.annotation.Resource;
-import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import java.lang.reflect.Type;
+import org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm;
 
 import org.com.chimerdbv31.chimerseq.services.ChimerSeqService;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
@@ -34,14 +32,14 @@ public class ChimerSeqController {
 	private ParamVo sParam;
 
 	@RequestMapping(value="/mchimerseq", method = RequestMethod.GET)
-	public ModelAndView chimerseqPage() throws RuntimeException{
+	public ModelAndView chimerseqPage(ChimerSeqQueryForm chimerSeqQueryForm) throws RuntimeException{
 		ModelAndView result = new ModelAndView("mchimerseqp");
 
 		result.addObject("cancer_type", this.chimerSeqService.getTcgaCancerTypes());
 
 		return result;
 	}
-	
+
 	@RequestMapping(value="autocomplete",method=RequestMethod.POST)
 	@ResponseBody
 	public String autocomplete(HttpServletRequest request) throws Exception{
@@ -70,8 +68,41 @@ public class ChimerSeqController {
 		return json;
 	}
 	
+	
 	@RequestMapping(value="msrstofchimerseq",method=RequestMethod.POST)
     public ModelAndView rstChimerSeq( HttpServletRequest request ) throws RuntimeException{
+        ModelAndView result = new ModelAndView("msRstOfChimerSeqp2");
+        
+		String searchType = request.getParameter("search_type_rdo");
+		String searchKeyword = "";
+		if( searchType.equals("by_gene") )				searchKeyword = request.getParameter("by_gene_txt");
+		else if( searchType.equals("by_gene_pair") )	searchKeyword = request.getParameter("by_gene_pair_txt");
+		else if( searchType.equals("by_chr_locus") )	searchKeyword = request.getParameter("by_chr_locus_txt");
+		else if( searchType.equals("by_disease") )		searchKeyword = request.getParameter("by_disease_txt");
+
+		String tcgaCancerTypes = request.getParameter("chimerSeq_1_centertype_slt");
+
+		System.out.println( tcgaCancerTypes );
+//        sParam = new ParamVo(true);
+//        String activatedTab = request.getParameter("key_activated_tab");
+//        String searchType = request.getParameter("key_a_search_type");
+//        String dataForsearchType = request.getParameter("key_data_for_search_type");
+//        
+//        result.addObject("activated_tab", activatedTab);
+//        result.addObject("search_type", searchType);
+//        
+//        sParam.setActivatedTab(activatedTab);
+//        sParam.setSearchType(searchType);
+//        sParam.setDataForSearchType(dataForsearchType);
+//        String data = "";
+//        StringBuffer queryStr = null;
+//        String[] dataArr = null;
+
+		return result;
+	}
+	
+	@RequestMapping(value="msrstofchimerseq_test",method=RequestMethod.POST)
+    public ModelAndView rstChimerSeq_test( HttpServletRequest request ) throws RuntimeException{
         ModelAndView result = new ModelAndView("msRstOfChimerSeqp");
         
         sParam = new ParamVo(true);
