@@ -164,7 +164,6 @@ function search() {
 function checkInputPrams(searchType) {
 	var keyVal = "";
 
-console.log( searchType );
 	switch(searchType){
 		case "byGene":{
 			keyVal = $("#byGeneTxt").val();

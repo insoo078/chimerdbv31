@@ -74,8 +74,13 @@ public class ChimerSeqController {
     public ModelAndView rstChimerSeq( HttpServletRequest request, @ModelAttribute("chimerSeqQueryForm") ChimerSeqQueryForm form ) throws RuntimeException{
         ModelAndView result = new ModelAndView("msRstOfChimerSeqp");
 
+		Gson gson = new Gson();
 		this.chimerSeqService.getChimerSeqResult( form );
+
+		String json = gson.toJson( form );
 		
+		System.out.println( json );
+		result.addObject("queryForm", json );
 		return result;
 	}
 	
@@ -404,9 +409,12 @@ public class ChimerSeqController {
         return result;
     }
 	
-		@RequestMapping(value="nextp",method=RequestMethod.POST)
-		@ResponseBody
-		public String getTheRowLeft( HttpServletRequest request, @ModelAttribute("chimerSeqQueryForm") ChimerSeqQueryForm form )throws RuntimeException{
+	@RequestMapping(value="nextp",method=RequestMethod.POST)
+	@ResponseBody
+	public String getTheRowLeft( HttpServletRequest request) throws RuntimeException{
+		Gson gson = new Gson();
+		
+		ChimerSeqQueryForm model = gson.fromJson(request.getParameter("formData"), ChimerSeqQueryForm.class);
 //		sParam.setStrtn( Integer.parseInt( request.getParameter("start") ) );
 //		sParam.setLntn( Integer.parseInt( request.getParameter("length") ) );
 //		String sortedKey = request.getParameter("order[0][column]");

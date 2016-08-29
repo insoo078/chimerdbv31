@@ -142,36 +142,97 @@
 <!--            limit ${strtn},${lntn}-->
     </select>
     <select id="getChimerSeqTotalNumber" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="int">
-        select distinct count( * ) as allNum
-            from ChimerDB3.ChimerSeq_ver5 
-            where 1=1
+        SELECT DISTINCT COUNT( * ) AS allNum
+		FROM ChimerDB3.ChimerSeq_ver7
+		WHERE 1=1
             <choose>
-                <when test="searchType == 'by_gene'">
-                    <choose>
-                        <when test="gene5">
-                            and H_gene = "${dataForSearchType}" 
-                        </when>
-                        <when test="gene3">
-                            and T_gene = "${dataForSearchType}" 
-                        </when>
-                        <when test="gene5 and gene3">
-                            and H_gene = "${dataForSearchType}" or T_gene = "${dataForSearchType}" 
-                        </when>
-                    </choose>
-                </when>
-                <when test="searchType == 'by_gene_pair'">
-                    and Fusion_pair = "${dataForSearchType}" 
-                </when>
-                <when test="searchType == 'by_chr_locus'">
-                    and (H_locus LIKE "${dataForSearchType}%" or T_locus LIKE "${dataForSearchType}%")
-                </when>
-            </choose>
-            <if test="queryForWebSource != null and queryForWebSource != ''"> and webSource in (${queryForWebSource}) </if>
-            <if test="queryForCancerType != null and queryForCancerType != ''"> and Cancertype in (${queryForCancerType}) </if>
-            <if test="queryForSource != null and queryForSource != ''"> and (${queryForSource}) </if>
-            <if test="queryForFilterByFunc != null and queryForFilterByFunc != ''"> and (${queryForFilterByFunc}) </if>
-            <if test="queryForFusType != null and queryForFusType != ''"> and Chr_info in (${queryForFusType}) </if>
-            <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>
+			<when test="searchType == 'byGene'">
+				<choose>
+					<when test="byGene5Prime == 'on' and byGene3Prime == 'on'">
+						AND H_gene = #{byGeneTxt} OR T_gene = #{byGeneTxt}
+					</when>
+					<when test="byGene5Prime != null and byGene5Prime == 'on'">
+						AND H_gene = #{byGeneTxt}
+					</when>
+					<when test="byGene3Prime != null and byGene3Prime == 'on'">
+						AND T_gene = #{byGeneTxt}
+					</when>
+				</choose>
+			</when>
+			<when test="searchType == 'byGenePair'">
+				AND Fusion_pair = #{byGenePairTxt}
+			</when>
+			<when test="searchType == 'byChrLocus'">
+				AND (H_locus LIKE CONCAT(#{byChrLocusTxt}, '%') OR T_locus LIKE CONCAT(#{byChrLocusTxt}, '%'))
+			</when>
+			<when test="searchType == 'byDisease'">
+				AND Disease LIKE CONCAT(CONCAT('%', #{byDiseaseTxt}), '%')
+			</when>
+		</choose>
+
+		<if test="chkTcgaOption == 'on'">
+			<choose>
+				<when test="cancerTypes != null and cancerTypes.size != 0">
+					AND Cancertype IN
+					<foreach collection="cancerTypes" item="cancer" separator="," open="(" close=")">
+						#{cancer}
+					</foreach>
+				</when>
+			</choose>
+		</if>
+		<trim prefix="AND (" suffix=")" prefixOverrides="AND|OR">
+			<if test="chkFusionScan == 'on' and noOfSeedReads >= 0">
+				OR (Source = 'FusionScan' AND Seed_reads_num >= ${noOfSeedReads})
+			</if>
+			<if test="chkTophat == 'on' and noOfSpaningPairs >= 0">
+				OR (Source = 'TopHat-Fusion' AND Spanning_pairs_num >= ${noOfSpaningPairs})
+			</if>
+			<if test="chkPrada == 'on' and noOfJunctionReads >= 0">
+				OR (Source = 'PRADA' AND Junction_reads_num >= ${noOfJunctionReads})
+			</if>
+			<if test="chkChiTaRs == 'on'">
+				OR (Source = 'ChiTaRs')
+			</if>
+			<if test="chkChimerDbV2 == 'on'">
+				OR (Source = 'ChimerDB2_SRA')
+			</if>
+		</trim>
+
+		<trim prefix="AND (" suffix=")" prefixOverrides="AND|OR">
+			<if test="chkKinaseFusion != null">
+				OR Kinase != 0
+			</if>
+			<if test="chkOncogene != null">
+				OR Oncogene != 0
+			</if>
+			<if test="chkTumorSuppressor != null">
+				OR Tumor_suppressor != 0
+			</if>
+			<if test="chkReceptor != null">
+				OR Receptor != 0
+			</if>
+			<if test="chkTranscriptionFactor != null">
+				OR Transcription_Factor != 0
+			</if>
+		</trim>
+		<choose>
+			<when test="chkInterChromosomal == 'on' and chkIxtraChromosomal == 'on'">
+				AND Chr_info IN ('Intra-chr', 'Inter-chr')
+			</when>
+			<when test="chkInterChromosomal == 'on'">
+				AND Chr_info = 'Inter-chr'
+			</when>
+			<when test="chkIntraChromosomal == 'on'">
+				AND Chr_info = 'Intra-chr'
+			</when>
+		</choose>
+		<choose>
+			<when test="chkChimerKbSupport == 'on' and chkChimerPubSupport == 'on'">
+				AND ChimerKB != 0 OR ChimerPub != 0
+			</when>
+			<when test="chkChimerKbSupport == 'on'">AND ChimerKB != 0</when>
+			<when test="chkChimerPubSupport == 'on'">AND ChimerPub != 0</when>
+		</choose>
     </select>
 	
 	<select id="getGeneInfo" parameterType="java.lang.String" resultMap="GeneInfoVoMap">
