@@ -30,7 +30,7 @@
     <%@include file="part/header.jsp" %>
     
 	<!-- content -->
-	<form:form commandName="chimerSeqQueryForm" action="msrstofchimerseq.cdb">
+	<form:form method="POST" commandName="chimerSeqQueryForm" action="msrstofchimerseq.cdb">
 		<div id="main-wrapper">
 			<div class="template-page-wrapper">
 				<div class="templatemo-content-wrapper">
@@ -271,6 +271,21 @@
 				</div>
 			</div>
 		</div>	<!-- end main-wrapper -->
+		
+		<div class="container">
+			<div class="row margin-bottom-30" style="margin-top: 30px; ">
+
+				<div class="col-md-12" style="text-align: right;">
+					<button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" >
+						<span class="fa fa-arrow-left"></span>&nbsp;&nbsp;Reset
+					</button>
+					<button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" onclick="search();">
+						Submit&nbsp;&nbsp;<span class="fa fa-arrow-right"></span>
+					</button>
+				</div>
+			</div>
+		</div>
+
 	</form:form>
 
 	<%@include file="part/footer.jsp" %>

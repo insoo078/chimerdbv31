@@ -35,76 +35,53 @@
 		<result property="elementIndex" column="elementIndex"/>
     </resultMap>
 
-    <select id="getResult" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
-        SELECT DISTINCT Fusion_pair,
-        CONCAT(H_chr,':',H_position) AS Gene5_Junction, 
-        CONCAT(T_chr,':',T_position) AS Gene3_Junction,
-        Exon_breakpoint AS Breakpoint_Type,
-        Cancertype AS Cancer_Type,
-        BarcodeID AS TCGA_Sample_Id,
-        Frame,
-        Chr_info AS Chromosome_Information,
-        Source,
-        CONCAT(ChimerKB,' ',ChimerPub) AS Supported,
-        '' AS  Detail
-        FROM ChimerDB3.ChimerSeq_ver1
-        WHERE (Source = 'FusionScan' OR Source = 'TopHat-Fusion' OR Source =  'PRADA' OR Source = 'ChimerDB2_SRA' OR Source = 'ChiTaRs' ) 
-        AND (Kinase != 'NA' OR Oncogene != 'NA' OR Tumor_suppressor != 'NA' OR Receptor != 'NA' )
-        AND (Chr_info = 'Inter-chr' OR Chr_info = 'Intra-chr' OR Chr_info = 'NA')
-        AND (ChimerKB != 'NA' OR ChimerPub != 'NA')
-        limit 1000;
-        
-    </select>
-    <select id="getResultTest" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
-        SELECT DISTINCT Fusion_pair,CONCAT(H_chr,':',H_position) AS Gene5_Junction, CONCAT(T_chr,':',T_position) AS Gene3_Junction,Exon_breakpoint AS Breakpoint_Type,
-        Cancertype AS Cancer_Type,BarcodeID AS TCGA_Sample_Id,Frame,Chr_info AS Chromosome_Information,
-        Source,CONCAT(ChimerKB,' ',ChimerPub) AS Supported,
-        '' AS  Detail
-        FROM ChimerDB3.ChimerSeq_ver1
-        WHERE (Source = 'FusionScan' OR Source = 'TopHat-Fusion' OR Source =  'PRADA' OR Source = 'ChimerDB2_SRA' OR Source = 'ChiTaRs' ) 
-        AND (Kinase != 'NA' OR Oncogene != 'NA' OR Tumor_suppressor != 'NA' OR Receptor != 'NA' )
-        AND (Chr_info = 'Inter-chr' OR Chr_info = 'Intra-chr' OR Chr_info = 'NA')
-        AND (ChimerKB != 'NA' OR ChimerPub != 'NA')
-        limit ${strtn},${lntn};
-    </select>
- 
     <select id="getChimerSeqResult" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
-        select distinct Fusion_pair , 5Gene_Junction as gene5Junc , 3Gene_Junction as gene3Junc , Breakpoint_Type , Cancertype , BarcodeID
-            , if(Frame = "NA","",Frame) as Frame
-            , Chr_info , Source , ChimerKB , ChimerPub, concat(ChimerKB, "_", ChimerPub) as supported
-            from ChimerDB3.ChimerSeq_ver5 
-            where 1=1
+		SELECT 
+			distinct Fusion_pair , 5Gene_Junction as gene5Junc , 3Gene_Junction as gene3Junc , Breakpoint_Type , Cancertype , BarcodeID
+			, if(Frame = "NA","",Frame) as Frame
+			, Chr_info , Source , ChimerKB , ChimerPub, concat(ChimerKB, "_", ChimerPub) as supported
+		FROM ChimerDB3.ChimerSeq_ver7
+		WHERE 1=1
         
-            <choose>
-                <when test="searchType == 'by_gene'">
-                    <choose>
-                        <when test="gene5">
-                            and H_gene = "${dataForSearchType}" 
-                        </when>
-                        <when test="gene3">
-                            and T_gene = "${dataForSearchType}" 
-                        </when>
-                        <when test="gene5 and gene3">
-                            and H_gene = "${dataForSearchType}" or T_gene = "${dataForSearchType}" 
-                        </when>
-                    </choose>
-                </when>
-                <when test="searchType == 'by_gene_pair'">
-                    and Fusion_pair = "${dataForSearchType}" 
-                </when>
-                <when test="searchType == 'by_chr_locus'">
-                    and (H_locus LIKE "${dataForSearchType}" OR T_locus LIKE "${dataForSearchType}")
-                </when>
-            </choose>
-        
-            <if test="queryForWebSource != null and queryForWebSource != ''"> and webSource in (${queryForWebSource}) </if>
-            <if test="queryForCancerType != null and queryForCancerType != ''"> and Cancertype in (${queryForCancerType}) </if>
-            <if test="queryForSource != null and queryForSource != ''"> and (${queryForSource}) </if>
-            <if test="queryForFilterByFunc != null and queryForFilterByFunc != ''"> and (${queryForFilterByFunc}) </if>
-            <if test="queryForFusType != null and queryForFusType != ''"> and Chr_info in (${queryForFusType}) </if>
-            <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>
-            <if test="sortedKeyword != null"> ORDER BY ${sortedKeyword} ${sortType} </if>
-            limit ${strtn},${lntn}
+		<!-- Search method -->
+		<choose>
+			<when test="searchType == 'byGene'">
+				<choose>
+					<when test="byGene5Prime == 'on' and byGene3Prime == 'on'">
+						AND H_gene = #{byGeneTxt} OR T_gene = #{byGeneTxt}
+					</when>
+					<when test="byGene5Prime != null and byGene5Prime == 'on'">
+						AND H_gene = #{byGeneTxt}
+					</when>
+					<when test="byGene3Prime != null and byGene3Prime == 'on'">
+						AND T_gene = #{byGeneTxt}
+					</when>
+				</choose>
+			</when>
+			<when test="searchType == 'byGenePair'">
+				AND Fusion_pair = #{byGenePairTxt}
+			</when>
+			<when test="searchType == 'byChrLocus'">
+				AND (H_locus LIKE CONCAT(#{byChrLocusTxt}, '%') OR T_locus LIKE CONCAT(#{byChrLocusTxt}, '%'))
+			</when>
+			<when test="searchType == 'byDisease'">
+				AND Disease LIKE CONCAT(CONCAT('%', #{byDiseaseTxt}), '%')
+			</when>
+		</choose>
+		<when test="cancerTypes.size != 0">
+			AND Source IN
+			<foreach collection="cancerTypes" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+		</when>
+<!--		<if test="queryForWebSource != null and queryForWebSource != ''"> AND webSource in (${queryForWebSource}) </if>
+		<if test="queryForCancerType != null and queryForCancerType != ''"> and Cancertype in (${queryForCancerType}) </if>
+		<if test="queryForSource != null and queryForSource != ''"> and (${queryForSource}) </if>
+		<if test="queryForFilterByFunc != null and queryForFilterByFunc != ''"> and (${queryForFilterByFunc}) </if>
+		<if test="queryForFusType != null and queryForFusType != ''"> and Chr_info in (${queryForFusType}) </if>
+		<if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>
+		<if test="sortedKeyword != null"> ORDER BY ${sortedKeyword} ${sortType} </if>-->
+<!--            limit ${strtn},${lntn}-->
     </select>
     <select id="getChimerSeqTotalNumber" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="int">
         select distinct count( * ) as allNum

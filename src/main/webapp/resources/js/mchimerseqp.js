@@ -152,7 +152,7 @@ $(document).ready(function () {
 });
 
 function search() {
-	var searchType = $("input:radio[name='search_type_rdo']:checked").val();
+	var searchType = $("input:radio[name='searchType']:checked").val();
 
 	if( checkInputPrams(searchType) ) {
 		$("#chimerSeqQueryForm").submit();
@@ -163,40 +163,39 @@ function search() {
 
 function checkInputPrams(searchType) {
 	var keyVal = "";
-	
-	console.log( searchType );
 
+console.log( searchType );
 	switch(searchType){
 		case "byGene":{
-			keyVal = $("#byGeneTxt1").val();
+			keyVal = $("#byGeneTxt").val();
 			if( (keyVal === "") || ($.trim(keyVal) === "") || (keyVal === null) ){
 				alert("You have to input Gene symbol which is user interested in");
-				$("#byGeneTxt1").focus();
+				$("#byGeneTxt").focus();
 				return false;
 			}
 		};break;
 		case "byGenePair":{
-			keyVal = $("#byGenePairTxt1").val();
+			keyVal = $("#byGenePairTxt").val();
 
 			if( (keyVal === "") || ($.trim(keyVal) === "") || (keyVal === null) ){
 				alert("You have to input Pair Gene symbols which is user interested in");
-				$("#byGenePairTxt1").focus();
+				$("#byGenePairTxt").focus();
 				return false;
 			}
 		};break;
 		case "byChrLocus":{
-			keyVal = $("#byChrLocusTxt1").val();
+			keyVal = $("#byChrLocusTxt").val();
 			if( (keyVal === "") || ($.trim(keyVal) === "") || (keyVal === null) ){
 				alert("You have to input chromosome locus(cytoband) which is user interested in");
-				$("#byChrLocusTxt1").focus();
+				$("#byChrLocusTxt").focus();
 				return false;
 			}
 		};break;
 		case "byDisease":{
-			keyVal = $("#byDiseaseTxt1").val();
+			keyVal = $("#byDiseaseTxt").val();
 			if( (keyVal === "") || ($.trim(keyVal) === "") || (keyVal === null) ){
 				alert("You have to input disease which is user interested in");
-				$("#byDiseaseTxt1").focus();
+				$("#byDiseaseTxt").focus();
 				return false;
 			}
 		};break;

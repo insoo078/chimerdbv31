@@ -3,6 +3,7 @@ package org.com.chimerdbv31.chimerseq.mapper;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Param;
+import org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
@@ -11,7 +12,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository(value = "chimerSeqMapper")
 public interface ChimerSeqMapper {
-    public List<ChimerSeqVo> getChimerSeqResult(ParamVo param);
+//    public List<ChimerSeqVo> getChimerSeqResult(ParamVo param);
+	public List<ChimerSeqVo> getChimerSeqResult(ChimerSeqQueryForm param);
     public int getChimerSeqTotalNumber(ParamVo param);
     public List<ChimerSeqVo> getResult(ParamVo param);
     public List<ChimerSeqVo> getResultTest(ParamVo param);

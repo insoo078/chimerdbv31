@@ -16,6 +16,7 @@ import org.com.chimerdbv31.common.vo.ParamVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -69,35 +70,12 @@ public class ChimerSeqController {
 	}
 	
 	
-	@RequestMapping(value="msrstofchimerseq",method=RequestMethod.POST)
-    public ModelAndView rstChimerSeq( HttpServletRequest request ) throws RuntimeException{
-        ModelAndView result = new ModelAndView("msRstOfChimerSeqp2");
-        
-		String searchType = request.getParameter("search_type_rdo");
-		String searchKeyword = "";
-		if( searchType.equals("by_gene") )				searchKeyword = request.getParameter("by_gene_txt");
-		else if( searchType.equals("by_gene_pair") )	searchKeyword = request.getParameter("by_gene_pair_txt");
-		else if( searchType.equals("by_chr_locus") )	searchKeyword = request.getParameter("by_chr_locus_txt");
-		else if( searchType.equals("by_disease") )		searchKeyword = request.getParameter("by_disease_txt");
+	@RequestMapping(value="msrstofchimerseq", method=RequestMethod.POST)
+    public ModelAndView rstChimerSeq( HttpServletRequest request, @ModelAttribute("chimerSeqQueryForm") ChimerSeqQueryForm form ) throws RuntimeException{
+        ModelAndView result = new ModelAndView("msRstOfChimerSeqp");
 
-		String tcgaCancerTypes = request.getParameter("chimerSeq_1_centertype_slt");
-
-		System.out.println( tcgaCancerTypes );
-//        sParam = new ParamVo(true);
-//        String activatedTab = request.getParameter("key_activated_tab");
-//        String searchType = request.getParameter("key_a_search_type");
-//        String dataForsearchType = request.getParameter("key_data_for_search_type");
-//        
-//        result.addObject("activated_tab", activatedTab);
-//        result.addObject("search_type", searchType);
-//        
-//        sParam.setActivatedTab(activatedTab);
-//        sParam.setSearchType(searchType);
-//        sParam.setDataForSearchType(dataForsearchType);
-//        String data = "";
-//        StringBuffer queryStr = null;
-//        String[] dataArr = null;
-
+		this.chimerSeqService.getChimerSeqResult( form );
+		
 		return result;
 	}
 	
@@ -428,40 +406,33 @@ public class ChimerSeqController {
 	
 		@RequestMapping(value="nextp",method=RequestMethod.POST)
 		@ResponseBody
-		public String getTheRowLeft( HttpServletRequest request )throws RuntimeException{
-
-		//        System.out.println("========================start===========");
-		//        Enumeration enumx = request.getParameterNames();
-		//        for (; enumx.hasMoreElements(); ) {
-		//            String key = (String)enumx.nextElement();
-		//            System.out.println("[Filter] key = "+key+" , value = "+request.getParameter(key));
-		//        }
-		//        System.out.println("========================end===========");
-		sParam.setStrtn( Integer.parseInt( request.getParameter("start") ) );
-		sParam.setLntn( Integer.parseInt( request.getParameter("length") ) );
-		String sortedKey = request.getParameter("order[0][column]");
-		if(sortedKey.equals("0")){
-		 sortedKey = "1";
-		}
-		sParam.setSortedKeyword( sortedKey );
-		sParam.setSortType( request.getParameter("order[0][dir]") );
-
-		JSONObject jsonData = new JSONObject();
-
-		JSONArray jsonArray = null;
-
-
-		int totalNum = 0;
-		totalNum = this.chimerSeqService.getChimerSeqTotalNumber(sParam);
-		sParam.setTotaln(totalNum);
-		List<ChimerSeqVo> mainList = this.chimerSeqService.getChimerSeqResult(sParam);
-		jsonArray = JSONArray.fromObject(mainList);
-
-
-		jsonData.put("iTotalRecords", totalNum);
-		jsonData.put("iTotalDisplayRecords", totalNum);
-		jsonData.put("aaData", jsonArray.toString() );
-
-		return jsonData.toString();
+		public String getTheRowLeft( HttpServletRequest request, @ModelAttribute("chimerSeqQueryForm") ChimerSeqQueryForm form )throws RuntimeException{
+//		sParam.setStrtn( Integer.parseInt( request.getParameter("start") ) );
+//		sParam.setLntn( Integer.parseInt( request.getParameter("length") ) );
+//		String sortedKey = request.getParameter("order[0][column]");
+//		if(sortedKey.equals("0")){
+//		 sortedKey = "1";
+//		}
+//		sParam.setSortedKeyword( sortedKey );
+//		sParam.setSortType( request.getParameter("order[0][dir]") );
+//
+//		JSONObject jsonData = new JSONObject();
+//
+//		JSONArray jsonArray = null;
+//
+//
+//		int totalNum = 0;
+//		totalNum = this.chimerSeqService.getChimerSeqTotalNumber(sParam);
+//		sParam.setTotaln(totalNum);
+//		List<ChimerSeqVo> mainList = this.chimerSeqService.getChimerSeqResult(sParam);
+//		jsonArray = JSONArray.fromObject(mainList);
+//
+//
+//		jsonData.put("iTotalRecords", totalNum);
+//		jsonData.put("iTotalDisplayRecords", totalNum);
+//		jsonData.put("aaData", jsonArray.toString() );
+//
+//		return jsonData.toString();
+return "";
     }
 }

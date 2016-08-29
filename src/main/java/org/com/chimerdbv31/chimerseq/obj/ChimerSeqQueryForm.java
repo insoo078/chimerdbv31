@@ -5,6 +5,9 @@
  */
 package org.com.chimerdbv31.chimerseq.obj;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author insoo078
@@ -38,6 +41,40 @@ public class ChimerSeqQueryForm {
 	private String chkIxtraChromosomal;
 	private String chkChimerKbSupport;
 	private String chkChimerPubSupport;
+	
+	private List<String> cancerTypes;
+	private List<String> sources;
+	
+	public List<String> getSources() {
+		List<String> sources = new ArrayList<String>();
+
+		if( this.chkFusionScan.equals("on") )	sources.add("FusionScan");
+		if( this.chkTophat.equals("on") )		sources.add("TopHat-Fusion");
+		if( this.chkPrada.equals("on") )		sources.add("PRADA");
+		if( this.chkChiTaRs.equals("on") )		sources.add("ChiTaRs");
+		if( this.chkChimerDbV2.equals("on") )	sources.add("ChimerDB2_SRA");
+		
+		return sources;
+	}
+	
+	public void setSources(List<String> sources) {
+		this.sources = sources;
+	}
+	
+	public List<String> getCancerTypes() {
+		List<String> list = new ArrayList<String>();
+		if( this.tcgaCancerTypes != null ) {
+			String[] cancers = this.tcgaCancerTypes.split(",");
+			for(String cancer:cancers) {
+				list.add( cancer );
+			}
+		}
+		return list;
+	}
+	
+	public void setCancerType(List<String> cancerTypes) {
+		this.cancerTypes = cancerTypes;
+	}
 
 	public String getSearchType() {
 		return searchType;
