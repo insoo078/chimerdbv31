@@ -39,6 +39,8 @@ public class ChimerSeqService {
 	public List<ChimerSeqVo> getChimerSeqResult( ChimerSeqQueryForm param ) {
 		List<ChimerSeqVo> result = null;
 		try {
+			param.revalidateData();
+
 			result = this.chimerSeqMapper.getChimerSeqResult(param);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

@@ -35,7 +35,7 @@
 		<result property="elementIndex" column="elementIndex"/>
     </resultMap>
 
-    <select id="getChimerSeqResult" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
+    <select id="getChimerSeqResult" parameterType="org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
 		SELECT 
 			distinct Fusion_pair , 5Gene_Junction as gene5Junc , 3Gene_Junction as gene3Junc , Breakpoint_Type , Cancertype , BarcodeID
 			, if(Frame = "NA","",Frame) as Frame
@@ -68,31 +68,70 @@
 				AND Disease LIKE CONCAT(CONCAT('%', #{byDiseaseTxt}), '%')
 			</when>
 		</choose>
+
+		<if test="chkTcgaOption == 'on'">
+			<choose>
+				<when test="cancerTypes != null and cancerTypes.size != 0">
+					AND Cancertype IN
+					<foreach collection="cancerTypes" item="cancer" separator="," open="(" close=")">
+						#{cancer}
+					</foreach>
+				</when>
+			</choose>
+		</if>
+		<trim prefix="AND (" suffix=")" prefixOverrides="AND|OR">
+			<if test="chkFusionScan == 'on' and noOfSeedReads >= 0">
+				OR (Source = 'FusionScan' AND Seed_reads_num >= ${noOfSeedReads})
+			</if>
+			<if test="chkTophat == 'on' and noOfSpaningPairs >= 0">
+				OR (Source = 'TopHat-Fusion' AND Spanning_pairs_num >= ${noOfSpaningPairs})
+			</if>
+			<if test="chkPrada == 'on' and noOfJunctionReads >= 0">
+				OR (Source = 'PRADA' AND Junction_reads_num >= ${noOfJunctionReads})
+			</if>
+			<if test="chkChiTaRs == 'on'">
+				OR (Source = 'ChiTaRs')
+			</if>
+			<if test="chkChimerDbV2 == 'on'">
+				OR (Source = 'ChimerDB2_SRA')
+			</if>
+		</trim>
+
+		<trim prefix="AND (" suffix=")" prefixOverrides="AND|OR">
+			<if test="chkKinaseFusion != null">
+				OR Kinase != 0
+			</if>
+			<if test="chkOncogene != null">
+				OR Oncogene != 0
+			</if>
+			<if test="chkTumorSuppressor != null">
+				OR Tumor_suppressor != 0
+			</if>
+			<if test="chkReceptor != null">
+				OR Receptor != 0
+			</if>
+			<if test="chkTranscriptionFactor != null">
+				OR Transcription_Factor != 0
+			</if>
+		</trim>
 		<choose>
-			<when test="cancerTypes.size != 0">
-				AND Cancertype IN
-				<foreach collection="cancerTypes" item="cancer" index="index" separator="," open="(" close=")">
-					#{cancer}
-				</foreach>
+			<when test="chkInterChromosomal == 'on' and chkIxtraChromosomal == 'on'">
+				AND Chr_info IN ('Intra-chr', 'Inter-chr')
+			</when>
+			<when test="chkInterChromosomal == 'on'">
+				AND Chr_info = 'Inter-chr'
+			</when>
+			<when test="chkIntraChromosomal == 'on'">
+				AND Chr_info = 'Intra-chr'
 			</when>
 		</choose>
 		<choose>
-			<when test="sources.size != 0 ">
-				AND Source IN
-				<foreach collection="sources" item="source" index="index" separator="," open="(" close=")">
-					#{source}
-				</foreach>
+			<when test="chkChimerKbSupport == 'on' and chkChimerPubSupport == 'on'">
+				AND ChimerKB != 0 OR ChimerPub != 0
 			</when>
+			<when test="chkChimerKbSupport == 'on'">AND ChimerKB != 0</when>
+			<when test="chkChimerPubSupport == 'on'">AND ChimerPub != 0</when>
 		</choose>
-		<if test="noOfSeedReads != null and noOfSeedReads >= 0">
-			AND Seed_reads_num >= ${noOfSeedReads}
-		</if>
-		<if test="noOfSpaningPairs != null and noOfSpaningPairs >= 0">
-			AND Spanning_pairs_num >= ${noOfSpaningPairs}
-		</if>
-		<if test="noOfJunctionReads != null and noOfJunctionReads >= 0">
-			AND Junction_reads_num >= ${noOfJunctionReads}
-		</if>
 <!--		<if test="queryForWebSource != null and queryForWebSource != ''"> AND webSource in (${queryForWebSource}) </if>
 		<if test="queryForCancerType != null and queryForCancerType != ''"> and Cancertype in (${queryForCancerType}) </if>
 		<if test="queryForSource != null and queryForSource != ''"> and (${queryForSource}) </if>

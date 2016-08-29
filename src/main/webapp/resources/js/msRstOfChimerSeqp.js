@@ -7,30 +7,30 @@ $(document).ready(function () {
     check_m_state("mmchimerseqbtn");
     
     var mainTable = null;
-    mainTable = $("#chimerSeqTbl").DataTable({
-        "dom":"T<'clear'>frtilp",
-        "scrollX":true,
-        "tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
-        "processing": true,
-        "serverSide": true,
-        "ajax": {
-            "url":"nextp.cdb",
-            "type": "POST"
-        },
-        "iDisplayLength": 10,
-        "columns":[
-            {"data":"fusion_pair"},
-            {"data":"gene5Junc"},
-            {"data":"gene3Junc"},
-            {"data":"breakpoint_Type"},
-            {"data":"cancertype"},
-            {"data":"barcodeID"},
-            {"data":"frame"},
-            {"data":"chr_info"},
-            {"data":"source"},
-            {"data":"supported"}
-        ]
-    });
+//    mainTable = $("#chimerSeqTbl").DataTable({
+//        "dom":"T<'clear'>frtilp",
+//        "scrollX":true,
+//        "tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
+//        "processing": true,
+//        "serverSide": true,
+//        "ajax": {
+//            "url":"nextp.cdb",
+//            "type": "POST"
+//        },
+//        "iDisplayLength": 10,
+//        "columns":[
+//            {"data":"fusion_pair"},
+//            {"data":"gene5Junc"},
+//            {"data":"gene3Junc"},
+//            {"data":"breakpoint_Type"},
+//            {"data":"cancertype"},
+//            {"data":"barcodeID"},
+//            {"data":"frame"},
+//            {"data":"chr_info"},
+//            {"data":"source"},
+//            {"data":"supported"}
+//        ]
+//    });
 
     $('#chimerSeqTbl tbody').on('click', 'tr', function(){
         var rowdata = mainTable.row( this ).data();
