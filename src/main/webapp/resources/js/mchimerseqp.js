@@ -64,19 +64,19 @@ var ChimerSeq = {
 	},
 	setOptionPanelSetting: function() {
 	
-		$("#chimrSeq_1_chimr2_chk").change(function(){
+		$("#chkChimerDbV21").change(function(){
 			var flag = $(this).is(':checked');
 			
 			if( flag === false ) {
-				$("#chimrSeq_1_all_chk").prop("checked", false);
+				$("#chkAllOptions").prop("checked", false);
 			}
 		});
 		
-		$("#chimrSeq_1_chitars_chk").change(function(){
+		$("#chkChiTaRs1").change(function(){
 			var flag = $(this).is(':checked');
 			
 			if( flag === false ) {
-				$("#chimrSeq_1_all_chk").prop("checked", false);
+				$("#chkAllOptions").prop("checked", false);
 			}
 		});
 		
@@ -84,16 +84,16 @@ var ChimerSeq = {
 		this.setAllSourcesInOptionPanel();
 	},
 	setAllSourcesInOptionPanel: function() {
-		$("#chimrSeq_1_all_chk").change(function(){
+		$("#chkAllOptions").change(function(){
 			var flag = $(this).is(':checked');
 
-			$("#chimrSeq_1_tcga_chk").trigger('click');
-			$("#chimrSeq_1_chimr2_chk").prop("checked", flag);
-			$("#chimrSeq_1_chitars_chk").prop("checked", flag);
+			$("#chkTcgaOption1").trigger('click');
+			$("#chkChimerDbV21").prop("checked", flag);
+			$("#chkChiTaRs1").prop("checked", flag);
 		});
 	},
 	setTcgaInOptionPanel: function() {
-		$("#chimrSeq_1_tcga_chk").change(function(){
+		$("#chkTcgaOption1").change(function(){
 			var flag = $(this).is(':checked');
 
 			$("div#fusion_prediction_tool_options input[type=checkbox]").each(function(){
@@ -101,17 +101,17 @@ var ChimerSeq = {
 			});
 			
 			if( flag === false ) {
-				$("#chimrSeq_1_all_chk").prop("checked", false);
+				$("#chkAllOptions").prop("checked", false);
 //				$("#cancer_type_all").trigger('click');
 			}
 		});
 
-		$("#cancer_type_all").click(function(){
+		$("#cancer-type-all").click(function(){
 			ChimerSeq.chimrSeqTcgaState = !ChimerSeq.chimrSeqTcgaState;
-			$("#chimrSeq_1_cancertype_slt > option").prop("selected", ChimerSeq.chimrSeqTcgaState);
+			$("#tcgaCancerTypes > option").prop("selected", ChimerSeq.chimrSeqTcgaState);
 		});
 
-		$("#chimrSeq_1_cancertype_slt > option.cancer-type").click(function(){
+		$("#tcgaCancerTypes > option.cancer-type").click(function(){
 			if( ChimerSeq.chimrSeqTcgaState ) ChimerSeq.chimrSeqTcgaState = false;
 		});
 	},
@@ -155,7 +155,7 @@ function search() {
 	var searchType = $("input:radio[name='search_type_rdo']:checked").val();
 
 	if( checkInputPrams(searchType) ) {
-		$("#resultmain_form").submit();
+		$("#chimerSeqQueryForm").submit();
 	}
 
 	return false;
@@ -167,36 +167,36 @@ function checkInputPrams(searchType) {
 	console.log( searchType );
 
 	switch(searchType){
-		case "by_gene":{
-			keyVal = $("#by_gene_txt").val();
+		case "byGene":{
+			keyVal = $("#byGeneTxt1").val();
 			if( (keyVal === "") || ($.trim(keyVal) === "") || (keyVal === null) ){
 				alert("You have to input Gene symbol which is user interested in");
-				$("#by_gene_txt").focus();
+				$("#byGeneTxt1").focus();
 				return false;
 			}
 		};break;
-		case "by_gene_pair":{
-			keyVal = $("#by_gene_pair_txt").val();
+		case "byGenePair":{
+			keyVal = $("#byGenePairTxt1").val();
 
 			if( (keyVal === "") || ($.trim(keyVal) === "") || (keyVal === null) ){
 				alert("You have to input Pair Gene symbols which is user interested in");
-				$("#by_gene_pair_txt").focus();
+				$("#byGenePairTxt1").focus();
 				return false;
 			}
 		};break;
-		case "by_chr_locus":{
-			keyVal = $("#by_chr_locus_txt").val();
+		case "byChrLocus":{
+			keyVal = $("#byChrLocusTxt1").val();
 			if( (keyVal === "") || ($.trim(keyVal) === "") || (keyVal === null) ){
 				alert("You have to input chromosome locus(cytoband) which is user interested in");
-				$("#by_chr_locus_txt").focus();
+				$("#byChrLocusTxt1").focus();
 				return false;
 			}
 		};break;
-		case "by_disease":{
-			keyVal = $("#by_disease_txt").val();
+		case "byDisease":{
+			keyVal = $("#byDiseaseTxt1").val();
 			if( (keyVal === "") || ($.trim(keyVal) === "") || (keyVal === null) ){
 				alert("You have to input disease which is user interested in");
-				$("#by_disease_txt").focus();
+				$("#byDiseaseTxt1").focus();
 				return false;
 			}
 		};break;

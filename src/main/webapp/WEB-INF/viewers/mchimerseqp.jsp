@@ -53,10 +53,10 @@
 													<form:radiobutton path="searchType" value="byGene"/>Gene
 												</label>
 												<label class="checkbox-inline">
-													<form:checkbox path="byGene5Prime" value="5"/>5'
+													<form:checkbox path="byGene5Prime" value="on"/>5'
 												</label>
 												<label class="checkbox-inline">
-													<form:checkbox path="byGene3Prime" value="3"/>3'
+													<form:checkbox path="byGene3Prime" value="on"/>3'
 												</label>
 											</div>
 											<div class="col-md-6">
@@ -125,13 +125,13 @@
 									</div>
 									<div class="row margin-bottom-15">
 										<div class="col-md-11 col-md-offset-1">
-											<label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_all_chk"/>All Sources</label>
+											<label class="checkbox-inline"><input type="checkbox" id="chkAllOptions"/>All Sources</label>
 										</div>
 									</div>
 
 									<div class="row margin-bottom-15">
 										<div class="col-md-11 col-md-offset-1">
-											<label class="checkbox-inline"><form:checkbox path="chkTcgaOption" value="true"/>TCGA RNA-Seq</label>
+											<label class="checkbox-inline"><form:checkbox path="chkTcgaOption" value="on"/>TCGA RNA-Seq</label>
 										</div>
 									</div>
 
@@ -143,7 +143,7 @@
 											<div class="row">
 												<div class="col-md-11 col-md-offset-1">
 													<form:select path="tcgaCancerTypes" class="form-control" size="6" style="width: 190px; margin-top: 10px;" multiple="true">
-														<form:option class='cancer-type' value="All cancer types"/>
+														<form:option class='cancer-type' id="cancer-type-all" value="All cancer types"/>
 														<c:if test="${not empty cancer_type}">
 															<c:forEach var="type" items="${cancer_type}">
 																<form:option class='cancer-type' value="${type}"/>
@@ -167,7 +167,7 @@
 												<div class="col-md-11 col-md-offset-1">
 													<table>
 														<tr>
-															<td><label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_fusnscan_chk">FusionScan</label></td>
+															<td><label class="checkbox-inline"><form:checkbox path="chkFusionScan" value="on"/>FusionScan</label></td>
 															<td><span style="font-size: 13px;">Number of seed reads &#62;&#61;</span></td>
 															<td><form:input path="noOfSeedReads" class="form-control" style="width: 70px; height: 25px;" value="2"/></td>
 														</tr>
@@ -179,7 +179,7 @@
 												<div class="col-md-11 col-md-offset-1">
 													<table>
 														<tr>
-															<td><label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_tophat_chk">TopHat-Fusion</label></td>
+															<td><label class="checkbox-inline"><form:checkbox path="chkTophat" value="on"/>TopHat-Fusion</label></td>
 															<td><span style="font-size: 13px;">Number of spanning pairs &#62;&#61;</span></td>
 															<td><form:input path="noOfSpaningPairs" class="form-control" style="width: 70px; height: 25px;" value="100"/></td>
 														</tr>
@@ -191,7 +191,7 @@
 												<div class="col-md-11 col-md-offset-1">
 													<table>
 														<tr>
-															<td><label class="checkbox-inline"><input type="checkbox" id="chimrSeq_1_prada_chk">PRADA</label></td>
+															<td><label class="checkbox-inline"><form:checkbox path="chkPrada" value="on"/>PRADA</label></td>
 															<td><span style="font-size: 13px;">Number of junction reads &#62;&#61;</span></td>
 															<td><form:input path="noOfJunctionReads" class="form-control" style="width: 70px; height: 25px;" value="2"/></td>
 														</tr>
@@ -203,12 +203,12 @@
 
 									<div class="row margin-bottom-15">
 										<div class="col-md-11 col-md-offset-1">
-											<label class="checkbox-inline"><form:checkbox path="chkChimerDbV2" value="true"/>ChimerDB 2.0 SRA</label>
+											<label class="checkbox-inline"><form:checkbox path="chkChimerDbV2" value="on"/>ChimerDB 2.0 SRA</label>
 										</div>
 									</div>
 									<div class="row margin-bottom-15">
 										<div class="col-md-11 col-md-offset-1">
-											<label class="checkbox-inline"><form:checkbox path="chkChiTaRs" value="true"/>ChiTaRs</label>
+											<label class="checkbox-inline"><form:checkbox path="chkChiTaRs" value="on"/>ChiTaRs</label>
 										</div>
 									</div>
 
@@ -234,11 +234,11 @@
 										</div>
 										<div class="row margin-bottom-15">
 											<div class="col-md-11 col-md-offset-1">
-												<label class="checkbox-inline"><form:checkbox path="chkKinaseFusion" value="true"/>Kinase fusion</label>
-												<label class="checkbox-inline"><form:checkbox path="chkOncogene" value="true" checked="true"/>Oncogene</label>
-												<label class="checkbox-inline"><form:checkbox path="chkTumorSuppressor" value="true"/>Tumor suppressor</label>
-												<label class="checkbox-inline"><form:checkbox path="chkReceptor" value="true"/>Receptor</label>
-												<label class="checkbox-inline"><form:checkbox path="chkTranscriptionFactor" value="true" checked="true"/>Transcription factor</label>
+												<label class="checkbox-inline"><form:checkbox path="chkKinaseFusion" value="on"/>Kinase fusion</label>
+												<label class="checkbox-inline"><form:checkbox path="chkOncogene" value="on" checked="true"/>Oncogene</label>
+												<label class="checkbox-inline"><form:checkbox path="chkTumorSuppressor" value="on"/>Tumor suppressor</label>
+												<label class="checkbox-inline"><form:checkbox path="chkReceptor" value="on"/>Receptor</label>
+												<label class="checkbox-inline"><form:checkbox path="chkTranscriptionFactor" value="on" checked="true"/>Transcription factor</label>
 											</div>
 										</div>
 
@@ -248,8 +248,8 @@
 										</div>
 										<div class="row margin-bottom-15">
 											<div class="col-md-11 col-md-offset-1">
-												<label class="checkbox-inline"><form:checkbox path="chkInterChromosomal" value="inter_chr" checked="true"/>Inter chromosomal</label>
-												<label class="checkbox-inline"><form:checkbox path="chkIxtraChromosomal" value="intra_chr"/>Intra chromosomal</label>
+												<label class="checkbox-inline"><form:checkbox path="chkInterChromosomal" value="on" checked="true"/>Inter chromosomal</label>
+												<label class="checkbox-inline"><form:checkbox path="chkIxtraChromosomal" value="on"/>Intra chromosomal</label>
 											</div>
 										</div>
 
@@ -259,8 +259,8 @@
 										</div>
 										<div class="row">
 											<div class="col-md-11 col-md-offset-1">
-												<label class="checkbox-inline" id="chimrKb_fbySupot_chimrSeqS_lvl"><form:checkbox path="chkChimerKbSupport" value="chimerKb"/>ChimerSeq supported</label>
-												<label class="checkbox-inline" id="chimrKb_fbySupot_chimrPubS_lvl"><form:checkbox path="chkChimerPubSupport" value="chimerPub"/>ChimerPub supported</label>
+												<label class="checkbox-inline" id="chimrKb_fbySupot_chimrSeqS_lvl"><form:checkbox path="chkChimerKbSupport" value="on"/>ChimerSeq supported</label>
+												<label class="checkbox-inline" id="chimrKb_fbySupot_chimrPubS_lvl"><form:checkbox path="chkChimerPubSupport" value="on"/>ChimerPub supported</label>
 											</div>
 										</div>
 									</div>

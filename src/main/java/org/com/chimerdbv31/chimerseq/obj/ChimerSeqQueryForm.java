@@ -20,6 +20,9 @@ public class ChimerSeqQueryForm {
 
 	private String chkTcgaOption;
 	private String tcgaCancerTypes;
+	private String chkFusionScan;
+	private String chkTophat;
+	private String chkPrada;
 	private String noOfSeedReads;
 	private String noOfSpaningPairs;
 	private String noOfJunctionReads;
@@ -218,6 +221,30 @@ public class ChimerSeqQueryForm {
 
 	public void setChkChimerPubSupport(String chkChimerPubSupport) {
 		this.chkChimerPubSupport = chkChimerPubSupport;
+	}
+
+	public String getChkFusionScan() {
+		return chkFusionScan;
+	}
+
+	public void setChkFusionScan(String chkFusionScan) {
+		this.chkFusionScan = chkFusionScan;
+	}
+
+	public String getChkTophat() {
+		return chkTophat;
+	}
+
+	public void setChkTophat(String chkTophat) {
+		this.chkTophat = chkTophat;
+	}
+
+	public String getChkPrada() {
+		return chkPrada;
+	}
+
+	public void setChkPrada(String chkPrada) {
+		this.chkPrada = chkPrada;
 	}
 	
 }
