@@ -49,10 +49,4 @@ public class ChimerKbService {
     }
     
     
-            result = this.getChimerKBResult(param);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return result;
-    }
 }
