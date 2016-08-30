@@ -8,20 +8,69 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config, gene1, gene2 ) {
     this.config = JSON.parse( JSON.stringify(config) );
 
 	var canvas = this.drawCanvas(this.config);
-	
+
+	var genePanelJson = [{name:'#fusion-gene-label-group-5p', gene:gene1}, {name:'#fusion-gene-label-group-3p', gene:gene2}];
+
 	this.initLayout( this.config );
 	this.drawEachGeneAreaLabel( this.config, gene1, gene2, canvas );
-	this.drawGeneLabel( this.config, '.fusion-gene-label-group-5p', gene1 );
-	this.drawGeneLabel( this.config, '.fusion-gene-label-group-3p', gene2 );
+	for(var i=0; i<genePanelJson.length; i++) {
+		this.drawGeneLabel( this.config, genePanelJson[i].name, genePanelJson[i].gene );
+		this.drawMessagerRnaIdLabel( this.config, genePanelJson[i].name, genePanelJson[i].gene );
+		this.drawChromosomeLabel( this.config, genePanelJson[i].name, genePanelJson[i].gene );
+	}
+
+	this.drawGeneStructure( this.config, genePanelJson, canvas );
+};
+
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( config, genePanelJson, canvas ) {
+	var gene_total_length = 0;
+	for(var i=0; i<genePanelJson.length; i++)
+		gene_total_length += genePanelJson[i].gene.geneFeature.end - genePanelJson[i].gene.geneFeature.start + 1;
+
+	var LEFT_MARGIN = 150;
+	for(var i=0; i<genePanelJson.length; i++) {
+		var gene_length = genePanelJson[i].gene.geneFeature.end - genePanelJson[i].gene.geneFeature.start + 1;
+		var gene_length_ratio = gene_length / gene_total_length;
+		
+		var drawCanvas = d3.selectAll(".fusion-gene-panel");
+		var geneBackbonLength = drawCanvas.node().getBoundingClientRect().width - LEFT_MARGIN;
+		
+		var stable_length = geneBackbonLength * 0.8;
+		var variable_length = (geneBackbonLength * 0.2) * gene_length_ratio;
+		
+		var final_length = stable_length + variable_length;
+
+		var startX = LEFT_MARGIN - (5*config.sideMargin);
+
+		if( genePanelJson[i].name.endsWith("3p") )
+			startX += drawCanvas.node().getBoundingClientRect().width;
+
+		canvas.append('line')
+			.attr("class", "gene-backbone")
+			.attr('x1', startX)
+			.attr('y1', 200)
+			.attr('x2', startX + final_length)
+			.attr("y2", 200)
+			.attr("style", "stroke:#555;stroke-width:5;");
 	
-	this.drawMessagerRnaIdLabel( this.config, '.fusion-gene-label-group-5p', gene1 );
-	this.drawMessagerRnaIdLabel( this.config, '.fusion-gene-label-group-3p', gene2 );
 	
-	this.drawChromosomeLabel( this.config, '.fusion-gene-label-group-5p', gene1 );
-	this.drawChromosomeLabel( this.config, '.fusion-gene-label-group-3p', gene2 );
+		var exonLength = 0;
+		var transcriptExons = genePanelJson[i].gene.transcripts[0].exons;
+		for(var j=0; j<transcriptExons.length; j++){
+			exonLength += transcriptExons[j].end - transcriptExons[j].start + 1;
+		}
+		
+		var unitNtSize = final_length / transcriptExons.length;
+		
+		var exonNtSize = (unitNtSize * 0.8) / transcriptExons.length;
+
+		var intronNtSize = (unitNtSize * 0.2) / (transcriptExons.length+1);
+
+		console.log( exonLength + "/" + gene_length + "  and No of exons : " + transcriptExons.length + " " + unitNtSize + " (" + exonNtSize + ", " + intronNtSize + ")");
+	}
 	
-	
-	;
+//	console.log( gene_total_length );
+	console.log( genePanelJson[0].gene );
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawChromosomeLabel = function(config, className, gene) {
@@ -45,7 +94,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawChromosomeLabel = function(conf
 }
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneLabel = function(config, className, gene) {
-	var labelGroup = d3.selectAll( className );	
+	var labelGroup = d3.selectAll( className );
+
 		labelGroup.append("text")
 		.style("font-size", "14px")
 		.attr("class", "gene-name-label")
@@ -70,7 +120,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawMessagerRnaIdLabel = function(c
 	var labelGroup = d3.selectAll( className );	
 		labelGroup.append("text")
 		.style("font-size", "14px")
-		.attr("class", "gene-name-label")
+		.attr("class", "mirna-name-label")
 		.attr("text-anchor", "middle")
 		.attr("dominant-baseline", "central")
 		.attr("transform", function(d) {
@@ -90,9 +140,9 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(co
 	var canvasRect = d3.select(config.container).node().getBoundingClientRect();
 
 	var first = canvas.append("g")
-			.attr("class", "fusion-gene-label-group-5p");
+			.attr("id", "fusion-gene-label-group-5p");
 	var second = canvas.append("g")
-			.attr("class", "fusion-gene-label-group-3p");
+			.attr("id", "fusion-gene-label-group-3p");
 	
 	var data = [{width:100,height:30,id:'5pGene',label:"5' Gene"}, {width:100,height:30,id:'3pGene',label:"3' Gene"}];
 
@@ -158,7 +208,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.initLayout = function(config) {
 	var base = canvas.node().getBoundingClientRect();
 	
 	canvas.append("rect")
-			.attr("class", "fusion-gene-top-panel-5p")
+			.attr("id", "fusion-gene-top-panel-5p")
+			.attr("class", "fusion-gene-top-panel")
 			.attr("width", base.width/2)
 			.attr("height", config.explainTopPanelHeight)
 			.attr("fill", "none")
@@ -166,7 +217,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.initLayout = function(config) {
 			.attr("y", 0);
 	
 	canvas.append("rect")
-			.attr("class", "fusion-gene-top-panel-3p")
+			.attr("id", "fusion-gene-top-panel-3p")
+			.attr("class", "fusion-gene-top-panel")
 			.attr("width", base.width/2)
 			.attr("height", config.explainTopPanelHeight)
 			.attr("fill", "none")
@@ -174,7 +226,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.initLayout = function(config) {
 			.attr("y", 0);
 	
 	var panel5p = canvas.append("rect")
-			.attr("class", "fusion-gene-5p-area")
+			.attr("id", "fusion-gene-5p-area")
+			.attr("class", "fusion-gene-panel")
 			.attr("width", base.width/2)
 			.attr("height", base.height - config.explainTopPanelHeight)
 			.attr("fill", "green")
@@ -182,7 +235,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.initLayout = function(config) {
 			.attr("y", config.explainTopPanelHeight);
 
 	var panel3p = canvas.append("rect")
-			.attr("class", "fusion-gene-3p-area")
+			.attr("id", "fusion-gene-3p-area")
+			.attr("class", "fusion-gene-panel")
 			.attr("width", base.width/2)
 			.attr("height", base.height - config.explainTopPanelHeight)
 			.attr("fill", "orange")
