@@ -73,7 +73,7 @@ public class Gff3Vo {
 		String[] attributeArray = attributes.split(";");
 		for(String attribute : attributeArray) {
 			String[] set = attribute.split("=");
-			map.put(set[0], set[1]);
+			if( set != null && set.length == 2 )	map.put(set[0], set[1]);
 		}
 		this.setAttributesMap( map );
 	}

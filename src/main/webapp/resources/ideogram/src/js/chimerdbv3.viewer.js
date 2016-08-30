@@ -95,7 +95,7 @@ var ChimeraDbV3Viewer = function(config, gene1, gene2) {
 			this.config.rotatable = false;
 		}
 	}
-	
+
 	this.initAnnotSettings();
 	
 	this.config.chrMargin = (
@@ -167,19 +167,41 @@ var ChimeraDbV3Viewer = function(config, gene1, gene2) {
 	this.chromosomes = {};
 	this.numChromosomes = 0;
 	this.bandData = {};
-
 	
+	// When same choromosome are inserted
+	if( this.config.chromosomes.length === 2 ) {
+		if( this.config.chromosomes[0] === this.config.chromosomes[1] ) {
+			this.config.chromosomes = this.config.chromosomes[0];
+			this.fusion_type = "intra";
+		}else {
+			this.fusion_type = "inter";
+		}
+	}	
 	
 	// Fusion gene의 유전자 정보를 저장할 변수 선언 및 세팅  
 	this.genes = {};
 	
 	var gene1 = JSON.parse(JSON.stringify(gene1));
 	var gene2 = JSON.parse(JSON.stringify(gene2));
-	this.genes[ gene1.chromosome ] = gene1;
-	this.genes[ gene2.chromosome ] = gene2;
 	
+	if( this.fusion_type === "inter") {
+		this.genes[ gene1.chromosome ] = gene1;
+		this.genes[ gene2.chromosome ] = gene2;
+	}else {
+		this.genes[gene1.chromosome] = [gene1, gene2];
+	}
+
 	this.init();
 };
+
+
+//	// When same choromosome are inserted
+//	if( config.chromosomes.length === 2 ) {
+//		if( config.chromosomes[0] === config.chromosomes[1] ) {
+//			config.chromosomes = config.chromosomes[0];
+//		}
+//	}
+
 
 /**
 * Gets chromosome band data from a
@@ -369,7 +391,6 @@ ChimeraDbV3Viewer.prototype.colorArms = function(pArmColor, qArmColor) {
 	});
 	d3.selectAll(".p-ter.chromosomeBorder").style("fill", pArmColor);
 	d3.selectAll(".q-ter.chromosomeBorder").style("fill", qArmColor);
-
 };
 
 /**
@@ -596,7 +617,6 @@ ChimeraDbV3Viewer.prototype.drawBandLabels = function(chromosomes, chrNos) {
 	}
 
 	for (var i = 0; i < chrs.length; i++) {
-
 		chrModel = chrs[i];
 
 		var textsLength = textOffsets[chrModel.id].length,
@@ -1715,7 +1735,7 @@ ChimeraDbV3Viewer.prototype.getTaxids = function(callback) {
 		if (taxids.length === 0) {
 			promise = new Promise(function(resolve, reject) {
 				ideo.getTaxidFromEutils(resolve);
-			});
+			})
 			promise.then(function(data){
 			taxid = data;
 			taxids.push(taxid);
@@ -1966,10 +1986,10 @@ ChimeraDbV3Viewer.prototype.init = function() {
 	numBandDataResponses = 0,
 	resolution = this.config.resolution,
 	accession;
-	
+
 	var promise = new Promise(function(resolve, reject) {
 		ideo.getTaxids(resolve);
-	});
+	})
 	
 	promise.then(function(taxids) {
 		taxid = taxids[0];
@@ -1995,34 +2015,38 @@ ChimeraDbV3Viewer.prototype.init = function() {
 				// Drosophila melanogaster (fly)
 				"7227": "ucsc/drosophila_melanogaster_dm6.tsv"
 			};
-	
-			if (typeof chrBands === "undefined" && taxid in bandDataFileNames) {
-	
-				d3.request(ideo.config.bandDir + bandDataFileNames[taxid])
-				.on("beforesend", function(data) {
-					// Ensures correct taxid is processed in response callback; using
-					// simply 'taxid' variable gives the last *requested* taxid, which
-					// fails when dealing with multiple taxa.
-					data.taxid = taxid;
-				})
-				.get(function(error, data) {
-					ideo.bandData[data.taxid] = data.response;
-					numBandDataResponses += 1;
-	
-					if (numBandDataResponses === taxids.length) {
-						processBandData();
-						writeContainer();
+
+			try {
+				if (typeof chrBands === "undefined" && taxid in bandDataFileNames) {
+					d3.request(ideo.config.bandDir + bandDataFileNames[taxid])
+					.on("beforesend", function(data) {
+						// Ensures correct taxid is processed in response callback; using
+						// simply 'taxid' variable gives the last *requested* taxid, which
+						// fails when dealing with multiple taxa.
+						data.taxid = taxid;
+					})
+					.get(function(error, data) {
+						ideo.bandData[data.taxid] = data.response;
+						numBandDataResponses += 1;
+
+						if (numBandDataResponses === taxids.length) {
+							processBandData();
+							writeContainer();
+						}
+					});
+				} else {
+					if (typeof chrBands !== "undefined") {
+						// If bands already available,
+						// e.g. via <script> tag in initial page load
+						ideo.bandData[taxid] = chrBands;
 					}
-				});
-			} else {
-				if (typeof chrBands !== "undefined") {
-					// If bands already available,
-					// e.g. via <script> tag in initial page load
-					ideo.bandData[taxid] = chrBands;
+					processBandData();
+					writeContainer();
 				}
-				processBandData();
-				writeContainer();
+			}catch(e){
+				console.log(e);
 			}
+
 		}
 	});
 	
@@ -2108,6 +2132,8 @@ ChimeraDbV3Viewer.prototype.init = function() {
 	
 	if ("chromosomes" in ideo.config) {
 		chrs = ideo.config.chromosomes;
+		
+		console.log( ideo.config.chromosomes );
 	}
 	if (ideo.config.multiorganism) {
 		chrsByTaxid = chrs;
@@ -2156,7 +2182,6 @@ ChimeraDbV3Viewer.prototype.init = function() {
 }
 
 function finishInit() {
-
 	try {
 		var t0_a = new Date().getTime();
 		
@@ -2164,7 +2189,7 @@ function finishInit() {
 		taxids,
 		chr, chrModel, chromosome,
 		i, j, m, n;
-		
+
 		ideo.initDrawChromosomes(bandsArray);
 		
 		ideo.initDrawGeneStructure();
@@ -2295,9 +2320,16 @@ ChimeraDbV3Viewer.prototype.initDrawGeneStructure = function() {
 	for(i=0; i<chrs.length; i++) {
 		var gene = genes[chrs[i]];
 
-		gene_length += gene.end - gene.start + 1;
+		if( ideo.fusion_type === "inter" ) {
+			gene_length += gene.geneFeature.end - gene.geneFeature.start + 1;
+		}else {
+			for(j=0; j<gene.length; j++) {
+				var oneGene= gene[j];
+				gene_length += oneGene.geneFeature.end - oneGene.geneFeature.start + 1;
+			}
+		}
 	}
-	
+
 	for (m = 0; m < taxids.length; m++) {
 		taxid = taxids[m];
 		chrs = ideo.config.chromosomes[taxid];
@@ -2307,14 +2339,24 @@ ChimeraDbV3Viewer.prototype.initDrawGeneStructure = function() {
 			chrIndex = chrModel.chrIndex;
 
 			gene = genes[chromosome];
-			length_ratio = (gene.end-gene.start + 1) / gene_length;
-	
-			ideo.drawGeneStructure( chrModel, gene, length_ratio );
+			if( ideo.fusion_type === "inter" ) {
+				length_ratio = (gene.geneFeature.end-gene.geneFeature.start + 1) / gene_length;
+				ideo.drawGeneStructure( chrModel, gene, length_ratio, chrIndex );
+				
+				console.log( chrModel );
+			}else {
+				for(idx=0; idx<gene.length; idx++) {
+					var oneGene = gene[idx];
+					length_ratio = (oneGene.geneFeature.end-oneGene.geneFeature.start + 1) / gene_length;
+
+					ideo.drawGeneStructure( chrModel, oneGene, length_ratio, idx );
+				}
+			}
 		}
 	}
 };
 
-ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length_ratio ) {
+ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length_ratio, idx ) {
 	var ideo = this;
 
 	container = this.config.container,
@@ -2328,7 +2370,7 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 	var MARGIN = 50;
 	var start_x = 0;
 	var end_x = 0;
-	if( chrModel.chrIndex === 0 ) {
+	if( idx === 0 ) {
 		start_x = MARGIN;
 		end_x = backbone_width - MARGIN;
 	}else {
@@ -2348,7 +2390,7 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 	.attr('x2', end_x)
 	.attr("y2", BASE_Y);
 
-	var tmp = [{"point":gene.start, "x":start_x, "direction":"5'"}, {"point":gene.end, "x":end_x, "direction":"3'"}];
+	var tmp = [{"point":gene.geneFeature.start, "x":start_x, "direction":"5'"}, {"point":gene.geneFeature.end, "x":end_x, "direction":"3'"}];
 
 	gene_backbone.append("line")
 	.attr("style", "stroke:#aaa;stroke-width:0.5;")
@@ -2397,82 +2439,80 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 	
 	if( 1 === 1 ) {
 		// exon과 intron을 고정으로 그려주는 부분
-		var rnas = gene.rnas;
+		var rnas = gene.transcripts;
 
 		var exon_cnt = 0;
 		for(i=0; i<rnas.length; i++) {
-		var exons = rnas[i].features;
-		exon_cnt += exons.length;
-	}
-	
-	var unit_len_nt =  (backbone_width - 2*MARGIN) / (exon_cnt * 2 + 1);
-	
-	if( rnas.length > 1 ) {
-		var unique_exon_set = {};
-		for(i=0; i<rnas.length; i++) {
-			var exons = rnas[i].features;
-			for(j=0; j<exons.length; j++) {
-				var key = exons[j].start+"-"+exons[j].end;
-				if( !unique_exon_set.hasOwnProperty() ){
-					unique_exon_set[key] = exons[j];
+			var exons = rnas[i].exons;
+			exon_cnt += exons.length;
+		}
+
+		var unit_len_nt =  (backbone_width - 2*MARGIN) / (exon_cnt * 2 + 1);
+
+		if( rnas.length > 1 ) {
+			var unique_exon_set = {};
+			for(i=0; i<rnas.length; i++) {
+				var exons = rnas[i].exons;
+				for(j=0; j<exons.length; j++) {
+					var key = exons[j].start+"-"+exons[j].end;
+					if( !unique_exon_set.hasOwnProperty() ){
+						unique_exon_set[key] = exons[j];
+					}
 				}
 			}
+
+			unique_exon_set = Object.keys(unique_exon_set).map(function(k) { return unique_exon_set[k]; });
+
+			unit_len_nt =  (backbone_width - 2*MARGIN) / (unique_exon_set.length * 2 + 1);
+
+			var previous = start_x + unit_len_nt;
+			for(j=0; j<unique_exon_set.length; j++) {
+				var x1 = previous;
+				var y1 = BASE_Y - 10;
+				var width = unit_len_nt;
+
+				gene_backbone.append("rect")
+				.style("fill", "#ff3ee8")
+				.attr("rx", 2)
+				.attr("ry", 2)
+				.attr("x", x1)
+				.attr("y", y1)
+				.attr("width", width)
+				.attr("height", 20);
+
+				previous = (x1 + width) + unit_len_nt;
+			}
+		}else {
+			var rna = rnas[0];
+
+			var exons = rna.exons;
+
+			var previous = start_x + unit_len_nt;
+			for(j=0; j<exons.length; j++) {
+				var x1 = previous;
+				var y1 = BASE_Y - 10;
+				var width = unit_len_nt;
+
+				gene_backbone.append("rect")
+				.style("fill", "#ff3ee8")
+				.attr("rx", 2)
+				.attr("ry", 2)
+				.attr("x", x1)
+				.attr("y", y1)
+				.attr("width", width)
+				.attr("height", 20);
+
+				previous = (x1 + width) + unit_len_nt;
+			}
 		}
-
-		unique_exon_set = Object.keys(unique_exon_set).map(function(k) { return unique_exon_set[k]; });
-
-		unit_len_nt =  (backbone_width - 2*MARGIN) / (unique_exon_set.length * 2 + 1);
-
-		var previous = start_x + unit_len_nt;
-		for(j=0; j<unique_exon_set.length; j++) {
-			var x1 = previous;
-			var y1 = BASE_Y - 10;
-			var width = unit_len_nt;
-
-			gene_backbone.append("rect")
-			.style("fill", "#ff3ee8")
-			.attr("rx", 2)
-			.attr("ry", 2)
-			.attr("x", x1)
-			.attr("y", y1)
-			.attr("width", width)
-			.attr("height", 20);
-	
-			previous = (x1 + width) + unit_len_nt;
-		}
-		console.log( (width * unique_exon_set.length) + (width * (unique_exon_set.length+1)) );
-		console.log( (backbone_width - 2*MARGIN) );
-	}else {
-		var rna = rnas[0];
-		
-		var exons = rna.features;
-		
-		var previous = start_x + unit_len_nt;
-		for(j=0; j<exons.length; j++) {
-			var x1 = previous;
-			var y1 = BASE_Y - 10;
-			var width = unit_len_nt;
-			
-			gene_backbone.append("rect")
-			.style("fill", "#ff3ee8")
-			.attr("rx", 2)
-			.attr("ry", 2)
-			.attr("x", x1)
-			.attr("y", y1)
-			.attr("width", width)
-			.attr("height", 20);
-			
-			previous = (x1 + width) + unit_len_nt;
-		}
-	}
 	}else if( 1 === 2) {
 		// exon의 길이를 비례대로 그려주는 부분
-		var rnas = gene.rnas;
+		var rnas = gene.transcripts;
 		
 		var exon_length = 0;
 		var exon_cnt = 0;
 		for(i=0; i<rnas.length; i++) {
-			var exons = rnas[i].features;
+			var exons = rnas[i].exons;
 
 			for(j=0; j<exons.length; j++){
 				exon_length += (exons[j].end-exons[j].start+1);
@@ -2492,8 +2532,8 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 			
 			var previous = start_x;
 			for(j=0; j<exons.length; j++) {
-				var start = exons[j].start - gene.start;
-				var end = exons[j].end - gene.start;
+				var start = exons[j].start - gene.geneFeature.start;
+				var end = exons[j].end - gene.geneFeature.start;
 				
 				var x1 = (INTRON_BASES * unit_len_nt) + previous;
 				var y1 = BASE_Y - 10;
@@ -2514,18 +2554,18 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 		}
 	}else {
 		// exon, intron을 실제 길이 비율대로 그려주는 부분
-		var rnas = gene.rnas;
+		var rnas = gene.transcripts;
 		
-		var unit_len_nt = (backbone_width - 2*MARGIN) / (gene.end-gene.start+1);
+		var unit_len_nt = (backbone_width - 2*MARGIN) / (gene.geneFeature.end-gene.geneFeature.start+1);
 		
 		for(i=0; i<rnas.length; i++) {
 			var rna = rnas[i];
 			
-			var exons = rna.features;
+			var exons = rna.exons;
 			
 			for(j=0; j<exons.length; j++) {
-				var start = exons[j].start - gene.start;
-				var end = exons[j].end - gene.start;
+				var start = exons[j].start - gene.geneFeature.start;
+				var end = exons[j].end - gene.geneFeature.start;
 				
 				var x1 = start_x + (start*unit_len_nt);
 				var y1 = BASE_Y - 10;
@@ -2544,8 +2584,8 @@ ChimeraDbV3Viewer.prototype.drawGeneStructure = function( chrModel, gene, length
 		}
 	}
 
-	var startPx1 = ideo.convertBpToPx(chrModel, gene.start);
-	var stopPx1 = ideo.convertBpToPx(chrModel, gene.end);
+	var startPx1 = ideo.convertBpToPx(chrModel, gene.geneFeature.start);
+	var stopPx1 = ideo.convertBpToPx(chrModel, gene.geneFeature.end);
 
 	var aa = d3.selectAll(".chromosome").each(function(d, i) {
 		if( this.id.startsWith("chr" + gene.chromosome) ){

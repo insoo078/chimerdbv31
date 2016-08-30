@@ -5,7 +5,9 @@
 
 $(document).ready(function () {
     check_m_state("mmchimerseqbtn");
-    
+
+	var json = $("#paramTest").val();
+
     var mainTable = null;
     mainTable = $("#chimerSeqTbl").DataTable({
         "dom":"T<'clear'>frtilp",
@@ -15,9 +17,12 @@ $(document).ready(function () {
         "serverSide": true,
         "ajax": {
             "url":"nextp.cdb",
+			"data":{formData:json},
+			"dataType":"json",
             "type": "POST"
         },
         "iDisplayLength": 10,
+		"columnDefs":[{targets:[0,1,2,3,4,5,6,7,8,9], visible:true}, {targets:'_all', visible:false}],
         "columns":[
             {"data":"fusion_pair"},
             {"data":"gene5Junc"},
@@ -28,8 +33,29 @@ $(document).ready(function () {
             {"data":"frame"},
             {"data":"chr_info"},
             {"data":"source"},
-            {"data":"supported"}
-        ]
+            {"data":"supported"},
+			{"data":"id"}
+        ],
+		"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+			var imgTag = "";
+
+			var tmp = aData.supported.split("_");
+			
+			if(tmp[0]==='1') imgTag += '<div class="rcorner-3" style="width:30px;height:20px;line-height:20px;text-align:center;background:green;">KB</div>';
+			if(tmp[1]==='1') imgTag += '<div class="rcorner-3" style="width:30px;height:20px;line-height:20px;text-align:center;background:purple;">Pub</div>';
+			$('td:eq(9)', nRow).html(imgTag); // where 4 is the zero-origin visible column in the HTML
+
+			if( iDisplayIndex === 0 ){
+				var genes = aData.fusion_pair.split("_");
+
+				genes[0] = "5':" + genes[0];
+				genes[1] = "3':" + genes[1];
+
+				getGeneInformation( genes, aData );
+			}
+
+			return nRow;
+		}
     });
 
     $('#chimerSeqTbl tbody').on('click', 'tr', function(){
@@ -39,14 +65,14 @@ $(document).ready(function () {
 		
 		genes[0] = "5':" + genes[0];
 		genes[1] = "3':" + genes[1];
-		
-		getGeneInformation( genes );
 
-//        showDesc(rowdata[0], rowdata[1], rowdata[2], rowdata[5], rowdata[8]);
+		getGeneInformation( genes, rowdata );
+
+        showDesc(rowdata.id);
     });
 });
 
-function getGeneInformation(genes) {
+function getGeneInformation(genes, rowdata) {
 	var data = JSON.stringify(genes);
 
 	$.ajax({
@@ -55,46 +81,41 @@ function getGeneInformation(genes) {
 		data : {"genes":data},
 		dataType: "json",
 		success: function(jData) {
-			console.log( jData );
+			$("#chimer-seq-viewer").empty();
+
+			var config = {
+				organism: "human",
+				orientation: "horizontal",
+				chromosomes: [jData[0].chromosome, jData[1].chromosome],
+				chrMargin: 300,
+				chrHeight: 1024,
+				chrWidth: 20,
+				topMargin : 20,
+				sideMargin : 10,
+				canvasHeight : 500,
+				explainTopPanelHeight : 100,
+				fusionInfo : rowdata,
+				showBandLabels: true,
+				container: "#chimer-seq-viewer",
+			  };
+			  
+			  var gene1 = jData[0];
+			  var gene2 = jData[1];
+
+			  var viewer = new ChimeraDbV3ViewerWithOutChromosome(config, gene1, gene2);
 		}
 	});
 }
 
-function showDesc(fuspair, gene5junc, gene3junc, barcodeid, source){
-
-    var data = "fuspair=" + fuspair + "&gene5junc=" + gene5junc + "&gene3junc=" + gene3junc + "&barcodeid=" + barcodeid + "&source=" + source;
-
+function showDesc(id){
     $.ajax({
-          url: "descofgene.cdb",
+          url: "getFusionDetailInfo.cdb",
           type : 'POST',
-          data : data,
+          data : {"id":id},
           dataType: "json",
           success: function(jData) {
-
-              var mypopup = window.open("description_popup.cdb", 'mypopup', "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=400");
-//              mypopup.pdata = jData;
-              //mypopup.document.write();
-              
-//              <table><tr><td rowspan="2">Funsion Gene(5'_3')</td><td></td><td></td></tr>
-//                <tr><td></td><td></td></tr>
-//                <tr><td>Gene Name</td><td></td><td></td></tr>
-//                <tr><td>Chromosome</td><td></td><td></td></tr>
-//                <tr><td>Junction(Exon BreakPoint)</td><td></td><td></td></tr>
-//                <tr><td>Strand</td><td></td><td></td></tr>
-//                <tr><td>Function</td><td></td><td></td></tr>
-//                <tr><td>ChimerDB Type</td><td></td><td></td></tr>
-//                <tr><td>Source</td><td></td><td></td></tr>
-//                <tr><td>Genome Build Version</td><td></td><td></td></tr>
-//                <tr><td>Cancer Type</td><td></td><td></td></tr>
-//                <tr><td>TCGA Sample Id</td><td></td><td></td></tr>
-//                <tr><td>Seed reads num</td><td></td><td></td></tr>
-//                <tr><td>Spanning pairs num</td><td></td><td></td></tr>
-//                <tr><td>Junction reads num</td><td></td><td></td></tr>
-//                <tr><td>Frame</td><td></td><td></td></tr>
-//                <tr><td>Chromosome Information</td><td></td><td></td></tr>
-//                <tr><td>Supported</td><td></td><td></td></tr></table>
-              
-              
+			  var data = JSON.stringify(jData);
+              var mypopup = window.open("chimerseq_popup.cdb?detailInfo="+data+"", 'mypopup', "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=400");
           },
           error : function(xhr, status) {
             alert(status);
@@ -102,6 +123,3 @@ function showDesc(fuspair, gene5junc, gene3junc, barcodeid, source){
       });
     
 }
-
-function initVariable(){
-};
