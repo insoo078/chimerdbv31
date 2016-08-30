@@ -9,15 +9,32 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config, gene1, gene2 ) {
     this.config = JSON.parse( JSON.stringify(config) );
 	
 	var canvas = this.drawCanvas(this.config);
-	this.drawEachGeneAreaLabel( this.config, canvas );
+	this.drawEachGeneAreaLabel( this.config, gene1, gene2, canvas );
+	this.drawGeneLabel( this.config, gene1, canvas );
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(config, canvas) {
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneLabel = function(config, gene, canvas) {
+	d3.selectAll(".fusion-gene-label")
+		.data(gene)
+		.enter()
+		.append("g")
+		.append("text")
+		.style("font-size", "14px")
+		.attr("text-anchor", "middle")
+		.attr("transform", function(d) {
+			return "translate(" + 0 + "," + 0 + ")";
+		})
+		.text(function(d){
+			return d.symbol;
+		});
+		
+};
+
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(config, gene1, gene2, canvas) {
 	var labelWidth= 100;
 	var labelHeight= 30;
-	
-	var canvasRect = d3.select(config.container).node().getBoundingClientRect();
 
+	var canvasRect = d3.select(config.container).node().getBoundingClientRect();
 
 	var first = canvas.append("g");
 	var second = canvas.append("g");
@@ -35,6 +52,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(co
 			.attr("fill", "none")
 			.attr("border", "1")
 			.attr("stroke", "gray")
+			.style("stroke-dasharray", ("2,3"))
 			;
 			
 	first.append("text")
@@ -62,6 +80,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(co
 			.attr("fill", "none")
 			.attr("border", "1")
 			.attr("stroke", "gray")
+			.style("stroke-dasharray", ("2,3"))
 			;
 
 	second.append("text")
@@ -71,10 +90,9 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(co
 				var diff = gene3PLabel.node().getBoundingClientRect().top - canvas.node().getBoundingClientRect().top;
 		
 				var height = (gene3PLabel.node().getBoundingClientRect().height + diff)/2;
-				
-				var center = gene3PLabel.node().getBoundingClientRect().left - gene3PLabel.node().getBoundingClientRect().width - config.sideMargin;
-				
-				console.log( gene3PLabel.node().getBoundingClientRect().left );
+
+				var center = canvasRect.width - (labelWidth/2) - config.sideMargin;
+
 				return "translate(" + center + "," + (height+10) + ")";
 			})
 			.text("3' Gene");
