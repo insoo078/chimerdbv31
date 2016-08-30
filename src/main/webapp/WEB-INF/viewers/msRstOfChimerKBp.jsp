@@ -66,23 +66,24 @@
 
     
 <!-- content -->
-<div class="container">
-    
-    
-    <div class="row margin-bottom-30" style="margin-top: 30px; ">
-                
-                
+
+<div id="main-wrapper">
+    <div class="template-page-wrapper">
+        <div class="templatemo-content-wrapper">
             
-        
-            <div class="row margin-bottom-30">
+            <div class="row margin-bottom-30" style="margin-top: 30px;">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    
+                    
                     <div class="templatemo-panels">
 
-                            <div class="col-md-12">
+                            
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
                                     </div>
                                     <div class="panel-body">
-                                            <table id="chimerKbTbl" class="hover" style="margin: 0 auto; " >
+                                            <table id="chimerKbTbl" class="display compact hover" style="margin: 0 auto; " >
                                                 <thead>
                                                     <tr>
                                                         <th>Fusion Gene(5'_3')</th>
@@ -128,32 +129,39 @@
                                         
                                     </div>
                                 </div>
-                            </div>
+                            
 
                     </div>
-            </div>
-        
-        
-            <div class="templatemo-panels">
                     
-                    <div class="col-md-12">
+                    
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            
+            <div class="row margin-bottom-30">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    
+                    <div class="templatemo-panels">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <span style="font-size: 20px; font-weight: bold;">Xxxx Xxxx XXX</span>
                             </div>
                             <div class="panel-body" style="text-align: center;">
-                                
+
                             </div>
                         </div>
                     </div>
-
-            </div>
-        
-        
-        
-        <div class="templatemo-panels">
                     
-                    <div class="col-md-12">
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            
+            <div class="row margin-bottom-30">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    
+                    <div class="templatemo-panels">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <span style="font-size: 20px; font-weight: bold;">Query</span>
@@ -163,13 +171,20 @@
                             </div>
                         </div>
                     </div>
-
+                    
+                </div>
+                <div class="col-md-1"></div>
             </div>
-        
-        
             
-        
+        </div>
     </div>
+</div>
+
+
+<div class="container">
+    
+    
+    
 
 <!-- Modal -->
 <div class="modal fade" id="genedescmodal" tabindex="-1" role="dialog">
@@ -260,32 +275,28 @@
 </div>
 </div>
                             
-                            
-                            
-    <form id="resultmain_form" method="POST" action="msrstofchimerkb.cdb">
-        
-        
-        <input id="key_a_search_type" type="hidden" name="key_a_search_type" />
-        <input id="key_data_for_search_type" type="hidden" name="key_data_for_search_type" />
-        
-        <input id="key_selt_the_websource" type="hidden" name="key_selt_the_websource" />
-        
-        <input id="key_kb_selt_the_source" type="hidden" name="key_kb_selt_the_source" />
-        <input id="key_kb_selt_the_breakpoint" type="hidden" name="key_kb_selt_the_breakpoint" />
-        <input id="key_kb_selt_the_validtn_mtd" type="hidden" name="key_kb_selt_the_validtn_mtd" />
-        
-        <input id="key_flt_by_func" type="hidden" name="key_flt_by_func" />
-        <input id="key_flt_by_fusn_type" type="hidden" name="key_flt_by_fusn_type" />
-        <input id="key_flt_by_supted_info" type="hidden" name="key_flt_by_supted_info" />
-        
-    </form>
-            
-            
 
-    
-    
-    
 </div>
+
+<form id="resultmain_form" method="POST" action="msrstofchimerkb.cdb">
+        
+        
+    <input id="key_a_search_type" type="hidden" name="key_a_search_type" />
+    <input id="key_data_for_search_type" type="hidden" name="key_data_for_search_type" />
+
+    <input id="key_selt_the_websource" type="hidden" name="key_selt_the_websource" />
+
+    <input id="key_kb_selt_the_source" type="hidden" name="key_kb_selt_the_source" />
+    <input id="key_kb_selt_the_breakpoint" type="hidden" name="key_kb_selt_the_breakpoint" />
+    <input id="key_kb_selt_the_validtn_mtd" type="hidden" name="key_kb_selt_the_validtn_mtd" />
+
+    <input id="key_flt_by_func" type="hidden" name="key_flt_by_func" />
+    <input id="key_flt_by_fusn_type" type="hidden" name="key_flt_by_fusn_type" />
+    <input id="key_flt_by_supted_info" type="hidden" name="key_flt_by_supted_info" />
+
+</form>
+                                
+                                
 <%@include file="part/footer.jsp" %>
 
 </body>

@@ -40,56 +40,47 @@ public class ChimerKbController {
             ModelAndView result = new ModelAndView("msRstOfChimerKBp");
 
             sParam = new ParamVo(true);
-            String activatedTab = request.getParameter("key_activated_tab");
+            
             String searchType = request.getParameter("key_a_search_type");
             String dataForsearchType = request.getParameter("key_data_for_search_type");
 
-            result.addObject("activated_tab", activatedTab);
+            
             result.addObject("search_type", searchType);
 
-            sParam.setActivatedTab(activatedTab);
+            
             sParam.setSearchType(searchType);
             sParam.setDataForSearchType(dataForsearchType);
             String data = "";
             StringBuffer queryStr = null;
             String[] dataArr = null;
 
+            
+            if(searchType.equals("by_gene")){
+                data = dataForsearchType;
 
-
-            switch( searchType ){
-                        case "all_genes":{
-
-                        };break;
-                        case "by_gene":{
-
-                            data = dataForsearchType;
-
-                            if(data.indexOf(",") > -1){
-                                dataArr = data.split(",");
-                                for(int i = 0; i < dataArr.length; i++){
-                                    if(i==0){
-                                        sParam.setDataForSearchType( dataArr[i] );
-                                    }else{
-                                        if(dataArr[i].equals("5")){
-                                            sParam.setGene5(true);
-                                        }
-                                        if( dataArr[i].equals("3") ){
-                                            sParam.setGene3(true);
-                                        }
-                                    }
-                                }
+                if(data.indexOf(",") > -1){
+                    dataArr = data.split(",");
+                    for(int i = 0; i < dataArr.length; i++){
+                        if(i==0){
+                            sParam.setDataForSearchType( dataArr[i] );
+                        }else{
+                            if(dataArr[i].equals("5")){
+                                sParam.setGene5(true);
                             }
-                            if(sParam.isGene5() && sParam.isGene3()){
-                                sParam.setGene5(false);
-                                sParam.setGene3(false);
-                                sParam.setGene53(true);
+                            if( dataArr[i].equals("3") ){
+                                sParam.setGene3(true);
                             }
-
-                        };break;
-                        case "by_gene_pair":{
-                        };break;
-                        case "by_chr_locus":{};break;
+                        }
                     }
+                }
+                if(sParam.isGene5() && sParam.isGene3()){
+                    sParam.setGene5(false);
+                    sParam.setGene3(false);
+                    sParam.setGene53(true);
+                }
+            }
+
+                
                     data = "";
                     data = request.getParameter("key_selt_the_websource");
                     dataArr = null;
@@ -263,7 +254,9 @@ public class ChimerKbController {
                             }
                         }
                     }
-
+                    result.addObject("selected_function", data);
+                    
+                    
                     data = "";
                     data = request.getParameter("key_flt_by_fusn_type");
                     dataArr = null;
