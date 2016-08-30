@@ -72,4 +72,42 @@
         <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>;
     </select>
     
+    
+    
+    <select id="getSelectedFGeneData" parameterType="org.com.chimerdbv31.chimerkb.vo.ChimerKbVo" resultType="org.com.chimerdbv31.chimerkb.vo.ChimerKbVo">
+        select distinct
+          ChimerDB_Type, Source, webSource
+        , Fusion_pair
+        , if( instr(5Gene_Junction, "NA") > -1, if(  substring_index(5Gene_Junction,":",-1) = "NA", "", substring_index(5Gene_Junction,":",-1) )  , 5Gene_Junction ) as gene5Junc 
+        , if( instr(3Gene_Junction, "NA") > -1, if(  substring_index(3Gene_Junction,":",-1) = "NA", "", substring_index(3Gene_Junction,":",-1) ) , 3Gene_Junction ) as gene3Junc
+        , H_gene
+        , if(H_chr = "NA","",H_chr) as H_chr
+        , H_position
+        , if(H_strand = "NA","",H_strand) as H_strand
+        , T_gene
+        , if(T_chr = "NA","",T_chr) as T_chr
+        , T_position
+        , if(T_strand = "NA","",T_strand) as T_strand
+        , Genomic_breakpoint, Exon_breakpoint
+        , if(Breakpoint_Type = "NA", "", Breakpoint_Type) as Breakpoint_Type
+        , Genome_Build_Version
+        , H_tanscript, H_exon, T_tanscript, T_exon
+        , if(PMID = "NA","",PMID) as PMID
+        , if(Disease = "NA","",Disease) as Disease
+        , Validation
+        , if(Frame = "NA","",Frame) as Frame
+        , Chr_info, H_locus, T_locus, Kinase, Oncogene, Tumor_suppressor, Receptor
+        , Transcription_Factor, ChimerSeq, ChimerPub
+        from ChimerDB3.ChimerKB_ver5
+        where 1=1
+        
+        
+        
+        <if test="Fusion_pair != null and Fusion_pair != ''"> and Fusion_pair = "${Fusion_pair}" </if>
+        <if test="Breakpoint_Type != null and Breakpoint_Type != ''"> and Breakpoint_Type = "${Breakpoint_Type}" </if>
+        
+        limit 1;
+    </select>
+    
+    
 </mapper>

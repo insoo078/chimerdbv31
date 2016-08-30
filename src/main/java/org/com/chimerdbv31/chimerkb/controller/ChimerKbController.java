@@ -5,6 +5,7 @@ import java.util.Locale;
 import javax.annotation.Resource;
 import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
+import net.sf.json.JSONObject;
 import org.com.chimerdbv31.chimerkb.services.ChimerKbService;
 import org.com.chimerdbv31.chimerkb.vo.ChimerKbVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
@@ -375,6 +376,38 @@ public class ChimerKbController {
                     // out query ////////////////////////////////////////////////////////////////////////////////////////////
             return result;
         }
+        
+        
+        
+        @RequestMapping(value = "/genedescpopup", method = RequestMethod.POST)
+        public ModelAndView geneDescPopUp(HttpServletRequest request) throws Exception {
+            ModelAndView result = new ModelAndView();
+            
+            return result;
+        }
+        
+        @RequestMapping(value = "/genedesc", method = RequestMethod.POST)
+        @ResponseBody
+        public String geneDesc(HttpServletRequest request) throws Exception {
+            JSONObject jsonData;
+            ChimerKbVo param = new ChimerKbVo();
+            
+            param.setFusion_pair( request.getParameter("fuspair") );
+            param.setGene5Junc( request.getParameter("gene5junc") );
+            param.setGene3Junc( request.getParameter("gene3junc") );
+            param.setFrame( request.getParameter("barcodeid") );
+            param.setSource( request.getParameter("source") );
+            
+            ChimerKbVo data = this.chimerKbService.getSelectedFGeneData(param);
+            
+            
+            
+            jsonData = JSONObject.fromObject(data);
+            System.out.println("=============="+data.getFusion_pair());
+            return jsonData.toString();
+        }
+        
+        
 //	
 //	@RequestMapping(value = "/interpro", method = RequestMethod.GET)
 //	public String interproscan(Locale locale, Model model) {

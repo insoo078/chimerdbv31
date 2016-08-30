@@ -43,7 +43,7 @@
     }
 </style>
 <script type="text/javascript" src="resources/js/jq/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="resources/js/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/dt/d3.min.js"></script>
 
 <script type="text/javascript" src="resources/js/jqdt/jquery.dataTables.min.js"></script>
@@ -170,10 +170,115 @@
             
         
     </div>
-    
-    
-    
-            
+
+<!-- Modal -->
+<div class="modal fade" id="genedescmodal" tabindex="-1" role="dialog">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title">ChimerDB 3.0</h4>
+</div>
+<div class="modal-body">
+    <table style="width: 100%;">
+        <tr>
+            <td rowspan="2">Fusion Gene(5'_3')</td>
+            <td colspan="2" id="td_fusion_gene"></td>
+        </tr>
+        <tr>
+            <td>5' Gene</td>
+            <td>3' Gene</td>
+        </tr>
+        <tr>
+            <td>Gene Name</td>
+            <td id="td_5gene_nm"></td>
+            <td id="td_3gene_nm"></td>
+        </tr>
+        <tr>
+            <td>Chromosome</td>
+            <td id="td_5g_chr_nm"></td>
+            <td id="td_3g_chr_nm"></td>
+        </tr>
+        <tr>
+            <td>Junction(Exon BreakPoint)</td>
+            <td id="td_5g_junc_point"></td>
+            <td id="td_3g_junc_point"></td>
+        </tr>
+        <tr>
+            <td>Strand</td>
+            <td id="td_5g_strand"></td>
+            <td id="td_3g_strand"></td>
+        </tr>
+        <tr>
+            <td>Function</td>
+            <td id="td_5g_func"></td>
+            <td id="td_3g_func"></td>
+        </tr>
+        <tr>
+            <td>ChimerDB Type</td>
+            <td colspan="2" id="td_chimerdb_type"></td>
+        </tr>
+        <tr>
+            <td>Source</td>
+            <td colspan="2" id="td_source"></td>
+        </tr>
+        <tr>
+            <td>Genome Build Version</td>
+            <td colspan="2" id="td_genome_build_ver"></td>
+        </tr>
+        <tr>
+            <td>Disease</td>
+            <td colspan="2" id="td_disease"></td>
+        </tr>
+        <tr>
+            <td>Validation Method</td>
+            <td colspan="2" id="td_validation_mtd"></td>
+        </tr>
+        <tr>
+            <td>PMID</td>
+            <td colspan="2" id="td_pmid"></td>
+        </tr>
+        <tr>
+            <td>Frame</td>
+            <td colspan="2" id="td_frame"></td>
+        </tr>
+        <tr>
+            <td>Chromosome Information</td>
+            <td colspan="2" id="td_chr_info"></td>
+        </tr>
+        <tr>
+            <td>Supported</td>
+            <td colspan="2" id="td_supported"></td>
+        </tr>
+        
+    </table>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+                            
+                            
+                            
+    <form id="resultmain_form" method="POST" action="msrstofchimerkb.cdb">
+        
+        
+        <input id="key_a_search_type" type="hidden" name="key_a_search_type" />
+        <input id="key_data_for_search_type" type="hidden" name="key_data_for_search_type" />
+        
+        <input id="key_selt_the_websource" type="hidden" name="key_selt_the_websource" />
+        
+        <input id="key_kb_selt_the_source" type="hidden" name="key_kb_selt_the_source" />
+        <input id="key_kb_selt_the_breakpoint" type="hidden" name="key_kb_selt_the_breakpoint" />
+        <input id="key_kb_selt_the_validtn_mtd" type="hidden" name="key_kb_selt_the_validtn_mtd" />
+        
+        <input id="key_flt_by_func" type="hidden" name="key_flt_by_func" />
+        <input id="key_flt_by_fusn_type" type="hidden" name="key_flt_by_fusn_type" />
+        <input id="key_flt_by_supted_info" type="hidden" name="key_flt_by_supted_info" />
+        
+    </form>
             
             
 

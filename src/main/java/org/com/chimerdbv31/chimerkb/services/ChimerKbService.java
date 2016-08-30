@@ -37,4 +37,16 @@ public class ChimerKbService {
         }
         return result;
     }
+    
+    public ChimerKbVo getSelectedFGeneData(ChimerKbVo param) {
+        ChimerKbVo result = null;
+        try {
+            result = this.chimerKbMapper.getSelectedFGeneData(param);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
+    
+    
 }

@@ -31,27 +31,72 @@ function showDesc(fuspair, gene5junc, gene3junc, barcodeid, source){
     var data = "fuspair=" + fuspair + "&gene5junc=" + gene5junc + "&gene3junc=" + gene3junc + "&barcodeid=" + barcodeid + "&source=" + source;
 
     
+    $.ajax({
+          url: "genedesc.cdb",
+          type : 'POST',
+          data : data,
+          dataType: "json",
+          success: function(jData) {
+            $("#td_fusion_gene").text(jData.fusion_pair);
+            $("#td_5gene_nm").text(jData.h_gene);
+            $("#td_3gene_nm").text(jData.t_gene);
+            
+            $("#td_5g_chr_nm").text(jData.h_chr);
+            $("#td_3g_chr_nm").text(jData.t_chr);
+            
+            $("#td_5g_junc_point").text(jData.gene5Junc);
+            $("#td_3g_junc_point").text(jData.gene3Junc);
+            
+            $("#td_5g_strand").text(jData.h_strand);
+            $("#td_3g_strand").text(jData.t_strand);
+            
+            $("#td_5g_func").text("jData");
+            $("#td_3g_func").text("jData");
+            
+            $("#td_chimerdb_type").text("ChimerKB");
+            $("#td_source").text(jData.source);
+            $("#td_genome_build_ver").text(jData.genome_build_version);
+            $("#td_disease").text(jData.disease);
+            $("#td_validation_mtd").text(jData.validation);
+            $("#td_pmid").text(jData.pmid);
+            $("#td_frame").text(jData.frame);
+            $("#td_chr_info").text(jData.chr_info);
+            $("#td_supported").text("jData");
+              
+            $("#genedescmodal").modal("show");
+              
+          },
+          error : function(xhr, status) {
+            alert(status);
+          }
+      });
+    
+}
+
+
+function showDesc2(fuspair, gene5junc, gene3junc, barcodeid, source){
+
+    var data = "fuspair=" + fuspair + "&gene5junc=" + gene5junc + "&gene3junc=" + gene3junc + "&barcodeid=" + barcodeid + "&source=" + source;
+
     
     $.ajax({
-          url: "descofgene.cdb",
+          url: "genedesc.cdb",
           type : 'POST',
           data : data,
           dataType: "json",
           success: function(jData) {
             
+              
+              
               var x = screen.width / 2;
               console.log("screen-width : "+screen.width);
               console.log("x : "+x);
               var y = screen.height / 2;
               console.log("screen-height : "+screen.height);
               console.log("y : "+y);
-              
               console.log("window-width : "+$(window).width());
               console.log("window-height : "+$(window).height());
-              
               console.log("window-screenLeft : "+window.screenLeft);
-              
-              
               console.log("window-screenX : "+window.screenX);
               console.log("window-screenY : "+window.screenY);
               
@@ -59,34 +104,11 @@ function showDesc(fuspair, gene5junc, gene3junc, barcodeid, source){
                   x += window.screenLeft;
               }
               
-              var mypopup = window.open("viewers/popup/genedesc.html", "mypopup", "top="+y+", left="+x+", width=200, height=200, scrollbars=no, menubar=no, status=no, toolbar=no");
+              var mypopup = window.open("resources/popup/genedesc.html", "mypopup", "top="+y+", left="+x+", width=200, height=200, scrollbars=no, menubar=no, status=no, toolbar=no");
               mypopup.pdata = jData;
               if(window.focus){mypopup.focus()}
 
-//              console.log(jData);
-//              var mypopup = window.open("", 'mypopup', "_blank", "width=300,height=200");
-//              
-//              var tblStr = "";
-//              tblStr += "<table style='width:300px;'><tr><td rowspan='2'>Funsion Gene(5'_3')</td><td colspan='2'>"+jData.fusion_pair+"</td></tr>";
-//                tblStr += "<tr><td>"+jData.h_gene+"</td><td>"+jData.t_gene+"</td></tr>";
-//                tblStr += "<tr><td>Gene Name</td><td>"+jData+"</td><td>"+jData+"</td></tr>";
-//                tblStr += "<tr><td>Chromosome</td><td>"+jData+"</td><td>"+jData+"</td></tr>";
-//                tblStr += "<tr><td>Junction(Exon BreakPoint)</td><td>"+jData+"</td><td>"+jData+"</td></tr>";
-//                tblStr += "<tr><td>Strand</td><td>"+jData+"</td><td>"+jData+"</td></tr>";
-//                tblStr += "<tr><td>Function</td><td>"+jData+"</td><td>"+jData+"</td></tr>";
-//                
-//              tblStr += "<tr><td>ChimerDB Type</td><td colspan='2'>"+jData+"</td></tr>";
-//                tblStr += "<tr><td>Source</td><td colspan='2'>"+jData+"</td></tr>";
-//                tblStr += "<tr><td>Genome Build Version</td><td colspan='2'>"+jData+"</td></tr>";
-//                tblStr += "<tr><td>Disease</td><td colspan='2'>"+jData+"</td></tr>";
-//                tblStr += "<tr><td>Validation method</td><td colspan='2'>"+jData+"</td></tr>";
-//                tblStr += "<tr><td>PMID</td><td colspan='2'>"+jData+"</td></tr>";
-//                tblStr += "<tr><td>Frame</td><td colspan='2'>"+jData+"</td></tr>";
-//                tblStr += "<tr><td>Chromosome Information</td><td colspan='2'>"+jData+"</td></tr>";
-//                tblStr += "<tr><td>Supported</td><td colspan='2'>"+jData+"</td></tr></table>";
-//                
-//              mypopup.document.write(tblStr);
-                
+
                 
 
               
@@ -97,6 +119,7 @@ function showDesc(fuspair, gene5junc, gene3junc, barcodeid, source){
       });
     
 }
+
 
 function initVariable(){
 };
