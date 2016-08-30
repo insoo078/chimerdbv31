@@ -114,7 +114,7 @@
                     <div class="templatemo-panels">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <span style="font-size: 20px; font-weight: bold;">Xxxx Xxxx XXX</span>
+                                <span style="font-size: 20px; font-weight: bold;">Fusion Structure</span>
                             </div>
                             <div class="panel-body" style="text-align: center;">
                                 <img alt="" src="./resources/images/exon_img.png" style="width: 95%; height: 95%;" />
