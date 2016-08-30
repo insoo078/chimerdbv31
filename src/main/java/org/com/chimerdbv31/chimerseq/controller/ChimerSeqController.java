@@ -5,7 +5,6 @@ import com.google.gson.reflect.TypeToken;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import net.sf.json.JSONArray;
 import java.lang.reflect.Type;
 import org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm;
 
@@ -104,14 +103,12 @@ public class ChimerSeqController {
 
 		int totalNum = this.chimerSeqService.getChimerSeqTotalNumber(model);
 		List<ChimerSeqVo> dataList = this.chimerSeqService.getChimerSeqResult(model);
-
+		
 		obj.addProperty("iTotalRecords", totalNum);
 		obj.addProperty("iTotalDisplayRecords", totalNum);
-		obj.addProperty("aaData", gson.toJson(dataList));
+		obj.add("aaData", gson.toJsonTree(dataList));
 		
 		String resultJson = obj.toString();
-
-		System.out.println( resultJson );
 		return resultJson;
     }
 }
