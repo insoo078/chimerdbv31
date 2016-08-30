@@ -246,7 +246,7 @@
 	</select>
 	
 	<select id="getGeneFeatureInfo" parameterType="java.lang.String" resultMap="Gff3VoMap">
-		SELECT * FROM GRCH37_GFF a, (
+		SELECT * FROM I1_GRCh37_GFF a, (
 			SELECT gene_id, gff_start, gff_end FROM I1_Gene_Info a
 			WHERE symbol=#{symbol}
 		) b

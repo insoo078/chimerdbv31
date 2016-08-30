@@ -21,7 +21,7 @@ public interface ChimerSeqMapper {
     public List<ChimerSeqVo> getResultTest(ParamVo param);
 	public GeneInfoVo getGeneInfo(@Param("symbol") String symbol);
 	public List<Gff3Vo> getGeneFeatureInfo(@Param("symbol") String symbol);
-	public List<Gff3Vo> getExonElementsWithIndex(@Param("symbol") String symbol);
+//	public List<Gff3Vo> getExonElementsWithIndex(@Param("symbol") String symbol);
 	public List<String> getAutocompleteInfo(Map<String, String> map);
 	public List<String> getTcgaCancerTypes();
 	public ChimerSeqDetailVo getFusionGeneDetailInfo(@Param("id") String id);

@@ -92,6 +92,8 @@ function getGeneInformation(genes) {
 				chrWidth: 20,
 				topMargin : 20,
 				sideMargin : 10,
+				canvasHeight : 500,
+				explainTopPanelHeight : 100,
 				showBandLabels: true,
 					container: "#chimer-seq-viewer",
 			  };

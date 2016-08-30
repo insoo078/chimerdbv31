@@ -9,9 +9,6 @@ import org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper;
 import org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
-import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
-import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
-import org.com.chimerdbv31.chimerseq.obj.TranscriptObj;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqDetailVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
 
@@ -95,7 +92,7 @@ public class ChimerSeqService {
 			String[] props = gene.split(":");
 			
 			GeneInfoVo obj = (GeneInfoVo)this.chimerSeqMapper.getGeneInfo( props[1] );
-			obj.rearrangeFeatures( this.chimerSeqMapper.getExonElementsWithIndex( props[1] ) );
+			obj.rearrangeFeatures( obj.getFeatures() );
 			obj.setFusionLocation( props[0] );
 			list.add(obj);
 		}
