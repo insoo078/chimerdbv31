@@ -5,6 +5,6 @@
  */
 
 
-var ChimeraDbV3Viewer = function( config, gene1, gene2 ) {
+var ChimeraDbV3ViewerWithOutChromosome = function( config, gene1, gene2 ) {
     this.config = JSON.parse( JSON.stringify(config) );
 };

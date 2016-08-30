@@ -45,6 +45,15 @@ $(document).ready(function () {
 			if(tmp[1]==='1') imgTag += '<div class="rcorner-3" style="width:30px;height:20px;line-height:20px;text-align:center;background:purple;">Pub</div>';
 			$('td:eq(9)', nRow).html(imgTag); // where 4 is the zero-origin visible column in the HTML
 
+			if( iDisplayIndex === 0 ){
+				var genes = aData.fusion_pair.split("_");
+
+				genes[0] = "5':" + genes[0];
+				genes[1] = "3':" + genes[1];
+
+				getGeneInformation( genes );
+			}
+
 			return nRow;
 		}
     });
@@ -89,7 +98,7 @@ function getGeneInformation(genes) {
 			  var gene1 = jData[0];
 			  var gene2 = jData[1];
 
-			  var viewer = new ChimeraDbV3Viewer(config, gene1, gene2);
+			  var viewer = new ChimeraDbV3ViewerWithOutChromosome(config, gene1, gene2);
 		}
 	});
 }
@@ -110,6 +119,3 @@ function showDesc(id){
       });
     
 }
-
-function initVariable(){
-};
