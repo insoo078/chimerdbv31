@@ -91,6 +91,7 @@ function getGeneInformation(genes) {
 				chrHeight: 1024,
 				chrWidth: 20,
 				topMargin : 20,
+				sideMargin : 10,
 				showBandLabels: true,
 					container: "#chimer-seq-viewer",
 			  };
