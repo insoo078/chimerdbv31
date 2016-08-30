@@ -54,7 +54,7 @@
 
 <script type="text/javascript" src="resources/ideogram/src/js/es6-promise.js"></script>
 <script type="text/javascript" src="resources/ideogram/src/js/d3.promise.js"></script>
-<script type="text/javascript" src="resources/ideogram/src/js/chimeradbv3.viewer.js"></script>
+<script type="text/javascript" src="resources/ideogram/src/js/chimerdbv3.viewer.js"></script>
 <script type="text/javascript" src="resources/ideogram/src/js/chimerdbv3.js"></script>
 
 <!--<script type="text/javascript">
