@@ -51,7 +51,7 @@ $(document).ready(function () {
 				genes[0] = "5':" + genes[0];
 				genes[1] = "3':" + genes[1];
 
-				getGeneInformation( genes );
+				getGeneInformation( genes, aData );
 			}
 
 			return nRow;
@@ -66,13 +66,13 @@ $(document).ready(function () {
 		genes[0] = "5':" + genes[0];
 		genes[1] = "3':" + genes[1];
 
-		getGeneInformation( genes );
+		getGeneInformation( genes, rowdata );
 
         showDesc(rowdata.id);
     });
 });
 
-function getGeneInformation(genes) {
+function getGeneInformation(genes, rowdata) {
 	var data = JSON.stringify(genes);
 
 	$.ajax({
@@ -94,8 +94,9 @@ function getGeneInformation(genes) {
 				sideMargin : 10,
 				canvasHeight : 500,
 				explainTopPanelHeight : 100,
+				fusionInfo : rowdata,
 				showBandLabels: true,
-					container: "#chimer-seq-viewer",
+				container: "#chimer-seq-viewer",
 			  };
 			  
 			  var gene1 = jData[0];

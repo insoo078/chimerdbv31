@@ -53,6 +53,10 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 			.attr("y2", 200)
 			.attr("style", "stroke:#555;stroke-width:5;");
 	
+		var breakJunction = config.fusionInfo.gene3Junc.split(":")[1];
+		if( config.fusionInfo.fusion_pair.startsWith(genePanelJson[i].gene.symbol) )
+			breakJunction = config.fusionInfo.gene5Junc.split(":")[1];
+			
 	
 		var wholeExonLength = 0;
 		var transcriptExons = genePanelJson[i].gene.transcripts[0].exons;
@@ -103,6 +107,24 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 				.attr("y", 190)
 				.attr("width", width)
 				.attr("height", 20);
+
+//				if( genePanelJson[i].gene.symbol==='EML4' ) {
+//					console.log( transcriptExons[j].start + " <= " + breakJunction + " <= " + transcriptExons[j].end);
+//				}
+//				
+			if( breakJunction >= transcriptExons[j].start && breakJunction <= transcriptExons[j].end ) {
+				var leftRatio = (breakJunction - transcriptExons[j].start)/realExonLength;
+ 
+				var startX = x1 + (width*leftRatio);
+				canvas.append('line')
+					.attr("class", "break-point")
+					.attr('x1', startX)
+					.attr('y1', 150)
+					.attr('x2', startX)
+					.attr("y2", 190)
+					.attr("style", "stroke:#555;stroke-width:1;")
+					.attr("marker-end", "url(#arrowhead)");
+			}
 		
 			var exonRect = exon.node().getBoundingClientRect();
 
@@ -115,7 +137,9 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 
 			x1 += width;
 		}
-		console.log( genePanelJson[i].gene );
+		
+//		console.log( config.fusionInfo.gene5Junc );
+//		console.log( config.fusionInfo.gene3Junc );
 	}
 };
 
