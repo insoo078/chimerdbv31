@@ -10,25 +10,100 @@ $(document).ready(function () {
     
     mainTable =  mainTable = $("#chimerKbTbl").DataTable({
         "dom":"Tfrt<'row'<'col-md-2'l><'col-md-5'i><'col-md-5'p>>",
+        "columnDefs": [
+            { 'targets': [10], 'visible': false, 'searchable': false }
+            ,{ 'targets': [11], 'visible': false, 'searchable': false }
+            ,{ 'targets': [12], 'visible': false, 'searchable': false }
+            ,{ 'targets': [13], 'visible': false, 'searchable': false }
+            ,{ 'targets': [14], 'visible': false, 'searchable': false }
+            ,{ 'targets': [15], 'visible': false, 'searchable': false }
+            ,{ 'targets': [16], 'visible': false, 'searchable': false }
+            ,{ 'targets': [17], 'visible': false, 'searchable': false }
+            ,{ 'targets': [18], 'visible': false, 'searchable': false }
+            ,{ 'targets': [19], 'visible': false, 'searchable': false }
+            ,{ 'targets': [20], 'visible': false, 'searchable': false }
+            ,{ 'targets': [21], 'visible': false, 'searchable': false }
+            ,{ 'targets': [22], 'visible': false, 'searchable': false }
+            ,{ 'targets': [23], 'visible': false, 'searchable': false }
+            ,{ 'targets': [24], 'visible': false, 'searchable': false }
+            ,{ 'targets': [25], 'visible': false, 'searchable': false }
+            ,{ 'targets': [26], 'visible': false, 'searchable': false }
+            ,{ 'targets': [27], 'visible': false, 'searchable': false }
+            ,{ 'targets': [28], 'visible': false, 'searchable': false }
+            ,{ 'targets': [29], 'visible': false, 'searchable': false }
+            ,{ 'targets': [30], 'visible': false, 'searchable': false }
+            ,{ 'targets': [31], 'visible': false, 'searchable': false }
+            ,{ 'targets': [32], 'visible': false, 'searchable': false }
+            ,{ 'targets': [33], 'visible': false, 'searchable': false }
+            ,{ 'targets': [34], 'visible': false, 'searchable': false }
+            ,{ 'targets': [35], 'visible': false, 'searchable': false }
+            ,{ 'targets': [36], 'visible': false, 'searchable': false }
+        ],
          "scrollX":true,
          "tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
-         "iDisplayLength": 25
+         "iDisplayLength": 25,
+         "deferRender": true
     });
     
     $('#chimerKbTbl tbody').on('click', 'tr', function(){
-        var rowdata = mainTable.row( this ).data();
-        showDesc(rowdata[0], rowdata[1], rowdata[2], rowdata[5], rowdata[8]);
+        //var rowdata = mainTable.row( this ).data();
+        //showDesc2(rowdata[0], rowdata[1], rowdata[2], rowdata[3], rowdata[7], rowdata[9]);
+        showDesc( mainTable.row( this ).data() );
     });
     
    
 });
 
+function showDesc(popupdataobj){
+    $("#td_fusion_gene").text( popupdataobj[0] );
+    $("#td_5gene_nm").text( popupdataobj[12] );
+    $("#td_3gene_nm").text( popupdataobj[16] );
+
+    $("#td_5g_chr_nm").text( popupdataobj[13] );
+    $("#td_3g_chr_nm").text( popupdataobj[17] );
+
+    $("#td_5g_junc_point").text( popupdataobj[1] );
+    $("#td_3g_junc_point").text( popupdataobj[2] );
+
+    $("#td_5g_strand").text( popupdataobj[15] );
+    $("#td_3g_strand").text( popupdataobj[19] );
+
+    var selectedFuncStr = "";
+    if( popupdataobj[30] === "1"){
+        selectedFuncStr += "Kinase" + ", ";
+    }
+    if( popupdataobj[31] === "1"){
+        selectedFuncStr += "Oncogene" + ", ";
+    }
+    if( popupdataobj[32] === "1"){
+        selectedFuncStr += "Tumor suppressor" + ", ";
+    }
+    if( popupdataobj[33] === "1"){
+        selectedFuncStr += "Receptor" + ", ";
+    }
+    if( popupdataobj[34] === "1"){
+        selectedFuncStr += "Transcription factor" + ", ";
+    }
 
 
+    $("#td_5g_3g_func").text( selectedFuncStr );
+    
+    $("#td_chimerdb_type").text( popupdataobj[10] );
+    $("#td_source").text( popupdataobj[7] );
+    $("#td_genome_build_ver").text( popupdataobj[22] );
+    $("#td_disease").text( popupdataobj[4] );
+    $("#td_validation_mtd").text( popupdataobj[27] );
+    $("#td_pmid").text( popupdataobj[9] );
+    $("#td_frame").text( popupdataobj[5] );
+    $("#td_chr_info").text( popupdataobj[6] );
+    $("#td_supported").html( popupdataobj[8] )
+    $("#genedescmodal").modal("show");
+}
 
-function showDesc(fuspair, gene5junc, gene3junc, barcodeid, source){
 
-    var data = "fuspair=" + fuspair + "&gene5junc=" + gene5junc + "&gene3junc=" + gene3junc + "&barcodeid=" + barcodeid + "&source=" + source;
+function showDesc2(fuspair, gene5junc, gene3junc, breaktype, source, pmid){
+
+    var data = "fuspair=" + fuspair + "&gene5junc=" + gene5junc + "&gene3junc=" + gene3junc + "&breaktype=" + breaktype + "&source=" + source + "&pmid=" + pmid;
 
     
     $.ajax({
@@ -74,7 +149,7 @@ function showDesc(fuspair, gene5junc, gene3junc, barcodeid, source){
 }
 
 
-function showDesc2(fuspair, gene5junc, gene3junc, barcodeid, source){
+function showDesc3(fuspair, gene5junc, gene3junc, barcodeid, source){
 
     var data = "fuspair=" + fuspair + "&gene5junc=" + gene5junc + "&gene3junc=" + gene3junc + "&barcodeid=" + barcodeid + "&source=" + source;
 

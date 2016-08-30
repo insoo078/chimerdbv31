@@ -388,8 +388,9 @@ public class ChimerKbController {
             param.setFusion_pair( request.getParameter("fuspair") );
             param.setGene5Junc( request.getParameter("gene5junc") );
             param.setGene3Junc( request.getParameter("gene3junc") );
-            param.setFrame( request.getParameter("barcodeid") );
+            param.setBreakpoint_Type( request.getParameter("breaktype") );
             param.setSource( request.getParameter("source") );
+            param.setPMID( request.getParameter("pmid") );
             
             ChimerKbVo data = this.chimerKbService.getSelectedFGeneData(param);
             

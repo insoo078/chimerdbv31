@@ -96,6 +96,33 @@
                                                         <th>Source</th>
                                                         <th>Supported</th>
                                                         <th>PMID</th>
+                                                        <th>ChimerDB_Type</th>
+                                                        <th>webSource</th>
+                                                        <th>H_gene</th>
+                                                        <th>H_chr</th>
+                                                        <th>H_position</th>
+                                                        <th>H_strand</th>
+                                                        <th>T_gene</th>
+                                                        <th>T_chr</th>
+                                                        <th>T_position</th>
+                                                        <th>T_strand</th>
+                                                        <th>Genomic_breakpoint</th>
+                                                        <th>Exon_breakpoint</th>
+                                                        <th>Genome_Build_Version</th>
+                                                        <th>H_tanscript</th>
+                                                        <th>H_exon</th>
+                                                        <th>T_tanscript</th>
+                                                        <th>T_exon</th>
+                                                        <th>Validation</th>
+                                                        <th>H_locus</th>
+                                                        <th>T_locus</th>
+                                                        <th>Kinase</th>
+                                                        <th>Oncogene</th>
+                                                        <th>Tumor_suppressor</th>
+                                                        <th>Receptor</th>
+                                                        <th>Transcription_Factor</th>
+                                                        <th>ChimerSeq</th>
+                                                        <th>ChimerPub</th>
                                                     </tr>
                                                 </thead>
 
@@ -121,6 +148,34 @@
                                                                 </c:choose>
                                                             </td>
                                                             <td><c:out value="${chimerKbLst.getPMID()}" /></td>
+                                                            
+                                                            <td><c:out value="${chimerKbLst.getChimerDB_Type()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getWebSource()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getH_gene()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getH_chr()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getH_position()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getH_strand()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getT_gene()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getT_chr()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getT_position()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getT_strand()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getGenomic_breakpoint()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getExon_breakpoint()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getGenome_Build_Version()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getH_tanscript()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getH_exon()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getT_tanscript()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getT_exon()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getValidation()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getH_locus()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getT_locus()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getKinase()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getOncogene()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getTumor_suppressor()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getReceptor()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getTranscription_Factor()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getChimerSeq()}" /></td>
+                                                            <td><c:out value="${chimerKbLst.getChimerPub()}" /></td>
                                                         </tr>
                                                     </c:forEach>
                                                 </tbody>
@@ -226,8 +281,7 @@
         </tr>
         <tr>
             <td>Function</td>
-            <td id="td_5g_func"></td>
-            <td id="td_3g_func"></td>
+            <td colspan="2" id="td_5g_3g_func"></td>
         </tr>
         <tr>
             <td>ChimerDB Type</td>
