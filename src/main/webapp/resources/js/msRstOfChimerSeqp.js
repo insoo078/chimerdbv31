@@ -19,22 +19,19 @@ $(document).ready(function () {
             "url":"nextp.cdb",
 			"data":{formData:json},
 			"dataType":"json",
-            "type": "POST",
-			success:function(data){
-				console.log(data);
-			}
+            "type": "POST"
         },
         "iDisplayLength": 10,
         "columns":[
-            {"data":"fusion_pair"},
+            {"data":"Fusion_pair"},
             {"data":"gene5Junc"},
             {"data":"gene3Junc"},
-            {"data":"breakpoint_Type"},
-            {"data":"cancertype"},
-            {"data":"barcodeID"},
-            {"data":"frame"},
-            {"data":"chr_info"},
-            {"data":"source"},
+            {"data":"Breakpoint_Type"},
+            {"data":"Cancertype"},
+            {"data":"BarcodeID"},
+            {"data":"Frame"},
+            {"data":"Chr_info"},
+            {"data":"Source"},
             {"data":"supported"}
         ]
     });

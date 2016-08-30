@@ -125,13 +125,15 @@
 				AND Chr_info = 'Intra-chr'
 			</when>
 		</choose>
-		<choose>
-			<when test="chkChimerKbSupport == 'on' and chkChimerPubSupport == 'on'">
-				AND ChimerKB != 0 OR ChimerPub != 0
-			</when>
-			<when test="chkChimerKbSupport == 'on'">AND ChimerKB != 0</when>
-			<when test="chkChimerPubSupport == 'on'">AND ChimerPub != 0</when>
-		</choose>
+		<trim prefix="AND (" suffix=")" prefixOverrides="AND|OR">
+			<choose>
+				<when test="chkChimerKbSupport == 'on' and chkChimerPubSupport == 'on'">
+					AND (ChimerKB != 0 OR ChimerPub != 0)
+				</when>
+				<when test="chkChimerKbSupport == 'on'">AND ChimerKB != 0</when>
+				<when test="chkChimerPubSupport == 'on'">AND ChimerPub != 0</when>
+			</choose>
+		</trim>
 		<if test="sortKey != null">ORDER BY (${sortKey}+1) ${sortOrderDir}</if>
 		<if test="start != null and length != null">
 			LIMIT ${start}, ${length}
@@ -222,6 +224,7 @@
 				AND Chr_info = 'Intra-chr'
 			</when>
 		</choose>
+		<trim prefix="AND (" suffix=")" prefixOverrides="AND|OR">
 		<choose>
 			<when test="chkChimerKbSupport == 'on' and chkChimerPubSupport == 'on'">
 				AND ChimerKB != 0 OR ChimerPub != 0
@@ -229,6 +232,7 @@
 			<when test="chkChimerKbSupport == 'on'">AND ChimerKB != 0</when>
 			<when test="chkChimerPubSupport == 'on'">AND ChimerPub != 0</when>
 		</choose>
+		</trim>
     </select>
 	
 	<select id="getGeneInfo" parameterType="java.lang.String" resultMap="GeneInfoVoMap">
