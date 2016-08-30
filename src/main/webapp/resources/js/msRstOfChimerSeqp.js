@@ -19,7 +19,10 @@ $(document).ready(function () {
             "url":"nextp.cdb",
 			"data":{formData:json},
 			"dataType":"json",
-            "type": "POST"
+            "type": "POST",
+			success:function(data){
+				console.log(data);
+			}
         },
         "iDisplayLength": 10,
         "columns":[

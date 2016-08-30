@@ -132,7 +132,7 @@
 			<when test="chkChimerKbSupport == 'on'">AND ChimerKB != 0</when>
 			<when test="chkChimerPubSupport == 'on'">AND ChimerPub != 0</when>
 		</choose>
-		<if test="sortKey != null">ORDER BY ${sortKey} ${sortOrder}</if>
+		<if test="sortKey != null">ORDER BY (${sortKey}+1) ${sortOrderDir}</if>
 		<if test="start != null and length != null">
 			LIMIT ${start}, ${length}
 		</if>

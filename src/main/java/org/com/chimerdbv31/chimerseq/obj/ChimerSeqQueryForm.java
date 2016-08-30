@@ -47,7 +47,7 @@ public class ChimerSeqQueryForm {
 	private int start;
 	private int length;
 	private int sortKey;
-	private String sortOrder;
+	private String sortOrderDir;
 	private String searchKeyword;
 	
 	public void revalidateData() {
@@ -310,11 +310,11 @@ public class ChimerSeqQueryForm {
 		this.searchKeyword = searchKeyword;
 	}
 
-	public String getSortOrder() {
-		return sortOrder;
+	public String getSortOrderDir() {
+		return sortOrderDir;
 	}
 
-	public void setSortOrder(String sortOrder) {
-		this.sortOrder = sortOrder;
+	public void setSortOrderDir(String sortOrderDir) {
+		this.sortOrderDir = sortOrderDir;
 	}
 }
