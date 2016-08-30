@@ -44,25 +44,13 @@ public class ChimerSeqQueryForm {
 	
 	private List<String> cancerTypes;
 	
-	
-	
-	
 	private int start;
 	private int length;
 	private int sortKey;
+	private String sortOrder;
 	private String searchKeyword;
-//	private List<String> sources;
 	
 	public void revalidateData() {
-//		this.sources = new ArrayList<String>();
-//
-//		if( this.chkFusionScan.equals("on") )	this.sources.add("FusionScan");
-//		if( this.chkTophat.equals("on") )		this.sources.add("TopHat-Fusion");
-//		if( this.chkPrada.equals("on") )		this.sources.add("PRADA");
-//		if( this.chkChiTaRs.equals("on") )		this.sources.add("ChiTaRs");
-//		if( this.chkChimerDbV2.equals("on") )	this.sources.add("ChimerDB2_SRA");
-//		
-//		
 		this.cancerTypes = new ArrayList<String>();
 		if( this.tcgaCancerTypes != null ) {
 			String[] cancers = this.tcgaCancerTypes.split(",");
@@ -73,14 +61,6 @@ public class ChimerSeqQueryForm {
 			}
 		}
 	}
-	
-//	public List<String> getSources() {
-//		return this.sources;
-//	}
-//	
-//	public void setSources(List<String> sources) {
-//		this.sources = sources;
-//	}
 	
 	public List<String> getCancerTypes() {
 		return this.cancerTypes;
@@ -328,5 +308,13 @@ public class ChimerSeqQueryForm {
 
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
+	}
+
+	public String getSortOrder() {
+		return sortOrder;
+	}
+
+	public void setSortOrder(String sortOrder) {
+		this.sortOrder = sortOrder;
 	}
 }

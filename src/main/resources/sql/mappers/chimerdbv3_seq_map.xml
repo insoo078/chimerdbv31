@@ -37,9 +37,9 @@
 
     <select id="getChimerSeqResult" parameterType="org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
 		SELECT 
-			distinct Fusion_pair , 5Gene_Junction as gene5Junc , 3Gene_Junction as gene3Junc , Breakpoint_Type , Cancertype , BarcodeID
-			, if(Frame = "NA","",Frame) as Frame
-			, Chr_info , Source , ChimerKB , ChimerPub, concat(ChimerKB, "_", ChimerPub) as supported
+			distinct Fusion_pair , 5Gene_Junction AS gene5Junc , 3Gene_Junction AS gene3Junc , Breakpoint_Type , Cancertype , BarcodeID
+			, IF(Frame = "NA","",Frame) AS Frame
+			, Chr_info , Source , ChimerKB , ChimerPub, CONCAT(ChimerKB, "_", ChimerPub) AS supported
 		FROM ChimerDB3.ChimerSeq_ver7
 		WHERE 1=1
         
@@ -132,14 +132,10 @@
 			<when test="chkChimerKbSupport == 'on'">AND ChimerKB != 0</when>
 			<when test="chkChimerPubSupport == 'on'">AND ChimerPub != 0</when>
 		</choose>
-<!--		<if test="queryForWebSource != null and queryForWebSource != ''"> AND webSource in (${queryForWebSource}) </if>
-		<if test="queryForCancerType != null and queryForCancerType != ''"> and Cancertype in (${queryForCancerType}) </if>
-		<if test="queryForSource != null and queryForSource != ''"> and (${queryForSource}) </if>
-		<if test="queryForFilterByFunc != null and queryForFilterByFunc != ''"> and (${queryForFilterByFunc}) </if>
-		<if test="queryForFusType != null and queryForFusType != ''"> and Chr_info in (${queryForFusType}) </if>
-		<if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>
-		<if test="sortedKeyword != null"> ORDER BY ${sortedKeyword} ${sortType} </if>-->
-<!--            limit ${strtn},${lntn}-->
+		<if test="sortKey != null">ORDER BY ${sortKey} ${sortOrder}</if>
+		<if test="start != null and length != null">
+			LIMIT ${start}, ${length}
+		</if>
     </select>
     <select id="getChimerSeqTotalNumber" parameterType="org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm" resultType="int">
         SELECT DISTINCT COUNT( * ) AS allNum
