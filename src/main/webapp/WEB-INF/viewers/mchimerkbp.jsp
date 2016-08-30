@@ -216,7 +216,7 @@
 <div class="container">
     
     
-            <div class="row margin-bottom-30" style="margin-top: 30px; ">
+<!--            <div class="row margin-bottom-30" style="margin-top: 30px; ">
                     
 
                             <div class="col-md-11 col-md-offset-1">
@@ -232,7 +232,7 @@
                             </div>
 
                     
-            </div>
+            </div>-->
     
     
     

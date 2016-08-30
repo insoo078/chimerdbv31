@@ -8,7 +8,7 @@ $(document).ready(function () {
     
     var mainTable = null;
     mainTable = $("#chimerSeqTbl").DataTable({
-        "dom":"T<'clear'>frtilp",
+        "dom":"Tfrt<'row'<'col-md-2'l><'col-md-5'i><'col-md-5'p>>",
         "scrollX":true,
         "tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
         "processing": true,
