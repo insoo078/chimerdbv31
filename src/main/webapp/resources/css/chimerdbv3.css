@@ -264,3 +264,8 @@ text.text-hover {
     border-radius: 10px;
     padding: 20px;
 }
+
+.rcorner-3 {
+    border-radius: 3px;
+    padding: 1px;
+}

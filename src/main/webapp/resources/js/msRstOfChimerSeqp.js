@@ -33,7 +33,18 @@ $(document).ready(function () {
             {"data":"Chr_info"},
             {"data":"Source"},
             {"data":"supported"}
-        ]
+        ],
+		"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+			var imgTag = "";
+
+			var tmp = aData.supported.split("_");
+			
+			if(tmp[0]==='1') imgTag += '<div class="rcorner-3" style="width:30px;height:20px;line-height:20px;text-align:center;background:green;">KB</div>';
+			if(tmp[1]==='1') imgTag += '<div class="rcorner-3" style="width:30px;height:20px;line-height:20px;text-align:center;background:purple;">Pub</div>';
+			$('td:eq(9)', nRow).html(imgTag); // where 4 is the zero-origin visible column in the HTML
+
+			return nRow;
+		}
     });
 
     $('#chimerSeqTbl tbody').on('click', 'tr', function(){

@@ -121,7 +121,7 @@
 			<when test="chkInterChromosomal == 'on'">
 				AND Chr_info = 'Inter-chr'
 			</when>
-			<when test="chkIntraChromosomal == 'on'">
+			<when test="chkIxtraChromosomal == 'on'">
 				AND Chr_info = 'Intra-chr'
 			</when>
 		</choose>
@@ -220,7 +220,7 @@
 			<when test="chkInterChromosomal == 'on'">
 				AND Chr_info = 'Inter-chr'
 			</when>
-			<when test="chkIntraChromosomal == 'on'">
+			<when test="chkIxtraChromosomal == 'on'">
 				AND Chr_info = 'Intra-chr'
 			</when>
 		</choose>
