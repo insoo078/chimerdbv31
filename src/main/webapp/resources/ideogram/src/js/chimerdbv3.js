@@ -19,10 +19,10 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config, gene1, gene2 ) {
 		this.drawChromosomeLabel( this.config, genePanelJson[i].name, genePanelJson[i].gene );
 	}
 
-	this.drawGeneStructure( this.config, genePanelJson, canvas );
+	this.drawGeneStructure( this.config, genePanelJson, canvas, 3 );
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( config, genePanelJson, canvas ) {
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( config, genePanelJson, canvas, drawingType ) {
 	var gene_total_length = 0;
 	for(var i=0; i<genePanelJson.length; i++)
 		gene_total_length += genePanelJson[i].gene.geneFeature.end - genePanelJson[i].gene.geneFeature.start + 1;
@@ -38,7 +38,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 		var stable_length = geneBackbonLength * 0.8;
 		var variable_length = (geneBackbonLength * 0.2) * gene_length_ratio;
 		
-		var final_length = stable_length + variable_length;
+		var final_screen_gene_length = stable_length + variable_length;
 
 		var startX = LEFT_MARGIN - (5*config.sideMargin);
 
@@ -49,28 +49,74 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 			.attr("class", "gene-backbone")
 			.attr('x1', startX)
 			.attr('y1', 200)
-			.attr('x2', startX + final_length)
+			.attr('x2', startX + final_screen_gene_length)
 			.attr("y2", 200)
 			.attr("style", "stroke:#555;stroke-width:5;");
 	
 	
-		var exonLength = 0;
+		var wholeExonLength = 0;
 		var transcriptExons = genePanelJson[i].gene.transcripts[0].exons;
 		for(var j=0; j<transcriptExons.length; j++){
-			exonLength += transcriptExons[j].end - transcriptExons[j].start + 1;
+			wholeExonLength += transcriptExons[j].end - transcriptExons[j].start + 1;
 		}
-		
-		var unitNtSize = final_length / transcriptExons.length;
-		
-		var exonNtSize = (unitNtSize * 0.8) / transcriptExons.length;
 
-		var intronNtSize = (unitNtSize * 0.2) / (transcriptExons.length+1);
+		var wholeIntronLength = (wholeExonLength * 0.2) / 0.8;		// Fixed each intron size
 
-		console.log( exonLength + "/" + gene_length + "  and No of exons : " + transcriptExons.length + " " + unitNtSize + " (" + exonNtSize + ", " + intronNtSize + ")");
+		var final_gene_length = wholeExonLength + wholeIntronLength;			// modified gene length with shorten intron size
+		var final_unit_nt_size = final_screen_gene_length / final_gene_length;	// calculate each nucleotide uni length
+
+		var no_of_intron_size = wholeIntronLength / (transcriptExons.length+1);
+		
+		var x1 = startX;
+
+		for(var j=0; j<transcriptExons.length; j++){
+			var realExonLength = transcriptExons[j].end - transcriptExons[j].start + 1;
+			var onlyLength = 0;
+			
+			if( drawingType === 1 )
+				onlyLength = realExonLength;
+			else if( drawingType === 2 )
+				onlyLength = wholeExonLength / transcriptExons.length;
+			else if( drawingType === 3 ) {
+				var ratio = realExonLength/(wholeExonLength/transcriptExons.length);
+				var stable_length = (wholeExonLength / transcriptExons.length) * 0.7;
+				var variable_length = ((wholeExonLength / transcriptExons.length) * 0.3) * ratio;
+				
+				onlyLength = stable_length + variable_length;
+			}
+
+			x1 += (1 * no_of_intron_size) * final_unit_nt_size;
+
+			var exonColor = "orange";
+			if( i === 0)	exonColor = "#33ff99";
+
+			var width = onlyLength * final_unit_nt_size;
+			var exon = canvas.append("rect")
+				.attr("id", "exon-" + j)
+				.attr("class", "exon-feature-label")
+				.style("fill", exonColor)
+				.style("stroke-width", 1)
+				.style("stroke", "#bbb")
+				.attr("rx", 2)
+				.attr("ry", 2)
+				.attr("x", x1)
+				.attr("y", 190)
+				.attr("width", width)
+				.attr("height", 20);
+		
+			var exonRect = exon.node().getBoundingClientRect();
+
+			canvas.append("text")
+					.attr("text-anchor", "middle")
+					.attr("dominant-baseline", "central")
+					.attr("x", exonRect.left - canvas.node().getBoundingClientRect().left + exonRect.width/2)
+					.attr("y", exonRect.top - canvas.node().getBoundingClientRect().top + exonRect.height/2)
+					.text((j+1));
+
+			x1 += width;
+		}
+		console.log( genePanelJson[i].gene );
 	}
-	
-//	console.log( gene_total_length );
-	console.log( genePanelJson[0].gene );
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawChromosomeLabel = function(config, className, gene) {
@@ -230,7 +276,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.initLayout = function(config) {
 			.attr("class", "fusion-gene-panel")
 			.attr("width", base.width/2)
 			.attr("height", base.height - config.explainTopPanelHeight)
-			.attr("fill", "green")
+			.attr("fill", "none")
 			.attr("x", 0)
 			.attr("y", config.explainTopPanelHeight);
 
@@ -239,7 +285,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.initLayout = function(config) {
 			.attr("class", "fusion-gene-panel")
 			.attr("width", base.width/2)
 			.attr("height", base.height - config.explainTopPanelHeight)
-			.attr("fill", "orange")
+			.attr("fill", "none")
 			.attr("x", base.width/2)
 			.attr("y", config.explainTopPanelHeight);
 };
