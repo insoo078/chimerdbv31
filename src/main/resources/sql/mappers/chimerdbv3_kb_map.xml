@@ -60,6 +60,9 @@
             <when test="searchType == 'by_gene_pair'">
                 and Fusion_pair = "${dataForSearchType}" 
             </when>
+            <when test="searchType == 'by_disease'">
+                and Disease like "%${dataForSearchType}%" 
+            </when>
             <when test="searchType == 'by_chr_locus'">
                 
             </when>

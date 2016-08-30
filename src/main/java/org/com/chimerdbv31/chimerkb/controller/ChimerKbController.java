@@ -329,7 +329,7 @@ public class ChimerKbController {
                     String outPutQueryStr = "select distinct * from ChimerDB3.ChimerKB_ver5 where 1=1 ";
                     switch( sParam.getSearchType() ){
                         case "by_gene":{
-                            if( sParam.isGene5() && sParam.isGene3() ){
+                            if( sParam.isGene53() ){
                                 outPutQueryStr += " and H_gene = '"+sParam.getDataForSearchType()+"' or T_gene = '"+sParam.getDataForSearchType()+"' ";
                             }else{
                                 if( sParam.isGene5() ){
@@ -342,6 +342,9 @@ public class ChimerKbController {
                         };break;
                         case "by_gene_pair":{
                             outPutQueryStr += " and Fusion_pair = '"+sParam.getDataForSearchType()+"' ";
+                        };break;
+                        case "by_disease":{
+                            outPutQueryStr += " and Disease like '%"+sParam.getDataForSearchType()+"%' ";
                         };break;
                         case "by_chr_locus":{};break;
                     }

@@ -87,7 +87,7 @@
                                             </label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;" value="" >
+                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;" >
                                         </div>
                                     </div>
                                 </div>

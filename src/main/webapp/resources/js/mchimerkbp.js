@@ -216,6 +216,15 @@ function searching(){
                                     $("#key_data_for_search_type").val( keyVal );
                                 }
                         };break;
+                        case "by_disease":{
+                                keyVal = $("#by_disease_txt").val();
+                                if( (keyVal == "") || ($.trim(keyVal) == "") || (keyVal == null) ){
+                                    $("#chimerdb_empty_data").modal("show");
+                                    return;
+                                }else{
+                                    $("#key_data_for_search_type").val( keyVal );
+                                }
+                        };break;
                         case "by_chr_locus":{
                                 keyVal = $("#by_chr_locus_txt").val();
                                 if( (keyVal == "") || ($.trim(keyVal) == "") || (keyVal == null) ){
@@ -225,6 +234,8 @@ function searching(){
                                     $("#key_data_for_search_type").val( keyVal );
                                 }
                         };break;
+                        
+                        
                     }
                 
                 keyVal = "";
