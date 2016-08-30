@@ -10,6 +10,7 @@ import org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm;
 
 import org.com.chimerdbv31.chimerseq.services.ChimerSeqService;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
+import org.com.chimerdbv31.chimerseq.vo.ChimerSeqDetailVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -111,4 +112,27 @@ public class ChimerSeqController {
 		String resultJson = obj.toString();
 		return resultJson;
     }
+	
+	@RequestMapping(value="/getFusionDetailInfo", method = RequestMethod.POST)
+	@ResponseBody
+	public String getFusionGeneDetailInfo(HttpServletRequest request) throws RuntimeException{
+		String id = request.getParameter("id");
+		ChimerSeqDetailVo vo = this.chimerSeqService.getFusionGeneDetailInfo( id );
+		
+		Gson gson = new Gson();
+		return gson.toJson(vo);
+	}
+
+	@RequestMapping(value="/chimerseq_popup", method = RequestMethod.GET)
+	public ModelAndView descChimerSeqDeatailPopup(HttpServletRequest request) throws RuntimeException{
+		String json = request.getParameter("detailInfo");
+
+		Gson gson = new Gson();
+		ChimerSeqDetailVo vo = gson.fromJson(json, ChimerSeqDetailVo.class);
+		
+		ModelAndView result = new ModelAndView("/popup/chimerseq_popup");
+		result.addObject("result", vo);
+
+		return result;
+	}
 }

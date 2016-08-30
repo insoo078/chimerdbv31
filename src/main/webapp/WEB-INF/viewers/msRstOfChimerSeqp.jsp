@@ -92,6 +92,7 @@
 										<th>Chromosome Info.</th>
 										<td>Source</td>
 										<td>Supported</td>
+										<td>id</td>
 									</tr>
 								</thead>
 							</table>

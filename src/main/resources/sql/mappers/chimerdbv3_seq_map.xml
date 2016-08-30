@@ -37,9 +37,9 @@
 
     <select id="getChimerSeqResult" parameterType="org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
 		SELECT 
-			distinct Fusion_pair , 5Gene_Junction AS gene5Junc , 3Gene_Junction AS gene3Junc , Breakpoint_Type , Cancertype , BarcodeID
-			, IF(Frame = "NA","",Frame) AS Frame
-			, Chr_info , Source , ChimerKB , ChimerPub, CONCAT(ChimerKB, "_", ChimerPub) AS supported
+			id, Fusion_pair AS fusion_pair , 5Gene_Junction AS gene5Junc , 3Gene_Junction AS gene3Junc , Breakpoint_Type AS breakpoint_type , Cancertype AS cancertype, BarcodeID AS barcodeID
+			, IF(Frame = "NA","",Frame) AS frame
+			, Chr_info AS chr_info , Source AS source, ChimerKB AS chimerKB, ChimerPub AS chimerPub, CONCAT(ChimerKB, "_", ChimerPub) AS supported
 		FROM ChimerDB3.ChimerSeq_ver7
 		WHERE 1=1
         
@@ -281,5 +281,40 @@
 	<select id="getTcgaCancerTypes" resultType="java.lang.String">
 		SELECT DISTINCT CancerType FROM ChimerSeq_ver7
 		ORDER BY CancerType
+	</select>
+	
+	<select id="getFusionGeneDetailInfo" parameterType="java.lang.String" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqDetailVo">
+		SELECT 
+			id, Fusion_pair AS fusion_pair , 5Gene_Junction AS gene5Junc , 3Gene_Junction AS gene3Junc , Breakpoint_Type AS breakpoint_type , Cancertype AS cancertype, BarcodeID AS barcodeID
+			, IF(Frame = "NA","",Frame) AS frame
+			, Chr_info AS chr_info , Source AS source, ChimerKB AS chimerKB, ChimerPub AS chimerPub, CONCAT(ChimerKB, "_", ChimerPub) AS supported
+			, ChimerDB_Type			AS chimerDB_Type
+			, webSource				AS webSource
+			, H_gene				AS h_gene
+			, H_chr					AS h_chr
+			, H_position			AS h_position
+			, H_strand				AS h_strand
+			, T_gene				AS t_gene
+			, T_position			AS t_position
+			, T_chr					AS t_chr
+			, T_strand				AS t_strand
+			, Genomic_breakpoint	AS genomic_breakpoint
+			, Exon_breakpoint		AS exon_breakpoint
+			, Genome_Build_Version	AS genome_Build_Version
+			, H_transcript			AS h_transcript
+			, H_exon				AS h_exon
+			, T_transcript			AS t_transcript
+			, T_exon				AS t_exon
+			, Seed_reads_num		AS seed_reads_num
+			, Spanning_pairs_num	AS spanning_pairs_num
+			, Junction_reads_num	AS junction_reads_num
+			, H_locus				AS h_locus
+			, T_locus				AS t_locus
+			, Kinase				AS kinase
+			, Tumor_suppressor		AS tumor_suppressor
+			, Receptor				AS receptor
+			, Transcription_Factor	AS transcription_Factor
+		FROM ChimerDB3.ChimerSeq_ver7
+		WHERE id=${id}
 	</select>
 </mapper>

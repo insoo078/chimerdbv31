@@ -11,25 +11,34 @@ package org.com.chimerdbv31.chimerseq.vo;
  * @author Ik-Jung Choi <cij@ewha.ac.kr>
  */
 public class ChimerSeqVo {
-    private String Fusion_pair;
+	private int id;
+    private String fusion_pair;
     private String gene5Junc;
     private String gene3Junc;
-    private String Breakpoint_Type;
-    private String Cancertype;
-    private String BarcodeID;
-    private String Frame;
-    private String Chr_info;
-    private String Source;
-    private String ChimerKB;
-    private String ChimerPub;
+    private String breakpoint_Type;
+    private String cancertype;
+    private String barcodeID;
+    private String frame;
+    private String chr_info;
+    private String source;
+    private String chimerKB;
+    private String chimerPub;
     private String supported;
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
     public String getFusion_pair() {
-        return Fusion_pair;
+        return fusion_pair;
     }
 
     public void setFusion_pair(String Fusion_pair) {
-        this.Fusion_pair = Fusion_pair;
+        this.fusion_pair = Fusion_pair;
     }
 
     public String getGene5Junc() {
@@ -49,67 +58,67 @@ public class ChimerSeqVo {
     }
 
     public String getBreakpoint_Type() {
-        return Breakpoint_Type;
+        return this.breakpoint_Type;
     }
 
     public void setBreakpoint_Type(String Breakpoint_Type) {
-        this.Breakpoint_Type = Breakpoint_Type;
+        this.breakpoint_Type = Breakpoint_Type;
     }
 
     public String getCancertype() {
-        return Cancertype;
+        return cancertype;
     }
 
     public void setCancertype(String Cancertype) {
-        this.Cancertype = Cancertype;
+        this.cancertype = Cancertype;
     }
 
     public String getBarcodeID() {
-        return BarcodeID;
+        return barcodeID;
     }
 
     public void setBarcodeID(String BarcodeID) {
-        this.BarcodeID = BarcodeID;
+        this.barcodeID = BarcodeID;
     }
 
     public String getFrame() {
-        return Frame;
+        return frame;
     }
 
     public void setFrame(String Frame) {
-        this.Frame = Frame;
+        this.frame = Frame;
     }
 
     public String getChr_info() {
-        return Chr_info;
+        return chr_info;
     }
 
     public void setChr_info(String Chr_info) {
-        this.Chr_info = Chr_info;
+        this.chr_info = Chr_info;
     }
 
     public String getSource() {
-        return Source;
+        return source;
     }
 
     public void setSource(String Source) {
-        this.Source = Source;
+        this.source = Source;
     }
 
     public String getChimerKB() {
-        return ChimerKB;
+        return chimerKB;
     }
 
     public void setChimerKB(String ChimerKB) {
-        this.ChimerKB = ChimerKB;
+        this.chimerKB = ChimerKB;
     }
 
     public String getChimerPub() {
-        return ChimerPub;
+        return chimerPub;
     }
 
     public void setChimerPub(String ChimerPub) {
-        this.ChimerPub = ChimerPub;
+        this.chimerPub = ChimerPub;
     }
 
     public String getSupported() {

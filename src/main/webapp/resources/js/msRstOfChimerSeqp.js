@@ -22,17 +22,19 @@ $(document).ready(function () {
             "type": "POST"
         },
         "iDisplayLength": 10,
+		"columnDefs":[{targets:[0,1,2,3,4,5,6,7,8,9], visible:true}, {targets:'_all', visible:false}],
         "columns":[
-            {"data":"Fusion_pair"},
+            {"data":"fusion_pair"},
             {"data":"gene5Junc"},
             {"data":"gene3Junc"},
-            {"data":"Breakpoint_Type"},
-            {"data":"Cancertype"},
-            {"data":"BarcodeID"},
-            {"data":"Frame"},
-            {"data":"Chr_info"},
-            {"data":"Source"},
-            {"data":"supported"}
+            {"data":"breakpoint_Type"},
+            {"data":"cancertype"},
+            {"data":"barcodeID"},
+            {"data":"frame"},
+            {"data":"chr_info"},
+            {"data":"source"},
+            {"data":"supported"},
+			{"data":"id"}
         ],
 		"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
 			var imgTag = "";
@@ -54,10 +56,10 @@ $(document).ready(function () {
 		
 		genes[0] = "5':" + genes[0];
 		genes[1] = "3':" + genes[1];
-		
+
 		getGeneInformation( genes );
 
-//        showDesc(rowdata[0], rowdata[1], rowdata[2], rowdata[5], rowdata[8]);
+        showDesc(rowdata.id);
     });
 });
 
@@ -101,18 +103,15 @@ function getGeneInformation(genes) {
 	});
 }
 
-function showDesc(fuspair, gene5junc, gene3junc, barcodeid, source){
-
-    var data = "fuspair=" + fuspair + "&gene5junc=" + gene5junc + "&gene3junc=" + gene3junc + "&barcodeid=" + barcodeid + "&source=" + source;
-
+function showDesc(id){
     $.ajax({
-          url: "descofgene.cdb",
+          url: "getFusionDetailInfo.cdb",
           type : 'POST',
-          data : data,
+          data : {"id":id},
           dataType: "json",
           success: function(jData) {
-
-              var mypopup = window.open("description_popup.cdb", 'mypopup', "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=400");
+			  var data = JSON.stringify(jData);
+              var mypopup = window.open("chimerseq_popup.cdb?detailInfo="+data+"", 'mypopup', "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=400");
 //              mypopup.pdata = jData;
               //mypopup.document.write();
               

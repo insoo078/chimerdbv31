@@ -12,6 +12,7 @@ import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.chimerseq.obj.TranscriptObj;
+import org.com.chimerdbv31.chimerseq.vo.ChimerSeqDetailVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
 
 import org.slf4j.Logger;
@@ -114,17 +115,7 @@ public class ChimerSeqService {
 		return this.chimerSeqMapper.getTcgaCancerTypes();
 	}
 	
-//	private GeneInfoVo addGeneFeatures( GeneInfoVo gene, List<Gff3Vo> gff3Features ) {
-//		TranscriptObj obj = null;
-//		for(Gff3Vo vo : gff3Features ) {
-//			if( vo.getType().equals("gene") )	gene.setGeneGffFeature( vo );
-//			else if( vo.getType().equals("mRNA") || vo.getType().equals("transcript") ) {
-//				obj = (TranscriptObj)vo;
-//				gene.addTranscript( obj );
-//			}else {
-//				obj.addExon(vo);
-//			}
-//		}
-//		return gene;
-//	}
+	public ChimerSeqDetailVo getFusionGeneDetailInfo(String id) {
+		return this.chimerSeqMapper.getFusionGeneDetailInfo(id);
+	}
 }
