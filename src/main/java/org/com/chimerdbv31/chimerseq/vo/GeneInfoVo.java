@@ -38,8 +38,7 @@ public class GeneInfoVo{
 	
 	private Gff3Vo geneFeature;
 	private List<TranscriptObj> transcripts;
-	private List<Gff3Vo> exonElementsWithIndex;
-	
+
 	public void rearrangeFeatures( List<Gff3Vo> exonElementsWithIndex ) {
 		if( this.transcripts == null )	this.transcripts = new ArrayList<TranscriptObj>();
 
@@ -55,7 +54,6 @@ public class GeneInfoVo{
 				}
 			}
 		}
-		this.exonElementsWithIndex = exonElementsWithIndex;
 	}
 
 	public String getFusionLocation() {
@@ -81,14 +79,6 @@ public class GeneInfoVo{
 
 	public void setTranscripts(List<TranscriptObj> transcripts) {
 		this.transcripts = transcripts;
-	}
-
-	public List<Gff3Vo> getExonElementsWithIndex() {
-		return exonElementsWithIndex;
-	}
-
-	public void setExonElementsWithIndex(List<Gff3Vo> exonElementsWithIndex) {
-		this.exonElementsWithIndex = exonElementsWithIndex;
 	}
 
 	public List<Gff3Vo> getFeatures() {

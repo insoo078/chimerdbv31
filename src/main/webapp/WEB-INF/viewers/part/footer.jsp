@@ -7,8 +7,8 @@
         <div class="col-md-6" style="height: 100px;"></div>
     </div>
     
-    <div class="templatemo-copyright">
-      <p>Copyright &copy; 2084 Your Company Name</p>
+    <div class="chimerdb-copyright">
+		<p>Copyright &copy; 2084 Your Company Name</p>
     </div>
 </footer>
 
