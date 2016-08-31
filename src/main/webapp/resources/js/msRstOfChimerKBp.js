@@ -48,13 +48,62 @@ $(document).ready(function () {
     $('#chimerKbTbl tbody').on('click', 'tr', function(){
         //var rowdata = mainTable.row( this ).data();
         //showDesc2(rowdata[0], rowdata[1], rowdata[2], rowdata[3], rowdata[7], rowdata[9]);
+        //showDesc1( mainTable.row( this ).data() );
         showDesc( mainTable.row( this ).data() );
     });
     
    
 });
 
+
 function showDesc(popupdataobj){
+    $("#selectedrowtitle").text( popupdataobj[0] );
+    $("#srt_td_5gene_nm").text( popupdataobj[12] );
+    $("#srt_td_3gene_nm").text( popupdataobj[16] );
+
+    $("#srt_td_5g_chr_nm").text( popupdataobj[13] );
+    $("#srt_td_3g_chr_nm").text( popupdataobj[17] );
+
+    $("#srt_td_5g_junc_point").text( popupdataobj[1] );
+    $("#srt_td_3g_junc_point").text( popupdataobj[2] );
+
+    $("#srt_td_5g_strand").text( popupdataobj[15] );
+    $("#srt_td_3g_strand").text( popupdataobj[19] );
+
+    var selectedFuncStr = "";
+    if( popupdataobj[30] === "1"){
+        selectedFuncStr += "Kinase" + ", ";
+    }
+    if( popupdataobj[31] === "1"){
+        selectedFuncStr += "Oncogene" + ", ";
+    }
+    if( popupdataobj[32] === "1"){
+        selectedFuncStr += "Tumor suppressor" + ", ";
+    }
+    if( popupdataobj[33] === "1"){
+        selectedFuncStr += "Receptor" + ", ";
+    }
+    if( popupdataobj[34] === "1"){
+        selectedFuncStr += "Transcription factor" + ", ";
+    }
+
+
+    $("#srt_td_5g_3g_func").text( selectedFuncStr );
+    
+    $("#srt_td_chimerdb_type").text( popupdataobj[10] );
+    $("#srt_td_source").text( popupdataobj[7] );
+    $("#srt_td_genome_build_ver").text( popupdataobj[22] );
+    $("#srt_td_disease").text( popupdataobj[4] );
+    $("#srt_td_validation_mtd").text( popupdataobj[27] );
+    $("#srt_td_pmid").text( popupdataobj[9] );
+    $("#srt_td_frame").text( popupdataobj[5] );
+    $("#srt_td_chr_info").text( popupdataobj[6] );
+    $("#srt_td_supported").html( popupdataobj[8] )
+
+}
+
+
+function showDesc1(popupdataobj){
     $("#td_fusion_gene").text( popupdataobj[0] );
     $("#td_5gene_nm").text( popupdataobj[12] );
     $("#td_3gene_nm").text( popupdataobj[16] );
