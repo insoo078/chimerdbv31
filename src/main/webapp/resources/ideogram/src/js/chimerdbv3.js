@@ -217,6 +217,33 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 			.attr("y2", 200)
 			.attr("style", "stroke:#555;stroke-width:5;");
 	
+	
+		var rot = 0;
+		var margin = 0;
+		if( genePanelJson[i].gene.geneFeature.strand === '-' ) {
+			rot = 180;
+			margin = 8;
+		}
+		
+		canvas.append("path")
+		.attr("d", "M0,0 L0,8 L8,0 L0,-8 L0,0")
+		.attr("transform", function(){
+			return "translate("+(startX + final_screen_gene_length+margin)+","+200+") rotate("+rot+")";
+		})
+		.attr("x", (startX + final_screen_gene_length))
+		.attr("y", 200)
+		.attr("fill", "white")
+		.attr("style", "stroke:#555;stroke-width:2;");
+
+		canvas.append("path")
+		.attr("d", "M0,0 L0,8 L8,0 L0,-8 L0,0")
+		.attr("transform", function(d){
+			return "translate("+(startX + final_screen_gene_length+7+margin)+","+200+") rotate("+rot+")";
+		})
+		.attr("fill", "white")
+		.attr("style", "stroke:#555;stroke-width:2;");;
+	
+	
 		var breakJunction = config.fusionInfo.gene3Junc.split(":")[1];
 		if( config.fusionInfo.fusion_pair.startsWith(genePanelJson[i].gene.symbol) )
 			breakJunction = config.fusionInfo.gene5Junc.split(":")[1];
@@ -283,9 +310,15 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 				.attr("width", width)
 				.attr("height", 20);
 
-			if( breakJunction >= transcriptExons[j].end || (breakJunction >= transcriptExons[j].start && breakJunction <= transcriptExons[j].end) )
-				fusionStructure.push(transcriptExons[j]);
+			if( genePanelJson[i].gene.geneFeature.strand === '+' ) {
+				if( breakJunction >= transcriptExons[j].end || (breakJunction >= transcriptExons[j].start && breakJunction <= transcriptExons[j].end) )
+					fusionStructure.push(transcriptExons[j]);
+			}else {
+				if( breakJunction <= transcriptExons[j].end || (breakJunction >= transcriptExons[j].start && breakJunction <= transcriptExons[j].end) )
+					fusionStructure.push(transcriptExons[j]);
+			}
 
+			// Drawing Break point line
 			if( breakJunction >= transcriptExons[j].start && breakJunction <= transcriptExons[j].end ) {
 				var leftRatio = (breakJunction - transcriptExons[j].start)/realExonLength;
  
