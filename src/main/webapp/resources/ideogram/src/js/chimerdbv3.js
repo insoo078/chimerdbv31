@@ -27,7 +27,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 	for(var i=0; i<genePanelJson.length; i++)
 		gene_total_length += genePanelJson[i].gene.geneFeature.end - genePanelJson[i].gene.geneFeature.start + 1;
 
-	var LEFT_MARGIN = 150;
+	var LEFT_MARGIN = 100;
 	for(var i=0; i<genePanelJson.length; i++) {
 		var gene_length = genePanelJson[i].gene.geneFeature.end - genePanelJson[i].gene.geneFeature.start + 1;
 		var gene_length_ratio = gene_length / gene_total_length;
@@ -35,15 +35,13 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 		var drawCanvas = d3.selectAll(".fusion-gene-panel");
 		var geneBackbonLength = drawCanvas.node().getBoundingClientRect().width - LEFT_MARGIN;
 		
-		var stable_length = geneBackbonLength * 0.8;
-		var variable_length = (geneBackbonLength * 0.2) * gene_length_ratio;
+		var stable_length = geneBackbonLength * 0.95;
+		var variable_length = (geneBackbonLength * 0.05) * gene_length_ratio;
 		
 		var final_screen_gene_length = stable_length + variable_length;
 		
-		
-		
 		var baseLen = (200 / (final_screen_gene_length/gene_length))/1000;
-		var totalBaseLen = (final_screen_gene_length / (final_screen_gene_length/gene_length))/1000;
+//		var totalBaseLen = (final_screen_gene_length / (final_screen_gene_length/gene_length))/1000;
 
 		var startX = LEFT_MARGIN - (5*config.sideMargin);
 
@@ -173,6 +171,15 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 					.attr("y2", 180)
 					.attr("style", "stroke:#555;stroke-width:1;")
 					.attr("marker-end", "url(#arrow)");
+
+				var txtPosX = startX;
+				canvas.append("text")
+				.attr("class", "break-point-label")
+				.attr("text-anchor", "middle")
+				.attr("dominant-baseline", "bottom")
+				.attr('x', txtPosX)
+				.attr('y', 150)
+				.text( breakJunction );
 			}
 		
 			var exonRect = exon.node().getBoundingClientRect();
