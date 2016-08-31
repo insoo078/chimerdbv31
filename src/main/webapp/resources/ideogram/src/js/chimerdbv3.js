@@ -391,7 +391,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawChromosomeLabel = function(conf
 
 			return "translate(" + (rect.left-base.left+(rect.width/2)) + "," + (geneLableRect.bottom - base.top + (2*config.sideMargin)) + ")";
 		})
-		.text("Chromosome " + gene.chromosome);
+		.text("Chromosome " + gene.chromosome + "  ("+ gene.map_location +")");
 }
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneLabel = function(config, className, gene) {
