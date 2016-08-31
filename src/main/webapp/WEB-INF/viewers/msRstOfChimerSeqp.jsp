@@ -115,6 +115,20 @@
 			</div>
 		</div>
 
+		<div class="templatemo-panels">
+			<div class="col-md-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<span style="font-size: 20px; font-weight: bold;">Fusion Structure (Image)</span>
+					</div>
+					<div class="panel-body" style="text-align: center;">
+						<img alt="" src="./resources/images/exon_img.png" style="width: 95%; height: 95%;" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<%@include file="part/footer.jsp" %>
     
 </div>
