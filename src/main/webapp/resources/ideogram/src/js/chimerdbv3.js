@@ -114,18 +114,22 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 
 			x1 += width;
 		}
-		
-		var breakPointRect = d3.select(".break-point-"+fusion[i].fusionLocation).node().getBoundingClientRect();
-		var baseRect = canvas.node().getBoundingClientRect();
-		var backboneRect = backbone.node().getBoundingClientRect();
 
-		canvas.append("line")
-			.attr("x1", breakPointRect.left - baseRect.left)
-			.attr("y1", breakPointRect.bottom - baseRect.top + 30)
-			.attr("x2", fusion[i].fusionLocation === '5p'?backboneRect.right - baseRect.left:backboneRect.left - baseRect.left)
-			.attr("y2", backboneRect.top - baseRect.top)
-			.attr("style", "stroke:#00f;stroke-width:1;")
-			.style("stroke-dasharray", ("2,3"));
+		try {
+			var breakPointRect = d3.select(".break-point-"+fusion[i].fusionLocation).node().getBoundingClientRect();
+			var baseRect = canvas.node().getBoundingClientRect();
+			var backboneRect = backbone.node().getBoundingClientRect();
+
+			canvas.append("line")
+				.attr("x1", breakPointRect.left - baseRect.left)
+				.attr("y1", breakPointRect.bottom - baseRect.top + 30)
+				.attr("x2", fusion[i].fusionLocation === '5p'?backboneRect.right - baseRect.left:backboneRect.left - baseRect.left)
+				.attr("y2", backboneRect.top - baseRect.top)
+				.attr("style", "stroke:#00f;stroke-width:1;")
+				.style("stroke-dasharray", ("2,3"));
+		}catch(e) {
+			console.log(e);
+		}
 		
 		startX += final_screen_gene_length;
 	}
