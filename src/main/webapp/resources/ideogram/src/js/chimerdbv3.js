@@ -39,11 +39,59 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 		var variable_length = (geneBackbonLength * 0.2) * gene_length_ratio;
 		
 		var final_screen_gene_length = stable_length + variable_length;
+		
+		
+		
+		var baseLen = (200 / (final_screen_gene_length/gene_length))/1000;
+		var totalBaseLen = (final_screen_gene_length / (final_screen_gene_length/gene_length))/1000;
 
 		var startX = LEFT_MARGIN - (5*config.sideMargin);
 
-		if( genePanelJson[i].name.endsWith("3p") )
+		if( genePanelJson[i].name.endsWith("3p") ) {
+			// 3p area
 			startX += drawCanvas.node().getBoundingClientRect().width;
+			
+			var rect = d3.select("#fusion-gene-label-group-3p").selectAll(".fusion-gene-label").node().getBoundingClientRect();
+			var base = canvas.node().getBoundingClientRect();
+
+			canvas.append("line")
+				.attr('class', 'gene-unit-length')
+				.attr('x1', rect.left - base.left - 50 - 200)
+				.attr('y1', rect.top - base.top + (rect.height/2))
+				.attr('x2', rect.left - base.left - 50)
+				.attr("y2", rect.top - base.top + (rect.height/2))
+				.attr("style", "stroke:#555;stroke-width:1;")
+				.attr("marker-start", "url(#diamond)")
+				.attr("marker-end", "url(#diamond)");
+		
+			canvas.append("text")
+				.attr("text-anchor", "middle")
+				.attr("dominant-baseline", "bottom")
+				.attr("x", rect.left - base.left - 50 - 100)
+				.attr("y", rect.top - base.top + (rect.height/2) - 5)
+				.text(baseLen.toFixed(2) +"KB");
+		}else {
+			// 5p area
+			var rect = d3.select("#fusion-gene-label-group-5p").selectAll(".fusion-gene-label").node().getBoundingClientRect();
+			var base = canvas.node().getBoundingClientRect();
+
+			canvas.append("line")
+				.attr('class', 'gene-unit-length')
+				.attr('x1', rect.right - base.left + 50)
+				.attr('y1', rect.top - base.top + (rect.height/2))
+				.attr('x2', rect.right - base.left + 50 + 200)
+				.attr("y2", rect.top - base.top + (rect.height/2))
+				.attr("style", "stroke:#555;stroke-width:1;")
+				.attr("marker-start", "url(#diamond)")
+				.attr("marker-end", "url(#diamond)");
+		
+			canvas.append("text")
+				.attr("text-anchor", "middle")
+				.attr("dominant-baseline", "bottom")
+				.attr("x", rect.right - base.left + 50 + 100)
+				.attr("y", rect.top - base.top + (rect.height/2) - 5)
+				.text(baseLen.toFixed(2) +"KB");
+		}
 
 		canvas.append('line')
 			.attr("class", "gene-backbone")
@@ -116,14 +164,15 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 				var leftRatio = (breakJunction - transcriptExons[j].start)/realExonLength;
  
 				var startX = x1 + (width*leftRatio);
+			
 				canvas.append('line')
 					.attr("class", "break-point")
 					.attr('x1', startX)
 					.attr('y1', 150)
 					.attr('x2', startX)
-					.attr("y2", 190)
+					.attr("y2", 180)
 					.attr("style", "stroke:#555;stroke-width:1;")
-					.attr("marker-end", "url(#arrowhead)");
+					.attr("marker-end", "url(#arrow)");
 			}
 		
 			var exonRect = exon.node().getBoundingClientRect();
@@ -214,7 +263,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(co
 	var second = canvas.append("g")
 			.attr("id", "fusion-gene-label-group-3p");
 	
-	var data = [{width:100,height:30,id:'5pGene',label:"5' Gene"}, {width:100,height:30,id:'3pGene',label:"3' Gene"}];
+	var data = [{width:100,height:50,id:'5pGene',label:"5' Gene"}, {width:100,height:50,id:'3pGene',label:"3' Gene"}];
 
 	var gene5PLabel = first.append("rect")
 			.attr("id", data[0].id)
@@ -322,6 +371,28 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawCanvas = function(config) {
 			.attr("id", "canvas")
 			.attr("width", canvasRect.width)
 			.attr("height", config.canvasHeight);
+
+	canvas.append("svg:defs").append("svg:marker")
+	.attr("id", "arrow")
+	.attr("refX", 2)
+	.attr("refY", 6)
+	.attr("markerWidth", 13)
+	.attr("markerHeight", 13)
+	.attr("orient", "auto")
+	.append("svg:path")
+	.attr("d", "M2,2 L2,11 L10,6 L2,2")
+	.attr("fill", "#555");
+
+	canvas.append("svg:defs").append("svg:marker")
+	.attr("id", "diamond")
+	.attr("refX", 0)
+	.attr("refY", 6)
+	.attr("markerWidth", 13)
+	.attr("markerHeight", 13)
+	.attr("orient", "auto")
+	.append("svg:path")
+	.attr("d", "M0,6 L6,0 L12,6 L6,12 L0,6 Z")
+    .style("fill", "#555");
 
 	return canvas;
 };
