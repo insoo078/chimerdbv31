@@ -11,11 +11,13 @@
 <meta name="viewport" content="width=device-width">
 
 <link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css"/>
+<link type="text/css" rel="stylesheet" href="resources/css/jquery-ui.min.css"/>
 <link type="text/css" rel="stylesheet" href="resources/css/templatemo_main.css"/>
 <link type="text/css" rel="stylesheet" href="resources/css/chimerdbv3.css"/>
 <link type="text/css" rel="stylesheet" href="resources/css/index_main.css"/>
 
 <script type="text/javascript" src="resources/js/jq/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="resources/js/jqui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/templatemo_script.js"></script>
 <script type="text/javascript" src="resources/js/jqlib/jQuery.equalHeights.js"></script>
@@ -93,7 +95,7 @@
                                             </label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;" value="" >
+                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;">
                                         </div>
                                     </div>
                                 </div>
