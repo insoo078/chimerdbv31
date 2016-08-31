@@ -22,10 +22,16 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config, gene1, gene2 ) {
 	this.drawGeneStructure( this.config, genePanelJson, canvas, 3 );
 };
 
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function( config, genePanelJson, canvas, drawingType ) {
+
+};
+	
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( config, genePanelJson, canvas, drawingType ) {
 	var gene_total_length = 0;
 	for(var i=0; i<genePanelJson.length; i++)
 		gene_total_length += genePanelJson[i].gene.geneFeature.end - genePanelJson[i].gene.geneFeature.start + 1;
+
+	var fusionData = {};
 
 	var LEFT_MARGIN = 100;
 	for(var i=0; i<genePanelJson.length; i++) {
@@ -153,11 +159,6 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 				.attr("y", 190)
 				.attr("width", width)
 				.attr("height", 20);
-
-//				if( genePanelJson[i].gene.symbol==='EML4' ) {
-//					console.log( transcriptExons[j].start + " <= " + breakJunction + " <= " + transcriptExons[j].end);
-//				}
-//				
 			if( breakJunction >= transcriptExons[j].start && breakJunction <= transcriptExons[j].end ) {
 				var leftRatio = (breakJunction - transcriptExons[j].start)/realExonLength;
  
@@ -193,9 +194,6 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 
 			x1 += width;
 		}
-		
-//		console.log( config.fusionInfo.gene5Junc );
-//		console.log( config.fusionInfo.gene3Junc );
 	}
 };
 
