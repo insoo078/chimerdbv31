@@ -310,11 +310,11 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 				.attr("width", width)
 				.attr("height", 20);
 
-			if( genePanelJson[i].gene.geneFeature.strand === '+' ) {
-				if( breakJunction >= transcriptExons[j].end || (breakJunction >= transcriptExons[j].start && breakJunction <= transcriptExons[j].end) )
+			if( genePanelJson[i].name.endsWith("3p") ){
+				if( breakJunction <= transcriptExons[j].end || (breakJunction >= transcriptExons[j].start && breakJunction <= transcriptExons[j].end) )
 					fusionStructure.push(transcriptExons[j]);
 			}else {
-				if( breakJunction <= transcriptExons[j].end || (breakJunction >= transcriptExons[j].start && breakJunction <= transcriptExons[j].end) )
+				if( breakJunction >= transcriptExons[j].end || (breakJunction >= transcriptExons[j].start && breakJunction <= transcriptExons[j].end) )
 					fusionStructure.push(transcriptExons[j]);
 			}
 
