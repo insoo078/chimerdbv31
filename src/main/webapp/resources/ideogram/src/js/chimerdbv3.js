@@ -44,7 +44,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 
 		var final_screen_gene_length = stable_length + variable_length;
 
-		canvas.append('line')
+		var backbone = canvas.append('line')
 		.attr("class", "fusion-gene-backbone-5p")
 		.attr('x1', startX)
 		.attr('y1', 400)
@@ -67,6 +67,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 		
 		var x1 = startX;
 		
+		var exonLabelStartIdx = fusion[i].exonLabelStartIdx;
 		for(var j=0; j<transcriptExons.length; j++){
 			var realExonLength = transcriptExons[j].end - transcriptExons[j].start + 1;
 			var onlyLength = 0;
@@ -89,7 +90,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 			if( i === 0)	exonColor = "#33ff99";
 
 			var width = onlyLength * final_unit_nt_size;
-			canvas.append("rect")
+			var exon = canvas.append("rect")
 				.attr("id", "exon-" + j)
 				.attr("class", "exon-feature-label")
 				.style("fill", exonColor)
@@ -101,9 +102,30 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 				.attr("y", 390)
 				.attr("width", width)
 				.attr("height", 20);
+		
+			var exonRect = exon.node().getBoundingClientRect();
+
+			canvas.append("text")
+					.attr("text-anchor", "middle")
+					.attr("dominant-baseline", "central")
+					.attr("x", exonRect.left - canvas.node().getBoundingClientRect().left + exonRect.width/2)
+					.attr("y", exonRect.top - canvas.node().getBoundingClientRect().top + exonRect.height/2)
+					.text(exonLabelStartIdx+j);
 
 			x1 += width;
 		}
+		
+		var breakPointRect = d3.select(".break-point-"+fusion[i].fusionLocation).node().getBoundingClientRect();
+		var baseRect = canvas.node().getBoundingClientRect();
+		var backboneRect = backbone.node().getBoundingClientRect();
+
+		canvas.append("line")
+			.attr("x1", breakPointRect.left - baseRect.left)
+			.attr("y1", breakPointRect.bottom - baseRect.top + 30)
+			.attr("x2", fusion[i].fusionLocation === '5p'?backboneRect.right - baseRect.left:backboneRect.left - baseRect.left)
+			.attr("y2", backboneRect.top - baseRect.top)
+			.attr("style", "stroke:#00f;stroke-width:1;")
+			.style("stroke-dasharray", ("2,3"));
 		
 		startX += final_screen_gene_length;
 	}
@@ -118,6 +140,9 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 
 	var LEFT_MARGIN = 100;
 	for(var i=0; i<genePanelJson.length; i++) {
+		var fusionFlag = genePanelJson[i].gene.fusionLocation==="5'"?"5p":"3p";
+
+			
 		var gene_length = genePanelJson[i].gene.geneFeature.end - genePanelJson[i].gene.geneFeature.start + 1;
 		var gene_length_ratio = gene_length / gene_total_length;
 		
@@ -209,10 +234,11 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 		var x1 = startX;
 		var relative_start = x1;
 		
-		fusionData[genePanelJson[i].gene.fusionLocation] = {gene:genePanelJson[i].gene, backboneSize:final_screen_gene_length};
+		fusionData[genePanelJson[i].gene.fusionLocation] = {gene:genePanelJson[i].gene, backboneSize:final_screen_gene_length, fusionLocation:fusionFlag};
 
 		var fusionStructure = [];
 
+		var labelStart = 1;
 		for(var j=0; j<transcriptExons.length; j++){
 			var realExonLength = transcriptExons[j].end - transcriptExons[j].start + 1;
 			var onlyLength = 0;
@@ -258,6 +284,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 			
 				canvas.append('line')
 					.attr("class", "break-point")
+					.attr("class", "break-point-"+fusionFlag)
 					.attr('x1', startX)
 					.attr('y1', 150)
 					.attr('x2', startX)
@@ -275,6 +302,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 				.text( breakJunction );
 		
 				fusionData[genePanelJson[i].gene.fusionLocation].breakPos = startX - relative_start;
+				labelStart = j+1;
 			}
 		
 			var exonRect = exon.node().getBoundingClientRect();
@@ -292,9 +320,11 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 		if( genePanelJson[i].name.endsWith("3p") ) {
 			fusionData[genePanelJson[i].gene.fusionLocation].startPos = parseInt(breakJunction);
 			fusionData[genePanelJson[i].gene.fusionLocation].endPos = genePanelJson[i].gene.geneFeature.end;
+			fusionData[genePanelJson[i].gene.fusionLocation].exonLabelStartIdx = labelStart;
 		}else {
 			fusionData[genePanelJson[i].gene.fusionLocation].startPos = genePanelJson[i].gene.geneFeature.start;
 			fusionData[genePanelJson[i].gene.fusionLocation].endPos = parseInt(breakJunction);
+			fusionData[genePanelJson[i].gene.fusionLocation].exonLabelStartIdx = 1;
 		}
 		fusionData[genePanelJson[i].gene.fusionLocation].fusionStructure = fusionStructure;
 	}
