@@ -10,7 +10,13 @@ $(document).ready(function () {
     
     $(".chimerkbsearchdiv").equalHeights();
     
-    
+    $("#by_disease_txt").autocomplete({
+        minLength:3,
+        source: "chimerpubdiseaselst.cdb"
+//        select: function(event,ui){
+//            ui.item ? "Selected: " + ui.item.value + " aka " + ui.item.id : "Nothing selected, input was " + this.value ;
+//        }
+    });
 });
 
 

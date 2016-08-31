@@ -426,38 +426,38 @@ public class ChimerSeqController {
 		@ResponseBody
 		public String getTheRowLeft( HttpServletRequest request )throws RuntimeException{
 
-		//        System.out.println("========================start===========");
-		//        Enumeration enumx = request.getParameterNames();
-		//        for (; enumx.hasMoreElements(); ) {
-		//            String key = (String)enumx.nextElement();
-		//            System.out.println("[Filter] key = "+key+" , value = "+request.getParameter(key));
-		//        }
-		//        System.out.println("========================end===========");
-		sParam.setStrtn( Integer.parseInt( request.getParameter("start") ) );
-		sParam.setLntn( Integer.parseInt( request.getParameter("length") ) );
-		String sortedKey = request.getParameter("order[0][column]");
-		if(sortedKey.equals("0")){
-		 sortedKey = "1";
-		}
-		sParam.setSortedKeyword( sortedKey );
-		sParam.setSortType( request.getParameter("order[0][dir]") );
+                    //        System.out.println("========================start===========");
+                    //        Enumeration enumx = request.getParameterNames();
+                    //        for (; enumx.hasMoreElements(); ) {
+                    //            String key = (String)enumx.nextElement();
+                    //            System.out.println("[Filter] key = "+key+" , value = "+request.getParameter(key));
+                    //        }
+                    //        System.out.println("========================end===========");
+                    sParam.setStrtn( Integer.parseInt( request.getParameter("start") ) );
+                    sParam.setLntn( Integer.parseInt( request.getParameter("length") ) );
+                    String sortedKey = request.getParameter("order[0][column]");
+                    if(sortedKey.equals("0")){
+                     sortedKey = "1";
+                    }
+                    sParam.setSortedKeyword( sortedKey );
+                    sParam.setSortType( request.getParameter("order[0][dir]") );
 
-		JSONObject jsonData = new JSONObject();
+                    JSONObject jsonData = new JSONObject();
 
-		JSONArray jsonArray = null;
-
-
-		int totalNum = 0;
-		totalNum = this.chimerSeqService.getChimerSeqTotalNumber(sParam);
-		sParam.setTotaln(totalNum);
-		List<ChimerSeqVo> mainList = this.chimerSeqService.getChimerSeqResult(sParam);
-		jsonArray = JSONArray.fromObject(mainList);
+                    JSONArray jsonArray = null;
 
 
-		jsonData.put("iTotalRecords", totalNum);
-		jsonData.put("iTotalDisplayRecords", totalNum);
-		jsonData.put("aaData", jsonArray.toString() );
+                    int totalNum = 0;
+                    totalNum = this.chimerSeqService.getChimerSeqTotalNumber(sParam);
+                    sParam.setTotaln(totalNum);
+                    List<ChimerSeqVo> mainList = this.chimerSeqService.getChimerSeqResult(sParam);
+                    jsonArray = JSONArray.fromObject(mainList);
 
-		return jsonData.toString();
-    }
+
+                    jsonData.put("iTotalRecords", totalNum);
+                    jsonData.put("iTotalDisplayRecords", totalNum);
+                    jsonData.put("aaData", jsonArray.toString() );
+
+                    return jsonData.toString();
+                }
 }
