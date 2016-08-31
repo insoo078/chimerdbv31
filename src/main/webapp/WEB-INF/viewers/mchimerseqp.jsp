@@ -10,12 +10,13 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width">
 
-
+<link type="text/css" rel="stylesheet" href="resources/css/jquery-ui.min.css"/>
 <link type="text/css" rel="stylesheet" href="resources/css/templatemo_main.css"/>
 <link type="text/css" rel="stylesheet" href="resources/css/chimerdbv3.css"/>
 <link type="text/css" rel="stylesheet" href="resources/css/index_main.css"/>
 
-<script type="text/javascript" src="resources/js/jq/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="resources/js/jq/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="resources/js/jq/jquery-ui.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/templatemo_script.js"></script>
 <script type="text/javascript" src="resources/js/jqlib/jQuery.equalHeights.js"></script>
@@ -306,7 +307,7 @@
                     <button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" >
                         <span class="fa fa-arrow-left"></span>&nbsp;&nbsp;Reset
                     </button>
-                    <button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" onclick="searching();">
+                    <button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" onclick="search();">
                         Submit&nbsp;&nbsp;<span class="fa fa-arrow-right"></span>
                     </button>
 

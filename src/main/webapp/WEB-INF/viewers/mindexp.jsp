@@ -15,7 +15,7 @@
 <link type="text/css" rel="stylesheet" href="resources/css/chimerdbv3.css"/>
 <link type="text/css" rel="stylesheet" href="resources/css/index_main.css"/>
 
-<script type="text/javascript" src="resources/js/jq/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="resources/js/jq/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="resources/js/hoy.js"></script>
