@@ -224,6 +224,11 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 	
 		var wholeExonLength = 0;
 		var transcriptExons = genePanelJson[i].gene.transcripts[0].exons;
+		
+		// If gene strand is '-' then exon list convert to reverse
+		if( genePanelJson[i].gene.geneFeature.strand === '-' )
+			transcriptExons = transcriptExons.reverse();
+
 		for(var j=0; j<transcriptExons.length; j++){
 			wholeExonLength += transcriptExons[j].end - transcriptExons[j].start + 1;
 		}
@@ -278,13 +283,13 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 				.attr("width", width)
 				.attr("height", 20);
 
-			if( breakJunction >= transcriptExons[j].end )
+			if( breakJunction >= transcriptExons[j].end || (breakJunction >= transcriptExons[j].start && breakJunction <= transcriptExons[j].end) )
 				fusionStructure.push(transcriptExons[j]);
 
 			if( breakJunction >= transcriptExons[j].start && breakJunction <= transcriptExons[j].end ) {
 				var leftRatio = (breakJunction - transcriptExons[j].start)/realExonLength;
  
-				var startX = x1 + (width*leftRatio);
+				var startX = x1 + (width * leftRatio);
 			
 				canvas.append('line')
 					.attr("class", "break-point")
