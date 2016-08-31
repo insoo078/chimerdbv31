@@ -9,62 +9,136 @@ $(document).ready(function () {
     var mainTable = null;
     
     mainTable =  mainTable = $("#chimerKbTbl").DataTable({
-        "dom":"T<'clear'>frtilp",
+        "dom":"Tfrt<'row'<'col-md-2'l><'col-md-5'i><'col-md-5'p>>",
+        "columnDefs": [
+            { 'targets': [10], 'visible': false, 'searchable': false }
+            ,{ 'targets': [11], 'visible': false, 'searchable': false }
+            ,{ 'targets': [12], 'visible': false, 'searchable': false }
+            ,{ 'targets': [13], 'visible': false, 'searchable': false }
+            ,{ 'targets': [14], 'visible': false, 'searchable': false }
+            ,{ 'targets': [15], 'visible': false, 'searchable': false }
+            ,{ 'targets': [16], 'visible': false, 'searchable': false }
+            ,{ 'targets': [17], 'visible': false, 'searchable': false }
+            ,{ 'targets': [18], 'visible': false, 'searchable': false }
+            ,{ 'targets': [19], 'visible': false, 'searchable': false }
+            ,{ 'targets': [20], 'visible': false, 'searchable': false }
+            ,{ 'targets': [21], 'visible': false, 'searchable': false }
+            ,{ 'targets': [22], 'visible': false, 'searchable': false }
+            ,{ 'targets': [23], 'visible': false, 'searchable': false }
+            ,{ 'targets': [24], 'visible': false, 'searchable': false }
+            ,{ 'targets': [25], 'visible': false, 'searchable': false }
+            ,{ 'targets': [26], 'visible': false, 'searchable': false }
+            ,{ 'targets': [27], 'visible': false, 'searchable': false }
+            ,{ 'targets': [28], 'visible': false, 'searchable': false }
+            ,{ 'targets': [29], 'visible': false, 'searchable': false }
+            ,{ 'targets': [30], 'visible': false, 'searchable': false }
+            ,{ 'targets': [31], 'visible': false, 'searchable': false }
+            ,{ 'targets': [32], 'visible': false, 'searchable': false }
+            ,{ 'targets': [33], 'visible': false, 'searchable': false }
+            ,{ 'targets': [34], 'visible': false, 'searchable': false }
+            ,{ 'targets': [35], 'visible': false, 'searchable': false }
+            ,{ 'targets': [36], 'visible': false, 'searchable': false }
+        ],
          "scrollX":true,
-         "tableTools":{"sSwfPath": "./swf/copy_csv_xls_pdf.swf"},
-         "iDisplayLength": 25
+         "tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
+         "iDisplayLength": 25,
+         "deferRender": true
     });
     
     $('#chimerKbTbl tbody').on('click', 'tr', function(){
-        var rowdata = mainTable.row( this ).data();
-        showDesc(rowdata[0], rowdata[1], rowdata[2], rowdata[5], rowdata[8]);
+        //var rowdata = mainTable.row( this ).data();
+        //showDesc2(rowdata[0], rowdata[1], rowdata[2], rowdata[3], rowdata[7], rowdata[9]);
+        showDesc( mainTable.row( this ).data() );
     });
     
    
 });
 
+function showDesc(popupdataobj){
+    $("#td_fusion_gene").text( popupdataobj[0] );
+    $("#td_5gene_nm").text( popupdataobj[12] );
+    $("#td_3gene_nm").text( popupdataobj[16] );
+
+    $("#td_5g_chr_nm").text( popupdataobj[13] );
+    $("#td_3g_chr_nm").text( popupdataobj[17] );
+
+    $("#td_5g_junc_point").text( popupdataobj[1] );
+    $("#td_3g_junc_point").text( popupdataobj[2] );
+
+    $("#td_5g_strand").text( popupdataobj[15] );
+    $("#td_3g_strand").text( popupdataobj[19] );
+
+    var selectedFuncStr = "";
+    if( popupdataobj[30] === "1"){
+        selectedFuncStr += "Kinase" + ", ";
+    }
+    if( popupdataobj[31] === "1"){
+        selectedFuncStr += "Oncogene" + ", ";
+    }
+    if( popupdataobj[32] === "1"){
+        selectedFuncStr += "Tumor suppressor" + ", ";
+    }
+    if( popupdataobj[33] === "1"){
+        selectedFuncStr += "Receptor" + ", ";
+    }
+    if( popupdataobj[34] === "1"){
+        selectedFuncStr += "Transcription factor" + ", ";
+    }
 
 
+    $("#td_5g_3g_func").text( selectedFuncStr );
+    
+    $("#td_chimerdb_type").text( popupdataobj[10] );
+    $("#td_source").text( popupdataobj[7] );
+    $("#td_genome_build_ver").text( popupdataobj[22] );
+    $("#td_disease").text( popupdataobj[4] );
+    $("#td_validation_mtd").text( popupdataobj[27] );
+    $("#td_pmid").text( popupdataobj[9] );
+    $("#td_frame").text( popupdataobj[5] );
+    $("#td_chr_info").text( popupdataobj[6] );
+    $("#td_supported").html( popupdataobj[8] )
+    $("#genedescmodal").modal("show");
+}
 
-function showDesc(fuspair, gene5junc, gene3junc, barcodeid, source){
 
-    var data = "fuspair=" + fuspair + "&gene5junc=" + gene5junc + "&gene3junc=" + gene3junc + "&barcodeid=" + barcodeid + "&source=" + source;
+function showDesc2(fuspair, gene5junc, gene3junc, breaktype, source, pmid){
+
+    var data = "fuspair=" + fuspair + "&gene5junc=" + gene5junc + "&gene3junc=" + gene3junc + "&breaktype=" + breaktype + "&source=" + source + "&pmid=" + pmid;
 
     
     $.ajax({
-          url: "descofgene.cdb",
+          url: "genedesc.cdb",
           type : 'POST',
           data : data,
           dataType: "json",
           success: function(jData) {
-              //var mypopup = window.open("/popup/description.html", 'mypopup', "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=400");
-              //mypopup.pdata = jData;
-              console.log(jData);
-              var mypopup = window.open("", 'mypopup', "_blank", "toolbar=no,scrollbars=no,resizable=no,width=300,height=200");
+            $("#td_fusion_gene").text(jData.fusion_pair);
+            $("#td_5gene_nm").text(jData.h_gene);
+            $("#td_3gene_nm").text(jData.t_gene);
+            
+            $("#td_5g_chr_nm").text(jData.h_chr);
+            $("#td_3g_chr_nm").text(jData.t_chr);
+            
+            $("#td_5g_junc_point").text(jData.gene5Junc);
+            $("#td_3g_junc_point").text(jData.gene3Junc);
+            
+            $("#td_5g_strand").text(jData.h_strand);
+            $("#td_3g_strand").text(jData.t_strand);
+            
+            $("#td_5g_func").text("jData");
+            $("#td_3g_func").text("jData");
+            
+            $("#td_chimerdb_type").text("ChimerKB");
+            $("#td_source").text(jData.source);
+            $("#td_genome_build_ver").text(jData.genome_build_version);
+            $("#td_disease").text(jData.disease);
+            $("#td_validation_mtd").text(jData.validation);
+            $("#td_pmid").text(jData.pmid);
+            $("#td_frame").text(jData.frame);
+            $("#td_chr_info").text(jData.chr_info);
+            $("#td_supported").text("jData");
               
-              var tblStr = "";
-              tblStr += "<table><tr><td rowspan='2'>Funsion Gene(5'_3')</td><td colspan='2'>"+jData.fusion_pair+"</td></tr>";
-                tblStr += "<tr><td>"+jData.h_gene+"</td><td>"+jData.t_gene+"</td></tr>";
-                tblStr += "<tr><td>Gene Name</td><td>"+jData+"</td><td>"+jData+"</td></tr>";
-                tblStr += "<tr><td>Chromosome</td><td>"+jData+"</td><td>"+jData+"</td></tr>";
-                tblStr += "<tr><td>Junction(Exon BreakPoint)</td><td>"+jData+"</td><td>"+jData+"</td></tr>";
-                tblStr += "<tr><td>Strand</td><td>"+jData+"</td><td>"+jData+"</td></tr>";
-                tblStr += "<tr><td>Function</td><td>"+jData+"</td><td>"+jData+"</td></tr>";
-                
-              tblStr += "<tr><td>ChimerDB Type</td><td colspan='2'>"+jData+"</td></tr>";
-                tblStr += "<tr><td>Source</td><td colspan='2'>"+jData+"</td></tr>";
-                tblStr += "<tr><td>Genome Build Version</td><td colspan='2'>"+jData+"</td></tr>";
-                tblStr += "<tr><td>Disease</td><td colspan='2'>"+jData+"</td></tr>";
-                tblStr += "<tr><td>Validation method</td><td colspan='2'>"+jData+"</td></tr>";
-                tblStr += "<tr><td>PMID</td><td colspan='2'>"+jData+"</td></tr>";
-                tblStr += "<tr><td>Frame</td><td colspan='2'>"+jData+"</td></tr>";
-                tblStr += "<tr><td>Chromosome Information</td><td colspan='2'>"+jData+"</td></tr>";
-                tblStr += "<tr><td>Supported</td><td colspan='2'>"+jData+"</td></tr></table>";
-                
-              mypopup.document.write(tblStr);
-                
-                
-              
+            $("#genedescmodal").modal("show");
               
           },
           error : function(xhr, status) {
@@ -73,6 +147,54 @@ function showDesc(fuspair, gene5junc, gene3junc, barcodeid, source){
       });
     
 }
+
+
+function showDesc3(fuspair, gene5junc, gene3junc, barcodeid, source){
+
+    var data = "fuspair=" + fuspair + "&gene5junc=" + gene5junc + "&gene3junc=" + gene3junc + "&barcodeid=" + barcodeid + "&source=" + source;
+
+    
+    $.ajax({
+          url: "genedesc.cdb",
+          type : 'POST',
+          data : data,
+          dataType: "json",
+          success: function(jData) {
+            
+              
+              
+              var x = screen.width / 2;
+              console.log("screen-width : "+screen.width);
+              console.log("x : "+x);
+              var y = screen.height / 2;
+              console.log("screen-height : "+screen.height);
+              console.log("y : "+y);
+              console.log("window-width : "+$(window).width());
+              console.log("window-height : "+$(window).height());
+              console.log("window-screenLeft : "+window.screenLeft);
+              console.log("window-screenX : "+window.screenX);
+              console.log("window-screenY : "+window.screenY);
+              
+              if(window.screenLeft < 0){
+                  x += window.screenLeft;
+              }
+              
+              var mypopup = window.open("resources/popup/genedesc.html", "mypopup", "top="+y+", left="+x+", width=200, height=200, scrollbars=no, menubar=no, status=no, toolbar=no");
+              mypopup.pdata = jData;
+              if(window.focus){mypopup.focus()}
+
+
+                
+
+              
+          },
+          error : function(xhr, status) {
+            alert(status);
+          }
+      });
+    
+}
+
 
 function initVariable(){
 };

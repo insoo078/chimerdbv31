@@ -11,18 +11,19 @@
 <meta name="viewport" content="width=device-width">
 
 <link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css"/>
+<link type="text/css" rel="stylesheet" href="resources/css/jquery-ui.min.css"/>
 <link type="text/css" rel="stylesheet" href="resources/css/templatemo_main.css"/>
 
 <link type="text/css" rel="stylesheet" href="resources/css/chimerdbv3.css"/>
 <link type="text/css" rel="stylesheet" href="resources/css/index_main.css"/>
 
 <script type="text/javascript" src="resources/js/jq/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="resources/js/jqui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/templatemo_script.js"></script>
-
 <script type="text/javascript" src="resources/js/jqlib/jQuery.equalHeights.js"></script>
-
 <script type="text/javascript" src="resources/js/hoy.js"></script>
+
 <script type="text/javascript" src="resources/js/mchimerkbp.js"></script>
 
 </head>
@@ -42,56 +43,65 @@
                     <div class="row margin-bottom-30" style="margin-left: 5px; margin-top: 15px;">
                         <span style="font-size: 30px; font-weight: bold; color: #428bca;">Search</span>
                     </div>
-                    <div class="chimerkbsearchdiv row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
+                    <div class="row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
                         
-                        <div class="col-md-4 col-md-offset-1 margin-bottom-30" style="border-right: 1px #dcdcdc dotted;">
+                        
+                        <div class="chimerkbsearchdiv col-md-11 col-md-offset-1 margin-bottom-30">
                             
-                            <div class="row margin-bottom-15">
-                                <div class="col-md-6">
+                                <div class="col-md-4" style="border-right: 2px #999999 dotted;">
+
+                                    <div class="row margin-bottom-15">
+                                        <div class="col-md-7">
+                                            <label class="radio-inline" style="margin-right: 20px;">
+                                                <input type="radio" name="search_type_rdo" id="search_type_rdo1" value="by_gene" >Gene
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" id="by_gene_chk_5" value="5" >5'
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" id="by_gene_chk_3" value="3" >3'
+                                            </label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="search_type_rdo" value="by_gene_pair">Gene pair
+                                            </label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4" style="border-right: 2px #999999 dotted;">
+                                    <div class="row margin-bottom-15">
+                                        <div class="col-md-4">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="search_type_rdo" value="by_disease">Disease
+                                            </label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="text-align: center;">
                                     <label class="radio-inline">
-                                        <input type="radio" name="search_type_rdo" id="search_type_rdo1" value="by_gene" >Gene
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" id="by_gene_chk_5" value="5" >5'
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" id="by_gene_chk_3" value="3" >3'
+                                        <input type="radio" name="search_type_rdo" value="all_genes" checked="checked">Show all entries
                                     </label>
                                 </div>
-                                <div class="col-md-6">
-                                    <input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);">
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="search_type_rdo" value="by_gene_pair">Gene pair
-                                    </label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);">
-                                </div>
-                            </div>
                             
                         </div>
-                        <div class="col-md-4 margin-bottom-30" style="border-right: 1px #dcdcdc dotted;">
-                            <div class="row margin-bottom-15">
-                                <div class="col-md-4">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="search_type_rdo" value="by_disease">Disease
-                                    </label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" value="" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 margin-bottom-30">
-                            <label class="radio-inline">
-                                <input type="radio" name="search_type_rdo" value="all_genes" checked="checked">Show all entries
-                            </label>
-                        </div>
+                        
+                        
+                        
+                        
                     </div>
                     
                 </div>
@@ -112,9 +122,9 @@
                             </div>
                             <div class="row margin-bottom-15">
                                 <div class="col-md-11 col-md-offset-1">
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_1_litratr_chk" >Literature curation</label>
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_1_cosmic_chk" >COSMIC</label>
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_1_mrna_chk" >mRNA sequence</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_1_litratr_chk" >Literature curation</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_1_cosmic_chk" >COSMIC</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_1_mrna_chk" >mRNA sequence</label>
                                     <label class="checkbox-inline"><input type="checkbox" id="chimrKb_1_etc_chk" checked="checked">Mitelman, OMIM, GenBank</label>
                                 </div>
                             </div>
@@ -125,8 +135,8 @@
                             </div>
                             <div class="row margin-bottom-15">
                                 <div class="col-md-11 col-md-offset-1">
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_2_genomic_chk" >Genomic breakpoint</label>
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_2_exon_chk" checked="checked">Exon breakpoint</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_2_genomic_chk" >Genomic breakpoint</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_2_exon_chk" checked="checked">Exon breakpoint</label>
                                     <label class="checkbox-inline"><input type="checkbox" id="chimrKb_2_na_chk" onclick="chimerkb_no_breakpoint_toggle();">No breakpoint information</label>
                                 </div>
                             </div>
@@ -136,9 +146,9 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-11 col-md-offset-1">
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_3_fish_chk" >FISH</label>
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_3_sanger_chk" >SangerSeq</label>
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_3_rtpcr_chk" >RT-PCR</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_fish_chk" >FISH</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_sanger_chk" >SangerSeq</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_rtpcr_chk" >RT-PCR</label>
                                     <label class="checkbox-inline"><input type="checkbox" id="chimrKb_3_none_chk" onclick="chimerkb_no_evidence_toggle();" checked="checked">No evidence</label>
                                 </div>
                             </div>
@@ -163,32 +173,32 @@
                                 </div>
                                 <div class="row margin-bottom-15">
                                     <div class="col-md-11 col-md-offset-1">
-                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_kinase_chk" >Kinase fusion</label>
-                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_onco_chk" checked="checked">Oncogene</label>
-                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_tumor_chk" >Tumor suppressor</label>
-                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_recpt_chk" >Receptor</label>
+                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbyfunc_kinase_chk" >Kinase fusion</label>
+                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbyfunc_onco_chk" checked="checked">Oncogene</label>
+                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbyfunc_tumor_chk" >Tumor suppressor</label>
+                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbyfunc_recpt_chk" >Receptor</label>
                                         <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_transcript_chk" checked="checked">Transcription factor</label>
                                     </div>
                                 </div>
 
                                 
                                 <div class="row margin-bottom-15">
-                                    <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Function type</span>
+                                    <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Function Type</span>
                                 </div>
                                 <div class="row margin-bottom-15">
                                     <div class="col-md-11 col-md-offset-1">
-                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfusn_inter_chr_chk" value="inter_chr" checked="checked">Inter chromosomal</label>
+                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbyfusn_inter_chr_chk" value="inter_chr" checked="checked">Inter chromosomal</label>
                                         <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfusn_intra_chr_chk" value="intra_chr" >Intra chromosomal</label>
                                     </div>
                                 </div>
 
                                 
                                 <div class="row margin-bottom-15">
-                                    <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Supporting information</span>
+                                    <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Supporting Information</span>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-11 col-md-offset-1">
-                                        <label class="checkbox-inline" id="chimrKb_fbySupot_chimrSeqS_lvl"><input type="checkbox" id="chimrKb_fbySupot_chimrSeqS_chk" >ChimerSeq supported</label>
+                                        <label class="checkbox-inline" id="chimrKb_fbySupot_chimrSeqS_lvl" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbySupot_chimrSeqS_chk" >ChimerSeq supported</label>
                                         <label class="checkbox-inline" id="chimrKb_fbySupot_chimrPubS_lvl"><input type="checkbox" id="chimrKb_fbySupot_chimrPubS_chk" >ChimerPub supported</label>
                                     </div>
                                 </div>
@@ -206,7 +216,7 @@
 <div class="container">
     
     
-            <div class="row margin-bottom-30" style="margin-top: 30px; ">
+<!--            <div class="row margin-bottom-30" style="margin-top: 30px; ">
                     
 
                             <div class="col-md-11 col-md-offset-1">
@@ -222,7 +232,7 @@
                             </div>
 
                     
-            </div>
+            </div>-->
     
     
     
@@ -253,7 +263,7 @@
     
     <form id="resultmain_form" method="POST" action="msrstofchimerkb.cdb">
         
-        <input id="key_activated_tab" type="hidden" name="key_activated_tab" /> <!-- chimerKB, chimerSeq, chimerPub -->
+        
         <input id="key_a_search_type" type="hidden" name="key_a_search_type" />
         <input id="key_data_for_search_type" type="hidden" name="key_data_for_search_type" />
         
@@ -263,15 +273,6 @@
         <input id="key_kb_selt_the_breakpoint" type="hidden" name="key_kb_selt_the_breakpoint" />
         <input id="key_kb_selt_the_validtn_mtd" type="hidden" name="key_kb_selt_the_validtn_mtd" />
         
-        <input id="key_seq_selt_the_source" type="hidden" name="key_seq_selt_the_source" />
-        <input id="key_seq_cancer_type" type="hidden" name="key_seq_cancer_type" />
-        <input id="key_seq_val_of_number" type="hidden" name="key_seq_val_of_number" />
-        
-        <input id="key_seq_num_of_seed_reads" type="hidden" name="key_seq_num_of_seed_reads" />
-        <input id="key_seq_num_of_s_pairs" type="hidden" name="key_seq_num_of_s_pairs" />
-        <input id="key_seq_num_of_junc_reads" type="hidden" name="key_seq_num_of_junc_reads" />
-        
-
         <input id="key_flt_by_func" type="hidden" name="key_flt_by_func" />
         <input id="key_flt_by_fusn_type" type="hidden" name="key_flt_by_fusn_type" />
         <input id="key_flt_by_supted_info" type="hidden" name="key_flt_by_supted_info" />

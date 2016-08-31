@@ -31,10 +31,22 @@ public class ChimerKbService {
     public List<ChimerKbVo> getChimerKBResult(ParamVo param) {
         List<ChimerKbVo> result = null;
         try {
-            result = this.getChimerKBResult(param);
+            result = this.chimerKbMapper.getChimerKBResult(param);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return result;
     }
+    
+    public ChimerKbVo getSelectedFGeneData(ChimerKbVo param) {
+        ChimerKbVo result = null;
+        try {
+            result = this.chimerKbMapper.getSelectedFGeneData(param);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
+    
+    
 }

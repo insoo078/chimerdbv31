@@ -170,10 +170,10 @@
             
 
     
-    <%@include file="part/footer.jsp" %>
+    
     
 </div>
-
+<%@include file="part/footer.jsp" %>
 
 </body>
 </html>
