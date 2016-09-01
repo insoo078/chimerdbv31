@@ -48,5 +48,15 @@ public class ChimerKbService {
         return result;
     }
     
+    public List<String> getDiseaseList(String keyStr) {
+        List<String> result = null;
+        try {
+            result = this.chimerKbMapper.getDiseaseList(keyStr);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
+    
     
 }

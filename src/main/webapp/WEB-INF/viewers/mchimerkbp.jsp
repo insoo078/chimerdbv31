@@ -135,9 +135,9 @@
                             </div>
                             <div class="row margin-bottom-15">
                                 <div class="col-md-11 col-md-offset-1">
-                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_2_genomic_chk" >Genomic breakpoint</label>
-                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_2_exon_chk" checked="checked">Exon breakpoint</label>
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_2_na_chk" onclick="chimerkb_no_breakpoint_toggle();">No breakpoint information</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_2_genomic_chk" onclick="chimerkb_breaktype_toggle('genomic');" >Genomic breakpoint</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_2_exon_chk" onclick="chimerkb_breaktype_toggle('exon');" checked="checked">Exon breakpoint</label>
+                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_2_na_chk" onclick="chimerkb_breaktype_toggle('no');">No breakpoint information</label>
                                 </div>
                             </div>
                             
@@ -146,10 +146,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-11 col-md-offset-1">
-                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_fish_chk" >FISH</label>
-                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_sanger_chk" >SangerSeq</label>
-                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_rtpcr_chk" >RT-PCR</label>
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_3_none_chk" onclick="chimerkb_no_evidence_toggle();" checked="checked">No evidence</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_fish_chk" onclick="chimerkb_validatnmtd_toggle('fish');" >FISH</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_sanger_chk" onclick="chimerkb_validatnmtd_toggle('sanger');" >SangerSeq</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_rtpcr_chk" onclick="chimerkb_validatnmtd_toggle('pcr');" >RT-PCR</label>
+                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_3_none_chk" onclick="chimerkb_validatnmtd_toggle('no');" checked="checked">No evidence</label>
                                 </div>
                             </div>
                         </div>
@@ -244,7 +244,7 @@
             <div class="row margin-bottom-30" style="margin-top: 30px; ">
 
                 <div class="col-md-12" style="text-align: right;">
-                    <button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" >
+                    <button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" onclick="resetall();" >
                         <span class="fa fa-arrow-left"></span>&nbsp;&nbsp;Reset
                     </button>
                     <button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" onclick="searching();">

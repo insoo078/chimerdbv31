@@ -126,8 +126,11 @@ $(document).ready(function () {
         "Vascular and perivascular tumor, special type"];
     
     $("#by_disease_txt").autocomplete({
-        minLength:3,
-        source: autoCmplteData
+        minLength:2,
+        source: "chimerkbdiseaselst.cdb"
+//        select: function(event,ui){
+//            ui.item ? "Selected: " + ui.item.value + " aka " + ui.item.id : "Nothing selected, input was " + this.value ;
+//        }
     });
     
 });
@@ -141,7 +144,27 @@ function init_variable_values(){
 
 
 
-
+function chimerkb_breaktype_toggle(type){
+    var flag = $("input:checkbox[id='chimrKb_2_na_chk']").is(":checked");
+    switch(type){
+        case "genomic":{
+            if(flag){
+                $("#chimrKb_2_na_chk").prop("checked",function(){ return false; });
+            }
+        };break;
+        case "exon":{
+            if(flag){
+                $("#chimrKb_2_na_chk").prop("checked",function(){ return false; });
+            }
+        };break;
+        case "no":{
+            if(flag){
+                $("#chimrKb_2_genomic_chk").prop("checked",function(){ return false; });
+                $("#chimrKb_2_exon_chk").prop("checked",function(){ return false; });
+            }
+        };break;
+    }
+}
 
 
 function chimerkb_no_breakpoint_toggle(){
@@ -152,6 +175,34 @@ function chimerkb_no_breakpoint_toggle(){
         if( $("input:checkbox[id='chimrKb_2_exon_chk']").is(":checked") == true ){
             $("#chimrKb_2_exon_chk").prop("checked",function(){ return false; });
         }
+    }
+}
+
+function chimerkb_validatnmtd_toggle(type){
+    var flag = $("input:checkbox[id='chimrKb_3_none_chk']").is(":checked");
+    switch(type){
+        case "fish":{
+            if(flag){
+                $("#chimrKb_3_none_chk").prop("checked",function(){ return false; });
+            }
+        };break;
+        case "sanger":{
+            if(flag){
+                $("#chimrKb_3_none_chk").prop("checked",function(){ return false; });
+            }
+        };break;
+        case "pcr":{
+            if(flag){
+                $("#chimrKb_3_none_chk").prop("checked",function(){ return false; });
+            }
+        };break;
+        case "no":{
+            if(flag){
+                $("#chimrKb_3_fish_chk").prop("checked",function(){ return false; });
+                $("#chimrKb_3_sanger_chk").prop("checked",function(){ return false; });
+                $("#chimrKb_3_rtpcr_chk").prop("checked",function(){ return false; });
+            }
+        };break;
     }
 }
 
@@ -170,7 +221,13 @@ function chimerkb_no_evidence_toggle(){
 }
 
 
-
+function resetall(){
+    $('input:checkbox').each(function(){
+     if(this.checked){
+            this.checked = false;
+      }
+    });
+}
 
 
 
