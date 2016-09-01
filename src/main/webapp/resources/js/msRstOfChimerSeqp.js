@@ -96,7 +96,7 @@ function getGeneInformation(genes, rowdata) {
 				explainTopPanelHeight : 100,
 				fusionInfo : rowdata,
 				showBandLabels: true,
-				container: "#chimer-seq-viewer",
+				container: "#chimer-seq-viewer"
 			  };
 			  
 			  var gene1 = jData[0];

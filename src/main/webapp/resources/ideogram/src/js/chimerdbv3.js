@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+/* global d3 */
+
 var ChimeraDbV3ViewerWithOutChromosome = function( config, gene1, gene2 ) {
     this.config = JSON.parse( JSON.stringify(config) );
 
@@ -392,7 +394,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawChromosomeLabel = function(conf
 			return "translate(" + (rect.left-base.left+(rect.width/2)) + "," + (geneLableRect.bottom - base.top + (2*config.sideMargin)) + ")";
 		})
 		.text("Chromosome " + gene.chromosome + "  ("+ gene.map_location +")");
-}
+};
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneLabel = function(config, className, gene) {
 	var labelGroup = d3.selectAll( className );
@@ -502,7 +504,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(co
 				return "translate(" + center + "," + (height+10) + ")";
 			})
 			.text("3' Gene");
-}
+};
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.initLayout = function(config) {
 	var canvas = d3.select("#canvas");
