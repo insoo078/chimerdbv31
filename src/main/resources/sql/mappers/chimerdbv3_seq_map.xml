@@ -41,10 +41,10 @@
 			, IF(Frame = "NA","",Frame) AS frame
 			, Chr_info AS chr_info , Source AS source, ChimerKB AS chimerKB, ChimerPub AS chimerPub, CONCAT(ChimerKB, "_", ChimerPub) AS supported
 			, a.id
-		FROM ChimerDB3.ChimerSeq_ver7 a
-		WHERE 1=1
-<!--		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
-		WHERE a.id=b.id-->
+<!--		FROM ChimerDB3.ChimerSeq_ver7 a
+		WHERE 1=1-->
+		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
+		WHERE a.id=b.id
 
 		<!-- Search method -->
 		<choose>
@@ -137,9 +137,9 @@
 				<when test="chkChimerPubSupport == 'on'">AND ChimerPub != 0</when>
 			</choose>
 		</trim>
-<!--		<if test="searchKeyword != null">
+		<if test="searchKeyword != null">
 			AND MATCH(b.all_columns) AGAINST(#{searchKeyword} IN BOOLEAN MODE)
-		</if>-->
+		</if>
 		<if test="sortKey != null">ORDER BY ${sortKey + 1} ${sortOrderDir}</if>
 		<if test="start != null and length != null">
 			LIMIT ${start}, ${length}
@@ -147,10 +147,10 @@
     </select>
     <select id="getChimerSeqTotalNumber" parameterType="org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm" resultType="int">
         SELECT DISTINCT COUNT( * ) AS allNum
-		FROM ChimerDB3.ChimerSeq_ver7 a
-		WHERE 1=1
-<!--		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
-		WHERE a.id=b.id-->
+<!--		FROM ChimerDB3.ChimerSeq_ver7 a
+		WHERE 1=1-->
+		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
+		WHERE a.id=b.id
             <choose>
 			<when test="searchType == 'byGene'">
 				<choose>
@@ -241,9 +241,9 @@
 			<when test="chkChimerPubSupport == 'on'">AND ChimerPub != 0</when>
 		</choose>
 		</trim>
-<!--		<if test="searchKeyword != null">
+		<if test="searchKeyword != null">
 			AND MATCH(b.all_columns) AGAINST(#{searchKeyword} IN BOOLEAN MODE)
-		</if>-->
+		</if>
     </select>
 	
 	<select id="getGeneInfo" parameterType="java.lang.String" resultMap="GeneInfoVoMap">

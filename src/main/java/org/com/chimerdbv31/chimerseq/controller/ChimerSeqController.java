@@ -1,5 +1,6 @@
 package org.com.chimerdbv31.chimerseq.controller;
 
+import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.util.List;
@@ -99,7 +100,7 @@ public class ChimerSeqController {
 		model.setStart( pagingStart );
 		model.setLength( displaySize );
 		model.setSortKey( Integer.parseInt( sortedKey ) );
-		model.setSearchKeyword( searchKeyword );
+		model.setSearchKeyword( Strings.emptyToNull(searchKeyword) );
 		model.setSortOrderDir(sortOrderDir);
 
 		int totalNum = this.chimerSeqService.getChimerSeqTotalNumber(model);
