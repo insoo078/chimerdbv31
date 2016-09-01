@@ -41,11 +41,8 @@
 			, IF(Frame = "NA","",Frame) AS frame
 			, Chr_info AS chr_info , Source AS source, ChimerKB AS chimerKB, ChimerPub AS chimerPub, CONCAT(ChimerKB, "_", ChimerPub) AS supported
 			, a.id
-<!--		FROM ChimerDB3.ChimerSeq_ver7 a
-		WHERE 1=1-->
-		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
-		WHERE a.id=b.id
-
+		FROM ChimerDB3.ChimerSeq_ver7 a
+		WHERE 1=1
 		<!-- Search method -->
 		<choose>
 			<when test="searchType == 'byGene'">
@@ -138,7 +135,10 @@
 			</choose>
 		</trim>
 		<if test="searchKeyword != null">
-			AND MATCH(b.all_columns) AGAINST(#{searchKeyword} IN BOOLEAN MODE)
+			AND ID IN (
+				SELECT ID FROM ChimerDB3.ChimerSeq_ver7_Fulltext b
+				WHERE MATCH(all_columns) AGAINST(#{searchKeyword} IN BOOLEAN MODE)
+			)
 		</if>
 		<if test="sortKey != null">ORDER BY ${sortKey + 1} ${sortOrderDir}</if>
 		<if test="start != null and length != null">
