@@ -387,4 +387,23 @@ FROM (
 	FROM ChimerSeq_ver7
 ) A
 
+
+
+
+
+
+// Pfam domain 찾는 쿼리
+
+select * from (
+		select 
+			a.chromosome, bin
+			, (greatest(chromEnd, 30144477) - least(chromStart, 29415640) +1) val_a
+			, ((chromEnd-chromStart+1) + (30144477-29415640+1)) val_b
+			, chromStart
+			, chromEnd
+		from ChimerSeq_Pfam a, ChimerSeq_Pfam_Chr b
+		where a.id between b.start_id and b.end_id
+		and b.chromosome='chr2'
+	) a
+	where val_a < val_b
 -->
