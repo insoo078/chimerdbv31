@@ -126,8 +126,11 @@ $(document).ready(function () {
         "Vascular and perivascular tumor, special type"];
     
     $("#by_disease_txt").autocomplete({
-        minLength:3,
-        source: autoCmplteData
+        minLength:2,
+        source: "chimerkbdiseaselst.cdb"
+//        select: function(event,ui){
+//            ui.item ? "Selected: " + ui.item.value + " aka " + ui.item.id : "Nothing selected, input was " + this.value ;
+//        }
     });
     
 });
@@ -218,7 +221,13 @@ function chimerkb_no_evidence_toggle(){
 }
 
 
-
+function resetall(){
+    $('input:checkbox').each(function(){
+     if(this.checked){
+            this.checked = false;
+      }
+    });
+}
 
 
 

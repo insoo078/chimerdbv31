@@ -25,6 +25,9 @@ public class ParamVo {
     private String queryForBreakPointType;
     private String queryForValidationMtd;
     
+    //chimerPub
+    private int numOfPub;
+    
     //chimerSeq
     private String queryForSource;
     private String queryForCancerType;
@@ -145,6 +148,15 @@ public class ParamVo {
         this.queryForValidationMtd = queryForValidationMtd;
     }
 
+    public int getNumOfPub() {
+        return numOfPub;
+    }
+
+    public void setNumOfPub(int numOfPub) {
+        this.numOfPub = numOfPub;
+    }
+
+    
     public String getQueryForCancerType() {
         return queryForCancerType;
     }

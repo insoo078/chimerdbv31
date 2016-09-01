@@ -244,7 +244,7 @@
             <div class="row margin-bottom-30" style="margin-top: 30px; ">
 
                 <div class="col-md-12" style="text-align: right;">
-                    <button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" >
+                    <button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" onclick="resetall();" >
                         <span class="fa fa-arrow-left"></span>&nbsp;&nbsp;Reset
                     </button>
                     <button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" onclick="searching();">
