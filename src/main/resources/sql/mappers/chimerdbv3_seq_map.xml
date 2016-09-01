@@ -40,9 +40,11 @@
 			Fusion_pair AS fusion_pair , 5Gene_Junction AS gene5Junc , 3Gene_Junction AS gene3Junc , Breakpoint_Type AS breakpoint_type , Cancertype AS cancertype, BarcodeID AS barcodeID
 			, IF(Frame = "NA","",Frame) AS frame
 			, Chr_info AS chr_info , Source AS source, ChimerKB AS chimerKB, ChimerPub AS chimerPub, CONCAT(ChimerKB, "_", ChimerPub) AS supported
-			, id
-		FROM ChimerDB3.ChimerSeq_ver7
+			, a.id
+		FROM ChimerDB3.ChimerSeq_ver7 a
 		WHERE 1=1
+<!--		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
+		WHERE a.id=b.id-->
 
 		<!-- Search method -->
 		<choose>
@@ -135,6 +137,9 @@
 				<when test="chkChimerPubSupport == 'on'">AND ChimerPub != 0</when>
 			</choose>
 		</trim>
+<!--		<if test="searchKeyword != null">
+			AND MATCH(b.all_columns) AGAINST(#{searchKeyword} IN BOOLEAN MODE)
+		</if>-->
 		<if test="sortKey != null">ORDER BY ${sortKey + 1} ${sortOrderDir}</if>
 		<if test="start != null and length != null">
 			LIMIT ${start}, ${length}
@@ -142,8 +147,10 @@
     </select>
     <select id="getChimerSeqTotalNumber" parameterType="org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm" resultType="int">
         SELECT DISTINCT COUNT( * ) AS allNum
-		FROM ChimerDB3.ChimerSeq_ver7
+		FROM ChimerDB3.ChimerSeq_ver7 a
 		WHERE 1=1
+<!--		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
+		WHERE a.id=b.id-->
             <choose>
 			<when test="searchType == 'byGene'">
 				<choose>
@@ -234,6 +241,9 @@
 			<when test="chkChimerPubSupport == 'on'">AND ChimerPub != 0</when>
 		</choose>
 		</trim>
+<!--		<if test="searchKeyword != null">
+			AND MATCH(b.all_columns) AGAINST(#{searchKeyword} IN BOOLEAN MODE)
+		</if>-->
     </select>
 	
 	<select id="getGeneInfo" parameterType="java.lang.String" resultMap="GeneInfoVoMap">
@@ -320,3 +330,61 @@
 		WHERE id=${id}
 	</select>
 </mapper>
+
+<!--
+SELECT 
+	CONCAT_WS(' ',`ChimerDB_Type`,`Source`,`webSource`,`Fusion_pair`,`5Gene_Junction`
+	,`3Gene_Junction`,`H_gene`,`H_chr`,`H_position`,`H_strand`,`T_gene`,`T_chr`,`T_position`
+	,`T_strand`,`Breakpoint_Type`,`Genome_Build_Version`,`Cancertype`,`BarcodeID`
+	,`Frame`,`Chr_info`,`H_locus`,`T_locus`,`Kinase`,`Oncogene`,`Tumor_suppressor`,`Receptor`,`Transcription_Factor`
+	,`ChimerKB`,`ChimerPub`,`Disease`) AS all_columns 
+FROM (
+	SELECT
+		ChimerDB_Type
+		, Source
+		, webSource
+		, Fusion_pair
+		, 5Gene_Junction
+		, 3Gene_Junction
+		, H_gene
+		, H_chr
+		, H_position
+		, H_strand
+		, T_gene
+		, T_chr
+		, T_position
+		, T_strand
+		, Breakpoint_Type
+		, Genome_Build_Version
+		, CASE WHEN Cancertype <> 'NA' THEN Cancertype
+		ELSE '' END AS Cancertype
+		, CASE WHEN BarcodeID <> 'NA' THEN BarcodeID
+		ELSE '' END AS BarcodeID
+		, CASE WHEN Frame <> 'NA' THEN Frame
+		ELSE '' END AS Frame
+		, CASE WHEN Chr_info <> 'NA' THEN Chr_info
+		ELSE '' END AS Chr_info
+		, CASE WHEN H_locus <> 'NA' THEN H_locus
+		ELSE '' END AS H_locus
+		, CASE WHEN T_locus <> 'NA' THEN T_locus
+		ELSE '' END AS T_locus
+		, CASE WHEN Kinase > 0 THEN 'Kinase'
+		ELSE '' END AS Kinase
+		, CASE WHEN Oncogene > 0 THEN 'Oncogene'
+		ELSE '' END AS Oncogene
+		, CASE WHEN Tumor_suppressor > 0 THEN 'Tumor suppressor'
+		ELSE '' END AS Tumor_suppressor
+		, CASE WHEN Receptor > 0 THEN 'Receptor'
+		ELSE '' END AS Receptor
+		, CASE WHEN Transcription_Factor > 0 THEN 'Transcription Factor'
+		ELSE '' END AS Transcription_Factor
+		, CASE WHEN ChimerKB > 0 THEN 'ChimerKB Knowledge base'
+		ELSE '' END AS ChimerKB
+		, CASE WHEN ChimerPub > 0 THEN 'ChimerPub Publication'
+		ELSE '' END AS ChimerPub
+		, CASE WHEN Disease <> 'NA' THEN Disease
+		ELSE '' END AS Disease
+	FROM ChimerSeq_ver7
+) A
+
+-->
