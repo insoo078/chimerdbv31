@@ -8,6 +8,128 @@ $(document).ready(function () {
     check_m_state("mmchimerkbbtn");
     init_variable_values();
     $(".chimerkbsearchdiv").equalHeights();
+    
+    var autoCmplteData = ["Acute erythroleukemia (FAB type M6)",
+        "Acute lymphoblastic leukemia/lymphoblastic lymphoma",
+        "Acute megakaryoblastic leukemia (FAB type M7)",
+        "Acute monoblastic leukemia (FAB type M5)",
+        "Acute monoblastic leukemia with differentiation (FAB type M5b)",
+        "Acute monoblastic leukemia without differentiation (FAB type M5a)",
+        "Acute myeloblastic leukemia with maturation (FAB type M2)",
+        "Acute myeloblastic leukemia with minimal differentiation (FAB type M0)",
+        "Acute myeloblastic leukemia without maturation (FAB type M1)",
+        "Acute myeloid leukemia, NOS",
+        "Acute myelomonocytic leukemia (FAB type M4)",
+        "Acute promyelocytic leukemia (FAB type M3)",
+        "Acute undifferentiated leukemia",
+        "Adenocarcinoma",
+        "adenolymphoma_(Warthin_tumour)",
+        "adenoma",
+        "adenoma-nodule-goitre",
+        "adnexal_tumour",
+        "Alveolar rhabdomyosarcoma",
+        "Alveolar soft part sarcoma",
+        "alveolar_soft_part_sarcoma",
+        "Anaplastic large cell lymphoma, systemic type",
+        "Aneurysmal bone cyst",
+        "Angioimmunoblastic T-cell lymphoma",
+        "Askins_tumour",
+        "Astrocytoma, grade III-IV",
+        "Atypical chronic myeloid leukemia",
+        "benign_melanocytic_nevus",
+        "Bilineage or biphenotypic leukemia",
+        "biphenotypic_sarcoma_with_myogenic_and_neural_differentiation",
+        "B-prolymphocytic leukemia",
+        "Breast Invasive Carcinoma",
+        "Burkitt lymphoma/leukemia",
+        "carcinoma",
+        "chondrosarcoma",
+        "Chronic lymphocytic leukemia",
+        "Chronic myeloid leukemia, aberrant translocation",
+        "Chronic myeloid leukemia, t(9;22)",
+        "Chronic myelomonocytic leukemia",
+        "chronic_thyroiditis",
+        "Clear cell sarcoma",
+        "congenital_(infantile)_fibrosarcoma",
+        "dermatofibroma",
+        "dermatofibrosarcoma_protuberans",
+        "Desmoplastic small round cell tumor",
+        "desmoplastic_small_round_cell_tumour",
+        "Diffuse large B-cell lymphoma",
+        "Endometrial stromal sarcoma",
+        "endometrial_stromal_sarcoma",
+        "epithelioid_sarcoma",
+        "Ewing tumor/peripheral primitive neuroectodermal tumor",
+        "Ewings_sarcoma-peripheral_primitive_neuroectodermal_tumour",
+        "Extranodal marginal zone B-cell lymphoma",
+        "Fibromyxoid sarcoma",
+        "fibrosarcoma",
+        "Follicular lymphoma",
+        "glioma",
+        "haemangioma",
+        "haematopoietic_neoplasm",
+        "Head and neck squamous cell carcinoma (HNSCC)",
+        "hyalinizing_spindle_cell_tumour_with_giant_rosettes",
+        "hyperplasia",
+        "in_situ_neoplasm",
+        "Infant MLL-Rearranged Acute Lymphoblastic Leukemia",
+        "inflammatory_myofibroblastic_tumour",
+        "leiomyoma",
+        "leiomyosarcoma",
+        "lipoblastoma",
+        "lipoma",
+        "liposarcoma",
+        "Liposarcoma, myxoid/round cell",
+        "Localized giant cell tumor of tendon sheath",
+        "low_malignant_potential_(borderline)_tumour",
+        "lymphoid_neoplasm",
+        "malignant_ectomesenchymoma",
+        "malignant_melanoma",
+        "malignant_melanoma_of_soft_parts-clear_cell_sarcoma",
+        "malignant_Warthin_tumour",
+        "Mantle cell lymphoma",
+        "Mature B-cell neoplasm, NOS",
+        "Mature T- and NK-cell neoplasm, NOS",
+        "meningioma",
+        "mesothelioma",
+        "midline_carcinoma",
+        "Mucoepidermoid carcinoma",
+        "Multiple myeloma",
+        "Myelodysplastic syndrome, NOS",
+        "Myelodysplastic/myeloproliferative disease, NOS",
+        "myoepithelial_tumour",
+        "myoepithelioma",
+        "neuroblastoma",
+        "Nodal marginal zone B-cell lymphoma",
+        "non–clear cell renal carcinoma",
+        "Nonneoplastic myeloid disorder/lesion",
+        "other",
+        "pericytoma",
+        "Peripheral T-cell lymphoma, unspecified",
+        "perivascular_epithelioid_cell_tumour_(PEComa)",
+        "Plasma cell leukemia",
+        "primitive_neuroectodermal_tumour-medulloblastoma",
+        "Refractory anemia",
+        "Refractory anemia with ringed sideroblasts",
+        "rhabdoid_tumour",
+        "rhabdomyosarcoma",
+        "sarcoma",
+        "sclerosing_epithelioid_fibrosarcoma",
+        "small cell lung cancer",
+        "small_round_cell_tumour",
+        "Soft tissue tumor, special type",
+        "solitary_fibrous_tumour",
+        "Splenic marginal zone B-cell lymphoma",
+        "Synovial sarcoma",
+        "synovial_sarcoma",
+        "T-prolymphocytic leukemia",
+        "Vascular and perivascular tumor, special type"];
+    
+    $("#by_disease_txt").autocomplete({
+        minLength:3,
+        source: autoCmplteData
+    });
+    
 });
 
 
@@ -94,6 +216,15 @@ function searching(){
                                     $("#key_data_for_search_type").val( keyVal );
                                 }
                         };break;
+                        case "by_disease":{
+                                keyVal = $("#by_disease_txt").val();
+                                if( (keyVal == "") || ($.trim(keyVal) == "") || (keyVal == null) ){
+                                    $("#chimerdb_empty_data").modal("show");
+                                    return;
+                                }else{
+                                    $("#key_data_for_search_type").val( keyVal );
+                                }
+                        };break;
                         case "by_chr_locus":{
                                 keyVal = $("#by_chr_locus_txt").val();
                                 if( (keyVal == "") || ($.trim(keyVal) == "") || (keyVal == null) ){
@@ -103,6 +234,8 @@ function searching(){
                                     $("#key_data_for_search_type").val( keyVal );
                                 }
                         };break;
+                        
+                        
                     }
                 
                 keyVal = "";

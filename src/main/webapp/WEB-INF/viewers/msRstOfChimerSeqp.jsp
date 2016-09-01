@@ -11,6 +11,7 @@
 <meta name="viewport" content="width=device-width">
 
 <link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css"/>
+<link type="text/css" rel="stylesheet" href="resources/css/jquery-ui.min.css"/>
 <link type="text/css" rel="stylesheet" href="resources/css/jquery.dataTables.min.css"/>
 <link type="text/css" rel="stylesheet" href="resources/css/dataTables.tableTools.min.css"/>
 

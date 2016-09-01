@@ -35,7 +35,7 @@
         font-size: 12px;
     }
 </style>
-<script type="text/javascript" src="resources/js/jq/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="resources/js/jq/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/dt/d3.min.js"></script>
 
@@ -170,10 +170,10 @@
             
 
     
-    <%@include file="part/footer.jsp" %>
+    
     
 </div>
-
+<%@include file="part/footer.jsp" %>
 
 </body>
 </html>
