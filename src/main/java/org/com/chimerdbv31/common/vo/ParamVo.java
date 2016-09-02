@@ -27,6 +27,7 @@ public class ParamVo {
     
     //chimerPub
     private int numOfPub;
+    private int txtMiningScore;
     
     //chimerSeq
     private String queryForSource;
@@ -154,6 +155,14 @@ public class ParamVo {
 
     public void setNumOfPub(int numOfPub) {
         this.numOfPub = numOfPub;
+    }
+
+    public int getTxtMiningScore() {
+        return txtMiningScore;
+    }
+
+    public void setTxtMiningScore(int txtMiningScore) {
+        this.txtMiningScore = txtMiningScore;
     }
 
     

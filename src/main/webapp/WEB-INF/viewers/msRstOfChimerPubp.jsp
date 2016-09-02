@@ -75,7 +75,7 @@
                                     <div class="panel-heading">
                                     </div>
                                     <div class="panel-body">
-                                            <table id="chimerPubTbl" class="hover" style="margin: 0 auto; " >
+                                            <table id="chimerPubTbl" class="display compact hover" style="margin: 0 auto; " >
                                                 <thead>
                                                     <tr>
                                                         <th>Fusion Gene(5'_3')</th>
@@ -85,34 +85,33 @@
                                                         <th>Disease</th>
                                                         <th>Frame</th>
                                                         <th>Chromosome Info.</th>
-                                                        <th>Source</th>
                                                         <th>Supported</th>
                                                         <th>PMID</th>
                                                     </tr>
                                                 </thead>
 
                                                 <tbody>
-                                                    <c:forEach var="chimerKbLst" items="${chimerKb_lst}">
+                                                    <c:forEach var="chimerpubLst" items="${chimerpub_lst}">
                                                         <tr>
-                                                            <td><c:out value="${chimerKbLst.getFusion_pair()}" /></td>
-                                                            <td><c:out value="${chimerKbLst.getGene5Junc()}" /></td>
-                                                            <td><c:out value="${chimerKbLst.getGene3Junc()}" /></td>
-                                                            <td><c:out value="${chimerKbLst.getBreakpoint_Type()}" /></td>
-                                                            <td><c:out value="${chimerKbLst.getDisease()}" /></td>
-                                                            <td><c:out value="${chimerKbLst.getFrame()}" /></td>
-                                                            <td><c:out value="${chimerKbLst.getChr_info()}" /></td>
-                                                            <td><c:out value="${chimerKbLst.getSource()}" /></td>
+                                                            <td><c:out value="${chimerpubLst.getFusion_pair()}" /></td>
+                                                            <td><c:out value="${chimerpubLst.getGene5Junc()}" /></td>
+                                                            <td><c:out value="${chimerpubLst.getGene3Junc()}" /></td>
+                                                            <td><c:out value="${chimerpubLst.getBreakpoint_Type()}" /></td>
+                                                            <td><c:out value="${chimerpubLst.getDisease()}" /></td>
+                                                            <td><c:out value="${chimerpubLst.getFrame()}" /></td>
+                                                            <td><c:out value="${chimerpubLst.getChr_info()}" /></td>
+                                                            
                                                             <td style="text-align: center;">
                                                                 <c:choose>
-                                                                    <c:when test="${chimerKbLst.getChimerSeq() == 1}">
+                                                                    <c:when test="${chimerpubLst.getChimerKB() == 1}">
                                                                         <img alt="ChimerSeq" src="images/icons/icseq.png" style="width: 16px; height: 16px;" />&nbsp;&nbsp;
                                                                     </c:when>
-                                                                    <c:when test="${chimerKbLst.getChimerPub() == 1}">
+                                                                    <c:when test="${chimerpubLst.getChimerSeq() == 1}">
                                                                         <img alt="ChimerSeq" src="images/icons/icpub.png" style="width: 16px; height: 16px;" />
                                                                     </c:when>
                                                                 </c:choose>
                                                             </td>
-                                                            <td><c:out value="${chimerKbLst.getPMID()}" /></td>
+                                                            <td><c:out value="${chimerpubLst.getPMID()}" /></td>
                                                         </tr>
                                                     </c:forEach>
                                                 </tbody>
@@ -131,10 +130,21 @@
                     <div class="col-md-12">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <span style="font-size: 20px; font-weight: bold;">Xxxx Xxxx XXX</span>
+                                <span style="font-size: 20px; font-weight: bold;">Title : </span>
+                                <span id="selectedrowtitle" style="font-size: 20px; font-weight: bold;"></span>
                             </div>
-                            <div class="panel-body" style="text-align: center;">
-                                
+                            <div class="panel-body">
+                                <p id="dateofpublicationtxt">
+                                    
+                                </p>
+                                <br>
+                                <p id="journaltxt">
+                                    
+                                </p>
+                                <br>
+                                <p id="abstracttxt">
+                                    
+                                </p>
                             </div>
                         </div>
                     </div>
