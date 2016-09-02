@@ -67,7 +67,7 @@
                                     <div class="row margin-bottom-15">
                                         <div class="col-md-6">
                                             <label class="radio-inline">
-                                                <input type="radio" name="search_type_rdo" id="search_type_gp_rdo" value="by_gene_pair">Gene pair
+                                                <input type="radio" name="search_type_rdo" id="search_type_gp_rdo" value="by_gene_pair" checked="checked">Gene pair
                                             </label>
                                         </div>
                                         <div class="col-md-6">
@@ -101,7 +101,7 @@
                                 </div>
                                 <div class="col-md-4" style="text-align: center;">
                                     <label class="radio-inline">
-                                        <input type="radio" name="search_type_rdo" value="all_genes" checked="checked">Show all entries
+                                        <input type="radio" name="search_type_rdo" value="all_genes" >Show all entries
                                     </label>
                                 </div>
                         </div>
@@ -129,7 +129,20 @@
                                                 <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Number of Publications&nbsp;&nbsp;>=&nbsp;&nbsp;</span>
                                             </td>
                                             <td>
-                                                <input class="form-control" id="pub_num_txt" style="width: 70px; height: 25px;" >
+                                                <input class="form-control" id="pub_num_txt" value="1" style="width: 70px; height: 25px;" onfocus="clearText(this);" onblur="clearText(this);">
+                                            </td>
+                                        </tr>
+                                    </table>
+                            </div>
+                            
+                            <div class="row margin-bottom-15">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Text Mining Score&nbsp;&nbsp;>=&nbsp;&nbsp;</span>
+                                            </td>
+                                            <td>
+                                                <input class="form-control" id="txt_mining_score_txt" value="10" style="width: 70px; height: 25px;" onfocus="clearText(this);" onblur="clearText(this);">
                                             </td>
                                         </tr>
                                     </table>
@@ -238,8 +251,9 @@
         <input id="key_data_for_search_type" type="hidden" name="key_data_for_search_type" />
         
         
-        <input id="key_flt_by_func" type="hidden" name="key_num_of_pub" />
-        <input id="key_flt_by_func" type="hidden" name="key_pub_selt_the_validtn_mtd" />
+        <input id="key_num_of_pub" type="hidden" name="key_num_of_pub" />
+        <input id="key_txt_mining_score" type="hidden" name="key_txt_mining_score" />
+        <input id="key_pub_selt_the_validtn_mtd" type="hidden" name="key_pub_selt_the_validtn_mtd" />
         
         <input id="key_flt_by_func" type="hidden" name="key_flt_by_func" />
         <input id="key_flt_by_fusn_type" type="hidden" name="key_flt_by_fusn_type" />

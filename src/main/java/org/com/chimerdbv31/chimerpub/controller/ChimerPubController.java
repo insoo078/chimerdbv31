@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.com.chimerdbv31.chimerpub.services.ChimerPubService;
+import org.com.chimerdbv31.chimerpub.vo.ChimerPubVo;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
 import org.slf4j.Logger;
@@ -90,11 +91,12 @@ public class ChimerPubController {
                         sParam.setGene53(true);
                     }
                 }
-                
+                System.out.println("=================== "+request.getParameter("key_num_of_pub"));
                 int numOfPub = Integer.valueOf( request.getParameter("key_num_of_pub") );
                 sParam.setNumOfPub(numOfPub);
                 
-                
+                int txtMiningScore = Integer.valueOf( request.getParameter("key_txt_mining_score") );
+                sParam.setTxtMiningScore(txtMiningScore);
                 
                 data = "";
                 data = request.getParameter("key_pub_selt_the_validtn_mtd");
@@ -148,31 +150,31 @@ public class ChimerPubController {
                                 if(i > 0){
                                     switch(dataArr[i]){
                                         case "kinase":{
-                                            queryStr.append(" Kinase != 0 ");
+                                            queryStr.append(" t1.Kinase != 0 ");
                                             if( i < (dataArr.length -1) ){
                                                 queryStr.append("or");
                                             }
                                         };break;
                                         case "onco":{
-                                            queryStr.append(" Oncogene != 0 ");
+                                            queryStr.append(" t1.Oncogene != 0 ");
                                             if( i < (dataArr.length -1) ){
                                                 queryStr.append("or");
                                             }
                                         };break;
                                         case "tumor":{
-                                            queryStr.append(" Tumor_suppressor != 0 ");
+                                            queryStr.append(" t1.Tumor_suppressor != 0 ");
                                             if( i < (dataArr.length -1) ){
                                                 queryStr.append("or");
                                             }
                                         };break;
                                         case "recpt":{
-                                            queryStr.append(" Receptor != 0 ");
+                                            queryStr.append(" t1.Receptor != 0 ");
                                             if( i < (dataArr.length -1) ){
                                                 queryStr.append("or");
                                             }
                                         };break;
                                         case "transcript":{
-                                            queryStr.append(" Transcription_Factor != 0 ");
+                                            queryStr.append(" t1.Transcription_Factor != 0 ");
                                             if( i < (dataArr.length -1) ){
                                                 queryStr.append("or");
                                             }
@@ -233,13 +235,13 @@ public class ChimerPubController {
                                 if(i > 0){
                                     switch(dataArr[i]){
                                         case "chimrSeq":{
-                                            queryStr.append(" ChimerSeq != '0' ");
+                                            queryStr.append(" t1.ChimerSeq != '0' ");
                                             if( i < (dataArr.length -1) ){
                                                 queryStr.append("or");
                                             }
                                         };break;
                                         case "chimrPub":{
-                                            queryStr.append(" ChimerPub != '0' ");
+                                            queryStr.append(" t1.ChimerPub != '0' ");
                                             if( i < (dataArr.length -1) ){
                                                 queryStr.append("or");
                                             }
@@ -253,11 +255,31 @@ public class ChimerPubController {
                     }
                 }
                 
-                
+                List<ChimerPubVo> chimerpublst = this.chimerPubService.getChimerPubResult(sParam);
+                result.addObject("chimerpub_lst", chimerpublst);
 		return result;
 	}
         
         
+        @RequestMapping(value="getjournaldata",method=RequestMethod.POST)
+        @ResponseBody
+        public String getJournalData( HttpServletRequest request )throws RuntimeException{
+            
+            ChimerPubVo param = new ChimerPubVo();
+            param.setFusion_pair( request.getParameter("fuspair") );
+            param.setGene5Junc( request.getParameter("gene5junc") );
+            param.setGene3Junc( request.getParameter("gene3junc") );
+            param.setBreakpoint_Type( request.getParameter("breaktype") );
+            param.setDisease( request.getParameter("disease") );
+            param.setPMID( request.getParameter("pmid") );
+            
+            
+            JSONObject jsonData = null;
+            ChimerPubVo rowdata = this.chimerPubService.getJournal(param);
+            jsonData = JSONObject.fromObject(rowdata);
+            
+            return jsonData.toString();
+        }
         
         
         

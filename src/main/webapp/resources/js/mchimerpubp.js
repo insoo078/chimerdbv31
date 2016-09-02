@@ -136,11 +136,22 @@ function searching(){
                 keyVal = "";
                 
                 keyVal = $("#pub_num_txt").val();
+                
                 if( (keyVal == "") || ($.trim(keyVal) == "") || (keyVal == null) ){
                     //$("#chimerdb_empty_data").modal("show");
                     //return;
                 }else{
                     $("#key_num_of_pub").val( keyVal );
+                }
+                
+                keyVal = "";
+                
+                keyVal = $("#txt_mining_score_txt").val();
+                if( (keyVal == "") || ($.trim(keyVal) == "") || (keyVal == null) ){
+                    //$("#chimerdb_empty_data").modal("show");
+                    //return;
+                }else{
+                    $("#key_txt_mining_score").val( keyVal );
                 }
                 
                 keyVal = "";
