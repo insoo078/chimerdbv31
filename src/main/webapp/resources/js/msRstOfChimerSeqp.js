@@ -73,14 +73,12 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 
 ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 	// To get each fused gene's symbols
-	var genes = ["5':" + rowdata.h_gene, "3':" + rowdata.t_gene];
-		
-	var data = JSON.stringify(genes);
+	var data = JSON.stringify(rowdata);
 	
 	$.ajax({
 		url: "getGeneInfo.cdb",
 		type : 'POST',
-		data : {"genes":data},
+		data : {"data":data},
 		dataType: "json",
 		success: function(jData) {
 			$("#chimer-seq-viewer").empty();

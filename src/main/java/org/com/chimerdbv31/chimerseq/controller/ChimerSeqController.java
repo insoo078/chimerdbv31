@@ -86,13 +86,13 @@ public class ChimerSeqController {
 	@RequestMapping(value="getGeneInfo",method=RequestMethod.POST)
 	@ResponseBody
 	public String getGeneInfo(HttpServletRequest request) throws Exception{
-		String queryGenes = request.getParameter("genes");
-
 		Gson gson = new Gson();
-		Type type = new TypeToken<List<String>>() {}.getType();
+		
+		String queryGenes = request.getParameter("data");
+		
+		ChimerSeqVo chimerSeqRecord = gson.fromJson(json, ChimerSeqVo.class);
 
-		List<String> geneList = gson.fromJson( queryGenes, type );
-		String json = gson.toJson( this.chimerSeqService.getGeneInfo( geneList ) );
+		String json = gson.toJson( this.chimerSeqService.getGeneInfo( chimerSeqRecord ) );
 
 		return json;
 	}

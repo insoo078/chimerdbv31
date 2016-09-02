@@ -25,6 +25,33 @@ public class GeneBaseObj {
 	private String nomenclature_status;
 	private String other_designations;
 	private String modification_date;
+	
+	public GeneBaseObj() {
+		this(null, null, null, null, null, null,null, null, null,null, null, null,null, null, null);
+	}
+	
+	public GeneBaseObj(
+				String tax_id, String gene_id, String symbol, String locus_tag, String synonyms
+				, String dbxrefs, String chromosome, String map_location, String description, String type_of_gene
+				, String symbol_from_nomenclature_authority, String full_name_from_nomenclature_authority
+				, String nomenclature_status, String other_designations, String modification_date
+	) {
+		this.tax_id = tax_id;									// taxonomy id
+		this.gene_id = gene_id;									// gene id
+		this.symbol = symbol;									// gene symbol
+		this.locus_tag = locus_tag;								// locus tag
+		this.synonyms = synonyms;								// synonyms
+		this.dbxrefs = dbxrefs;									// reference databasse ids
+		this.chromosome = chromosome;								// chromosome
+		this.map_location = map_location;							// map location
+		this.description = description;								// gene description
+		this.type_of_gene = type_of_gene;							// gene type
+		this.symbol_from_nomenclature_authority = symbol_from_nomenclature_authority;
+		this.full_name_from_nomenclature_authority = full_name_from_nomenclature_authority;
+		this.nomenclature_status = nomenclature_status;
+		this.other_designations = other_designations;
+		this.modification_date = modification_date;
+	}
 
 	public String getTax_id() {
 		return tax_id;
