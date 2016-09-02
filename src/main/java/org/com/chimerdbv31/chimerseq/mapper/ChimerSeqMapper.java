@@ -8,6 +8,7 @@ import org.com.chimerdbv31.chimerseq.vo.ChimerSeqDetailVo;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
+import org.com.chimerdbv31.chimerseq.vo.PfamVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
 import org.springframework.stereotype.Repository;
 
@@ -25,4 +26,5 @@ public interface ChimerSeqMapper {
 	public List<String> getAutocompleteInfo(Map<String, String> map);
 	public List<String> getTcgaCancerTypes();
 	public ChimerSeqDetailVo getFusionGeneDetailInfo(@Param("id") String id);
+	public List<PfamVo> getPfamDomainInfo(Map<String, Object> param);
 }

@@ -2,38 +2,55 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper">
-    <resultMap id="GeneInfoVoMap" type="org.com.chimerdbv31.chimerseq.vo.GeneInfoVo">
-        <result property="tax_id" column="tax_id"/>
-        <result property="gene_id" column="gene_id"/>
-		<result property="symbol" column="symbol"/>
-		<result property="locus_tag" column="locus_tag"/>
-		<result property="synonyms" column="synonyms"/>
-		<result property="dbxrefs" column="dbxrefs"/>
-		<result property="chromosome" column="chromosome"/>
-		<result property="map_location" column="map_location"/>
-		<result property="description" column="description"/>
-		<result property="type_of_gene" column="type_of_gene"/>
-		<result property="symbol_from_nomenclature_authority" column="symbol_from_nomenclature_authority"/>
-		<result property="full_name_from_nomenclature_authority" column="full_name_from_nomenclature_authority"/>
-		<result property="nomenclature_status" column="nomenclature_status"/>
-		<result property="other_designations" column="other_designations"/>
-		<result property="modification_date" column="modification_date"/>
+	<resultMap id="GeneInfoVoMap" type="org.com.chimerdbv31.chimerseq.vo.GeneInfoVo">
+		<result property="tax_id"									column="tax_id"/>
+		<result property="gene_id"									column="gene_id"/>
+		<result property="symbol"									column="symbol"/>
+		<result property="locus_tag"								column="locus_tag"/>
+		<result property="synonyms"									column="synonyms"/>
+		<result property="dbxrefs"									column="dbxrefs"/>
+		<result property="chromosome"								column="chromosome"/>
+		<result property="map_location"								column="map_location"/>
+		<result property="description"								column="description"/>
+		<result property="type_of_gene"								column="type_of_gene"/>
+		<result property="symbol_from_nomenclature_authority"		column="symbol_from_nomenclature_authority"/>
+		<result property="full_name_from_nomenclature_authority"	column="full_name_from_nomenclature_authority"/>
+		<result property="nomenclature_status"						column="nomenclature_status"/>
+		<result property="other_designations"						column="other_designations"/>
+		<result property="modification_date"						column="modification_date"/>
 
 		<collection property="features" javaType="java.util.ArrayList" resultMap="Gff3VoMap"/>
-    </resultMap>
+	</resultMap>
 
-    <resultMap id="Gff3VoMap" type="org.com.chimerdbv31.chimerseq.vo.Gff3Vo">
-		<result property="seqid" column="seqid"/>
-        <result property="source" column="source"/>
-		<result property="type" column="type"/>
-		<result property="start" column="start"/>
-		<result property="end" column="end"/>
-		<result property="score" column="score"/>
-		<result property="strand" column="strand"/>
-		<result property="phase" column="phase"/>
-		<result property="attributes" column="attributes"/>
-		<result property="elementIndex" column="elementIndex"/>
-    </resultMap>
+	<resultMap id="Gff3VoMap" type="org.com.chimerdbv31.chimerseq.vo.Gff3Vo">
+		<result property="seqid"		column="seqid"/>
+		<result property="source"		column="source"/>
+		<result property="type"			column="type"/>
+		<result property="start"		column="start"/>
+		<result property="end"			column="end"/>
+		<result property="score"		column="score"/>
+		<result property="strand"		column="strand"/>
+		<result property="phase"		column="phase"/>
+		<result property="attributes"	column="attributes"/>
+		<result property="elementIndex"	column="elementIndex"/>
+	</resultMap>
+
+	<resultMap id="PfamVoMap" type="org.com.chimerdbv31.chimerseq.vo.PfamVo">
+		<result property="id"			column="id"/>
+		<result property="bin"			column="bin"/>
+		<result property="chromosome"	column="chromosome"/>
+		<result property="chromStart"	column="chromStart"/>
+		<result property="chromEnd"		column="chromEnd"/>
+		<result property="name"			column="name"/>
+		<result property="score"		column="score"/>
+		<result property="strand"		column="strand"/>
+		<result property="thickStart"	column="thickStart"/>
+		<result property="thickEnd"		column="thickEnd"/>
+		<result property="reserved"		column="reserved"/>
+		<result property="blockCount"	column="blockCount"/>
+		<result property="blockSizes"	column="blockSizes"/>
+		<result property="chromStarts"	column="chromStarts"/>
+	</resultMap>
 
     <select id="getChimerSeqResult" parameterType="org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
 		SELECT 
@@ -41,8 +58,6 @@
 			, IF(Frame = "NA","",Frame) AS frame
 			, Chr_info AS chr_info , Source AS source, ChimerKB AS chimerKB, ChimerPub AS chimerPub, CONCAT(ChimerKB, "_", ChimerPub) AS supported
 			, a.id
-<!--		FROM ChimerDB3.ChimerSeq_ver7 a
-		WHERE 1=1-->
 		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
 		WHERE a.id=b.id
 		<!-- Search method -->
@@ -136,12 +151,6 @@
 				<when test="chkChimerPubSupport == 'on'">AND ChimerPub != 0</when>
 			</choose>
 		</trim>
-<!--		<if test="searchKeyword != null">
-			AND ID IN (
-				SELECT ID FROM ChimerDB3.ChimerSeq_ver7_Fulltext b
-				WHERE MATCH(all_columns) AGAINST( CONCAT(#{searchKeyword}, '*') IN BOOLEAN MODE)
-			)
-		</if>-->
 		<if test="searchKeyword != null">
 			AND MATCH(b.all_columns) AGAINST( CONCAT(#{searchKeyword}, '*') IN BOOLEAN MODE)
 		</if>
@@ -152,8 +161,6 @@
     </select>
     <select id="getChimerSeqTotalNumber" parameterType="org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm" resultType="int">
         SELECT DISTINCT COUNT( * ) AS allNum
-<!--		FROM ChimerDB3.ChimerSeq_ver7 a
-		WHERE 1=1-->
 		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
 		WHERE a.id=b.id
             <choose>
@@ -334,9 +341,28 @@
 		FROM ChimerDB3.ChimerSeq_ver7
 		WHERE id=${id}
 	</select>
+	
+	<select id="getPfamDomainInfo" parameterType="java.util.Map" resultMap="PfamVoMap">
+		SELECT
+			a.*
+		FROM ChimerSeq_Pfam a, (
+			SELECT a.id FROM (
+				SELECT 
+					a.id
+					, (greatest(chromEnd, ${geneStart}) - least(chromStart, ${geneEnd}) +1) AS val_a
+					, ((chromEnd-chromStart+1) + (${geneEnd}-${geneStart}+1)) AS val_b
+				FROM ChimerSeq_Pfam a, ChimerSeq_Pfam_Chr b
+				WHERE a.id BETWEEN b.start_id AND b.end_id
+				AND b.chromosome=#{chromosome}
+			) a
+			WHERE val_a < val_b
+		) b
+		WHERE a.id=b.id
+	</select>
 </mapper>
 
 <!--
+CREATE TABLE CHR
 SELECT 
 	CONCAT_WS(' ',`ChimerDB_Type`,`Source`,`webSource`,`Fusion_pair`,`5Gene_Junction`
 	,`3Gene_Junction`,`H_gene`,`H_chr`,`H_position`,`H_strand`,`T_gene`,`T_chr`,`T_position`
@@ -391,24 +417,4 @@ FROM (
 		ELSE '' END AS Disease
 	FROM ChimerSeq_ver7
 ) A
-
-
-
-
-
-
-// Pfam domain 찾는 쿼리
-
-select * from (
-		select 
-			a.chromosome, bin
-			, (greatest(chromEnd, 30144477) - least(chromStart, 29415640) +1) val_a
-			, ((chromEnd-chromStart+1) + (30144477-29415640+1)) val_b
-			, chromStart
-			, chromEnd
-		from ChimerSeq_Pfam a, ChimerSeq_Pfam_Chr b
-		where a.id between b.start_id and b.end_id
-		and b.chromosome='chr2'
-	) a
-	where val_a < val_b
 -->

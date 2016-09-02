@@ -1,6 +1,7 @@
 package org.com.chimerdbv31.chimerseq.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqDetailVo;
+import org.com.chimerdbv31.chimerseq.vo.PfamVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
 
 import org.slf4j.Logger;
@@ -114,5 +116,14 @@ public class ChimerSeqService {
 	
 	public ChimerSeqDetailVo getFusionGeneDetailInfo(String id) {
 		return this.chimerSeqMapper.getFusionGeneDetailInfo(id);
+	}
+	
+	public List<PfamVo> getPfamDomainInfo(String chromosome, int start, int end) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("geneStart", start);
+		param.put("geneEnd", end);
+		param.put("chromosome", chromosome);
+		
+		return this.chimerSeqMapper.getPfamDomainInfo(param);
 	}
 }
