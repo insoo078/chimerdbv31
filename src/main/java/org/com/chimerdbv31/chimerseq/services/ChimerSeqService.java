@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper;
 import org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm;
+import org.com.chimerdbv31.chimerseq.obj.GeneObj;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqDetailVo;
@@ -60,8 +61,11 @@ public class ChimerSeqService {
 
 			// Find gene info by gene symbol
 			GeneInfoVo geneInfoVo = (GeneInfoVo)this.chimerSeqMapper.getGeneInfo( props[1] );
+
 			geneInfoVo.makeHierachyTreeOfFeatures( geneInfoVo.getFeatures() );
 			geneInfoVo.setFusionLocation( props[0] );
+
+			GeneObj.test( geneInfoVo );
 
 			// Find Pfam domains by gene information
 			geneInfoVo.setpFamDomainList( this.getPfamDomainInfo( geneInfoVo ) );
