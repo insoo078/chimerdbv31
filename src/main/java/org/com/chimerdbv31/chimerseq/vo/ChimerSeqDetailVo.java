@@ -12,12 +12,10 @@ package org.com.chimerdbv31.chimerseq.vo;
 public class ChimerSeqDetailVo extends ChimerSeqVo{
 	private String chimerDB_Type;
 	private String webSource;
-	private String h_gene;
-	private String h_chr;
 	private String h_position;
 	private String h_strand;
-	private String t_gene;
 	private String t_chr;
+	private String h_chr;
 	private String t_position;
 	private String t_strand;
 	private String genomic_breakpoint;
@@ -53,21 +51,14 @@ public class ChimerSeqDetailVo extends ChimerSeqVo{
 		this.webSource = webSource;
 	}
 
-	public String getH_gene() {
-		return t_gene;
-	}
-
-	public void setH_gene(String H_gene) {
-		this.t_gene = H_gene;
-	}
-
 	public String getH_chr() {
 		return h_chr;
 	}
 
-	public void setH_chr(String H_chr) {
-		this.h_chr = H_chr;
+	public void setH_chr(String h_chr) {
+		this.h_chr = h_chr;
 	}
+
 
 	public String getH_position() {
 		return h_position;
@@ -85,13 +76,6 @@ public class ChimerSeqDetailVo extends ChimerSeqVo{
 		this.h_strand = H_strand;
 	}
 
-	public String getT_gene() {
-		return t_gene;
-	}
-
-	public void setT_gene(String T_gene) {
-		this.t_gene = T_gene;
-	}
 
 	public String getT_position() {
 		return t_position;

@@ -1,5 +1,6 @@
 package org.com.chimerdbv31.chimerseq.services;
 
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -51,6 +52,8 @@ public class ChimerSeqService {
 	}
 
 	public List<GeneInfoVo> getGeneInfo(List<String> genes) throws Exception{
+		Gson gson = new Gson();
+
 		List<GeneInfoVo> list = new ArrayList<GeneInfoVo>();
 		for( String gene:genes ) {
 			String[] props = gene.split(":");
@@ -59,15 +62,11 @@ public class ChimerSeqService {
 			GeneInfoVo geneInfoVo = (GeneInfoVo)this.chimerSeqMapper.getGeneInfo( props[1] );
 			geneInfoVo.makeHierachyTreeOfFeatures( geneInfoVo.getFeatures() );
 			geneInfoVo.setFusionLocation( props[0] );
-			list.add(geneInfoVo);
-			
+
 			// Find Pfam domains by gene information
-			String chr = geneInfoVo.getChromosome().startsWith("chr") == true?geneInfoVo.getChromosome():"chr"+geneInfoVo.getChromosome();
-			int start = geneInfoVo.getGeneFeature().getStart();
-			int end = geneInfoVo.getGeneFeature().getEnd();
+			geneInfoVo.setpFamDomainList( this.getPfamDomainInfo( geneInfoVo ) );
 			
-			List<PfamVo> pfamList = this.getPfamDomainInfo(chr, start, end);
-			geneInfoVo.setpFamDomainList(pfamList);
+			list.add(geneInfoVo);
 		}
 		return list;
 	}
@@ -89,12 +88,20 @@ public class ChimerSeqService {
 		return this.chimerSeqMapper.getFusionGeneDetailInfo(id);
 	}
 	
-	public List<PfamVo> getPfamDomainInfo(String chromosome, int start, int end) {
+	private List<PfamVo> getPfamDomainInfo(String chromosome, int start, int end) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("geneStart", start);
 		param.put("geneEnd", end);
 		param.put("chromosome", chromosome);
 		
 		return this.chimerSeqMapper.getPfamDomainInfo(param);
+	}
+
+	public List<PfamVo> getPfamDomainInfo( GeneInfoVo geneInfoVo ) {
+		String chr = geneInfoVo.getChromosome().startsWith("chr") == true?geneInfoVo.getChromosome():"chr"+geneInfoVo.getChromosome();
+		int start = geneInfoVo.getGeneFeature().getStart();
+		int end = geneInfoVo.getGeneFeature().getEnd();
+
+		return this.getPfamDomainInfo(chr, start, end);
 	}
 }

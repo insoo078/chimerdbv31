@@ -91,12 +91,7 @@ public class ChimerSeqController {
 		Gson gson = new Gson();
 		Type type = new TypeToken<List<String>>() {}.getType();
 
-		System.out.println( "=======================>" + queryGenes );
 		List<String> geneList = gson.fromJson( queryGenes, type );
-		
-		for(String str:geneList)
-			System.out.println("===============================>" + str);
-
 		String json = gson.toJson( this.chimerSeqService.getGeneInfo( geneList ) );
 
 		return json;

@@ -41,7 +41,9 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 			{"data":"chr_info"},
 			{"data":"source"},
 			{"data":"supported"},
-			{"data":"id"}
+			{"data":"id"},
+			{"data":"h_gene"},
+			{"data":"t_gene"}
 		],
 		"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
 			var imgTag = "";
@@ -71,14 +73,10 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 
 ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 	// To get each fused gene's symbols
-	var genes = rowdata.fusion_pair.split("_");
-
-	genes[0] = "{location:'5p',gene:'" + genes[0]+"'}";
-	genes[1] = "{location:'3p',gene:'" + genes[1]+"'}";
+	var genes = ["5':" + rowdata.h_gene, "3':" + rowdata.t_gene];
 		
 	var data = JSON.stringify(genes);
-//	var data = {"5'":{ gene:genes[0] }, "3'":{ gene:genes[1] }};
-
+	
 	$.ajax({
 		url: "getGeneInfo.cdb",
 		type : 'POST',

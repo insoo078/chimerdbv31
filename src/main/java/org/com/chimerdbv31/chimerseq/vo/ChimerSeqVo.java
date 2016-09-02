@@ -24,6 +24,8 @@ public class ChimerSeqVo {
     private String chimerKB;
     private String chimerPub;
     private String supported;
+	private String t_gene;
+	private String h_gene;
 
 	public int getId() {
 		return id;
@@ -128,6 +130,22 @@ public class ChimerSeqVo {
     public void setSupported(String supported) {
         this.supported = supported;
     }
+
+	public String getT_gene() {
+		return t_gene;
+	}
+
+	public void setT_gene(String t_gene) {
+		this.t_gene = t_gene;
+	}
+
+	public String getH_gene() {
+		return h_gene;
+	}
+
+	public void setH_gene(String h_gene) {
+		this.h_gene = h_gene;
+	}
     
     
 }

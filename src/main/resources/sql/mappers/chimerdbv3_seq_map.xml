@@ -57,6 +57,7 @@
 			Fusion_pair AS fusion_pair , 5Gene_Junction AS gene5Junc , 3Gene_Junction AS gene3Junc , Breakpoint_Type AS breakpoint_type , Cancertype AS cancertype, BarcodeID AS barcodeID
 			, IF(Frame = "NA","",Frame) AS frame
 			, Chr_info AS chr_info , Source AS source, ChimerKB AS chimerKB, ChimerPub AS chimerPub, CONCAT(ChimerKB, "_", ChimerPub) AS supported
+			, a.T_gene AS t_gene, a.H_gene AS h_gene
 			, a.id
 		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
 		WHERE a.id=b.id

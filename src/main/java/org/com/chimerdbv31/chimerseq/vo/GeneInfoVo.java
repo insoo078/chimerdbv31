@@ -6,11 +6,8 @@
 package org.com.chimerdbv31.chimerseq.vo;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import org.com.chimerdbv31.chimerseq.obj.TranscriptObj;
-import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
 
 /**
  *
@@ -43,6 +40,7 @@ public class GeneInfoVo{
 
 	public void makeHierachyTreeOfFeatures( List<Gff3Vo> exonElementsWithIndex ) {
 		if( this.transcripts == null )	this.transcripts = new ArrayList<TranscriptObj>();
+		else							this.transcripts.clear();
 
 		TranscriptObj obj = null;
 		for(Gff3Vo vo : this.features ) {
