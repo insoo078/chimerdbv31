@@ -5,6 +5,10 @@
  */
 package org.com.chimerdbv31.chimerseq.vo;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.com.chimerdbv31.chimerseq.obj.DomainFragmentObj;
+
 /**
  *
  * @author insoo078
@@ -24,6 +28,12 @@ public class PfamVo {
 	private int blockCount;
 	private String blockSizes;
 	private String chromStarts;
+			
+	private List<DomainFragmentObj> fragments;
+
+	public PfamVo(){
+		this.fragments = new ArrayList<DomainFragmentObj>();
+	}
 
 	public int getId() {
 		return id;
@@ -137,4 +147,14 @@ public class PfamVo {
 		this.chromStarts = chromStarts;
 	}
 
+	public void addFragment(DomainFragmentObj fragment) {
+		if( this.fragments == null )	this.fragments = new ArrayList<DomainFragmentObj>();
+		
+		this.fragments.add( fragment );
+	}
+
+	public List<DomainFragmentObj> getFragments() {
+		return fragments;
+	}
+	
 }

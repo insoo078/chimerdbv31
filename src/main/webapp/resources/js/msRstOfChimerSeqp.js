@@ -83,10 +83,12 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 		success: function(jData) {
 			$("#chimer-seq-viewer").empty();
 
+			console.log( jData );
+
 			var config = {
 				organism: "human",
 				orientation: "horizontal",
-				chromosomes: [jData[0].chromosome, jData[1].chromosome],
+				chromosomes: [jData["5'"].chromosome, jData["3'"].chromosome],
 				chrMargin: 300,
 				chrHeight: 1024,
 				chrWidth: 20,
@@ -98,13 +100,11 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 				showBandLabels: true,
 				container: "#chimer-seq-viewer"
 			  };
-			  
+
 			  var gene1 = jData[0];
 			  var gene2 = jData[1];
-			  
-			  console.log( gene1 );
 
-			  var viewer = new ChimeraDbV3ViewerWithOutChromosome(config, gene1, gene2);
+//			  var viewer = new ChimeraDbV3ViewerWithOutChromosome(config, gene1, gene2);
 		},
 		error: function(e, status) {
 			alert(status);

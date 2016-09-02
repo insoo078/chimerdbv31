@@ -5,10 +5,8 @@
  */
 package org.com.chimerdbv31.chimerseq.vo;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.com.chimerdbv31.chimerseq.obj.GeneBaseObj;
-import org.com.chimerdbv31.chimerseq.obj.TranscriptObj;
 
 /**
  *

@@ -260,7 +260,29 @@
     </select>
 	
 	<select id="getGeneInfo" parameterType="java.lang.String" resultMap="GeneInfoVoMap">
-		SELECT * FROM I1_Gene_Info a LEFT JOIN I1_GRCh37_GFF b
+		SELECT
+			a.tax_id
+			,a.gene_id
+			,a.symbol
+			,a.locus_tag
+			,a.synonyms
+			,a.dbxrefs
+			, CASE 
+				WHEN a.chromosome LIKE 'chr%' THEN 
+					a.chromosome 
+				ELSE 
+					CONCAT('chr', a.chromosome) 
+				END AS chromosome
+			,a.map_location
+			,a.description
+			,a.type_of_gene
+			,a.symbol_from_nomenclature_authority
+			,a.full_name_from_nomenclature_authority
+			,a.nomenclature_status
+			,a.other_designations
+			,a.modification_date
+			,b.*
+		FROM I1_Gene_Info a LEFT JOIN I1_GRCh37_GFF b
 		ON b.Gene_ID=a.gene_id
 		AND b.no BETWEEN a.gff_start AND a.gff_end
 		AND b.type IN ('gene', 'exon', 'mRNA', 'transcript')

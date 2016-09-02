@@ -90,7 +90,7 @@ public class ChimerSeqController {
 		
 		String queryGenes = request.getParameter("data");
 		
-		ChimerSeqVo chimerSeqRecord = gson.fromJson(json, ChimerSeqVo.class);
+		ChimerSeqVo chimerSeqRecord = gson.fromJson(queryGenes, ChimerSeqVo.class);
 
 		String json = gson.toJson( this.chimerSeqService.getGeneInfo( chimerSeqRecord ) );
 

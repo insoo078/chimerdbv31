@@ -30,6 +30,9 @@ public class GeneObj extends GeneBaseObj{
 	private TranscriptObj canonicalTranscript;				// transcript hierachy
 	private List<PfamVo> pFamDomainList;					// domain list
 	
+	private int length;
+	private int noOfExons;
+	
 	public GeneObj( GeneInfoVo vo ) throws IllegalArgumentException, IllegalAccessException {
 		super( vo.getTax_id(), vo.getGene_id(), vo.getSymbol(), vo.getLocus_tag(), vo.getSynonyms()
 				, vo.getDbxrefs(), vo.getChromosome(), vo.getMap_location(), vo.getDescription()
@@ -54,6 +57,7 @@ public class GeneObj extends GeneBaseObj{
 			}
 		}
 		this.canonicalTranscript = transcripts.get(0);
+		this.noOfExons = this.canonicalTranscript.getExons().size();
 	}
 	
 	private void initGeneInfo( Gff3Vo vo ) {
@@ -64,6 +68,8 @@ public class GeneObj extends GeneBaseObj{
 		this.end = vo.getEnd();
 		this.strand = vo.getStrand();
 		this.phase = vo.getPhase();
+		
+		this.length = this.end - this.start + 1;
 		
 		this.attributesMap = vo.getAttributesMap();
 	}
@@ -156,5 +162,19 @@ public class GeneObj extends GeneBaseObj{
 		this.pFamDomainList = pFamDomainList;
 	}
 
-	
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	public int getNoOfExons() {
+		return noOfExons;
+	}
+
+	public void setNoOfExons(int noOfExons) {
+		this.noOfExons = noOfExons;
+	}
 }

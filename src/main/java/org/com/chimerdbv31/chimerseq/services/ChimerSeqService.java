@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper;
 import org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm;
-import org.com.chimerdbv31.chimerseq.obj.GeneBaseObj;
+import org.com.chimerdbv31.chimerseq.obj.FusionGeneObj;
 import org.com.chimerdbv31.chimerseq.obj.GeneObj;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
@@ -53,26 +53,26 @@ public class ChimerSeqService {
 		return this.chimerSeqMapper.getChimerSeqTotalNumber(param);
 	}
 
-	public List<GeneInfoVo> getGeneInfo( ChimerSeqVo chimerSeqRecord ) throws Exception{
+	public FusionGeneObj getGeneInfo( ChimerSeqVo chimerSeqRecord ) throws Exception{
 		Gson gson = new Gson();
 
 		String[] genes = new String[]{chimerSeqRecord.getH_gene(), chimerSeqRecord.getT_gene()};
-		String[] loc = new String[]{"5'", "3'"};
-		
-		List<GeneInfoVo> list = new ArrayList<GeneInfoVo>();
-		for( int i=0; i<list.size(); i++ ) {
+		String[] loc = new String[]{ FusionGeneObj._5P_GENE, FusionGeneObj._3P_GENE };
+
+		FusionGeneObj fusionGene = new FusionGeneObj( chimerSeqRecord );
+		for( int i=0; i<genes.length; i++ ) {
 			// Find gene info by gene symbol
 			GeneInfoVo geneInfoVo = (GeneInfoVo)this.chimerSeqMapper.getGeneInfo( genes[i] );
-			
+
 			GeneObj obj = new GeneObj( geneInfoVo );
 			geneInfoVo.setFusionLocation( loc[i] );
 
 			// Find Pfam domains by gene information
-			obj.setpFamDomainList( this.getPfamDomainInfo( geneInfoVo ) );
-			
-			list.add(geneInfoVo);
+			obj.setpFamDomainList( this.getPfamDomainInfo( obj ) );
+
+			fusionGene.addGene( loc[i], obj );
 		}
-		return list;
+		return fusionGene;
 	}
 	
 	public List<String> getAutocompleteInfo(String service, String type, String text) {
@@ -101,10 +101,10 @@ public class ChimerSeqService {
 		return this.chimerSeqMapper.getPfamDomainInfo(param);
 	}
 
-	public List<PfamVo> getPfamDomainInfo( GeneInfoVo geneInfoVo ) {
-		String chr = geneInfoVo.getChromosome().startsWith("chr") == true?geneInfoVo.getChromosome():"chr"+geneInfoVo.getChromosome();
-		int start = geneInfoVo.getGeneFeature().getStart();
-		int end = geneInfoVo.getGeneFeature().getEnd();
+	public List<PfamVo> getPfamDomainInfo( GeneObj geneObj ) {
+		String chr = geneObj.getChromosome().startsWith("chr") == true?geneObj.getChromosome():"chr"+geneObj.getChromosome();
+		int start = geneObj.getStart();
+		int end = geneObj.getEnd();
 
 		return this.getPfamDomainInfo(chr, start, end);
 	}

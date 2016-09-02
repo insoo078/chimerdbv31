@@ -38,4 +38,8 @@ public class TranscriptObj extends Gff3Vo{
 	public void addExon( Gff3Vo exonFeaure ) {
 		this.exons.add(exonFeaure);
 	}
+
+	public List<Gff3Vo> getExons() {
+		return exons;
+	}
 }
