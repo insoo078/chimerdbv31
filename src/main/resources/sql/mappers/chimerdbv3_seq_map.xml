@@ -41,14 +41,16 @@
 			, IF(Frame = "NA","",Frame) AS frame
 			, Chr_info AS chr_info , Source AS source, ChimerKB AS chimerKB, ChimerPub AS chimerPub, CONCAT(ChimerKB, "_", ChimerPub) AS supported
 			, a.id
-		FROM ChimerDB3.ChimerSeq_ver7 a
-		WHERE 1=1
+<!--		FROM ChimerDB3.ChimerSeq_ver7 a
+		WHERE 1=1-->
+		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
+		WHERE a.id=b.id
 		<!-- Search method -->
 		<choose>
 			<when test="searchType == 'byGene'">
 				<choose>
 					<when test="byGene5Prime == 'on' and byGene3Prime == 'on'">
-						AND H_gene = #{byGeneTxt} OR T_gene = #{byGeneTxt}
+						AND (H_gene = #{byGeneTxt} OR T_gene = #{byGeneTxt})
 					</when>
 					<when test="byGene5Prime != null and byGene5Prime == 'on'">
 						AND H_gene = #{byGeneTxt}
@@ -134,11 +136,14 @@
 				<when test="chkChimerPubSupport == 'on'">AND ChimerPub != 0</when>
 			</choose>
 		</trim>
-		<if test="searchKeyword != null">
+<!--		<if test="searchKeyword != null">
 			AND ID IN (
 				SELECT ID FROM ChimerDB3.ChimerSeq_ver7_Fulltext b
-				WHERE MATCH(all_columns) AGAINST(#{searchKeyword} IN BOOLEAN MODE)
+				WHERE MATCH(all_columns) AGAINST( CONCAT(#{searchKeyword}, '*') IN BOOLEAN MODE)
 			)
+		</if>-->
+		<if test="searchKeyword != null">
+			AND MATCH(b.all_columns) AGAINST( CONCAT(#{searchKeyword}, '*') IN BOOLEAN MODE)
 		</if>
 		<if test="sortKey != null">ORDER BY ${sortKey + 1} ${sortOrderDir}</if>
 		<if test="start != null and length != null">
@@ -155,7 +160,7 @@
 			<when test="searchType == 'byGene'">
 				<choose>
 					<when test="byGene5Prime == 'on' and byGene3Prime == 'on'">
-						AND H_gene = #{byGeneTxt} OR T_gene = #{byGeneTxt}
+						AND (H_gene = #{byGeneTxt} OR T_gene = #{byGeneTxt})
 					</when>
 					<when test="byGene5Prime != null and byGene5Prime == 'on'">
 						AND H_gene = #{byGeneTxt}
