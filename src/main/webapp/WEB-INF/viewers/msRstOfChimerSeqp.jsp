@@ -70,7 +70,7 @@
 
 <%@include file="part/header.jsp" %>
 
-<input type="hidden" id="paramTest" value="<c:out value='${queryForm}'/>"/>
+<input type="hidden" id="queryFormData" value="<c:out value='${queryForm}'/>"/>
 
 <!-- content -->
 <div class="container">

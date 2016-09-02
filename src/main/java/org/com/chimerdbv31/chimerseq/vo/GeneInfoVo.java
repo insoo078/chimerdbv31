@@ -38,8 +38,10 @@ public class GeneInfoVo{
 	
 	private Gff3Vo geneFeature;
 	private List<TranscriptObj> transcripts;
+	
+	private List<PfamVo> pFamDomainList;
 
-	public void rearrangeFeatures( List<Gff3Vo> exonElementsWithIndex ) {
+	public void makeHierachyTreeOfFeatures( List<Gff3Vo> exonElementsWithIndex ) {
 		if( this.transcripts == null )	this.transcripts = new ArrayList<TranscriptObj>();
 
 		TranscriptObj obj = null;
@@ -207,5 +209,13 @@ public class GeneInfoVo{
 
 	public void setModification_date(String modification_date) {
 		this.modification_date = modification_date;
+	}
+
+	public List<PfamVo> getpFamDomainList() {
+		return pFamDomainList;
+	}
+
+	public void setpFamDomainList(List<PfamVo> pFamDomainList) {
+		this.pFamDomainList = pFamDomainList;
 	}
 }

@@ -3,76 +3,80 @@
  * and open the template in the editor.
  */
 
-$(document).ready(function () {
-    check_m_state("mmchimerseqbtn");
+var ChimerSeqResult = function( config ) {
+	this.config = JSON.parse( JSON.stringify(config) );
 
-	var json = $("#paramTest").val();
+	this.init();
+};
 
-    var mainTable = null;
-    mainTable = $("#chimerSeqTbl").DataTable({
-        "dom":"T<'clear'>frtilp",
-        "scrollX":true,
-        "tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
-        "processing": true,
-        "serverSide": true,
-        "ajax": {
-            "url":"nextp.cdb",
-			"data":{formData:json},
+ChimerSeqResult.prototype.init = function() {
+	this.initChimerSeqResultjQueryDataTables();
+};
+
+ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
+	var obj = this;
+
+	var mainTable = $( this.config.container ).DataTable({
+		"dom":"T<'clear'>frtilp",
+		"scrollX":true,
+		"tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
+		"processing": true,
+		"serverSide": true,
+		"ajax": {
+			"url":"nextp.cdb",
+			"data":{formData: this.config.data},
 			"dataType":"json",
-            "type": "POST"
-        },
-        "iDisplayLength": 10,
+			"type": "POST"
+		},
+		"iDisplayLength": 10,
 		"columnDefs":[{targets:[0,1,2,3,4,5,6,7,8,9], visible:true}, {targets:'_all', visible:false}],
-        "columns":[
-            {"data":"fusion_pair"},
-            {"data":"gene5Junc"},
-            {"data":"gene3Junc"},
-            {"data":"breakpoint_Type"},
-            {"data":"cancertype"},
-            {"data":"barcodeID"},
-            {"data":"frame"},
-            {"data":"chr_info"},
-            {"data":"source"},
-            {"data":"supported"},
+		"columns":[
+			{"data":"fusion_pair"},
+			{"data":"gene5Junc"},
+			{"data":"gene3Junc"},
+			{"data":"breakpoint_Type"},
+			{"data":"cancertype"},
+			{"data":"barcodeID"},
+			{"data":"frame"},
+			{"data":"chr_info"},
+			{"data":"source"},
+			{"data":"supported"},
 			{"data":"id"}
-        ],
-		"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+		],
+		"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
 			var imgTag = "";
 
 			var tmp = aData.supported.split("_");
-			
+
 			if(tmp[0]==='1') imgTag += '<div class="rcorner-3" style="width:30px;height:20px;line-height:20px;text-align:center;background:green;">KB</div>';
 			if(tmp[1]==='1') imgTag += '<div class="rcorner-3" style="width:30px;height:20px;line-height:20px;text-align:center;background:purple;">Pub</div>';
 			$('td:eq(9)', nRow).html(imgTag); // where 4 is the zero-origin visible column in the HTML
 
+			// When this page is opend, default fusion structure is drawing by first row data
 			if( iDisplayIndex === 0 ){
-				var genes = aData.fusion_pair.split("_");
-
-				genes[0] = "5':" + genes[0];
-				genes[1] = "3':" + genes[1];
-
-				getGeneInformation( genes, aData );
+				obj.getGeneInformation( aData );
 			}
 
 			return nRow;
 		}
-    });
+	});
 
-    $('#chimerSeqTbl tbody').on('click', 'tr', function(){
-        var rowdata = mainTable.row( this ).data();
+	$(this.config.container + ' tbody').on('click', 'tr', function(){
+		var rowdata = mainTable.row( this ).data();
+
+		obj.getGeneInformation( rowdata );
+
+		obj.showDescPopup(rowdata.id);
+	});
+};
+
+ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
+	// To get each fused gene's symbols
+	var genes = rowdata.fusion_pair.split("_");
+
+	genes[0] = "5':" + genes[0];
+	genes[1] = "3':" + genes[1];
 		
-		var genes = rowdata.fusion_pair.split("_");
-		
-		genes[0] = "5':" + genes[0];
-		genes[1] = "3':" + genes[1];
-
-		getGeneInformation( genes, rowdata );
-
-        showDesc(rowdata.id);
-    });
-});
-
-function getGeneInformation(genes, rowdata) {
 	var data = JSON.stringify(genes);
 
 	$.ajax({
@@ -101,13 +105,18 @@ function getGeneInformation(genes, rowdata) {
 			  
 			  var gene1 = jData[0];
 			  var gene2 = jData[1];
+			  
+			  console.log( gene1 );
 
 			  var viewer = new ChimeraDbV3ViewerWithOutChromosome(config, gene1, gene2);
+		},
+		error: function(e, status) {
+			alert(status);
 		}
 	});
-}
+};
 
-function showDesc(id){
+ChimerSeqResult.prototype.showDescPopup = function (id){
     $.ajax({
           url: "getFusionDetailInfo.cdb",
           type : 'POST',
@@ -122,4 +131,15 @@ function showDesc(id){
           }
       });
     
-}
+};
+
+$(document).ready(function () {
+    check_m_state("mmchimerseqbtn");
+
+	var config = {
+		container: "#chimerSeqTbl",
+		data: $("#queryFormData").val()
+	};
+	
+	var chimerSeqResult = new ChimerSeqResult(config);
+});

@@ -21,9 +21,9 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config, gene1, gene2 ) {
 		this.drawChromosomeLabel( this.config, genePanelJson[i].name, genePanelJson[i].gene );
 	}
 
-	var fusionData = this.drawGeneStructure( this.config, genePanelJson, canvas, 3 );
+	var fusionData = this.drawGeneStructure( this.config, genePanelJson, canvas, 1 );
 	
-	this.drawFusionGeneStructure( this.config, canvas, fusionData, 3 );
+	this.drawFusionGeneStructure( this.config, canvas, fusionData, 1 );
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function( config, canvas, fusionData, drawingType ) {
