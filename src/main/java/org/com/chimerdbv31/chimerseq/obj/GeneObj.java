@@ -45,14 +45,19 @@ public class GeneObj extends GeneBaseObj{
 	private void makeHierachyTreeOfFeatures( List<Gff3Vo> features ) {
 		List<TranscriptObj> transcripts = new ArrayList<TranscriptObj>();
 		TranscriptObj obj = null;
-		for(Gff3Vo vo : features ) {
+		
+		int i = 1;
+		for( Gff3Vo vo : features ) {
 			if( vo != null ) {
 				if( vo.getType().equals("gene") )	this.initGeneInfo(vo);
 				else if( vo.getType().equals("mRNA") || vo.getType().equals("transcript") ) {
 					obj = new TranscriptObj( vo );
 					transcripts.add( obj );
+					i = 1;
 				}else {
+					vo.setElementIndex(i);
 					obj.addExon(vo);
+					i++;
 				}
 			}
 		}

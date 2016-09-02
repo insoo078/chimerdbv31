@@ -11,7 +11,6 @@ import java.util.Map;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
 import org.com.chimerdbv31.chimerseq.vo.PfamVo;
-import org.com.chimerdbv31.chimerseq.obj.TranscriptObj;
 
 /**
  *
@@ -40,12 +39,16 @@ public class FusionGeneObj extends ChimerSeqVo{
 		
 		this.reArrangeRelativePositionInGeneBoundary( gene );
 	}
-	
+
+	// 유전자의 위치(시작, 종료)에 따라 유전자 안에 포함된
+	// Exon 영역의 위치를 절대위치에서 상대위치로 재조정하고
+	// 또 단백질 도메인 영역도 절대 위치에서 상대위치로 재조정함
 	private void reArrangeRelativePositionInGeneBoundary( GeneObj gene ) {
 		this.reArrangeRelativePositionExonsInGeneBoundary( gene );
 		this.reArrangeRelativePositionPfamDomainsInGeneBoundary( gene );
 	}
 	
+	// Exon 영역의 위치를 상대위치로 재조정하는 메소드
 	private void reArrangeRelativePositionExonsInGeneBoundary( GeneObj gene ) {
 		int start = gene.getStart();
 
@@ -59,6 +62,7 @@ public class FusionGeneObj extends ChimerSeqVo{
 		}
 	}
 	
+	// 단백질 domain의 영역의 위치를 상대위치로 재조정하는 메소드
 	private void reArrangeRelativePositionPfamDomainsInGeneBoundary( GeneObj gene ) {
 		int start = gene.getStart();
 
