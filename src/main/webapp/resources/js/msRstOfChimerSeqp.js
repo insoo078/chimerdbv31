@@ -65,7 +65,6 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 		var rowdata = mainTable.row( this ).data();
 
 		obj.getGeneInformation( rowdata );
-
 		obj.showDescPopup(rowdata.id);
 	});
 };
@@ -74,10 +73,11 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 	// To get each fused gene's symbols
 	var genes = rowdata.fusion_pair.split("_");
 
-	genes[0] = "5':" + genes[0];
-	genes[1] = "3':" + genes[1];
+	genes[0] = "{location:'5p',gene:'" + genes[0]+"'}";
+	genes[1] = "{location:'3p',gene:'" + genes[1]+"'}";
 		
 	var data = JSON.stringify(genes);
+//	var data = {"5'":{ gene:genes[0] }, "3'":{ gene:genes[1] }};
 
 	$.ajax({
 		url: "getGeneInfo.cdb",
@@ -117,20 +117,19 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 };
 
 ChimerSeqResult.prototype.showDescPopup = function (id){
-    $.ajax({
-          url: "getFusionDetailInfo.cdb",
-          type : 'POST',
-          data : {"id":id},
-          dataType: "json",
-          success: function(jData) {
-			  var data = JSON.stringify(jData);
-              var mypopup = window.open("chimerseq_popup.cdb?detailInfo="+data+"", 'mypopup', "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=400");
-          },
-          error : function(xhr, status) {
-            alert(status);
-          }
-      });
-    
+	$.ajax({
+		url: "getFusionDetailInfo.cdb",
+		type : 'POST',
+		data : {"id":id},
+		dataType: "json",
+		success: function(jData) {
+			var data = JSON.stringify(jData);
+			var mypopup = window.open("chimerseq_popup.cdb?detailInfo="+data+"", 'mypopup', "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=400");
+		},
+		error : function(xhr, status) {
+			alert(status);
+		}
+	});
 };
 
 $(document).ready(function () {
