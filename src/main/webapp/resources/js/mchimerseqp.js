@@ -21,10 +21,10 @@ var ChimerSeqForm = {
 		this.setOptionPanelSetting();
 	},
 	setSearchPanelSetting: function() {
-		addAutocompleteField( "#byGeneTxt",		1);
-		addAutocompleteField( "#byGenePairTxt",	2);
-		addAutocompleteField( "#byChrLocusTxt",	3);
-		addAutocompleteField( "#byDiseaseTxt",	4);
+		this.addAutocompleteField( "#byGeneTxt",		1);
+		this.addAutocompleteField( "#byGenePairTxt",	2);
+		this.addAutocompleteField( "#byChrLocusTxt",	3);
+		this.addAutocompleteField( "#byDiseaseTxt",	4);
 
 		// If user choose one radio button, then other radios are disabled
 		// and active filed is moving their text filed
@@ -184,7 +184,7 @@ var ChimerSeqForm = {
 	search: function () {
 		var searchType = $("input:radio[name='searchType']:checked").val();
 
-		if( checkInputPrams(searchType) ) {
+		if( this.checkInputPrams(searchType) ) {
 			$("#chimerSeqQueryForm").submit();
 		}
 
@@ -193,8 +193,12 @@ var ChimerSeqForm = {
 };
 
 $(document).ready(function () {
-	// to express which menu user has choosed
+//     to express which menu user has choosed
 //	check_m_state("mmchimerseqbtn");
 
-	ChimerSeqForm.init();
+    ChimerSeqForm.init();
 });
+
+function search() {
+    ChimerSeqForm.search();
+}
