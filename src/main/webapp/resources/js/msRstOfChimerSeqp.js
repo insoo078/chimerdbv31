@@ -82,7 +82,9 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 		dataType: "json",
 		success: function(jData) {
 			var container = "#chimer-seq-viewer";
-			$( container ).empty();
+//			$( container ).empty();
+
+			d3.select('svg').remove();
 
 			rowdata.fusionGene5p = jData.genes["5'"];
 			rowdata.fusionGene3p = jData.genes["3'"];

@@ -453,68 +453,60 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(co
 	var canvasRect = this.config.canvas.node().getBoundingClientRect();
 	var canvas = this.config.canvas;
 
-	var first = canvas.append("g")
-			.attr("id", "fusion-gene-label-group-5p");
-	var second = canvas.append("g")
-			.attr("id", "fusion-gene-label-group-3p");
+	var lblGroup = canvas.append("g")
+			.attr("id", "fusion-gene-label-group");
 	
-	var data = [{width:100,height:50,id:'5pGene',label:"5' Gene"}, {width:100,height:50,id:'3pGene',label:"3' Gene"}];
+	var labelWidth = canvasRect.width / 8;
+	var data = [{width:labelWidth,height:50,id:'5pGene',label:"5' Gene"}, {width:labelWidth,height:50,id:'3pGene',label:"3' Gene"}];
 
-	var gene5PLabel = first.append("rect")
-			.attr("id", data[0].id)
+	var rect = lblGroup.selectAll("rect")
+			.data(data)
+			.enter()
+			.append("rect")
+			.attr("id", function(d){return d.id + "_label_rect";})
 			.attr("class", "fusion-gene-label")
-			.attr("transform", function(d){
-				return "translate(" + (5*config.sideMargin) + "," + config.sideMargin + ")";
+			.attr("transform", function(d, i){
+				var x = (5*config.sideMargin);
+				var y = config.sideMargin;
+				if( i === 1 ) {
+					x = (canvasRect.width - (data[1].width + (5*config.sideMargin)));
+				}
+				return "translate(" + x + "," + y + ")";
 			})
-			.attr("width", data[0].width )
-			.attr("height", data[0].height )
+			.attr("width", function(d){ return d.width; } )
+			.attr("height", function(d){ return d.height; } )
 			.attr("fill", "none")
 			.attr("border", "1")
 			.attr("stroke", "gray")
-			.style("stroke-dasharray", ("2,3"))
-			;
-			
-	first.append("text")
+			.style("stroke-dasharray", ("2,3"));
+	
+	lblGroup.selectAll("text")
+			.data(data)
+			.enter()
+			.append("text")
 			.style("font-size", "14px")
 			.attr("text-anchor", "middle")
-			.attr("transform", function(d) {
-				var diff = gene5PLabel.node().getBoundingClientRect().top - canvas.node().getBoundingClientRect().top;
+			.attr("transform", function(d, i) {
+				var baseRect = rect.nodes()[i];
+				var diff = baseRect.getBoundingClientRect().top - canvasRect.top;
 
-				var height = (gene5PLabel.node().getBoundingClientRect().height + diff)/2;
+				var height = (baseRect.getBoundingClientRect().height + diff)/2;
 				
-				var center = gene5PLabel.node().getBoundingClientRect().width/2 + (5*config.sideMargin);
-
-				return "translate(" + center + "," + (height+config.sideMargin) + ")";
-			})
-			.text("5' Gene");
-
-	var gene3PLabel = second.append("rect")
-			.attr("id", data[1].id)
-			.attr("class", "fusion-gene-label")
-			.attr("transform", function(d){
-				return "translate(" + (canvasRect.width - (data[1].width + (5*config.sideMargin))) + "," + config.sideMargin + ")";
-			})
-			.attr("width", data[1].width )
-			.attr("height", data[1].height )
-			.attr("fill", "none")
-			.attr("border", "1")
-			.attr("stroke", "gray")
-			.style("stroke-dasharray", ("2,3"))
-			;
-
-	second.append("text")
-			.style("font-size", "14px")
-			.attr("text-anchor", "middle")
-			.attr("transform", function(d) {
-				var diff = gene3PLabel.node().getBoundingClientRect().top - canvas.node().getBoundingClientRect().top;
+				var center = baseRect.getBoundingClientRect().width/2 + (5*config.sideMargin);
+				if( i === 1 ) {
+					diff = baseRect.getBoundingClientRect().top - canvasRect.top;
 		
-				var height = (gene3PLabel.node().getBoundingClientRect().height + diff)/2;
+					height = (baseRect.getBoundingClientRect().height + diff)/2;
 
-				var center = canvasRect.width - (data[1].width/2) - (5*config.sideMargin);
+					center = canvasRect.width - (data[1].width/2) - (5*config.sideMargin);
+				}
+				
+				var x = center;
+				var y = (height+config.sideMargin);
 
-				return "translate(" + center + "," + (height+10) + ")";
+				return "translate(" + x + "," + y + ")";
 			})
-			.text("3' Gene");
+			.text(function(d){ return d.label;});
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.initLayout = function() {
