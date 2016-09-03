@@ -196,9 +196,9 @@ $(document).ready(function () {
 //     to express which menu user has choosed
 //	check_m_state("mmchimerseqbtn");
 
-    ChimerSeqForm.init();
+	ChimerSeqForm.init();
 });
 
 function search() {
-    ChimerSeqForm.search();
+	ChimerSeqForm.search();
 }
