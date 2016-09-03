@@ -21,10 +21,11 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 
 	this.initDefs();
 
-	this.initLayout( this.config );
+//	this.initLayout( this.config );
 //	var genePanelJson = [{id:'#fusion-gene-label-group-5p', gene:this.config.fusionGene5p}, {id:'#fusion-gene-label-group-3p', gene:this.config.fusionGene3p}];
 
 	this.drawEachGeneAreaLabel( this.config );
+	this.drawGeneLabel( this.config );
 //	for(var i=0; i<genePanelJson.length; i++) {
 //		this.drawGeneLabel( this.config, genePanelJson[i].name, genePanelJson[i].gene );
 //		this.drawMessagerRnaIdLabel( this.config, genePanelJson[i].name, genePanelJson[i].gene );
@@ -406,27 +407,34 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawChromosomeLabel = function(conf
 		.text("Chromosome " + gene.chromosome + "  ("+ gene.map_location +")");
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneLabel = function(config, className, gene) {
-	var labelGroup = d3.selectAll( className );
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneLabel = function(config) {
+	var canvasRect = this.config.canvas.node().getBoundingClientRect();
+	var canvas = this.config.canvas;
 
-		labelGroup.append("text")
-		.style("font-size", "14px")
-		.attr("class", "gene-name-label")
-		.attr("text-anchor", "middle")
-		.attr("dominant-baseline", "central")
-		.attr("transform", function(d) {
-			var areaLabel = labelGroup.select(".fusion-gene-label");
-			var rect = areaLabel.node().getBoundingClientRect();
+	var data = [config.fusionInfo.fusionGene5p, config.fusionInfo.fusionGene3p];
+	
+	var lblGeneSymbolGroup = canvas.append("g").attr("id", "fusion-gene-symbol-label-group");
+	
+	lblGeneSymbolGroup.selectAll("text")
+			.data( data )
+			.enter()
+			.append("text")
+			.style("font-size", "14px")
+			.attr("class", "gene-name-label")
+			.attr("text-anchor", "middle")
+			.attr("dominant-baseline", "central")
+			.attr("transform", function(d, i) {
+				var MARGIN = 100;
+				var selector = (i===0?"5pGene_label_rect":"3pGene_label_rect");
 
-			var base = d3.select(config.container).node().getBoundingClientRect();
+				var rect = d3.select("rect[id='"+selector+"']").node().getBoundingClientRect();
 
-			if( className.endsWith('5p') ) {
-				return "translate(" + (rect.left-base.left+(rect.width/2)) + "," + (rect.bottom - base.top + (2*config.sideMargin)) + ")";
-			}else {
-				return "translate(" + (rect.left-base.left+(rect.width/2) - 100) + "," + (rect.bottom - base.top + (2*config.sideMargin)) + ")";
-			}
+				var x = relativeOffsetX(rect, canvasRect) + (rect.width/2);
+				var y = relativeOffsetY(rect, canvasRect) + rect.height + (2*config.sideMargin);
+
+				return "translate(" + (i===0?x:x-MARGIN) + "," + y + ")";
 		})
-		.text(gene.symbol);
+		.text(function(d){ return d.symbol; });
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawMessagerRnaIdLabel = function(config, className, gene) {
@@ -442,9 +450,9 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawMessagerRnaIdLabel = function(c
 
 			var base = d3.select(config.container).node().getBoundingClientRect();
 
-			var y1 = (rect.top - base.top) + (rect.height / 2) - 2;
+			var y1 = relativeOffsetY(rect, base) + (rect.height / 2) - 2;
 
-			return "translate(" + (rect.left-base.left+(rect.width/2) + 80) + "," + y1 + ")";
+			return "translate(" + ( relativeOffsetX(rect, base)+(rect.width/2) + 80) + "," + y1 + ")";
 		})
 		.text(gene.transcripts[0].attributesMap.Name);
 };
@@ -453,12 +461,13 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(co
 	var canvasRect = this.config.canvas.node().getBoundingClientRect();
 	var canvas = this.config.canvas;
 
-	var lblGroup = canvas.append("g")
-			.attr("id", "fusion-gene-label-group");
+	var lblGroup = canvas.append("g").attr("id", "fusion-gene-label-group");
 	
-	var labelWidth = canvasRect.width / 8;
-	var data = [{width:labelWidth,height:50,id:'5pGene',label:"5' Gene"}, {width:labelWidth,height:50,id:'3pGene',label:"3' Gene"}];
+	var LABEL_WIDTH = canvasRect.width / 8;
+	var SIDE_MARGIN = config.sideMargin * 5;
+	var data = [{width:LABEL_WIDTH,height:50,id:'5pGene',label:"5' Gene"}, {width:LABEL_WIDTH,height:50,id:'3pGene',label:"3' Gene"}];
 
+//	var lblGroup.append("g");
 	var rect = lblGroup.selectAll("rect")
 			.data(data)
 			.enter()
@@ -466,10 +475,10 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(co
 			.attr("id", function(d){return d.id + "_label_rect";})
 			.attr("class", "fusion-gene-label")
 			.attr("transform", function(d, i){
-				var x = (5*config.sideMargin);
-				var y = config.sideMargin;
+				var x = 5 * config.sideMargin;
+				var y = 3 * config.sideMargin;
 				if( i === 1 ) {
-					x = (canvasRect.width - (data[1].width + (5*config.sideMargin)));
+					x = (canvasRect.width - (d.width + SIDE_MARGIN));
 				}
 				return "translate(" + x + "," + y + ")";
 			})
@@ -479,30 +488,24 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(co
 			.attr("border", "1")
 			.attr("stroke", "gray")
 			.style("stroke-dasharray", ("2,3"));
-	
+
 	lblGroup.selectAll("text")
 			.data(data)
 			.enter()
 			.append("text")
 			.style("font-size", "14px")
 			.attr("text-anchor", "middle")
+			.attr("dominant-baseline", "central")
 			.attr("transform", function(d, i) {
 				var baseRect = rect.nodes()[i];
-				var diff = baseRect.getBoundingClientRect().top - canvasRect.top;
 
-				var height = (baseRect.getBoundingClientRect().height + diff)/2;
-				
-				var center = baseRect.getBoundingClientRect().width/2 + (5*config.sideMargin);
+				var relativeLabelRectTop = relativeOffsetY( baseRect.getBoundingClientRect(), canvasRect );
+
+				var x = (baseRect.getBoundingClientRect().width/2) + SIDE_MARGIN;
 				if( i === 1 ) {
-					diff = baseRect.getBoundingClientRect().top - canvasRect.top;
-		
-					height = (baseRect.getBoundingClientRect().height + diff)/2;
-
-					center = canvasRect.width - (data[1].width/2) - (5*config.sideMargin);
+					x = canvasRect.width - (d.width/2) - SIDE_MARGIN;
 				}
-				
-				var x = center;
-				var y = (height+config.sideMargin);
+				var y = relativeLabelRectTop + (d.height/2);
 
 				return "translate(" + x + "," + y + ")";
 			})
@@ -580,3 +583,13 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.initDefs = function() {
 	.attr("d", "M0,6 L6,0 L12,6 L6,12 L0,6 Z")
     .style("fill", "#555");
 };
+
+
+
+function relativeOffsetY(current, base) {
+	return current.top - base.top;
+}
+
+function relativeOffsetX(current, base) {
+	return current.left - base.left;
+}
