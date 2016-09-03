@@ -6,24 +6,34 @@
 
 /* global d3 */
 
-var ChimeraDbV3ViewerWithOutChromosome = function( config, gene1, gene2 ) {
+var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
     this.config = JSON.parse( JSON.stringify(config) );
 
-	var canvas = this.drawCanvas(this.config);
+	if( !this.config.canvas ) {
+		var canvasRect = d3.select(this.config.container).node().getBoundingClientRect();
 
-	var genePanelJson = [{name:'#fusion-gene-label-group-5p', gene:gene1}, {name:'#fusion-gene-label-group-3p', gene:gene2}];
-
-	this.initLayout( this.config );
-	this.drawEachGeneAreaLabel( this.config, gene1, gene2, canvas );
-	for(var i=0; i<genePanelJson.length; i++) {
-		this.drawGeneLabel( this.config, genePanelJson[i].name, genePanelJson[i].gene );
-		this.drawMessagerRnaIdLabel( this.config, genePanelJson[i].name, genePanelJson[i].gene );
-		this.drawChromosomeLabel( this.config, genePanelJson[i].name, genePanelJson[i].gene );
+		this.config.canvas = d3.select(this.config.container)
+			.append("svg")
+			.attr("id", "canvas")
+			.attr("width", canvasRect.width)
+			.attr("height", this.config.canvasHeight);
 	}
 
-	var fusionData = this.drawGeneStructure( this.config, genePanelJson, canvas, 1 );
-	
-	this.drawFusionGeneStructure( this.config, canvas, fusionData, 1 );
+	this.initDefs();
+
+	this.initLayout( this.config );
+//	var genePanelJson = [{id:'#fusion-gene-label-group-5p', gene:this.config.fusionGene5p}, {id:'#fusion-gene-label-group-3p', gene:this.config.fusionGene3p}];
+
+	this.drawEachGeneAreaLabel( this.config );
+//	for(var i=0; i<genePanelJson.length; i++) {
+//		this.drawGeneLabel( this.config, genePanelJson[i].name, genePanelJson[i].gene );
+//		this.drawMessagerRnaIdLabel( this.config, genePanelJson[i].name, genePanelJson[i].gene );
+//		this.drawChromosomeLabel( this.config, genePanelJson[i].name, genePanelJson[i].gene );
+//	}
+//
+//	var fusionData = this.drawGeneStructure( this.config, genePanelJson, canvas, 1 );
+//	
+//	this.drawFusionGeneStructure( this.config, canvas, fusionData, 1 );
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function( config, canvas, fusionData, drawingType ) {
@@ -439,8 +449,9 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawMessagerRnaIdLabel = function(c
 		.text(gene.transcripts[0].attributesMap.Name);
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(config, gene1, gene2, canvas) {
-	var canvasRect = d3.select(config.container).node().getBoundingClientRect();
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(config) {
+	var canvasRect = this.config.canvas.node().getBoundingClientRect();
+	var canvas = this.config.canvas;
 
 	var first = canvas.append("g")
 			.attr("id", "fusion-gene-label-group-5p");
@@ -506,57 +517,56 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(co
 			.text("3' Gene");
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.initLayout = function(config) {
-	var canvas = d3.select("#canvas");
-	var base = canvas.node().getBoundingClientRect();
-	
-	canvas.append("rect")
-			.attr("id", "fusion-gene-top-panel-5p")
-			.attr("class", "fusion-gene-top-panel")
-			.attr("width", base.width/2)
-			.attr("height", config.explainTopPanelHeight)
-			.attr("fill", "none")
-			.attr("x", 0)
-			.attr("y", 0);
-	
-	canvas.append("rect")
-			.attr("id", "fusion-gene-top-panel-3p")
-			.attr("class", "fusion-gene-top-panel")
-			.attr("width", base.width/2)
-			.attr("height", config.explainTopPanelHeight)
-			.attr("fill", "none")
-			.attr("x", base.width/2)
-			.attr("y", 0);
-	
-	var panel5p = canvas.append("rect")
-			.attr("id", "fusion-gene-5p-area")
-			.attr("class", "fusion-gene-panel")
-			.attr("width", base.width/2)
-			.attr("height", base.height - config.explainTopPanelHeight)
-			.attr("fill", "none")
-			.attr("x", 0)
-			.attr("y", config.explainTopPanelHeight);
+ChimeraDbV3ViewerWithOutChromosome.prototype.initLayout = function() {
+	var canvasRect = this.config.canvas.node().getBoundingClientRect();
 
-	var panel3p = canvas.append("rect")
-			.attr("id", "fusion-gene-3p-area")
-			.attr("class", "fusion-gene-panel")
-			.attr("width", base.width/2)
-			.attr("height", base.height - config.explainTopPanelHeight)
-			.attr("fill", "none")
-			.attr("x", base.width/2)
-			.attr("y", config.explainTopPanelHeight);
+	var canvas = this.config.canvas;
+
+	var group = canvas.append("g");
+	
+	group.append("rect")
+	.attr("id", "fusion-gene-top-panel-5p")
+	.attr("class", "fusion-gene-top-panel")
+	.attr("width", canvasRect.width/2)
+	.attr("height", this.config.topPanelHeightToExplain)
+	.attr("fill", "none")
+	.attr("x", 0)
+	.attr("y", 0);
+
+	group.append("rect")
+	.attr("id", "fusion-gene-top-panel-3p")
+	.attr("class", "fusion-gene-top-panel")
+	.attr("width", canvasRect.width/2)
+	.attr("height", this.config.topPanelHeightToExplain)
+	.attr("fill", "none")
+	.attr("x", canvasRect.width/2)
+	.attr("y", 0);
+
+	group.append("rect")
+	.attr("id", "fusion-gene-5p-area")
+	.attr("class", "fusion-gene-panel")
+	.attr("width", canvasRect.width/2)
+	.attr("height", canvasRect.height - this.config.topPanelHeightToExplain)
+	.attr("fill", "none")
+	.attr("x", 0)
+	.attr("y", this.config.topPanelHeightToExplain);
+
+	group.append("rect")
+	.attr("id", "fusion-gene-3p-area")
+	.attr("class", "fusion-gene-panel")
+	.attr("width", canvasRect.width/2)
+	.attr("height", canvasRect.height - this.config.topPanelHeightToExplain)
+	.attr("fill", "none")
+	.attr("x", canvasRect.width/2)
+	.attr("y", this.config.topPanelHeightToExplain);
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawCanvas = function(config) {
-	var canvasRect = d3.select(config.container).node().getBoundingClientRect();
+ChimeraDbV3ViewerWithOutChromosome.prototype.initDefs = function() {
+	var canvas = this.config.canvas;
 
-	var canvas = d3.select(config.container)
-			.append("svg")
-			.attr("id", "canvas")
-			.attr("width", canvasRect.width)
-			.attr("height", config.canvasHeight);
-
-	canvas.append("svg:defs").append("svg:marker")
+	var defs = canvas.append("svg:defs");
+			
+	defs.append("svg:marker")
 	.attr("id", "arrow")
 	.attr("refX", 2)
 	.attr("refY", 6)
@@ -567,7 +577,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawCanvas = function(config) {
 	.attr("d", "M2,2 L2,11 L10,6 L2,2")
 	.attr("fill", "#555");
 
-	canvas.append("svg:defs").append("svg:marker")
+	defs.append("svg:marker")
 	.attr("id", "diamond")
 	.attr("refX", 0)
 	.attr("refY", 6)
@@ -577,6 +587,4 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawCanvas = function(config) {
 	.append("svg:path")
 	.attr("d", "M0,6 L6,0 L12,6 L6,12 L0,6 Z")
     .style("fill", "#555");
-
-	return canvas;
 };

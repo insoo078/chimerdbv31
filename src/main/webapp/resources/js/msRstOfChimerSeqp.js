@@ -81,30 +81,27 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 		data : {"data":data},
 		dataType: "json",
 		success: function(jData) {
-			$("#chimer-seq-viewer").empty();
+			var container = "#chimer-seq-viewer";
+			$( container ).empty();
 
-			console.log( jData );
-
+			rowdata.fusionGene5p = jData.genes["5'"];
+			rowdata.fusionGene3p = jData.genes["3'"];
 			var config = {
 				organism: "human",
 				orientation: "horizontal",
-				chromosomes: [jData["5'"].chromosome, jData["3'"].chromosome],
 				chrMargin: 300,
 				chrHeight: 1024,
 				chrWidth: 20,
 				topMargin : 20,
 				sideMargin : 10,
 				canvasHeight : 500,
-				explainTopPanelHeight : 100,
+				topPanelHeightToExplain : 100,
 				fusionInfo : rowdata,
 				showBandLabels: true,
-				container: "#chimer-seq-viewer"
+				container: container
 			  };
 
-			  var gene1 = jData[0];
-			  var gene2 = jData[1];
-
-//			  var viewer = new ChimeraDbV3ViewerWithOutChromosome(config, gene1, gene2);
+			  var viewer = new ChimeraDbV3ViewerWithOutChromosome(config);
 		},
 		error: function(e, status) {
 			alert(status);
