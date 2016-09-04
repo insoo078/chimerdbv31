@@ -43,6 +43,8 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 	this.drawEachGeneAreaLabel( this.config );
 	this.drawGeneLabel( this.config );
 	this.drawMessagerRnaIdLabel( this.config );
+	this.drawChromosomeLabel( this.config );
+	
 //	for(var i=0; i<genePanelJson.length; i++) {
 //		this.drawGeneLabel( this.config, genePanelJson[i].name, genePanelJson[i].gene );
 //		this.drawMessagerRnaIdLabel( this.config, genePanelJson[i].name, genePanelJson[i].gene );
@@ -404,24 +406,55 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 	return fusionData;
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawChromosomeLabel = function(config, className, gene) {
-	var labelGroup = d3.selectAll( className );	
-		labelGroup.append("text")
-		.style("font-size", "14px")
-		.attr("class", "chromosome-label")
-		.attr("text-anchor", "middle")
-		.attr("dominant-baseline", "central")
-		.attr("transform", function(d) {
-			var areaLabel = labelGroup.select(".fusion-gene-label");
-			var geneLabel = labelGroup.select(".gene-name-label");
-			var rect = areaLabel.node().getBoundingClientRect();
-			var geneLableRect = geneLabel.node().getBoundingClientRect();
-			
-			var base = d3.select(config.container).node().getBoundingClientRect();
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawChromosomeLabel = function(config) {
+	var canvasRect = this.config.canvas.node().getBoundingClientRect();
+	var canvas = this.config.canvas;
 
-			return "translate(" + (rect.left-base.left+(rect.width/2)) + "," + (geneLableRect.bottom - base.top + (2*config.sideMargin)) + ")";
+	var data = [config.fusionInfo.fusionGene5p, config.fusionInfo.fusionGene3p];
+	
+	var lblGeneChrGroup = canvas.append("g").attr("id", "fusion-gene-chromosome-label-group");
+	
+	lblGeneChrGroup.selectAll("text")
+			.data( data )
+			.enter()
+			.append("text")
+			.attr("id",function(d, i){
+				return (i===0)?"gene-chromosome-5p":"gene-chromosome-3p";
+			})
+			.style("font-size", "14px")
+			.attr("class", "gene-name-label")
+			.attr("text-anchor", "middle")
+			.attr("dominant-baseline", "central")
+			.attr("transform", function(d, i) {
+				var areaLabel = labelGroup.select(".fusion-gene-label");
+				var geneLabel = labelGroup.select(".gene-name-label");
+				var rect = areaLabel.node().getBoundingClientRect();
+				var geneLableRect = geneLabel.node().getBoundingClientRect();
+				
+				var x = relativeOffsetX(rect, canvasRect)+(rect.width/2);
+				var y = relativeOffsetY(geneLableRect, base) + geneLabelRect.height + (2*config.sideMargin);
+
+				return "translate(" + x + "," + y + ")";
 		})
-		.text("Chromosome " + gene.chromosome + "  ("+ gene.map_location +")");
+		.text(function(d){ return d.chromosome; });
+
+//	var labelGroup = d3.selectAll( className );	
+//		labelGroup.append("text")
+//		.style("font-size", "14px")
+//		.attr("class", "chromosome-label")
+//		.attr("text-anchor", "middle")
+//		.attr("dominant-baseline", "central")
+//		.attr("transform", function(d) {
+//			var areaLabel = labelGroup.select(".fusion-gene-label");
+//			var geneLabel = labelGroup.select(".gene-name-label");
+//			var rect = areaLabel.node().getBoundingClientRect();
+//			var geneLableRect = geneLabel.node().getBoundingClientRect();
+//			
+//			var base = d3.select(config.container).node().getBoundingClientRect();
+//
+//			return "translate(" + (rect.left-base.left+(rect.width/2)) + "," + (geneLableRect.bottom - base.top + (2*config.sideMargin)) + ")";
+//		})
+//		.text("Chromosome " + gene.chromosome + "  ("+ gene.map_location +")");
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneLabel = function(config) {
@@ -484,24 +517,6 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawMessagerRnaIdLabel = function(c
 			})
 			.text(function(d){return d.canonicalTranscript.attributesMap.Name;});
 	;
-
-//	var labelGroup = d3.selectAll( className );	
-//		labelGroup.append("text")
-//		.style("font-size", "14px")
-//		.attr("class", "mirna-name-label")
-//		.attr("text-anchor", "middle")
-//		.attr("dominant-baseline", "central")
-//		.attr("transform", function(d) {
-//			var areaLabel = labelGroup.select(".gene-name-label");
-//			var rect = areaLabel.node().getBoundingClientRect();
-//
-//			var base = d3.select(config.container).node().getBoundingClientRect();
-//
-//			var y1 = relativeOffsetY(rect, base) + (rect.height / 2) - 2;
-//
-//			return "translate(" + ( relativeOffsetX(rect, base)+(rect.width/2) + 80) + "," + y1 + ")";
-//		})
-//		.text(gene.transcripts[0].attributesMap.Name);
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(config) {
