@@ -31,7 +31,7 @@ function initVariable(){
 
 function showAbstractText(rowObj){
             
-        var data = "fuspair=" + rowObj[0] + "&gene5junc=" + rowObj[1] + "&gene3junc=" + rowObj[2] + "&breaktype=" + rowObj[3] + "&disease=" + rowObj[4] + "&pmid=" + rowObj[8];
+        var data = "fuspair=" + rowObj[0] + "&gene5junc=" + rowObj[1] + "&gene3junc=" + rowObj[2] + "&breaktype=" + rowObj[3] + "&disease=" + rowObj[4] + "&pmid=" + rowObj[8] + "&hgene=" + rowObj[9] + "&tgene=" + rowObj[10];
 
         $.ajax({
             url: "getjournaldata.cdb",
@@ -39,11 +39,14 @@ function showAbstractText(rowObj){
             data : data,
             dataType: "json",
             success: function(jData) {
-                $("#selectedrowtitle").text(jData.title);
+                
+                $("#selectedfusiongene").text(jData.fusion_pair);
+                
+                $("#selectedrowtitle").html(jData.title);
                 
                 $("#dateofpublicationtxt").text(jData.dateofPublication);
                 $("#journaltxt").text(jData.journal);
-                $("#abstracttxt").text(jData.abstractText);                        
+                $("#abstracttxt").html(jData.abstractText);                        
             },
             error : function(xhr, status) {
 

@@ -87,6 +87,8 @@
                                                         <th>Chromosome Info.</th>
                                                         <th>Supported</th>
                                                         <th>PMID</th>
+                                                        <th>H_gene</th>
+                                                        <th>T_gene</th>
                                                     </tr>
                                                 </thead>
 
@@ -112,6 +114,8 @@
                                                                 </c:choose>
                                                             </td>
                                                             <td><c:out value="${chimerpubLst.getPMID()}" /></td>
+                                                            <td><c:out value="${chimerpubLst.getH_gene()}" /></td>
+                                                            <td><c:out value="${chimerpubLst.getT_gene()}" /></td>
                                                         </tr>
                                                     </c:forEach>
                                                 </tbody>
@@ -131,20 +135,32 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <span style="font-size: 20px; font-weight: bold;">Title : </span>
-                                <span id="selectedrowtitle" style="font-size: 20px; font-weight: bold;"></span>
+                                <span id="selectedfusiongene" style="font-size: 20px; font-weight: bold;"></span>
                             </div>
                             <div class="panel-body">
-                                <p id="dateofpublicationtxt">
-                                    
-                                </p>
-                                <br>
-                                <p id="journaltxt">
-                                    
-                                </p>
-                                <br>
-                                <p id="abstracttxt">
-                                    
-                                </p>
+                                
+                                <table class="table table-striped" style="width: 95%; margin: 0px auto;">
+                                    <tr>
+                                        <td style="width: 20%;"></td>
+                                        <td style="width: 25%;"></td>
+                                        <td style="width: 25%;"></td>
+                                        <td style="width: 30%; text-align: right;">
+                                            <span id="journaltxt"></span>&nbsp;&nbsp;&nbsp;
+                                            <span id="dateofpublicationtxt"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="text-align: center;">
+                                            <div id="selectedrowtitle"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <div id="abstracttxt"></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
                             </div>
                         </div>
                     </div>
