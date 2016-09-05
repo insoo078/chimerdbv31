@@ -524,33 +524,43 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawBreakPointInGeneStructure = fun
 		var exonPos = config.exonsOnScreen[obj.type];
 		var screenUnit = config.drawingObj[obj.type];
 
+		var breakPointX = -1;
+		var previous = null;
 		for(var j=0; j<transcriptExons.length; j++) {
 			var exon = transcriptExons[j];
 			var isoverlapped = isOverlappedPoint( exon, point );
 			if( isoverlapped ) {
 				var pos = exonPos.exons[ exon.elementIndex ];
-				var x = pos.x1 + screenUnit.final_unit_nt_size * (point - exon.start);
+				breakPointX = pos.x1 + screenUnit.final_unit_nt_size * (point - exon.start);
+				break;
+			}else if( previous !== null && exon.start > point && previous.end < point ){
+				var pos = exonPos.exons[ exon.elementIndex ];
+				var posPrev = exonPos.exons[previous.elementIndex];
+				breakPointX = pos.x1 - (pos.x1 - posPrev.x1)/2;
 
-				var breakPoint = backbone.select("#fusion-gene-backbone-" + obj.type).append("g");
-				breakPoint.append("line")
-						.attr("x1", x)
-						.attr("y1", 200)
-						.attr("x2", x)
-						.attr("y2", 230)
-						.attr("style", "stroke:#555;stroke-width:1;")
-						.attr("marker-end", "url(#arrow)");
-				;
-				
-				breakPoint.append("text")
-				.attr("class", "break-point-label")
-				.style("font-size", "14px")
-				.attr("text-anchor", "middle")
-				.attr("dominant-baseline", "bottom")
-				.attr('x', x)
-				.attr('y', 190)
-				.text( point );
+				break;
 			}
+			previous = exon;
 		}
+		
+		var breakPoint = backbone.select("#fusion-gene-backbone-" + obj.type).append("g");
+		breakPoint.append("line")
+				.attr("x1", breakPointX)
+				.attr("y1", 200)
+				.attr("x2", breakPointX)
+				.attr("y2", 230)
+				.attr("style", "stroke:#555;stroke-width:1;")
+				.attr("marker-end", "url(#arrow)");
+		;
+
+		breakPoint.append("text")
+		.attr("class", "break-point-label")
+		.style("font-size", "14px")
+		.attr("text-anchor", "middle")
+		.attr("dominant-baseline", "bottom")
+		.attr('x', breakPointX)
+		.attr('y', 190)
+		.text( point );
 	}
 };
 
