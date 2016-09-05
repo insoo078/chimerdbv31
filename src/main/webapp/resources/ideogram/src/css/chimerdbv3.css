@@ -32,7 +32,6 @@ and open the template in the editor.
 }
 
 .exon-feature-rect{
-	stroke:rgb();
 	stroke-width:1;
     stroke: rgb(230,230,230);
 }
@@ -42,4 +41,16 @@ and open the template in the editor.
 }
 .exon-feature-5p{
 	fill: rgb(249,102,31);
+}
+
+.structure-label{
+	fill:rgb(243, 243, 243);
+		stroke-width:0.2;
+		stroke: rgb(230,230,230);
+}
+
+.structure-background{
+	fill:rgb(253, 253, 253);
+		stroke-width:0.2;
+		stroke: rgb(230,230,230);	
 }

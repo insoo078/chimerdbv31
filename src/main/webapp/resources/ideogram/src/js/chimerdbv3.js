@@ -398,7 +398,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backb
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, backbone ) {
-	var canvasRect = this.config.canvas.node().getBoundingClientRect();
+//	var canvasRect = this.config.canvas.node().getBoundingClientRect();
 	
 	for( var i=0; i<config.fusion_genes.length; i++) {
 		var obj = config.fusion_genes[i];
@@ -455,41 +455,77 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, 
 			layerY += config.EXON_HEIGHT + 5;
 		}
 	}
+};
 
-		
-//			
-//			var realDomainLength = getLength( domain );
-//			var onlyLength = 0;
-//			
-//			if( drawingType === 1 )
-//				onlyLength = realDomainLength;
-//			else if( drawingType === 2 )
-//				onlyLength = config.drawingObj[obj.type].whole_exon_length / transcriptExons.length;
-//			else if( drawingType === 3 ) {
-//				var ratio = realExonLength/(config.drawingObj[obj.type].whole_exon_length/transcriptExons.length);
-//				var stable_length = (config.drawingObj[obj.type].whole_exon_length / transcriptExons.length) * 0.6;
-//				var variable_length = ((config.drawingObj[obj.type].whole_exon_length / transcriptExons.length) * 0.4) * ratio;
-//
-//				onlyLength = stable_length + variable_length;
-//			}
-//			
-//			var width = onlyLength * config.drawingObj[obj.type].final_unit_nt_size;
-//			domainGroup.append("rect")
-//				.classed("domain-feature-rect", true)
-//				.attr("rx", 2)
-//				.attr("ry", 2)
-//				.attr("x", x1)
-//				.attr("y", config.EXON_Y_POS)
-//				.attr("width", width)
-//				.attr("height", config.EXON_HEIGHT);
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawLabel= function( config, labelData ){
+	var canvasRect = this.config.canvas.node().getBoundingClientRect();
+	
+	var label = d3.select("#fusion-gene-backbone-group").insert("g", ":first-child").attr("id", "each-gene-structure-label");
+	
+	label.append("g")
+			.selectAll("rect")
+			.data( labelData )
+			.enter()
+			.append("rect")
+			.classed("structure-background", true)
+			.attr("x", function(d){
+				return d.startX + d.width;
+			})
+			.attr("y", function(d){
+				return d.startY;
+			})
+			.attr("width", function(d){
+				return canvasRect.width - (d.startX + d.width) - (2*config.sideMargin);
+			})
+			.attr("height", function(d){
+				return d.height;
+			});					
+
+	var lblGene = label.append("g");
+			lblGene.selectAll("rect")
+			.data( labelData )
+			.enter()
+			.append("rect")
+			.classed("structure-label", true)
+			.attr("x", function(d){
+				return d.startX;
+			})
+			.attr("y", function(d){
+				return d.startY;
+			})
+			.attr("width", function(d){
+				return d.width;
+			})
+			.attr("height", function(d){
+				return d.height;
+			});
+
+	lblGene.selectAll("text")
+		.data(labelData)
+		.enter()
+		.append("text")
+		.attr("text-anchor", "middle")
+		.attr("baseline-shift", "-24%")
+		.attr("x",function(d){return d.startX + d.width/2;})
+		.attr("y", function(d){return d.startY + d.height/2;} )
+		.text( function(d){return d.name;} );
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( config, drawingType ) {
 	this.drawUnitLengthOfEachGene( config );
-			
+
 	var backbone = this.drawDonorGeneBackbone( config );
 	this.drawExons( config, backbone, drawingType );
 	this.drawPfamdomains( config, backbone );
+
+	var domainAreaHeight = Math.max(d3.select(".domain-group-5pGene").node().getBoundingClientRect().height, d3.select(".domain-group-3pGene").node().getBoundingClientRect().height);
+	
+		var labelData = [
+					{name:"Gene", startX:config.sideMargin, startY:(config.EXON_Y_POS - 7.5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:30}
+					,{name:"Domain", startX:config.sideMargin, startY:(config.EXON_Y_POS + config.EXON_HEIGHT + 5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:domainAreaHeight + 5}
+	];
+	
+	this.drawLabel( config, labelData );
 };
 
 
