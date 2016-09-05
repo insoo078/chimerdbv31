@@ -273,9 +273,27 @@ public class ChimerPubController {
             param.setDisease( request.getParameter("disease") );
             param.setPMID( request.getParameter("pmid") );
             
+            param.setH_gene( request.getParameter("hgene") );
+            param.setT_gene( request.getParameter("tgene") );
             
             JSONObject jsonData = null;
             ChimerPubVo rowdata = this.chimerPubService.getJournal(param);
+            
+            String replace_title1 = rowdata.getTitle().replaceAll(param.getH_gene(), "<span style='color:#990033;font-size:15px;font-weight:bold;'>"+param.getH_gene()+"</span>");
+            String replace_title2 = replace_title1.replaceAll(param.getT_gene(), "<span style='color:#3300cc;font-size:15px;font-weight:bold;'>"+param.getT_gene()+"</span>");
+            rowdata.setTitle(replace_title2);
+            
+            String[] sliceTxt = rowdata.getAbstractText().split("\\.{2}",2);
+            String replace_txt1 = null;
+            String replace_txt2 = null;
+            if( sliceTxt.length > 1){
+                replace_txt1 = sliceTxt[1].replaceAll(param.getH_gene(), "<span style='color:#990033;font-size:15px;font-weight:bold;'>"+param.getH_gene()+"</span>");
+            }else{
+                replace_txt1 = rowdata.getAbstractText().replaceAll(param.getH_gene(), "<span style='color:#990033;font-size:15px;font-weight:bold;'>"+param.getH_gene()+"</span>");
+            }
+            replace_txt2 = replace_txt1.replaceAll(param.getT_gene(), "<span style='color:#3300cc;font-size:15px;font-weight:bold;'>"+param.getT_gene()+"</span>");
+            rowdata.setAbstractText(replace_txt2);
+            
             jsonData = JSONObject.fromObject(rowdata);
             
             return jsonData.toString();

@@ -53,28 +53,28 @@
                                     <div class="row margin-bottom-15">
                                         <div class="col-md-7">
                                             <label class="radio-inline" style="margin-right: 20px;">
-                                                <input type="radio" name="search_type_rdo" id="search_type_rdo1" value="by_gene" >Gene
+                                                <input type="radio" name="search_type_rdo" id="search_type_gene_rdo" value="by_gene" >Gene
                                             </label>
                                             <label class="checkbox-inline">
-                                                <input type="checkbox" id="by_gene_chk_5" value="5" >5'
+                                                <input type="checkbox" id="by_gene_chk_5" checked="checked" value="5" >5'
                                             </label>
                                             <label class="checkbox-inline">
-                                                <input type="checkbox" id="by_gene_chk_3" value="3" >3'
+                                                <input type="checkbox" id="by_gene_chk_3" checked="checked" value="3" >3'
                                             </label>
                                         </div>
                                         <div class="col-md-5">
-                                            <input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);">
+                                            <input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);" onclick="checkbtnofradio('by_gene');">
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label class="radio-inline">
-                                                <input type="radio" name="search_type_rdo" value="by_gene_pair">Gene pair
+                                                <input type="radio" name="search_type_rdo" id="search_type_gp_rdo" value="by_gene_pair">Gene pair
                                             </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);">
+                                            <input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);" onclick="checkbtnofradio('by_gene_pair');">
                                         </div>
                                     </div>
 
@@ -83,11 +83,11 @@
                                     <div class="row margin-bottom-15">
                                         <div class="col-md-4">
                                             <label class="radio-inline">
-                                                <input type="radio" name="search_type_rdo" value="by_disease">Disease
+                                                <input type="radio" name="search_type_rdo" id="search_type_dses_rdo" value="by_disease">Disease
                                             </label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;" >
+                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;" onclick="checkbtnofradio('by_disease');">
                                         </div>
                                     </div>
                                 </div>

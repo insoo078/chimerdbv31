@@ -47,6 +47,7 @@ function checkbtnofradio(type){
     
     if( type === "by_gene" ){
         $("#by_gene_chk_5").prop("checked",true);
+        $("#by_gene_chk_3").prop("checked",true);
     }else{
         if( $("input:checkbox[id='by_gene_chk_5']").is(":checked") ){
             $("#by_gene_chk_5").prop("checked",false);
@@ -57,7 +58,10 @@ function checkbtnofradio(type){
     }
 }
 
-function validatnmtd_toggle(){
+
+
+
+function validatnmtd_toggle(type){
     var flag = $("input:checkbox[id='vm_none_chk']").is(":checked");
     switch(type){
         case "fish":{

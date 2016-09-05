@@ -140,6 +140,33 @@ function init_variable_values(){
     
 }
 
+//
+function checkbtnofradio(type){
+    switch(type){
+        case "by_gene":{
+                $("#search_type_gene_rdo").prop("checked",true);
+        };break;
+        case "by_gene_pair":{
+                $("#search_type_gp_rdo").prop("checked",true);
+        };break;
+        case "by_disease":{
+                $("#search_type_dses_rdo").prop("checked",true);
+        };break;
+    }
+    
+    if( type === "by_gene" ){
+        $("#by_gene_chk_5").prop("checked",true);
+        $("#by_gene_chk_3").prop("checked",true);
+    }else{
+        if( $("input:checkbox[id='by_gene_chk_5']").is(":checked") ){
+            $("#by_gene_chk_5").prop("checked",false);
+        }
+        if( $("input:checkbox[id='by_gene_chk_3']").is(":checked") ){
+            $("#by_gene_chk_3").prop("checked",false);
+        }
+    }
+}
+
 
 
 
@@ -254,12 +281,22 @@ function searching(){
                                     $("#chimerdb_empty_data").modal("show");
                                     return;
                                 }else{
-                                    if( $("input:checkbox[id='by_gene_chk_5']").is(":checked") == true ){
+                                    var gene5flag = $("input:checkbox[id='by_gene_chk_5']").is(":checked");
+                                    var gene3flag = $("input:checkbox[id='by_gene_chk_3']").is(":checked");
+                                    if( (gene5flag == false) && (gene3flag == false) ){
+                                        //$("#by_gene_chk_5").prop("checked",true);
+                                        //$("#by_gene_chk_3").prop("checked",true);
+                                        gene5flag = true;
+                                        gene3flag = true;
+                                    }
+                                    
+                                    if( gene5flag == true ){
                                         keyVal += ","+"5";
                                     }
-                                    if( $("input:checkbox[id='by_gene_chk_3']").is(":checked") == true ){
+                                    if( gene3flag == true ){
                                         keyVal += ","+"3";
                                     }
+                                    alert(keyVal);
                                     $("#key_data_for_search_type").val( keyVal );
                                 }
                         };break;
