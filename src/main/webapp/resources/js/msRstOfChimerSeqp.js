@@ -81,10 +81,9 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 		data : {"data":data},
 		dataType: "json",
 		success: function(jData) {
-			var container = "#chimer-seq-viewer";
-//			$( container ).empty();
+			var container = "#chimer-seq-viewer-content";
 
-			d3.select('svg').remove();
+			d3.selectAll('svg').remove();
 
 			rowdata.fusionGene5p = jData.genes["5'"];
 			rowdata.fusionGene3p = jData.genes["3'"];
@@ -97,13 +96,16 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 				topMargin : 20,
 				sideMargin : 10,
 				canvasHeight : 500,
-				topPanelHeightToExplain : 100,
+				topPanelHeightToExplain : 170,
 				fusionInfo : rowdata,
 				showBandLabels: true,
 				container: container
 			  };
 
+//			  console.log( config );
 			  var viewer = new ChimeraDbV3ViewerWithOutChromosome(config);
+			  
+//			  console.log( viewer.getConfig() );
 		},
 		error: function(e, status) {
 			alert(status);
