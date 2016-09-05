@@ -341,6 +341,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawDonorGeneBackbone = function( c
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( config, drawingType ) {
+	var canvasRect = this.config.canvas.node().getBoundingClientRect();
+
 	this.drawUnitLengthOfEachGene( config );
 			
 	var backbone = this.drawDonorGeneBackbone( config );
@@ -372,7 +374,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 			x1 += (1 * config.drawingObj[obj.type].no_of_intron_size) * config.drawingObj[obj.type].final_unit_nt_size;
 
 			var width = onlyLength * config.drawingObj[obj.type].final_unit_nt_size;
-			exonGroup.append("rect")
+			var exonRect = exonGroup.append("rect")
 				.classed("exon-feature-rect", true)
 				.classed("exon-feature-3p", obj.type==="3pGene"?true:false)
 				.classed("exon-feature-5p", obj.type==="5pGene"?true:false)
@@ -382,6 +384,13 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 				.attr("y", 240)
 				.attr("width", width)
 				.attr("height", 20);
+		
+			exonGroup.append("text")
+				.attr("text-anchor", "middle")
+				.attr("dominant-baseline", "central")
+				.attr("x", (x1 + (width/2)))
+				.attr("y", (240 + (20/2)))
+				.text( transcriptExons[i].elementIndex );
 
 			x1 += width;
 		}
