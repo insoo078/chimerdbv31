@@ -72,6 +72,7 @@ public class ChimerSeqService {
 
 			fusionGene.addGene( loc[i], obj );
 		}
+
 		return fusionGene;
 	}
 	

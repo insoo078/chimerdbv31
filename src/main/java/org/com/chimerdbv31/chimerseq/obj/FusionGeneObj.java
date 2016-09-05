@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import org.com.chimerdbv31.chimerseq.com.Utilities;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
 import org.com.chimerdbv31.chimerseq.vo.PfamVo;
@@ -23,17 +22,26 @@ public class FusionGeneObj extends ChimerSeqVo{
 	public static final String _3P_GENE = "3'";
 	
 	private Map<String, GeneObj> genes;
+	private Map<String, List<Gff3Vo>> fusedExons;
 	
 	public FusionGeneObj(ChimerSeqVo vo) {
 		super( vo.getId(), vo.getFusion_pair(), vo.getGene5Junc(), vo.getGene3Junc(), vo.getBreakpoint_Type()
 				, vo.getCancertype(), vo.getBarcodeID(), vo.getFrame(), vo.getChr_info(), vo.getSource()
-				, vo.getChimerKB(), vo.getChimerPub(), vo.getSupported(), vo.getT_gene(), vo.getH_gene() );
+				, vo.getChimerKB(), vo.getChimerPub(), vo.getSupported(), vo.getT_gene(), vo.getH_gene(), vo.getExon_breakpoint() );
 
 		this.genes = new LinkedHashMap<String, GeneObj>();
 	}
 
 	public Map<String, GeneObj> getGenes() {
 		return genes;
+	}
+
+	public Map<String, List<Gff3Vo>> getFusedExons() {
+		return fusedExons;
+	}
+
+	public void setFusedExons(Map<String, List<Gff3Vo>> fusedExons) {
+		this.fusedExons = fusedExons;
 	}
 
 	public void addGene( String geneLoc, GeneObj gene ) {
@@ -48,6 +56,8 @@ public class FusionGeneObj extends ChimerSeqVo{
 	private void reArrangeRelativePositionInGeneBoundary( GeneObj gene ) {
 		this.reArrangeRelativePositionExonsInGeneBoundary( gene );
 		this.reArrangeRelativePositionPfamDomainsInGeneBoundary( gene );
+
+		this.fusedExons = this.reArrangeBreakedFusionGene();
 	}
 	
 	// Exon 영역의 위치를 상대위치로 재조정하는 메소드
@@ -86,5 +96,55 @@ public class FusionGeneObj extends ChimerSeqVo{
 				vo.addFragment( fragment );
 			}
 		}
+	}
+	
+	private Map<String, List<Gff3Vo>> reArrangeBreakedFusionGene() {
+		Map<String, List<Gff3Vo>> map = new LinkedHashMap<String, List<Gff3Vo>>();
+		for (String keyGeneType : this.getGenes().keySet()) {
+			GeneObj gene = this.getGenes().get(keyGeneType);
+
+			String strBreakPoint = this.getGene3Junc();
+			if( keyGeneType.equals( FusionGeneObj._5P_GENE ) ) {
+				strBreakPoint = this.getGene5Junc();
+			}
+			String[] divs = strBreakPoint.split(":");
+			String chr = divs[0];
+			int breakPoint = Integer.valueOf(divs[1]);
+
+			List<Gff3Vo> fusedGenes = new ArrayList<Gff3Vo>();
+
+			for(Gff3Vo gff : gene.getCanonicalTranscript().getExons()) {
+				if( keyGeneType.equals( FusionGeneObj._5P_GENE ) ) {
+					if( gff.getEnd() < breakPoint ) {
+						Gff3Vo newGff = gff.clone();
+						fusedGenes.add( newGff );
+					}else if( gff.getStart() <= breakPoint && gff.getEnd() >= breakPoint ) {
+						Gff3Vo newGff = gff.clone();
+
+						if( gff.getStart() < breakPoint && gff.getEnd() >= breakPoint ) {
+							gff.setEnd(breakPoint);
+						}
+
+						fusedGenes.add( newGff );
+					}
+				}else {
+					if( gff.getStart() > breakPoint ) {
+						Gff3Vo newGff = gff.clone();
+						fusedGenes.add( newGff );
+					}else if( gff.getStart() <= breakPoint && gff.getEnd() >= breakPoint ) {
+						Gff3Vo newGff = gff.clone();
+
+						if( gff.getStart() < breakPoint && gff.getEnd() >= breakPoint ) {
+							gff.setStart(breakPoint);
+						}
+
+						fusedGenes.add( newGff );
+					}
+				}
+			}
+
+			map.put( keyGeneType, fusedGenes );
+		}
+		return map;
 	}
 }

@@ -72,6 +72,7 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 	this.drawChromosomeLabel( this.config );
 
 	this.drawGeneStructure( this.config, 1 );
+
 //	var fusionData = this.drawGeneStructure( this.config, genePanelJson, canvas, 1 );
 //	
 //	this.drawFusionGeneStructure( this.config, canvas, fusionData, 1 );
@@ -419,9 +420,9 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, 
 				var fragment = domainFragments[k];
 				for(var t=0; t<transcriptExons.length; t++) {
 					var exon = transcriptExons[t];
-					var sum = (fragment.end - fragment.start + 1) + (exon.end - exon.start+1);
-					var max = Math.max(fragment.end, exon.relativeEnd) - Math.min(fragment.start, exon.relativeStart) + 1;
-					if( sum > max ) {
+
+					var isoverlapped = isOverlapped( fragment, exon );
+					if( isoverlapped ) {
 						var pos = exonPos.exons[ exon.elementIndex ];
 
 						domainLayerGroup.append("rect")
@@ -511,6 +512,48 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawLabel= function( config, labelD
 		.text( function(d){return d.name;} );
 };
 
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawBreakPointInGeneStructure = function( config, backbone ) {
+	for( var i=0; i<config.fusion_genes.length; i++) {
+		var obj = config.fusion_genes[i];
+		var transcriptExons = obj.gene.canonicalTranscript.exons;
+		
+		var divs = config.fusionInfo.gene5Junc.split(":");
+		if( obj.type === "3pGene")	divs = config.fusionInfo.gene3Junc.split(":");
+		var point = divs[1];
+		
+		var exonPos = config.exonsOnScreen[obj.type];
+		var screenUnit = config.drawingObj[obj.type];
+
+		for(var j=0; j<transcriptExons.length; j++) {
+			var exon = transcriptExons[j];
+			var isoverlapped = isOverlappedPoint( exon, point );
+			if( isoverlapped ) {
+				var pos = exonPos.exons[ exon.elementIndex ];
+				var x = pos.x1 + screenUnit.final_unit_nt_size * (point - exon.start);
+
+				var breakPoint = backbone.select("#fusion-gene-backbone-" + obj.type).append("g");
+				breakPoint.append("line")
+						.attr("x1", x)
+						.attr("y1", 200)
+						.attr("x2", x)
+						.attr("y2", 230)
+						.attr("style", "stroke:#555;stroke-width:1;")
+						.attr("marker-end", "url(#arrow)");
+				;
+				
+				breakPoint.append("text")
+				.attr("class", "break-point-label")
+				.style("font-size", "14px")
+				.attr("text-anchor", "middle")
+				.attr("dominant-baseline", "bottom")
+				.attr('x', x)
+				.attr('y', 190)
+				.text( point );
+			}
+		}
+	}
+};
+
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( config, drawingType ) {
 	this.drawUnitLengthOfEachGene( config );
 
@@ -524,8 +567,9 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 					{name:"Gene", startX:config.sideMargin, startY:(config.EXON_Y_POS - 7.5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:30}
 					,{name:"Domain", startX:config.sideMargin, startY:(config.EXON_Y_POS + config.EXON_HEIGHT + 5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:domainAreaHeight + 5}
 	];
-	
+
 	this.drawLabel( config, labelData );
+	this.drawBreakPointInGeneStructure( config, backbone );
 };
 
 
@@ -807,7 +851,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawChromosomeLabel = function(conf
 
 				return "translate(" + x + "," + y + ")";
 		})
-		.text(function(d){ return d.gene.chromosome.replace("chr", "Chromosome ") + "( "+d.gene.strand+" )"; });
+		.text(function(d){ return d.gene.chromosome.replace("chr", "Chromosome ") + ":" + d.gene.start + "-" + d.gene.end + " ( "+d.gene.strand+" )"; });
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneLabel = function(config) {
@@ -978,7 +1022,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.initDefs = function() {
 			
 	defs.append("svg:marker")
 		.attr("id", "arrow")
-		.attr("refX", 2)
+		.attr("refX", 10)
 		.attr("refY", 6)
 		.attr("markerWidth", 13)
 		.attr("markerHeight", 13)
@@ -1001,35 +1045,41 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.initDefs = function() {
 	
 	var mk = defs.append("svg:marker")
 		.attr("id", "double_arrow_left")
-		.attr("refX", 2)
-		.attr("refY", 2)
-		.attr("markerWidth", 13)
-		.attr("markerHeight", 13);
-		mk.append("svg:path")
-		.attr("d", "M2,2 L4,0 L4,4 Z")
-		.attr("fill", "white")
-		.attr("style", "stroke:#555;stroke-width:0.4;");
+		.attr("refX", 0)
+		.attr("refY", 8)
+		.attr("markerWidth", 16)
+		.attr("markerHeight", 16)
+		.attr("orient", "auto")
+		.attr("markerUnits", "userSpaceOnUse");
 
 		mk.append("svg:path")
-		.attr("d", "M3.5,2 L5.5,0 L5.5,4 Z")
+		.attr("d", "M0,8 L8,0 L8,16 L0,8 Z")
+		.attr("fill", "none")
+		.attr("style", "stroke:#555;stroke-width:2;");
+
+		mk.append("svg:path")
+		.attr("d", "M6.5,8 L14.5,0 L14.5,16 L6.5,8 Z")
 		.attr("fill", "white")
-		.attr("style", "stroke:#555;stroke-width:0.5;");
+		.attr("style", "stroke:#555;stroke-width:2;");
 
 	var mk = defs.append("svg:marker")
 		.attr("id", "double_arrow_right")
-		.attr("refX", 2)
-		.attr("refY", 2)
-		.attr("markerWidth", 13)
-		.attr("markerHeight", 13);
-		mk.append("svg:path")
-		.attr("d", "M4,2 L2,4 L2,0 Z")
-		.attr("fill", "white")
-		.attr("style", "stroke:#555;stroke-width:0.4;");
+		.attr("refX", 0)
+		.attr("refY", 8)
+		.attr("markerWidth", 16)
+		.attr("markerHeight", 16)
+		.attr("orient", "auto")
+		.attr("markerUnits", "userSpaceOnUse");
 
 		mk.append("svg:path")
-		.attr("d", "M5.5,2 L3.5,4 L3.5,0 Z")
+		.attr("d", "M0,0 L0,16 L8,8 L0,0 Z")
 		.attr("fill", "white")
-		.attr("style", "stroke:#555;stroke-width:0.5;");
+		.attr("style", "stroke:#555;stroke-width:2;");
+
+		mk.append("svg:path")
+		.attr("d", "M6.5,0 L6.5,16 L14.5,8 L6.5,0 Z")
+		.attr("fill", "white")
+		.attr("style", "stroke:#555;stroke-width:2;");
 };
 
 function relativeOffsetY(current, base) {
@@ -1061,4 +1111,19 @@ function getWithOfScreenForGene(gene_length, GENE_TOTAL_LENGTH, BACKBONE_LENGTH)
 
 function getLength(obj) {
 	return obj.end - obj.start + 1;
+}
+
+function isOverlapped( fragment, exon ) {
+	var sum = (fragment.end - fragment.start + 1) + (exon.end - exon.start+1);
+	var max = Math.max(fragment.end, exon.relativeEnd) - Math.min(fragment.start, exon.relativeStart) + 1;
+	
+	if( sum > max )	return true;
+	
+	return false;
+}
+
+function isOverlappedPoint( range, point ) {
+	if( range.start <= point && range.end >= point )	return true;
+	
+	return false;
 }

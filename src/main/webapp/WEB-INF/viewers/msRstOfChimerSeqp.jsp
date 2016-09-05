@@ -95,6 +95,9 @@
 									<td>Source</td>
 									<td>Supported</td>
 									<td>id</td>
+									<td>h_gene</td>
+									<td>t_gene</td>
+									<td>exon_breakpoint</td>
 								</tr>
 							</thead>
 						</table>

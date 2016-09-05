@@ -59,6 +59,9 @@
 			, Chr_info AS chr_info , Source AS source, ChimerKB AS chimerKB, ChimerPub AS chimerPub, CONCAT(ChimerKB, "_", ChimerPub) AS supported
 			, a.T_gene AS t_gene, a.H_gene AS h_gene
 			, a.id
+			, a.T_gene AS t_gene
+			, a.H_gene AS h_gene
+			, a.Exon_breakpoint AS exon_breakpoint
 		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
 		WHERE a.id=b.id
 		<!-- Search method -->

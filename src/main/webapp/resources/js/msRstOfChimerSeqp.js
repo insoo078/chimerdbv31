@@ -43,7 +43,8 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 			{"data":"supported"},
 			{"data":"id"},
 			{"data":"h_gene"},
-			{"data":"t_gene"}
+			{"data":"t_gene"},
+			{"data":"exon_breakpoint"}
 		],
 		"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
 			var imgTag = "";
@@ -85,8 +86,8 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 
 			d3.selectAll('svg').remove();
 
-			rowdata.fusionGene5p = jData.genes["5'"];
-			rowdata.fusionGene3p = jData.genes["3'"];
+			jData.fusionGene5p = jData.genes["5'"];
+			jData.fusionGene3p = jData.genes["3'"];
 			var config = {
 				organism: "human",
 				orientation: "horizontal",
@@ -97,7 +98,7 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 				sideMargin : 10,
 				canvasHeight : 500,
 				topPanelHeightToExplain : 170,
-				fusionInfo : rowdata,
+				fusionInfo : jData,
 				showBandLabels: true,
 				container: container
 			  };
