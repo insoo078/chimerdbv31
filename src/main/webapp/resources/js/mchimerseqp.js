@@ -93,6 +93,7 @@ var ChimerSeqForm = {
 		});
 	},
 	setTcgaInOptionPanel: function() {
+		var ChimerSeq = this;
 		$("#chkTcgaOption1").change(function(){
 			var flag = $(this).is(':checked');
 
@@ -197,6 +198,14 @@ $(document).ready(function () {
 //	check_m_state("mmchimerseqbtn");
 
 	ChimerSeqForm.init();
+	
+	$("#resetButton").click(function(){
+		$("form").each(function() {  
+			this.reset();  
+		 });
+
+		ChimerSeqForm.init();
+	});
 });
 
 function search() {
