@@ -182,4 +182,13 @@ public class GeneObj extends GeneBaseObj{
 	public void setNoOfExons(int noOfExons) {
 		this.noOfExons = noOfExons;
 	}
+	
+//	
+//	public void validatePfamDomains() {
+//		for(PfamVo pfam : this.pFamDomainList) {
+//			for(Gff3Vo gff : this.canonicalTranscript.getExons() ) {
+//				pfam.getch
+//			}
+//		}
+//	}
 }

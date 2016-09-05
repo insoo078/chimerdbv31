@@ -12,8 +12,10 @@ package org.com.chimerdbv31.chimerseq.obj;
 public class DomainFragmentObj {
 	private int start;
 	private int end;
+	private String name;
 	
-	public DomainFragmentObj(int start, int end) {
+	public DomainFragmentObj(String name, int start, int end) {
+		this.name = name;
 		this.start = start;
 		this.end = end;
 	}
@@ -32,5 +34,13 @@ public class DomainFragmentObj {
 
 	public void setEnd(int end) {
 		this.end = end;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

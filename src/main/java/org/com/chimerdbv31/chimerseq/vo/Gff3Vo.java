@@ -24,6 +24,9 @@ public class Gff3Vo {
 	private String attributes;
 	private Map<String, String> attributesMap;
 	
+	private int relativeStart;
+	private int relativeEnd;
+	
 	private int elementIndex;
 
 	public int getElementIndex() {
@@ -120,6 +123,22 @@ public class Gff3Vo {
 
 	public Map<String, String> getAttributesMap() {
 		return attributesMap;
+	}
+
+	public int getRelativeStart() {
+		return relativeStart;
+	}
+
+	public void setRelativeStart(int relativeStart) {
+		this.relativeStart = relativeStart;
+	}
+
+	public int getRelativeEnd() {
+		return relativeEnd;
+	}
+
+	public void setRelativeEnd(int relativeEnd) {
+		this.relativeEnd = relativeEnd;
 	}
 
 }

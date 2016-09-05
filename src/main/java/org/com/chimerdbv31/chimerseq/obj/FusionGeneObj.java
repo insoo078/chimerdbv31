@@ -5,9 +5,11 @@
  */
 package org.com.chimerdbv31.chimerseq.obj;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import org.com.chimerdbv31.chimerseq.com.Utilities;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
 import org.com.chimerdbv31.chimerseq.vo.PfamVo;
@@ -53,12 +55,12 @@ public class FusionGeneObj extends ChimerSeqVo{
 		int start = gene.getStart();
 
 		TranscriptObj transcript = gene.getCanonicalTranscript();
-		transcript.setStart( transcript.getStart() - start );
-		transcript.setEnd( transcript.getEnd() - start );
+		transcript.setRelativeStart(transcript.getStart() - start );
+		transcript.setRelativeEnd(transcript.getEnd() - start );
 
 		for(Gff3Vo vo:transcript.getExons()) {
-			vo.setStart( vo.getStart() - start );
-			vo.setEnd( vo.getEnd() - start );
+			vo.setRelativeStart( vo.getStart() - start );
+			vo.setRelativeEnd( vo.getEnd() - start );
 		}
 	}
 	
@@ -68,18 +70,19 @@ public class FusionGeneObj extends ChimerSeqVo{
 
 		List<PfamVo> pfamDomainList = gene.getpFamDomainList();
 		for(PfamVo vo:pfamDomainList) {
-			vo.setChromStart( vo.getChromStart() - start );
-			vo.setChromEnd( vo.getChromEnd() - start );
+//			vo.setChromStart( vo.getChromStart() - start );
+//			vo.setChromEnd( vo.getChromEnd() - start );
 
 			String[] starts = vo.getChromStarts().split(",");
 			String[] blockSizes = vo.getBlockSizes().split(",");
 
+			int offset = vo.getChromStart() - gene.getStart();
 			for(int i=0; i<starts.length; i++) {
-				int domainFragmentStart = Integer.valueOf( starts[i] );
-				int domainFragmentEnd = Integer.valueOf( starts[i] ) + Integer.valueOf(blockSizes[i]);
-				
-				DomainFragmentObj fragment = new DomainFragmentObj( domainFragmentStart, domainFragmentEnd );
-				
+				int domainFragmentStart = Integer.valueOf( starts[i] ) + offset;
+				int domainFragmentEnd = Integer.valueOf( starts[i] ) + Integer.valueOf(blockSizes[i]) + offset;
+
+				DomainFragmentObj fragment = new DomainFragmentObj( vo.getName(), domainFragmentStart, domainFragmentEnd );
+
 				vo.addFragment( fragment );
 			}
 		}
