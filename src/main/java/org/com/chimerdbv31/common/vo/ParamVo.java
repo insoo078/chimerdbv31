@@ -25,6 +25,10 @@ public class ParamVo {
     private String queryForBreakPointType;
     private String queryForValidationMtd;
     
+    //chimerPub
+    private int numOfPub;
+    private int txtMiningScore;
+    
     //chimerSeq
     private String queryForSource;
     private String queryForCancerType;
@@ -145,6 +149,23 @@ public class ParamVo {
         this.queryForValidationMtd = queryForValidationMtd;
     }
 
+    public int getNumOfPub() {
+        return numOfPub;
+    }
+
+    public void setNumOfPub(int numOfPub) {
+        this.numOfPub = numOfPub;
+    }
+
+    public int getTxtMiningScore() {
+        return txtMiningScore;
+    }
+
+    public void setTxtMiningScore(int txtMiningScore) {
+        this.txtMiningScore = txtMiningScore;
+    }
+
+    
     public String getQueryForCancerType() {
         return queryForCancerType;
     }

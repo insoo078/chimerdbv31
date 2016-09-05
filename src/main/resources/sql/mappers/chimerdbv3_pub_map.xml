@@ -16,6 +16,142 @@
         </choose>
     </select>
 
+    <select id="getChimerPubResult" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerpub.vo.ChimerPubVo">
+        select
+            t1.ChimerDB_Type as ChimerDB_Type
+            , t1.Fusion_pair as Fusion_pair
+            , t2.Fusion_pair as Fusion_pair2
+            , t1.5Gene_Junction as gene5Junc
+            , t1.3Gene_Junction as gene3Junc
+            , t1.H_gene as H_gene
+            , t1.H_chr as H_chr
+            , t1.H_position as H_position
+            , t1.H_strand as H_strand
+            , t1.T_gene as T_gene
+            , t1.T_chr as T_chr
+            , t1.T_position as T_position
+            , t1.T_strand as T_strand
+            , t1.Genomic_breakpoint as Genomic_breakpoint
+            , t1.Exon_breakpoint as Exon_breakpoint
+            , t1.Breakpoint_Type as Breakpoint_Type
+            , t1.Genome_Build_Version as Genome_Build_Version
+            , t1.PMID as PMID
+            , t1.Disease as Disease
+            , t1.Validation as Validation
+            , t1.Score as Score
+            , t1.Title as Title
+            , t1.DateofPublication as DateofPublication
+            , t1.Journal as Journal
+            , t1.AbstractText as AbstractText
+            , t1.Frame as Frame
+            , t1.Chr_info as Chr_info
+            , t1.H_locus as H_locus
+            , t1.T_locus as T_locus
+            , t1.Kinase as Kinase
+            , t1.Oncogene as Oncogene
+            , t1.Tumor_suppressor as Tumor_suppressor
+            , t1.Receptor as Receptor
+            , t1.Transcription_Factor as Transcription_Factor
+            , t1.ChimerKB as ChimerKB
+            , t1.ChimerSeq as ChimerSeq
+            , t2.num_pub as num_pub
+        from ChimerDB3.ChimerPub_ver1 t1,
+        (
+        select Fusion_pair, count(Fusion_pair) as num_pub from 
+        (select distinct Fusion_pair, PMID from ChimerDB3.ChimerPub_ver1) it1 group by it1.Fusion_pair
+        ) t2
+        where 1=1
+        
+        <choose>
+            <when test="searchType == 'by_gene'">
+                <choose>
+                    <when test="gene5">
+                        and t1.H_gene = "${dataForSearchType}" 
+                    </when>
+                    <when test="gene3">
+                        and t1.T_gene = "${dataForSearchType}" 
+                    </when>
+                    <when test="gene53">
+                        and t1.H_gene = "${dataForSearchType}" or t1.T_gene = "${dataForSearchType}" 
+                    </when>
+                </choose>
+            </when>
+            <when test="searchType == 'by_gene_pair'">
+                and t1.Fusion_pair = "${dataForSearchType}" 
+                and t2.Fusion_pair = "${dataForSearchType}" 
+            </when>
+            <when test="searchType == 'by_disease'">
+                and t1.Disease like "%${dataForSearchType}%" 
+            </when>
+            <when test="searchType == 'by_chr_locus'">
+                and (t1.H_locus like "${dataForSearchType}%" or t1.T_locus like "${dataForSearchType}%")
+            </when>
+        </choose>
+        
+        <if test="numOfPub != null and numOfPub != ''"> and t2.num_pub >=  ${numOfPub} </if>
+        <if test="txtMiningScore != null and txtMiningScore != ''"> and t1.Score >= ${txtMiningScore} </if>
+        <if test="queryForBreakPointType != null and queryForBreakPointType != ''"> and t1.Breakpoint_Type in (${queryForBreakPointType}) </if>
+        <if test="queryForValidationMtd != null and queryForValidationMtd != ''"> and t1.Validation in (${queryForValidationMtd}) </if>
+        <if test="queryForFilterByFunc != null and queryForFilterByFunc != ''"> and (${queryForFilterByFunc}) </if>
+        <if test="queryForFusType != null and queryForFusType != ''"> and t1.Chr_info in (${queryForFusType}) </if>
+        <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>;
+        
+    </select>
+
+
+    <select id="getJournal" parameterType="org.com.chimerdbv31.chimerpub.vo.ChimerPubVo" resultType="org.com.chimerdbv31.chimerpub.vo.ChimerPubVo">
+        select
+            t1.ChimerDB_Type as ChimerDB_Type
+            , t1.Fusion_pair as Fusion_pair
+            , t1.5Gene_Junction as gene5Junc
+            , t1.3Gene_Junction as gene3Junc
+            , t1.H_gene as H_gene
+            , t1.H_chr as H_chr
+            , t1.H_position as H_position
+            , t1.H_strand as H_strand
+            , t1.T_gene as T_gene
+            , t1.T_chr as T_chr
+            , t1.T_position as T_position
+            , t1.T_strand as T_strand
+            , t1.Genomic_breakpoint as Genomic_breakpoint
+            , t1.Exon_breakpoint as Exon_breakpoint
+            , t1.Breakpoint_Type as Breakpoint_Type
+            , t1.Genome_Build_Version as Genome_Build_Version
+            , t1.PMID as PMID
+            , t1.Disease as Disease
+            , t1.Validation as Validation
+            , t1.Score as Score
+            , t1.Title as Title
+            , t1.DateofPublication as DateofPublication
+            , t1.Journal as Journal
+            , t1.AbstractText as AbstractText
+            , t1.Frame as Frame
+            , t1.Chr_info as Chr_info
+            , t1.H_locus as H_locus
+            , t1.T_locus as T_locus
+            , t1.Kinase as Kinase
+            , t1.Oncogene as Oncogene
+            , t1.Tumor_suppressor as Tumor_suppressor
+            , t1.Receptor as Receptor
+            , t1.Transcription_Factor as Transcription_Factor
+            , t1.ChimerKB as ChimerKB
+            , t1.ChimerSeq as ChimerSeq
+        from ChimerDB3.ChimerPub_ver1 t1
+        where 1=1
+        
+        <if test="Fusion_pair != null and Fusion_pair != ''"> and t1.Fusion_pair =  "${Fusion_pair}" </if>
+        <if test="gene5Junc != null and gene5Junc != ''"> and t1.gene5Junc like "%${gene5Junc}%" </if>
+        <if test="gene3Junc != null and gene3Junc != ''"> and t1.gene3Junc like "%${gene3Junc}%" </if>
+        <if test="Breakpoint_Type != null and Breakpoint_Type != ''"> and t1.Breakpoint_Type =  "${Breakpoint_Type}" </if>
+        <if test="Disease != null and Disease != ''"> and t1.Disease =  "${Disease}" </if>
+        <if test="PMID != null and PMID != ''"> and t1.PMID =  "${PMID}" </if>
+        limit 1;
+        
+        
+        
+    </select>
+
+
 <!--    
     <select id="q1_result_for_search" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
         SELECT DISTINCT Fusion_pair,

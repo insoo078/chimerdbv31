@@ -10,4 +10,5 @@ public interface ChimerKbMapper {
 	public int getChimerKBTotalNumber(ParamVo param);
 	public List<ChimerKbVo> getChimerKBResult(ParamVo param);
         public ChimerKbVo getSelectedFGeneData(ChimerKbVo param);
+        public List<String> getDiseaseList(String keyStr);
 }

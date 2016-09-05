@@ -20,8 +20,8 @@
         select distinct
           ChimerDB_Type, Source, webSource
         , Fusion_pair
-        , if( instr(5Gene_Junction, "NA") > -1, if(  substring_index(5Gene_Junction,":",-1) = "NA", "", substring_index(5Gene_Junction,":",-1) )  , 5Gene_Junction ) as gene5Junc 
-        , if( instr(3Gene_Junction, "NA") > -1, if(  substring_index(3Gene_Junction,":",-1) = "NA", "", substring_index(3Gene_Junction,":",-1) ) , 3Gene_Junction ) as gene3Junc
+        , if( instr(5Gene_Junction, "NA") > 0, if(  substring_index(5Gene_Junction,":",-1) = "NA", "", substring_index(5Gene_Junction,":",-1) )  , 5Gene_Junction ) as gene5Junc 
+        , if( instr(3Gene_Junction, "NA") > 0, if(  substring_index(3Gene_Junction,":",-1) = "NA", "", substring_index(3Gene_Junction,":",-1) ) , 3Gene_Junction ) as gene3Junc
         , H_gene
         , if(H_chr = "NA","",H_chr) as H_chr
         , H_position
@@ -33,10 +33,13 @@
         , Genomic_breakpoint, Exon_breakpoint
         , if(Breakpoint_Type = "NA", "", Breakpoint_Type) as Breakpoint_Type
         , Genome_Build_Version
-        , H_tanscript, H_exon, T_tanscript, T_exon
+        , if(H_tanscript = "NA","", H_tanscript) as H_tanscript 
+        , if(H_exon = "NA","", H_exon) as H_exon 
+        , if(T_tanscript = "NA","", T_tanscript) as T_tanscript 
+        , if(T_exon = "NA","", T_exon) as T_exon
         , if(PMID = "NA","",PMID) as PMID
         , if(Disease = "NA","",Disease) as Disease
-        , Validation
+        , if(Validation = "NA","", Validation) as Validation
         , if(Frame = "NA","",Frame) as Frame
         , Chr_info, H_locus, T_locus, Kinase, Oncogene, Tumor_suppressor, Receptor
         , Transcription_Factor, ChimerSeq, ChimerPub
@@ -110,6 +113,19 @@
         <if test="Breakpoint_Type != null and Breakpoint_Type != ''"> and Breakpoint_Type = "${Breakpoint_Type}" </if>
         
         limit 1;
+    </select>
+    
+    <select id="getDiseaseList" parameterType="String" resultType="String">
+        select distinct(Disease) lst from ChimerDB3.ChimerKB_ver5
+        where Disease != "NA"
+        <choose>
+            <when test="_parameter != null and _parameter != ''">
+                and Disease like "%${_parameter}%" ;
+            </when>
+            <otherwise>
+                limit 10;
+            </otherwise>
+        </choose>
     </select>
     
     

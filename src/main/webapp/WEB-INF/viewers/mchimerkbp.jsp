@@ -53,28 +53,28 @@
                                     <div class="row margin-bottom-15">
                                         <div class="col-md-7">
                                             <label class="radio-inline" style="margin-right: 20px;">
-                                                <input type="radio" name="search_type_rdo" id="search_type_rdo1" value="by_gene" >Gene
+                                                <input type="radio" name="search_type_rdo" id="search_type_gene_rdo" value="by_gene" >Gene
                                             </label>
                                             <label class="checkbox-inline">
-                                                <input type="checkbox" id="by_gene_chk_5" value="5" >5'
+                                                <input type="checkbox" id="by_gene_chk_5" checked="checked" value="5" >5'
                                             </label>
                                             <label class="checkbox-inline">
-                                                <input type="checkbox" id="by_gene_chk_3" value="3" >3'
+                                                <input type="checkbox" id="by_gene_chk_3" checked="checked" value="3" >3'
                                             </label>
                                         </div>
                                         <div class="col-md-5">
-                                            <input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);">
+                                            <input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);" onclick="checkbtnofradio('by_gene');">
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label class="radio-inline">
-                                                <input type="radio" name="search_type_rdo" value="by_gene_pair">Gene pair
+                                                <input type="radio" name="search_type_rdo" id="search_type_gp_rdo" value="by_gene_pair">Gene pair
                                             </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);">
+                                            <input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);" onclick="checkbtnofradio('by_gene_pair');">
                                         </div>
                                     </div>
 
@@ -83,11 +83,11 @@
                                     <div class="row margin-bottom-15">
                                         <div class="col-md-4">
                                             <label class="radio-inline">
-                                                <input type="radio" name="search_type_rdo" value="by_disease">Disease
+                                                <input type="radio" name="search_type_rdo" id="search_type_dses_rdo" value="by_disease">Disease
                                             </label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;" >
+                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;" onclick="checkbtnofradio('by_disease');">
                                         </div>
                                     </div>
                                 </div>
@@ -135,9 +135,9 @@
                             </div>
                             <div class="row margin-bottom-15">
                                 <div class="col-md-11 col-md-offset-1">
-                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_2_genomic_chk" >Genomic breakpoint</label>
-                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_2_exon_chk" checked="checked">Exon breakpoint</label>
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_2_na_chk" onclick="chimerkb_no_breakpoint_toggle();">No breakpoint information</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_2_genomic_chk" onclick="chimerkb_breaktype_toggle('genomic');" >Genomic breakpoint</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_2_exon_chk" onclick="chimerkb_breaktype_toggle('exon');" checked="checked">Exon breakpoint</label>
+                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_2_na_chk" onclick="chimerkb_breaktype_toggle('no');">No breakpoint information</label>
                                 </div>
                             </div>
                             
@@ -146,10 +146,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-11 col-md-offset-1">
-                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_fish_chk" >FISH</label>
-                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_sanger_chk" >SangerSeq</label>
-                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_rtpcr_chk" >RT-PCR</label>
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_3_none_chk" onclick="chimerkb_no_evidence_toggle();" checked="checked">No evidence</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_fish_chk" onclick="chimerkb_validatnmtd_toggle('fish');" >FISH</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_sanger_chk" onclick="chimerkb_validatnmtd_toggle('sanger');" >SangerSeq</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_rtpcr_chk" onclick="chimerkb_validatnmtd_toggle('pcr');" >RT-PCR</label>
+                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_3_none_chk" onclick="chimerkb_validatnmtd_toggle('no');" checked="checked">No evidence</label>
                                 </div>
                             </div>
                         </div>
@@ -244,7 +244,7 @@
             <div class="row margin-bottom-30" style="margin-top: 30px; ">
 
                 <div class="col-md-12" style="text-align: right;">
-                    <button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" >
+                    <button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" onclick="resetall();" >
                         <span class="fa fa-arrow-left"></span>&nbsp;&nbsp;Reset
                     </button>
                     <button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" onclick="searching();">

@@ -50,7 +50,7 @@
                                     <div class="row margin-bottom-15">
                                         <div class="col-md-7">
                                             <label class="radio-inline" style="margin-right: 20px;">
-                                                <input type="radio" name="search_type_rdo" id="search_type_rdo1" value="by_gene" >Gene
+                                                <input type="radio" name="search_type_rdo" id="search_type_gene_rdo" value="by_gene" >Gene
                                             </label>
                                             <label class="checkbox-inline">
                                                 <input type="checkbox" id="by_gene_chk_5" value="5" >5'
@@ -60,29 +60,29 @@
                                             </label>
                                         </div>
                                         <div class="col-md-5">
-                                            <input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);">
+                                            <input id="by_gene_txt" class="form-control" title="type &quot;T&quot;" value="ALK" onfocus="clearText(this);" onblur="clearText(this);" onclick="checkbtnofradio('by_gene');">
                                         </div>
                                     </div>
 
                                     <div class="row margin-bottom-15">
                                         <div class="col-md-6">
                                             <label class="radio-inline">
-                                                <input type="radio" name="search_type_rdo" value="by_gene_pair">Gene pair
+                                                <input type="radio" name="search_type_rdo" id="search_type_gp_rdo" value="by_gene_pair" checked="checked">Gene pair
                                             </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);">
+                                            <input id="by_gene_pair_txt" class="form-control" title="type &quot;T&quot;" value="EML4_ALK" onfocus="clearText(this);" onblur="clearText(this);" onclick="checkbtnofradio('by_gene_pair');">
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-md-7">
                                             <label class="radio-inline">
-                                                <input type="radio" name="search_type_rdo" value="by_chr_locus">Chromosome locus
+                                                <input type="radio" name="search_type_rdo" id="search_type_chr_rdo" value="by_chr_locus">Chromosome locus
                                             </label>
                                         </div>
                                         <div class="col-md-5">
-                                            <input id="by_chr_locus_txt" class="form-control" title="type &quot;T&quot;" value="2p23" onfocus="clearText(this);" onblur="clearText(this);">
+                                            <input id="by_chr_locus_txt" class="form-control" title="type &quot;T&quot;" value="2p23" onfocus="clearText(this);" onblur="clearText(this);" onclick="checkbtnofradio('by_chr_locus');">
                                         </div>
                                     </div>
 
@@ -91,17 +91,17 @@
                                     <div class="row margin-bottom-15">
                                         <div class="col-md-4">
                                             <label class="radio-inline">
-                                                <input type="radio" name="search_type_rdo" value="by_disease">Disease
+                                                <input type="radio" name="search_type_rdo" id="search_type_dses_rdo" value="by_disease">Disease
                                             </label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;">
+                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;" onclick="checkbtnofradio('by_disease');">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4" style="text-align: center;">
                                     <label class="radio-inline">
-                                        <input type="radio" name="search_type_rdo" value="all_genes" checked="checked">Show all entries
+                                        <input type="radio" name="search_type_rdo" value="all_genes" >Show all entries
                                     </label>
                                 </div>
                         </div>
@@ -129,7 +129,20 @@
                                                 <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Number of Publications&nbsp;&nbsp;>=&nbsp;&nbsp;</span>
                                             </td>
                                             <td>
-                                                <input class="form-control" style="width: 70px; height: 25px;" onfocus="clearText(this);" onblur="clearText(this);">
+                                                <input class="form-control" id="pub_num_txt" value="1" style="width: 70px; height: 25px;" onfocus="clearText(this);" onblur="clearText(this);">
+                                            </td>
+                                        </tr>
+                                    </table>
+                            </div>
+                            
+                            <div class="row margin-bottom-15">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Text Mining Score&nbsp;&nbsp;>=&nbsp;&nbsp;</span>
+                                            </td>
+                                            <td>
+                                                <input class="form-control" id="txt_mining_score_txt" value="10" style="width: 70px; height: 25px;" onfocus="clearText(this);" onblur="clearText(this);">
                                             </td>
                                         </tr>
                                     </table>
@@ -142,10 +155,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-11 col-md-offset-1">
-                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_fish_chk" >FISH</label>
-                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_sanger_chk" >SangerSeq</label>
-                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_3_rtpcr_chk" >RT-PCR</label>
-                                    <label class="checkbox-inline"><input type="checkbox" id="chimrKb_3_none_chk" onclick="chimerkb_no_evidence_toggle();" checked="checked">No evidence</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="vm_fish_chk" onclick="validatnmtd_toggle('fish');" >FISH</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="vm_sanger_chk" onclick="validatnmtd_toggle('sanger');" >SangerSeq</label>
+                                    <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="vm_rtpcr_chk" onclick="validatnmtd_toggle('pcr');" >RT-PCR</label>
+                                    <label class="checkbox-inline"><input type="checkbox" id="vm_none_chk" onclick="validatnmtd_toggle('no');" checked="checked">No evidence</label>
                                 </div>
                             </div>
                             
@@ -170,11 +183,11 @@
                                 </div>
                                 <div class="row margin-bottom-15">
                                     <div class="col-md-11 col-md-offset-1">
-                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbyfunc_kinase_chk" >Kinase fusion</label>
-                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbyfunc_onco_chk" checked="checked">Oncogene</label>
-                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbyfunc_tumor_chk" >Tumor suppressor</label>
-                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbyfunc_recpt_chk" >Receptor</label>
-                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfunc_transcript_chk" checked="checked">Transcription factor</label>
+                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="fbyfunc_kinase_chk" >Kinase fusion</label>
+                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="fbyfunc_onco_chk" checked="checked">Oncogene</label>
+                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="fbyfunc_tumor_chk" >Tumor suppressor</label>
+                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="fbyfunc_recpt_chk" >Receptor</label>
+                                        <label class="checkbox-inline"><input type="checkbox" id="fbyfunc_transcript_chk" checked="checked">Transcription factor</label>
                                     </div>
                                 </div>
 
@@ -184,8 +197,8 @@
                                 </div>
                                 <div class="row margin-bottom-15">
                                     <div class="col-md-11 col-md-offset-1">
-                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbyfusn_inter_chr_chk" value="inter_chr" checked="checked">Inter chromosomal</label>
-                                        <label class="checkbox-inline"><input type="checkbox" id="chimrKb_fbyfusn_intra_chr_chk" value="intra_chr" >Intra chromosomal</label>
+                                        <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="fbyfusn_inter_chr_chk" value="inter_chr" checked="checked">Inter chromosomal</label>
+                                        <label class="checkbox-inline"><input type="checkbox" id="fbyfusn_intra_chr_chk" value="intra_chr" >Intra chromosomal</label>
                                     </div>
                                 </div>
 
@@ -195,8 +208,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-11 col-md-offset-1">
-                                        <label class="checkbox-inline" id="chimrKb_fbySupot_chimrKBS_lvl" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbySupot_chimrKBS_chk" >ChimerKB supported</label>
-                                        <label class="checkbox-inline" id="chimrKb_fbySupot_chimrSeqS_lvl"><input type="checkbox" id="chimrKb_fbySupot_chimrSeqS_chk" >ChimerSeq supported</label>
+                                        <label class="checkbox-inline" id="chimrKb_fbySupot_chimrKBS_lvl" style="margin-right: 20px;"><input type="checkbox" id="fbySupot_chimrKBS_chk" >ChimerKB supported</label>
+                                        <label class="checkbox-inline" id="chimrKb_fbySupot_chimrSeqS_lvl"><input type="checkbox" id="fbySupot_chimrSeqS_chk" >ChimerSeq supported</label>
                                     </div>
                                 </div>
                             </div>
@@ -234,25 +247,14 @@
     
     <form id="resultmain_form" method="POST" action="msrstofchimerpub.cdb">
         
-        <input id="key_activated_tab" type="hidden" name="key_activated_tab" /> <!-- chimerKB, chimerSeq, chimerPub -->
         <input id="key_a_search_type" type="hidden" name="key_a_search_type" />
         <input id="key_data_for_search_type" type="hidden" name="key_data_for_search_type" />
         
-        <input id="key_selt_the_websource" type="hidden" name="key_selt_the_websource" />
         
-        <input id="key_kb_selt_the_source" type="hidden" name="key_kb_selt_the_source" />
-        <input id="key_kb_selt_the_breakpoint" type="hidden" name="key_kb_selt_the_breakpoint" />
-        <input id="key_kb_selt_the_validtn_mtd" type="hidden" name="key_kb_selt_the_validtn_mtd" />
+        <input id="key_num_of_pub" type="hidden" name="key_num_of_pub" />
+        <input id="key_txt_mining_score" type="hidden" name="key_txt_mining_score" />
+        <input id="key_pub_selt_the_validtn_mtd" type="hidden" name="key_pub_selt_the_validtn_mtd" />
         
-        <input id="key_seq_selt_the_source" type="hidden" name="key_seq_selt_the_source" />
-        <input id="key_seq_cancer_type" type="hidden" name="key_seq_cancer_type" />
-        <input id="key_seq_val_of_number" type="hidden" name="key_seq_val_of_number" />
-        
-        <input id="key_seq_num_of_seed_reads" type="hidden" name="key_seq_num_of_seed_reads" />
-        <input id="key_seq_num_of_s_pairs" type="hidden" name="key_seq_num_of_s_pairs" />
-        <input id="key_seq_num_of_junc_reads" type="hidden" name="key_seq_num_of_junc_reads" />
-        
-
         <input id="key_flt_by_func" type="hidden" name="key_flt_by_func" />
         <input id="key_flt_by_fusn_type" type="hidden" name="key_flt_by_fusn_type" />
         <input id="key_flt_by_supted_info" type="hidden" name="key_flt_by_supted_info" />

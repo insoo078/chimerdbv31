@@ -126,8 +126,11 @@ $(document).ready(function () {
         "Vascular and perivascular tumor, special type"];
     
     $("#by_disease_txt").autocomplete({
-        minLength:3,
-        source: autoCmplteData
+        minLength:2,
+        source: "chimerkbdiseaselst.cdb"
+//        select: function(event,ui){
+//            ui.item ? "Selected: " + ui.item.value + " aka " + ui.item.id : "Nothing selected, input was " + this.value ;
+//        }
     });
     
 });
@@ -137,11 +140,58 @@ function init_variable_values(){
     
 }
 
+//
+function checkbtnofradio(type){
+    switch(type){
+        case "by_gene":{
+                $("#search_type_gene_rdo").prop("checked",true);
+        };break;
+        case "by_gene_pair":{
+                $("#search_type_gp_rdo").prop("checked",true);
+        };break;
+        case "by_disease":{
+                $("#search_type_dses_rdo").prop("checked",true);
+        };break;
+    }
+    
+    if( type === "by_gene" ){
+        $("#by_gene_chk_5").prop("checked",true);
+        $("#by_gene_chk_3").prop("checked",true);
+    }else{
+        if( $("input:checkbox[id='by_gene_chk_5']").is(":checked") ){
+            $("#by_gene_chk_5").prop("checked",false);
+        }
+        if( $("input:checkbox[id='by_gene_chk_3']").is(":checked") ){
+            $("#by_gene_chk_3").prop("checked",false);
+        }
+    }
+}
 
 
 
 
 
+function chimerkb_breaktype_toggle(type){
+    var flag = $("input:checkbox[id='chimrKb_2_na_chk']").is(":checked");
+    switch(type){
+        case "genomic":{
+            if(flag){
+                $("#chimrKb_2_na_chk").prop("checked",function(){ return false; });
+            }
+        };break;
+        case "exon":{
+            if(flag){
+                $("#chimrKb_2_na_chk").prop("checked",function(){ return false; });
+            }
+        };break;
+        case "no":{
+            if(flag){
+                $("#chimrKb_2_genomic_chk").prop("checked",function(){ return false; });
+                $("#chimrKb_2_exon_chk").prop("checked",function(){ return false; });
+            }
+        };break;
+    }
+}
 
 
 function chimerkb_no_breakpoint_toggle(){
@@ -152,6 +202,34 @@ function chimerkb_no_breakpoint_toggle(){
         if( $("input:checkbox[id='chimrKb_2_exon_chk']").is(":checked") == true ){
             $("#chimrKb_2_exon_chk").prop("checked",function(){ return false; });
         }
+    }
+}
+
+function chimerkb_validatnmtd_toggle(type){
+    var flag = $("input:checkbox[id='chimrKb_3_none_chk']").is(":checked");
+    switch(type){
+        case "fish":{
+            if(flag){
+                $("#chimrKb_3_none_chk").prop("checked",function(){ return false; });
+            }
+        };break;
+        case "sanger":{
+            if(flag){
+                $("#chimrKb_3_none_chk").prop("checked",function(){ return false; });
+            }
+        };break;
+        case "pcr":{
+            if(flag){
+                $("#chimrKb_3_none_chk").prop("checked",function(){ return false; });
+            }
+        };break;
+        case "no":{
+            if(flag){
+                $("#chimrKb_3_fish_chk").prop("checked",function(){ return false; });
+                $("#chimrKb_3_sanger_chk").prop("checked",function(){ return false; });
+                $("#chimrKb_3_rtpcr_chk").prop("checked",function(){ return false; });
+            }
+        };break;
     }
 }
 
@@ -170,7 +248,13 @@ function chimerkb_no_evidence_toggle(){
 }
 
 
-
+function resetall(){
+    $('input:checkbox').each(function(){
+     if(this.checked){
+            this.checked = false;
+      }
+    });
+}
 
 
 
@@ -197,12 +281,22 @@ function searching(){
                                     $("#chimerdb_empty_data").modal("show");
                                     return;
                                 }else{
-                                    if( $("input:checkbox[id='by_gene_chk_5']").is(":checked") == true ){
+                                    var gene5flag = $("input:checkbox[id='by_gene_chk_5']").is(":checked");
+                                    var gene3flag = $("input:checkbox[id='by_gene_chk_3']").is(":checked");
+                                    if( (gene5flag == false) && (gene3flag == false) ){
+                                        //$("#by_gene_chk_5").prop("checked",true);
+                                        //$("#by_gene_chk_3").prop("checked",true);
+                                        gene5flag = true;
+                                        gene3flag = true;
+                                    }
+                                    
+                                    if( gene5flag == true ){
                                         keyVal += ","+"5";
                                     }
-                                    if( $("input:checkbox[id='by_gene_chk_3']").is(":checked") == true ){
+                                    if( gene3flag == true ){
                                         keyVal += ","+"3";
                                     }
+                                    alert(keyVal);
                                     $("#key_data_for_search_type").val( keyVal );
                                 }
                         };break;

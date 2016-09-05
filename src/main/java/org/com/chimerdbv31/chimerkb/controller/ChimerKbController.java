@@ -5,6 +5,7 @@ import java.util.Locale;
 import javax.annotation.Resource;
 import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.com.chimerdbv31.chimerkb.services.ChimerKbService;
 import org.com.chimerdbv31.chimerkb.vo.ChimerKbVo;
@@ -131,8 +132,8 @@ public class ChimerKbController {
                     dataArr = null;
                     queryStr = new StringBuffer();
 
-                    if(data.indexOf("all") > -1){                    
-                        //sParam.setQueryForBreakPointType();
+                    if(data.indexOf("none") > -1){                    
+                        sParam.setQueryForBreakPointType(" 'NA' ");
                     }else{
                         dataArr = data.split(",");
                         if(dataArr != null && dataArr.length > 0){
@@ -166,8 +167,8 @@ public class ChimerKbController {
                     dataArr = null;
                     queryStr = new StringBuffer();
 
-                    if(data.indexOf("all") > -1){                    
-                        //sParam.setQueryForValidationMtd();
+                    if(data.indexOf("none") > -1){                    
+                        sParam.setQueryForValidationMtd(" 'NA' ");
                     }else{
                         dataArr = data.split(",");
                         if(dataArr != null && dataArr.length > 0){
@@ -405,41 +406,13 @@ public class ChimerKbController {
         }
         
         
-//	
-//	@RequestMapping(value = "/interpro", method = RequestMethod.GET)
-//	public String interproscan(Locale locale, Model model) {
-//		
-//		logger.debug("[interpro]");
-//		
-//		return "analysis/genome_analysis";
-//	}
-//	
-//	@RequestMapping(value = "/geneGroupSearch", method = RequestMethod.GET)
-//	public String geneGroupSearch(Locale locale, Model model) {
-//		logger.info("Welcome home! The client locale is {}.", locale);
-//		
-//		return "viewer/geneGroupSearch";
-//	}
-//	
-//
-//	//all data
-//	@RequestMapping(value = "/getPagedGeneGroupSearchDesyncResult", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-//	@ResponseBody
-//	public String getPagedGeneGroupSearchDesyncResult(HttpServletRequest request) throws Exception {
-//		//예제 013783, 015129, 013098
-//		//IPR002944,IPR000175	protein 20개
-//		//IPR012284,IPR012473	ptotein 2개
-//
-//		String iprIds[] = request.getParameterValues("ipr_ids");
-//		String iprFamilies[] = request.getParameterValues("ipr_families");
-//		String iprSubTypes[] = request.getParameterValues("ipr_subtypes");
-//		String radio = request.getParameter("radio");
-//		String perfectMatch = request.getParameter("chkPerfectMatch");
-//		String pagingSize = request.getParameter("pagingSize");
-//		String pagingIndex = request.getParameter("pagingIndex");
-//		String baseSubType = request.getParameter("baseSubType");
-//		String kingdom = Utility.emptyToNull( request.getParameter("kingdom") );
-//		
-//		return this.getComparedGroupGeneSearch(request, iprIds, iprFamilies, iprSubTypes, radio, perfectMatch, pagingSize, pagingIndex, baseSubType, true, kingdom);
-//	}
+        @RequestMapping(value="chimerkbdiseaselst",method=RequestMethod.GET)
+        @ResponseBody
+        public String getDiseaseList( HttpServletRequest request )throws RuntimeException{
+            String keyStr = request.getParameter("term");
+            List<String> mainList = this.chimerKbService.getDiseaseList(keyStr);
+            JSONArray jsonArray = null;
+            jsonArray = JSONArray.fromObject(mainList);
+            return jsonArray.toString();
+        }
 }

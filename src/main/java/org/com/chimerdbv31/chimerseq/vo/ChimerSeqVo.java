@@ -24,6 +24,44 @@ public class ChimerSeqVo {
     private String chimerKB;
     private String chimerPub;
     private String supported;
+	private String t_gene;
+	private String h_gene;
+	private String exon_breakpoint;
+	
+	public ChimerSeqVo() {
+		this(-1, null, null, null, null, null, null, null
+		, null, null, null, null, null, null, null, null);
+	}
+	
+	public ChimerSeqVo(int id, String fusion_pair, String gene5Junc, String gene3Junc
+			, String breakpoint_Type, String cancertype, String barcodeID, String frame
+			, String chr_info, String source, String chimerKB, String chimerPub
+			, String supported, String t_gene, String h_gene, String exon_breakpoint) {
+		this.id = id;
+		this.fusion_pair = fusion_pair;
+		this.gene5Junc = gene5Junc;
+		this.gene3Junc = gene3Junc;
+		this.breakpoint_Type = breakpoint_Type;
+		this.cancertype = cancertype;
+		this.barcodeID = barcodeID;
+		this.frame = frame;
+		this.chr_info = chr_info;
+		this.source = source;
+		this.chimerKB = chimerKB;
+		this.chimerPub = chimerPub;
+		this.supported = supported;
+		this.t_gene = t_gene;
+		this.h_gene = h_gene;
+		this.exon_breakpoint = exon_breakpoint;
+	}
+
+	public String getExon_breakpoint() {
+		return exon_breakpoint;
+	}
+
+	public void setExon_breakpoint(String exon_breakpoint) {
+		this.exon_breakpoint = exon_breakpoint;
+	}
 
 	public int getId() {
 		return id;
@@ -128,6 +166,20 @@ public class ChimerSeqVo {
     public void setSupported(String supported) {
         this.supported = supported;
     }
-    
-    
+
+	public String getT_gene() {
+		return t_gene;
+	}
+
+	public void setT_gene(String t_gene) {
+		this.t_gene = t_gene;
+	}
+
+	public String getH_gene() {
+		return h_gene;
+	}
+
+	public void setH_gene(String h_gene) {
+		this.h_gene = h_gene;
+	}   
 }

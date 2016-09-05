@@ -3,123 +3,140 @@
  * and open the template in the editor.
  */
 
-$(document).ready(function () {
-    check_m_state("mmchimerseqbtn");
+var ChimerSeqResult = function( config ) {
+	this.config = JSON.parse( JSON.stringify(config) );
 
-	var json = $("#paramTest").val();
+	this.init();
+};
 
-    var mainTable = null;
-    mainTable = $("#chimerSeqTbl").DataTable({
-        "dom":"T<'clear'>frtilp",
-        "scrollX":true,
-        "tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
-        "processing": true,
-        "serverSide": true,
-        "ajax": {
-            "url":"nextp.cdb",
-			"data":{formData:json},
+ChimerSeqResult.prototype.init = function() {
+	this.initChimerSeqResultjQueryDataTables();
+};
+
+ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
+	var obj = this;
+
+	var mainTable = $( this.config.container ).DataTable({
+		"dom":"T<'clear'>frtilp",
+		"scrollX":true,
+		"tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
+		"processing": true,
+		"serverSide": true,
+		"ajax": {
+			"url":"nextp.cdb",
+			"data":{formData: this.config.data},
 			"dataType":"json",
-            "type": "POST"
-        },
-        "iDisplayLength": 10,
+			"type": "POST"
+		},
+		"iDisplayLength": 10,
 		"columnDefs":[{targets:[0,1,2,3,4,5,6,7,8,9], visible:true}, {targets:'_all', visible:false}],
-        "columns":[
-            {"data":"fusion_pair"},
-            {"data":"gene5Junc"},
-            {"data":"gene3Junc"},
-            {"data":"breakpoint_Type"},
-            {"data":"cancertype"},
-            {"data":"barcodeID"},
-            {"data":"frame"},
-            {"data":"chr_info"},
-            {"data":"source"},
-            {"data":"supported"},
-			{"data":"id"}
-        ],
-		"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+		"columns":[
+			{"data":"fusion_pair"},
+			{"data":"gene5Junc"},
+			{"data":"gene3Junc"},
+			{"data":"breakpoint_Type"},
+			{"data":"cancertype"},
+			{"data":"barcodeID"},
+			{"data":"frame"},
+			{"data":"chr_info"},
+			{"data":"source"},
+			{"data":"supported"},
+			{"data":"id"},
+			{"data":"h_gene"},
+			{"data":"t_gene"},
+			{"data":"exon_breakpoint"}
+		],
+		"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
 			var imgTag = "";
 
 			var tmp = aData.supported.split("_");
-			
+
 			if(tmp[0]==='1') imgTag += '<div class="rcorner-3" style="width:30px;height:20px;line-height:20px;text-align:center;background:green;">KB</div>';
 			if(tmp[1]==='1') imgTag += '<div class="rcorner-3" style="width:30px;height:20px;line-height:20px;text-align:center;background:purple;">Pub</div>';
 			$('td:eq(9)', nRow).html(imgTag); // where 4 is the zero-origin visible column in the HTML
 
+			// When this page is opend, default fusion structure is drawing by first row data
 			if( iDisplayIndex === 0 ){
-				var genes = aData.fusion_pair.split("_");
-
-				genes[0] = "5':" + genes[0];
-				genes[1] = "3':" + genes[1];
-
-				getGeneInformation( genes, aData );
+				obj.getGeneInformation( aData );
 			}
 
 			return nRow;
 		}
-    });
+	});
 
-    $('#chimerSeqTbl tbody').on('click', 'tr', function(){
-        var rowdata = mainTable.row( this ).data();
-		
-		var genes = rowdata.fusion_pair.split("_");
-		
-		genes[0] = "5':" + genes[0];
-		genes[1] = "3':" + genes[1];
+	$(this.config.container + ' tbody').on('click', 'tr', function(){
+		var rowdata = mainTable.row( this ).data();
 
-		getGeneInformation( genes, rowdata );
+		obj.getGeneInformation( rowdata );
+		obj.showDescPopup(rowdata.id);
+	});
+};
 
-        showDesc(rowdata.id);
-    });
-});
-
-function getGeneInformation(genes, rowdata) {
-	var data = JSON.stringify(genes);
-
+ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
+	// To get each fused gene's symbols
+	var data = JSON.stringify(rowdata);
+	
 	$.ajax({
 		url: "getGeneInfo.cdb",
 		type : 'POST',
-		data : {"genes":data},
+		data : {"data":data},
 		dataType: "json",
 		success: function(jData) {
-			$("#chimer-seq-viewer").empty();
+			var container = "#chimer-seq-viewer-content";
 
+			d3.selectAll('svg').remove();
+
+			jData.fusionGene5p = jData.genes["5'"];
+			jData.fusionGene3p = jData.genes["3'"];
 			var config = {
 				organism: "human",
 				orientation: "horizontal",
-				chromosomes: [jData[0].chromosome, jData[1].chromosome],
 				chrMargin: 300,
 				chrHeight: 1024,
 				chrWidth: 20,
 				topMargin : 20,
 				sideMargin : 10,
 				canvasHeight : 500,
-				explainTopPanelHeight : 100,
-				fusionInfo : rowdata,
+				topPanelHeightToExplain : 170,
+				fusionInfo : jData,
 				showBandLabels: true,
-				container: "#chimer-seq-viewer",
+				container: container
 			  };
-			  
-			  var gene1 = jData[0];
-			  var gene2 = jData[1];
 
-			  var viewer = new ChimeraDbV3ViewerWithOutChromosome(config, gene1, gene2);
+//			  console.log( config );
+			  var viewer = new ChimeraDbV3ViewerWithOutChromosome(config);
+			  
+//			  console.log( viewer.getConfig() );
+		},
+		error: function(e, status) {
+			alert(status);
 		}
 	});
-}
+};
 
-function showDesc(id){
-    $.ajax({
-          url: "getFusionDetailInfo.cdb",
-          type : 'POST',
-          data : {"id":id},
-          dataType: "json",
-          success: function(jData) {
-			  var data = JSON.stringify(jData);
-              var mypopup = window.open("chimerseq_popup.cdb?detailInfo="+data+"", 'mypopup', "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=400");
-          },
-          error : function(xhr, status) {
-            alert(status);
-          }
-      });
-    
-}
+ChimerSeqResult.prototype.showDescPopup = function (id){
+	$.ajax({
+		url: "getFusionDetailInfo.cdb",
+		type : 'POST',
+		data : {"id":id},
+		dataType: "json",
+		success: function(jData) {
+			var data = JSON.stringify(jData);
+			var mypopup = window.open("chimerseq_popup.cdb?detailInfo="+data+"", 'mypopup', "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=400");
+		},
+		error : function(xhr, status) {
+			alert(status);
+		}
+	});
+};
+
+$(document).ready(function () {
+    check_m_state("mmchimerseqbtn");
+
+	var config = {
+		container: "#chimerSeqTbl",
+		data: $("#queryFormData").val()
+	};
+	
+	var chimerSeqResult = new ChimerSeqResult(config);
+});
