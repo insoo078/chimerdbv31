@@ -667,6 +667,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawLabel= function( config, labelD
 		.data(labelData)
 		.enter()
 		.append("text")
+		.style("font-size", "14px")
 		.attr("text-anchor", "middle")
 		.attr("baseline-shift", "-24%")
 		.attr("x",function(d){return d.startX + d.width/2;})
