@@ -234,7 +234,7 @@
 										</div>
 										<div class="row margin-bottom-15">
 											<div class="col-md-11 col-md-offset-1">
-												<label class="checkbox-inline"><form:checkbox path="chkKinaseFusion" value="on"/>Kinase fusion</label>
+												<label class="checkbox-inline"><form:checkbox path="chkKinaseFusion" value="on"/>Kinase</label>
 												<label class="checkbox-inline"><form:checkbox path="chkOncogene" value="on"/>Oncogene</label>
 												<label class="checkbox-inline"><form:checkbox path="chkTumorSuppressor" value="on"/>Tumor suppressor</label>
 												<label class="checkbox-inline"><form:checkbox path="chkReceptor" value="on"/>Receptor</label>
