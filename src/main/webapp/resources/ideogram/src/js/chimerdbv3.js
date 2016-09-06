@@ -141,8 +141,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 
 		var final_screen_gene_length = stable_length + variable_length;
 
-		backbone.append('line')
-		.attr("class", "fusion-gene-backbone-5p")
+		var backboneLine = backbone.append('line')
+		.attr("id", "fused-gene-backbone-" + type)
 		.attr('x1', startX)
 		.attr('y1', y)
 		.attr('x2', startX + final_screen_gene_length )
@@ -153,13 +153,13 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 
 		try {
 			var breakPointRect = d3.select("#breakpoint-line-"+type).node().getBoundingClientRect();
-			var backboneRect = backbone.node().getBoundingClientRect();
+			var backboneRect = backboneLine.node().getBoundingClientRect();
 
 			backbone.append("line")
 				.attr("x1", breakPointRect.left - canvasRect.left)
 				.attr("y1", breakPointRect.bottom - canvasRect.top + 30)
 				.attr("x2", type === '5pGene'?backboneRect.right - canvasRect.left:backboneRect.left - canvasRect.left)
-				.attr("y2", backboneRect.top - canvasRect.top)
+				.attr("y2", relativeOffsetY(backboneRect, canvasRect ))
 				.attr("style", "stroke:#00f;stroke-width:1;")
 				.style("stroke-dasharray", ("2,3"));
 		}catch(e) {
