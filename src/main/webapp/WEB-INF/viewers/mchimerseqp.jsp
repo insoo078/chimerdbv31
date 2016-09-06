@@ -235,10 +235,10 @@
 										<div class="row margin-bottom-15">
 											<div class="col-md-11 col-md-offset-1">
 												<label class="checkbox-inline"><form:checkbox path="chkKinaseFusion" value="on"/>Kinase fusion</label>
-												<label class="checkbox-inline"><form:checkbox path="chkOncogene" value="on" checked="true"/>Oncogene</label>
+												<label class="checkbox-inline"><form:checkbox path="chkOncogene" value="on"/>Oncogene</label>
 												<label class="checkbox-inline"><form:checkbox path="chkTumorSuppressor" value="on"/>Tumor suppressor</label>
 												<label class="checkbox-inline"><form:checkbox path="chkReceptor" value="on"/>Receptor</label>
-												<label class="checkbox-inline"><form:checkbox path="chkTranscriptionFactor" value="on" checked="true"/>Transcription factor</label>
+												<label class="checkbox-inline"><form:checkbox path="chkTranscriptionFactor" value="on"/>Transcription factor</label>
 											</div>
 										</div>
 
@@ -248,7 +248,7 @@
 										</div>
 										<div class="row margin-bottom-15">
 											<div class="col-md-11 col-md-offset-1">
-												<label class="checkbox-inline"><form:checkbox path="chkInterChromosomal" value="on" checked="true"/>Inter chromosomal</label>
+												<label class="checkbox-inline"><form:checkbox path="chkInterChromosomal" value="on"/>Inter chromosomal</label>
 												<label class="checkbox-inline"><form:checkbox path="chkIxtraChromosomal" value="on"/>Intra chromosomal</label>
 											</div>
 										</div>
