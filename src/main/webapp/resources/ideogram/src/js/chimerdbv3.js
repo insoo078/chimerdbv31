@@ -723,7 +723,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawBreakPointInGeneStructure = fun
 		.attr("dominant-baseline", "bottom")
 		.attr('x', breakPointX)
 		.attr('y', 190)
-		.text( point );
+		.text( obj.gene.chromosome + ":" + point );
 	}
 };
 
