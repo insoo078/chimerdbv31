@@ -166,6 +166,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 			console.log(e);
 		}
 	}
+
+	d3.select("svg").attr("height", y + 50);
 //
 //	var backbone_color = ["#555", "#f7e"];
 //	for(var i=0; i<fusion.length; i++) {
@@ -566,7 +568,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, 
 	for( var i=0; i<config.fusion_genes.length; i++) {
 		var obj = config.fusion_genes[i];
 		var transcriptExons = obj.gene.canonicalTranscript.exons;
-		
+
 		var domainGroup = backbone.select("#fusion-gene-backbone-" + obj.type).append("g").attr("class", "domain-group-" + obj.type);
 	
 		var exonPos = config.exonsOnScreen[obj.type];
@@ -735,7 +737,11 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 	this.drawExons( config, backbone, drawingType );
 	this.drawPfamdomains( config, backbone );
 
-	var domainAreaHeight = Math.max(d3.select(".domain-group-5pGene").node().getBoundingClientRect().height, d3.select(".domain-group-3pGene").node().getBoundingClientRect().height);
+	var heightVal5p = d3.select(".domain-group-5pGene").node().getBoundingClientRect().height;
+	var heightVal3p = d3.select(".domain-group-3pGene").node().getBoundingClientRect().height;
+	var domainAreaHeight = Math.max(heightVal5p, heightVal3p);
+	
+	console.log( domainAreaHeight +  " " + heightVal5p + "  " + heightVal3p );
 	
 		var labelData = [
 					{name:"Gene", startX:config.sideMargin, startY:(config.EXON_Y_POS - 7.5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:30}
