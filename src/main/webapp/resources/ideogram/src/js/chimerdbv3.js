@@ -5,7 +5,15 @@
  */
 
 /* global d3 */
-
+var tip = d3.tip()
+	.attr('class', 'd3-tip')
+	.offset([-10, 0])
+	.html(function(d) {
+		console.log(d);
+		return "<strong>Frequency:</strong> <span style='color:red'>hello</span>";
+	});
+					
+					
 var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
     this.config = JSON.parse( JSON.stringify(config) );
 
@@ -17,6 +25,8 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 			.attr("id", "canvas")
 			.attr("width", canvasRect.width)
 			.attr("height", this.config.canvasHeight);
+	
+		this.config.canvas.call( tip );
 	}
 
 	if( !this.config.GENE_LABEL_3P_MARGIN ) {
@@ -788,8 +798,10 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawChromosomeLabel = function(conf
 				x = relativeOffsetX(rectSymbol, canvasRect) + (x - relativeOffsetX(rectSymbol, canvasRect))/2;
 
 				return "translate(" + x + "," + y + ")";
-		})
-		.text(function(d){ return d.gene.chromosome.replace("chr", "Chromosome ") + ":" + d.gene.start + "-" + d.gene.end + " ( "+d.gene.strand+" )"; });
+			})
+			.text(function(d){ return d.gene.chromosome.replace("chr", "Chromosome ") + ":" + d.gene.start + "-" + d.gene.end + " ( "+d.gene.strand+" )"; })
+			.on("mouseover", tip.show);
+			.on("mouseout", tip.hide);
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneLabel = function(config) {
@@ -893,7 +905,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawEachGeneAreaLabel = function(co
 			.attr("text-anchor", "middle")
 			.attr("dominant-baseline", "central")
 			.attr("transform", function(d, i) {
-				var baseRect = rect.nodes()[i];
+				var baseRect = d3.select("rect[id='" + d.id + "_label_rect']").node();
 
 				var relativeLabelRectTop = relativeOffsetY( baseRect.getBoundingClientRect(), canvasRect );
 

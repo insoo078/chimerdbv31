@@ -39,7 +39,8 @@
 <script type="text/javascript" src="resources/js/jq/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/js/jq/jquery-ui.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="resources/js/dt/d3.min.js"></script>
+<!--<script type="text/javascript" src="resources/js/dt/d3.min.js"></script>-->
+<script src="http://d3js.org/d3.v3.min.js"></script>
 
 <script type="text/javascript" src="resources/js/jqdt/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="resources/js/jqdt/dataTables.tableTools.min.js"></script>
@@ -52,10 +53,9 @@
 <link type="text/css" rel="stylesheet" href="resources/ideogram/src/css/ideogram.css"/>
 <link type="text/css" rel="stylesheet" href="resources/ideogram/src/css/chimerdbv3.css"/>
   
-
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script type="text/javascript" src="resources/ideogram/src/js/es6-promise.js"></script>
 <script type="text/javascript" src="resources/ideogram/src/js/d3.promise.js"></script>
-<!--<script type="text/javascript" src="resources/ideogram/src/js/chimerdbv3.viewer.js"></script>-->
 <script type="text/javascript" src="resources/ideogram/src/js/chimerdbv3.js"></script>
 
 <!--<script type="text/javascript">
