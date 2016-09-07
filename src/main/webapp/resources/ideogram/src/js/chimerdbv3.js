@@ -98,7 +98,7 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 	this.drawMessagerRnaIdLabel( this.config );
 	this.drawChromosomeLabel( this.config );
 
-	this.drawGeneStructure( this.config, 1 );
+	this.drawGeneStructure( this.config, 1, false );
 
 	this.drawFusionGeneStructure( this.config, 1 );
 };
@@ -482,7 +482,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawUnitLengthOfEachGene = function
 			});
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawDonorGeneBackbone = function( config ) {
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawDonorGeneBackbone = function( config, isAllowedReverse ) {
 	var canvas = this.config.canvas;
 
 	var backbone = canvas.append("g")
@@ -521,15 +521,19 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawDonorGeneBackbone = function( c
 				return "M"+x1+","+y1+" L"+x2+","+y2;
 			})
 			.attr("marker-end", function(d, i){
-//				if( d.gene.strand === '+' )
+				if( isAllowedReverse === true ) {
+					if( d.gene.strand === '+' )
+						return "url(#double_arrow_right)";
+					return "url(#double_arrow_left)";
+				}else {
 					return "url(#double_arrow_right)";
-//				return "url(#double_arrow_left)";
+				}
 			});
 			
 	return backbone;
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backbone, drawingType ) {
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backbone, drawingType, isAllowedReverse ) {
 	config.EXON_Y_POS = 240;
 	config.EXON_HEIGHT = 20;
 	var onScreen= {};
@@ -540,9 +544,11 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backb
 
 		var transcriptExons = obj.gene.canonicalTranscript.exons;
 
-//		if( obj.gene.strand === "-" )	{
-//			transcriptExons = transcriptExons.reverse();
-//		}
+		if( isAllowedReverse === true ) {
+			if( obj.gene.strand === "-" )	{
+				transcriptExons = transcriptExons.reverse();
+			}
+		}
 
 		var exonPos = {};
 
@@ -606,7 +612,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backb
 	config.exonsOnScreen = onScreen;
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, backbone ) {
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, backbone, isAllowedReverse, isPacked ) {
 	var canvasRect = this.config.canvas.node().getBoundingClientRect();
 
 	for( var i=0; i<config.fusion_genes.length; i++) {
@@ -657,7 +663,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, 
 				domainLayerLabelGroup.append("text")
 						.attr("text-anchor", "end")
 						.attr("dominant-baseline", "central")
-						.attr("x", relativeOffsetX(domainLayerGroupRect, canvasRect) - 10)
+						.attr("x", isAllowedReverse===true?(isFirst.startX - 5):relativeOffsetX(domainLayerGroupRect, canvasRect) - 10)
 						.attr("y", relativeOffsetY(domainLayerGroupRect, canvasRect) + config.EXON_HEIGHT/2 )
 						.text( !domainFragments[j] ? "": domainFragments[j].name );
 				;
@@ -776,12 +782,12 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawBreakPointInGeneStructure = fun
 	}
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( config, drawingType ) {
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( config, drawingType, isAllowedReverse ) {
 	this.drawUnitLengthOfEachGene( config );
 
-	var backbone = this.drawDonorGeneBackbone( config );
-	this.drawExons( config, backbone, drawingType );
-	this.drawPfamdomains( config, backbone );
+	var backbone = this.drawDonorGeneBackbone( config, isAllowedReverse );
+	this.drawExons( config, backbone, drawingType, isAllowedReverse );
+	this.drawPfamdomains( config, backbone, isAllowedReverse );
 
 	var heightVal5p = d3.select(".domain-group-5pGene").node().getBBox().height;
 	var heightVal3p = d3.select(".domain-group-3pGene").node().getBBox().height;
