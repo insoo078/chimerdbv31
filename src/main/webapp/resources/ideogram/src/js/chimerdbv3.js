@@ -563,19 +563,21 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backb
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, backbone ) {
-//	var canvasRect = this.config.canvas.node().getBoundingClientRect();
-	
+	var canvasRect = this.config.canvas.node().getBoundingClientRect();
+
 	for( var i=0; i<config.fusion_genes.length; i++) {
 		var obj = config.fusion_genes[i];
 		var transcriptExons = obj.gene.canonicalTranscript.exons;
 
 		var domainGroup = backbone.select("#fusion-gene-backbone-" + obj.type).append("g").attr("class", "domain-group-" + obj.type);
+		var domainLabelGroup = backbone.select("#fusion-gene-backbone-" + obj.type).append("g").attr("class", "domain-group-label-" + obj.type);
 	
 		var exonPos = config.exonsOnScreen[obj.type];
 
 		var layerY = config.EXON_Y_POS + config.EXON_HEIGHT + 5;
 		for(var j=0; j<obj.gene.pFamDomainList.length; j++ ) {
 			var domainFragments = obj.gene.pFamDomainList[j].fragments;
+
 
 			var domainLayerGroup = domainGroup.append("g").attr("id", "domain-group-" + obj.type + "-" + j);
 
@@ -606,16 +608,16 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, 
 					}
 				}
 			}
-			
-//			var backboneRect = d3.select("path[id='gene-backbone-line-" + obj.type + "']").node().getBoundingClientRect();
 
-			domainLayerGroup.append("text")
-					.attr("text-anchor", "end")
-					.attr("baseline-shift", "-24%")
-					.attr("x", isFirst.startX - 5)
-					.attr("y", layerY + config.EXON_HEIGHT/2 )
-					.text( !domainFragments[j] ? "": domainFragments[j].name );
-			;
+			if( domainFragments[j] ) {
+				domainLayerGroup.append("text")
+						.attr("text-anchor", "end")
+						.attr("baseline-shift", "-24%")
+						.attr("x", isFirst.startX - 5)
+						.attr("y", layerY + config.EXON_HEIGHT/2 )
+						.text( !domainFragments[j] ? "": domainFragments[j].name );
+				;
+			}
 			
 			layerY += config.EXON_HEIGHT + 5;
 		}
@@ -737,15 +739,14 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 	this.drawExons( config, backbone, drawingType );
 	this.drawPfamdomains( config, backbone );
 
-	var heightVal5p = d3.select(".domain-group-5pGene").node().getBoundingClientRect().height;
-	var heightVal3p = d3.select(".domain-group-3pGene").node().getBoundingClientRect().height;
+	var heightVal5p = d3.select(".domain-group-5pGene").node().getBBox().height;
+	var heightVal3p = d3.select(".domain-group-3pGene").node().getBBox().height;
+
 	var domainAreaHeight = Math.max(heightVal5p, heightVal3p);
 	
-	console.log( domainAreaHeight +  " " + heightVal5p + "  " + heightVal3p );
-	
-		var labelData = [
-					{name:"Gene", startX:config.sideMargin, startY:(config.EXON_Y_POS - 7.5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:30}
-					,{name:"Domain", startX:config.sideMargin, startY:(config.EXON_Y_POS + config.EXON_HEIGHT + 5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:domainAreaHeight + 5}
+	var labelData = [
+		{name:"Gene", startX:config.sideMargin, startY:(config.EXON_Y_POS - 7.5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:30}
+		,{name:"Domain", startX:config.sideMargin, startY:(config.EXON_Y_POS + config.EXON_HEIGHT + 5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:domainAreaHeight + 5}
 	];
 
 	this.drawLabel( config, labelData );
