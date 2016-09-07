@@ -107,13 +107,14 @@ var ChimerSeqForm = {
 			}
 		});
 
-		$("#cancer-type-all").click(function(){
-			ChimerSeq.chimrSeqTcgaState = !ChimerSeq.chimrSeqTcgaState;
-			$("#tcgaCancerTypes > option").prop("selected", ChimerSeq.chimrSeqTcgaState);
+		$("#cancer-type-all").on('click', {context:this}, function(event){
+			event.data.chimrSeqTcgaState = !event.data.chimrSeqTcgaState;
+			
+			$("#tcgaCancerTypes > option").prop("selected", event.data.chimrSeqTcgaState);
 		});
 
-		$("#tcgaCancerTypes > option.cancer-type").click(function(){
-			if( ChimerSeq.chimrSeqTcgaState ) ChimerSeq.chimrSeqTcgaState = false;
+		$("#tcgaCancerTypes > option.cancer-type").on('click', {context:this}, function(event){
+			event.data.chimrSeqTcgaState = false;
 		});
 	},
 	setDefaultValues: function() {

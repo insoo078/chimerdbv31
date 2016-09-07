@@ -143,7 +143,7 @@
 											<div class="row">
 												<div class="col-md-11 col-md-offset-1">
 													<form:select path="tcgaCancerTypes" class="form-control" size="6" style="width: 190px; margin-top: 10px;" multiple="true">
-														<form:option class='cancer-type' id="cancer-type-all" value="All cancer types"/>
+														<form:option id="cancer-type-all" value="All cancer types"/>
 														<c:if test="${not empty cancer_type}">
 															<c:forEach var="type" items="${cancer_type}">
 																<form:option class='cancer-type' value="${type}"/>
@@ -154,7 +154,7 @@
 											</div>
 											<div class="row">
 												<div class="col-md-11 col-md-offset-1">
-													<span style="font-size: 13px;">* Use Ctrl for multiple selection.</span>
+													<span style="font-size: 13px;">* Use Ctrl or Command key for multiple selection.</span>
 												</div>
 											</div>
 										</div>
