@@ -7,6 +7,7 @@ package org.com.chimerdbv31.chimerseq.vo;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.com.chimerdbv31.chimerseq.com.Utilities;
 import org.com.chimerdbv31.chimerseq.obj.DomainFragmentObj;
 
 /**
@@ -28,11 +29,20 @@ public class PfamVo {
 	private int blockCount;
 	private String blockSizes;
 	private String chromStarts;
+	private int layerNo;
 			
 	private List<DomainFragmentObj> fragments;
 
 	public PfamVo(){
 		this.fragments = new ArrayList<DomainFragmentObj>();
+	}
+
+	public int getLayerNo() {
+		return layerNo;
+	}
+
+	public void setLayerNo(int layerNo) {
+		this.layerNo = layerNo;
 	}
 
 	public int getId() {
@@ -149,7 +159,7 @@ public class PfamVo {
 
 	public void addFragment(DomainFragmentObj fragment) {
 		if( this.fragments == null )	this.fragments = new ArrayList<DomainFragmentObj>();
-		
+
 		this.fragments.add( fragment );
 	}
 

@@ -615,6 +615,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backb
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, backbone, isAllowedReverse, isPacked ) {
 	var canvasRect = this.config.canvas.node().getBoundingClientRect();
 
+
+console.log( config.fusion_genes );
 	for( var i=0; i<config.fusion_genes.length; i++) {
 		var obj = config.fusion_genes[i];
 		var transcriptExons = obj.gene.canonicalTranscript.exons;

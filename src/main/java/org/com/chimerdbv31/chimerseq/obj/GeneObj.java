@@ -8,6 +8,7 @@ package org.com.chimerdbv31.chimerseq.obj;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.com.chimerdbv31.chimerseq.com.Utilities;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
 import org.com.chimerdbv31.chimerseq.vo.PfamVo;
@@ -165,6 +166,23 @@ public class GeneObj extends GeneBaseObj{
 
 	public void setpFamDomainList(List<PfamVo> pFamDomainList) {
 		this.pFamDomainList = pFamDomainList;
+		
+		List<PfamVo> layerIndexList = new ArrayList<PfamVo>();
+		for(int i=0; i<this.pFamDomainList.size(); i++) {
+			PfamVo eachPfam = this.pFamDomainList.get(i);
+			boolean isFound = false;
+			for(PfamVo vo:layerIndexList) {
+				if( !Utilities.isOverlapped( eachPfam.getChromStart(), eachPfam.getChromEnd(), vo.getChromStart(), vo.getChromEnd() ) ) {
+					eachPfam.setLayerNo( vo.getLayerNo() );
+					isFound = true;
+					break;
+				}
+			}
+			if( isFound == false ) {
+				eachPfam.setLayerNo(layerIndexList.size());
+				layerIndexList.add(eachPfam);
+			}
+		}
 	}
 
 	public int getLength() {
