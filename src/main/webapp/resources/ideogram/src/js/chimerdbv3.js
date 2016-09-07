@@ -98,7 +98,7 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 	this.drawMessagerRnaIdLabel( this.config );
 	this.drawChromosomeLabel( this.config );
 
-	this.drawGeneStructure( this.config, 1, false );
+	this.drawGeneStructure( this.config, 1, false, true );
 
 	this.drawFusionGeneStructure( this.config, 1 );
 };
@@ -615,8 +615,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backb
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, backbone, isAllowedReverse, isPacked ) {
 	var canvasRect = this.config.canvas.node().getBoundingClientRect();
 
-
-console.log( config.fusion_genes );
+			console.log( config.fusion_genes );
+			
 	for( var i=0; i<config.fusion_genes.length; i++) {
 		var obj = config.fusion_genes[i];
 		var transcriptExons = obj.gene.canonicalTranscript.exons;
@@ -625,7 +625,6 @@ console.log( config.fusion_genes );
 	
 		var exonPos = config.exonsOnScreen[obj.type];
 
-		var layerY = config.EXON_Y_POS + config.EXON_HEIGHT + 5;
 		for(var j=0; j<obj.gene.pFamDomainList.length; j++ ) {
 			var domainFragments = obj.gene.pFamDomainList[j].fragments;
 
@@ -641,13 +640,15 @@ console.log( config.fusion_genes );
 					if( isoverlapped ) {
 						var pos = exonPos.exons[ exon.elementIndex ];
 
+						var relativeY = isPacked===false?(j+1):(obj.gene.pFamDomainList[j].layerNo+1);
+
 						domainLayerGroup.append("rect")
 						.classed("domain-feature-rect", true)
 						.attr("fill", config.DOMAIN_COLOURS[j])
 						.attr("rx", 2)
 						.attr("ry", 2)
 						.attr("x", pos.x1)
-						.attr("y", layerY )
+						.attr("y", config.EXON_Y_POS + (relativeY * (config.EXON_HEIGHT + 5) ) )
 						.attr("width", pos.width)
 						.attr("height", config.EXON_HEIGHT);
 
@@ -670,8 +671,6 @@ console.log( config.fusion_genes );
 						.text( !domainFragments[j] ? "": domainFragments[j].name );
 				;
 			}
-			
-			layerY += config.EXON_HEIGHT + 5;
 		}
 	}
 };
@@ -784,12 +783,12 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawBreakPointInGeneStructure = fun
 	}
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( config, drawingType, isAllowedReverse ) {
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( config, drawingType, isAllowedReverse, isPacked ) {
 	this.drawUnitLengthOfEachGene( config );
 
 	var backbone = this.drawDonorGeneBackbone( config, isAllowedReverse );
 	this.drawExons( config, backbone, drawingType, isAllowedReverse );
-	this.drawPfamdomains( config, backbone, isAllowedReverse );
+	this.drawPfamdomains( config, backbone, isAllowedReverse, isPacked );
 
 	var heightVal5p = d3.select(".domain-group-5pGene").node().getBBox().height;
 	var heightVal3p = d3.select(".domain-group-3pGene").node().getBBox().height;

@@ -159,8 +159,7 @@ public class ChimerSeqController {
 		obj.add("aaData", gson.toJsonTree(dataList));
 		
 		String resultJson = obj.toString();
-		
-		System.out.println( resultJson );
+
 		return resultJson;
     }
 

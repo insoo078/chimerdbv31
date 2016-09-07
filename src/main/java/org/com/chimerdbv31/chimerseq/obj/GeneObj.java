@@ -167,19 +167,22 @@ public class GeneObj extends GeneBaseObj{
 	public void setpFamDomainList(List<PfamVo> pFamDomainList) {
 		this.pFamDomainList = pFamDomainList;
 		
+		int idx = 0;
 		List<PfamVo> layerIndexList = new ArrayList<PfamVo>();
 		for(int i=0; i<this.pFamDomainList.size(); i++) {
 			PfamVo eachPfam = this.pFamDomainList.get(i);
 			boolean isFound = false;
 			for(PfamVo vo:layerIndexList) {
-				if( !Utilities.isOverlapped( eachPfam.getChromStart(), eachPfam.getChromEnd(), vo.getChromStart(), vo.getChromEnd() ) ) {
+//				boolean isOverlapped = Utilities.isOverlapped( eachPfam.getChromStart(), eachPfam.getChromEnd(), vo.getChromStart(), vo.getChromEnd() );
+//				System.out.println( isOverlapped + " : " + eachPfam.getChromStart() + " - " + eachPfam.getChromEnd() + "   vs   " +  vo.getChromStart() + "-" + vo.getChromEnd() );
+				if( Utilities.isOverlapped( eachPfam.getChromStart(), eachPfam.getChromEnd(), vo.getChromStart(), vo.getChromEnd() ) == false ) {
 					eachPfam.setLayerNo( vo.getLayerNo() );
 					isFound = true;
 					break;
 				}
 			}
 			if( isFound == false ) {
-				eachPfam.setLayerNo(layerIndexList.size());
+				eachPfam.setLayerNo(idx++);
 				layerIndexList.add(eachPfam);
 			}
 		}
