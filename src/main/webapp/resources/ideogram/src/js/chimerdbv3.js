@@ -230,7 +230,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 
 		var exonPos = {};
 		var INTRON_UNIT_WIDTH = (1 * no_of_intron_size) * final_unit_nt_size;
-		var exonGroup = canvas.append("g").attr("id", "fused-gene-exon-group");
+		var exonGroup = canvas.append("g").attr("id", "fused-gene-exon-group-"+type);
 		var x1 = startX + INTRON_UNIT_WIDTH;
 		exonGroup.selectAll("path")
 				.data(exons)
@@ -286,16 +286,18 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 	for( var j=0; j<config.fusion_genes.length; j++) {
 		var obj = config.fusion_genes[j];
 		
+		console.log( config.fusion_genes );
+		
 		var exons = fusedExons[obj.type==='5pGene'?"5'":"3'"];
 
-		var domainGroup = backbone.select("#fused-gene-backbone-" + obj.type).append("g").attr("class", "domain-group-" + obj.type);
+		var domainGroup = backbone.select("#fused-gene-exon-group-" + obj.type);
 
-		var exonPos = config.exonsOnScreen[obj.type];
+		var exonPos = config.fusedExonsOnScreen[obj.type];
 
 		for(var j=0; j<obj.gene.pFamDomainList.length; j++ ) {
 			var domainFragments = obj.gene.pFamDomainList[j].fragments;
 
-			var domainLayerGroup = domainGroup.append("g").attr("id", "domain-group-" + obj.type + "-" + j);
+			var domainLayerGroup = domainGroup.append("g").attr("id", "fused-domain-group-" + obj.type + "-" + j);
 
 			var isFirst = {flag:false, startX:-1};
 			for(var k=0; k<domainFragments.length; k++) {
