@@ -123,7 +123,7 @@ public class FusionGeneObj extends ChimerSeqVo{
 							Gff3Vo newGff = gff.clone();
 
 							if( gff.getStart() < breakPoint && gff.getEnd() >= breakPoint ) {
-								gff.setEnd(breakPoint);
+								newGff.setEnd(breakPoint);
 							}
 
 							fusedGenes.add( newGff );
@@ -136,7 +136,7 @@ public class FusionGeneObj extends ChimerSeqVo{
 							Gff3Vo newGff = gff.clone();
 
 							if( gff.getStart() < breakPoint && gff.getEnd() >= breakPoint ) {
-								gff.setStart(breakPoint);
+								newGff.setStart(breakPoint);
 							}
 
 							fusedGenes.add( newGff );
@@ -151,7 +151,7 @@ public class FusionGeneObj extends ChimerSeqVo{
 							Gff3Vo newGff = gff.clone();
 
 							if( gff.getStart() > breakPoint && gff.getEnd() <= breakPoint ) {
-								gff.setStart(breakPoint);
+								newGff.setStart(breakPoint);
 							}
 
 							fusedGenes.add( newGff );
@@ -164,7 +164,7 @@ public class FusionGeneObj extends ChimerSeqVo{
 							Gff3Vo newGff = gff.clone();
 
 							if( gff.getStart() < breakPoint && gff.getEnd() >= breakPoint ) {
-								gff.setStart(breakPoint);
+								newGff.setStart(breakPoint);
 							}
 
 							fusedGenes.add( newGff );
