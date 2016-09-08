@@ -4,11 +4,11 @@
 <mapper namespace="org.com.chimerdbv31.chimerpub.mapper.ChimerPubMapper">
     
     <select id="getDiseaseList" parameterType="String" resultType="String">
-        select distinct(Disease) lst from ChimerDB3.ChimerPub_ver1
-        where 1=1
+        select Diseases as lst from ChimerDB3.ChimerPub_disease
+        where Diseases != "NA"
         <choose>
             <when test="_parameter != null and _parameter != ''">
-                and Disease like "%${_parameter}%" ;
+                and Diseases like "%${_parameter}%" ;
             </when>
             <otherwise>
                 limit 10;
