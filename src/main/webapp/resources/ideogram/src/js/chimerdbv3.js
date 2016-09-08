@@ -22,7 +22,13 @@ var exonTip = d3.tip()
 	.attr('class', 'd3-tip')
 	.offset([-10, 0])
 	.html(function(d) {
-		var html = "<div><strong>Chromosome :</strong> <span style='color:red'>"+d.type+"</span></div>";
+		var html = "<div><strong>seqid :</strong> <span style='color:red'>"+d.seqid+"</span></div>";
+		html += "<div><strong>Type :</strong> <span style='color:red'>"+d.type+"</span></div>";
+		html += "<div><strong>Source :</strong> <span style='color:red'>"+d.source+"</span></div>";
+		html += "<div><strong>Start :</strong> <span style='color:red'>"+d.start+"</span></div>";
+		html += "<div><strong>End :</strong> <span style='color:red'>"+d.end+"</span></div>";
+		html += "<div><strong>Strand :</strong> <span style='color:red'>"+d.strand+"</span></div>";
+		html += "<div><strong>No. :</strong> <span style='color:red'>"+d.elementIndex+"</span></div>";
 
 		return html;
 	});
@@ -614,8 +620,6 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backb
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, backbone, isAllowedReverse, isPacked ) {
 	var canvasRect = this.config.canvas.node().getBoundingClientRect();
-
-			console.log( config.fusion_genes );
 			
 	for( var i=0; i<config.fusion_genes.length; i++) {
 		var obj = config.fusion_genes[i];
@@ -747,6 +751,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawBreakPointInGeneStructure = fun
 		for(var j=0; j<transcriptExons.length; j++) {
 			var exon = transcriptExons[j];
 			var isoverlapped = isOverlappedPoint( exon, point );
+
 			if( isoverlapped ) {
 				var pos = exonPos.exons[ exon.elementIndex ];
 				breakPointX = pos.x1 + screenUnit.final_unit_nt_size * (point - exon.start);
@@ -757,7 +762,14 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawBreakPointInGeneStructure = fun
 				breakPointX = pos.x1 - (pos.x1 - posPrev.x1)/2;
 
 				break;
+			}else if( previous !== null && exon.end < point && previous.start > point ){
+				var pos = exonPos.exons[ exon.elementIndex ];
+				var posPrev = exonPos.exons[previous.elementIndex];
+				breakPointX = (posPrev.x1 + posPrev.width) + (pos.x1 - posPrev.x1 - posPrev.width)/2;
+
+				break;
 			}
+
 			previous = exon;
 		}
 		

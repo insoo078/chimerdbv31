@@ -360,7 +360,9 @@
 			, Kinase				AS kinase
 			, Tumor_suppressor		AS tumor_suppressor
 			, Receptor				AS receptor
+			, Oncogene				AS oncogene
 			, Transcription_Factor	AS transcription_Factor
+			, Disease				AS disease
 		FROM ChimerDB3.ChimerSeq_ver7
 		WHERE id=${id}
 	</select>

@@ -55,7 +55,7 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 			$('td:eq(9)', nRow).html(imgTag); // where 4 is the zero-origin visible column in the HTML
 
 			// When this page is opend, default fusion structure is drawing by first row data
-			if( iDisplayIndex === 0 ){
+			if( iDisplayIndex === 2 ){
 				obj.getGeneInformation( aData );
 			}
 
@@ -67,14 +67,15 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 		var rowdata = mainTable.row( this ).data();
 
 		obj.getGeneInformation( rowdata );
-		obj.showDescPopup(rowdata.id);
 	});
 };
 
 ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 	// To get each fused gene's symbols
 	var data = JSON.stringify(rowdata);
-	
+
+	var chimerSeqResult = this;
+
 	$.ajax({
 		url: "getGeneInfo.cdb",
 		type : 'POST',
@@ -84,6 +85,8 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 			var container = "#chimer-seq-viewer-content";
 
 			d3.selectAll('svg').remove();
+			
+			chimerSeqResult.showDetailInfo( jData );
 
 			jData.fusionGene5p = jData.genes["5'"];
 			jData.fusionGene3p = jData.genes["3'"];
@@ -102,12 +105,53 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 				container: container
 			  };
 
-//			  console.log( config );
 			  var viewer = new ChimeraDbV3ViewerWithOutChromosome(config);
-			  
-//			  console.log( viewer.getConfig() );
 		},
 		error: function(e, status) {
+			alert(status);
+		}
+	});
+};
+
+ChimerSeqResult.prototype.showDetailInfo = function(rowdata) {
+	$.ajax({
+		url: "getFusionDetailInfo.cdb",
+		type : 'POST',
+		data : {"id":rowdata.id},
+		dataType: "json",
+		success: function(jData) {
+			$("#srt_td_5gene_nm").text( jData.h_gene );
+			$("#srt_td_3gene_nm").text( jData.t_gene );
+			$("#srt_td_5g_chr_nm").text( jData.h_chr );
+			$("#srt_td_3g_chr_nm").text( jData.t_chr );
+			$("#srt_td_5g_junc_point").text( jData.gene5Junc );
+			$("#srt_td_3g_junc_point").text( jData.gene3Junc );
+			$("#srt_td_5g_strand").text( rowdata.genes["5'"].strand );
+			$("#srt_td_3g_strand").text( rowdata.genes["3'"].strand );
+			
+			var funcArray = [];
+			if( jData.receptor > 0 )			funcArray.push("Receptor");
+			if( jData.kinase > 0 )				funcArray.push("Kinase");
+			if( jData.tumor_suppressor > 0 )	funcArray.push("Tomor suppressor");
+			if( jData.oncogene > 0 )			funcArray.push("Oncogene");
+
+			var func = "";
+			$.each(funcArray, function(i, d){
+				if( func === "" )	func += d;
+				else				func += (", "+d);
+			});
+
+			$("#srt_td_5g_3g_func").text( func );
+			$("#srt_td_chimerdb_type").text( jData.chimerDB_Type);
+			$("#srt_td_source").text( jData.source );
+			$("#srt_td_genome_build_ver").text( jData.genome_Build_Version );
+			$("#srt_td_disease").text( jData.disease );
+			$("#srt_td_tcga_barcode").text( jData.barcodeID );
+			$("#srt_cancer_type").text( jData.cancertype==='NA'?"": jData.cancertype );
+			$("#srt_td_frame").text( jData.frame );
+			console.log( jData );
+		},
+		error : function(xhr, status) {
 			alert(status);
 		}
 	});
