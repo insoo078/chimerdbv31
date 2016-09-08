@@ -39,7 +39,8 @@
 <script type="text/javascript" src="resources/js/jq/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/js/jq/jquery-ui.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="resources/js/dt/d3.min.js"></script>
+<!--<script type="text/javascript" src="resources/js/dt/d3.min.js"></script>-->
+<script src="http://d3js.org/d3.v3.min.js"></script>
 
 <script type="text/javascript" src="resources/js/jqdt/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="resources/js/jqdt/dataTables.tableTools.min.js"></script>
@@ -52,10 +53,9 @@
 <link type="text/css" rel="stylesheet" href="resources/ideogram/src/css/ideogram.css"/>
 <link type="text/css" rel="stylesheet" href="resources/ideogram/src/css/chimerdbv3.css"/>
   
-
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script type="text/javascript" src="resources/ideogram/src/js/es6-promise.js"></script>
 <script type="text/javascript" src="resources/ideogram/src/js/d3.promise.js"></script>
-<script type="text/javascript" src="resources/ideogram/src/js/chimerdbv3.viewer.js"></script>
 <script type="text/javascript" src="resources/ideogram/src/js/chimerdbv3.js"></script>
 
 <!--<script type="text/javascript">
@@ -70,7 +70,7 @@
 
 <%@include file="part/header.jsp" %>
 
-<input type="hidden" id="paramTest" value="<c:out value='${queryForm}'/>"/>
+<input type="hidden" id="queryFormData" value="<c:out value='${queryForm}'/>"/>
 
 <!-- content -->
 <div class="container">
@@ -95,6 +95,8 @@
 									<td>Source</td>
 									<td>Supported</td>
 									<td>id</td>
+									<td>h_gene</td>
+									<td>t_gene</td>
 								</tr>
 							</thead>
 						</table>
@@ -110,7 +112,18 @@
 						<span style="font-size: 20px; font-weight: bold;">Fusion structure</span>
 					</div>
 					<div class="panel-body" style="text-align: left;">
-						<div id='chimer-seq-viewer' style='background:none;border:1px solid gray;'></div>
+						<div id="chimer-seq-viewer-controller">
+							<div class="controller-header">Controller</div>
+							<div class='controller'>
+								<button class='w3-btn w3-light-grey w3-border' id='move_left_1000'><<</button>
+								<button class='w3-btn w3-light-grey w3-border' id='move_left'><</button>
+								<button class='w3-btn w3-light-grey w3-border' id='zoom-in'>+</button>
+								<button class='w3-btn w3-light-grey w3-border' id='zomm-out'>-</button>
+								<button class='w3-btn w3-light-grey w3-border' id='move_right_1000'>>></button>
+								<button class='w3-btn w3-light-grey w3-border' id='move_right'>></button>
+							</div>
+						</div>
+						<div id="chimer-seq-viewer-content"></div>
 					</div>
 				</div>
 			</div>

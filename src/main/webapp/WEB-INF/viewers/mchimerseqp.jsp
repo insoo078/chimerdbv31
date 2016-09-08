@@ -143,7 +143,7 @@
 											<div class="row">
 												<div class="col-md-11 col-md-offset-1">
 													<form:select path="tcgaCancerTypes" class="form-control" size="6" style="width: 190px; margin-top: 10px;" multiple="true">
-														<form:option class='cancer-type' id="cancer-type-all" value="All cancer types"/>
+														<form:option id="cancer-type-all" value="All cancer types"/>
 														<c:if test="${not empty cancer_type}">
 															<c:forEach var="type" items="${cancer_type}">
 																<form:option class='cancer-type' value="${type}"/>
@@ -154,7 +154,7 @@
 											</div>
 											<div class="row">
 												<div class="col-md-11 col-md-offset-1">
-													<span style="font-size: 13px;">* Use Ctrl for multiple selection.</span>
+													<span style="font-size: 13px;">* Use Ctrl or Command key for multiple selection.</span>
 												</div>
 											</div>
 										</div>
@@ -234,11 +234,11 @@
 										</div>
 										<div class="row margin-bottom-15">
 											<div class="col-md-11 col-md-offset-1">
-												<label class="checkbox-inline"><form:checkbox path="chkKinaseFusion" value="on"/>Kinase fusion</label>
-												<label class="checkbox-inline"><form:checkbox path="chkOncogene" value="on" checked="true"/>Oncogene</label>
+												<label class="checkbox-inline"><form:checkbox path="chkKinaseFusion" value="on"/>Kinase</label>
+												<label class="checkbox-inline"><form:checkbox path="chkOncogene" value="on"/>Oncogene</label>
 												<label class="checkbox-inline"><form:checkbox path="chkTumorSuppressor" value="on"/>Tumor suppressor</label>
 												<label class="checkbox-inline"><form:checkbox path="chkReceptor" value="on"/>Receptor</label>
-												<label class="checkbox-inline"><form:checkbox path="chkTranscriptionFactor" value="on" checked="true"/>Transcription factor</label>
+												<label class="checkbox-inline"><form:checkbox path="chkTranscriptionFactor" value="on"/>Transcription factor</label>
 											</div>
 										</div>
 
@@ -248,7 +248,7 @@
 										</div>
 										<div class="row margin-bottom-15">
 											<div class="col-md-11 col-md-offset-1">
-												<label class="checkbox-inline"><form:checkbox path="chkInterChromosomal" value="on" checked="true"/>Inter chromosomal</label>
+												<label class="checkbox-inline"><form:checkbox path="chkInterChromosomal" value="on"/>Inter chromosomal</label>
 												<label class="checkbox-inline"><form:checkbox path="chkIxtraChromosomal" value="on"/>Intra chromosomal</label>
 											</div>
 										</div>
@@ -276,7 +276,7 @@
 			<div class="row margin-bottom-30" style="margin-top: 30px; ">
 
 				<div class="col-md-12" style="text-align: right;">
-					<button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" >
+					<button class="btn btn-primary" type="button" id="resetButton" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" >
 						<span class="fa fa-arrow-left"></span>&nbsp;&nbsp;Reset
 					</button>
 					<button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" onclick="search();">

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-var ChimerSeq = {
+var ChimerSeqForm = {
 	name:'ChimerSeq',
 	chimrSeqTcgaState:null,
 	init: function(){
@@ -21,10 +21,10 @@ var ChimerSeq = {
 		this.setOptionPanelSetting();
 	},
 	setSearchPanelSetting: function() {
-		addAutocompleteField( "#byGeneTxt",		1);
-		addAutocompleteField( "#byGenePairTxt",	2);
-		addAutocompleteField( "#byChrLocusTxt",	3);
-		addAutocompleteField( "#byDiseaseTxt",	4);
+		this.addAutocompleteField( "#byGeneTxt",		1);
+		this.addAutocompleteField( "#byGenePairTxt",	2);
+		this.addAutocompleteField( "#byChrLocusTxt",	3);
+		this.addAutocompleteField( "#byDiseaseTxt",		4);
 
 		// If user choose one radio button, then other radios are disabled
 		// and active filed is moving their text filed
@@ -46,7 +46,7 @@ var ChimerSeq = {
 			if( value==='byGene' ) {
 				$("div#search-Panel input[type=checkbox]").each(function(){
 					$(this).prop("disabled", false);
-					if( this.name === 'byGene5Prime' ) {
+					if( this.name === 'byGene3Prime' ) {
 						$(this).prop("checked", true);
 					}
 				});
@@ -93,6 +93,7 @@ var ChimerSeq = {
 		});
 	},
 	setTcgaInOptionPanel: function() {
+		var ChimerSeq = this;
 		$("#chkTcgaOption1").change(function(){
 			var flag = $(this).is(':checked');
 
@@ -106,98 +107,108 @@ var ChimerSeq = {
 			}
 		});
 
-		$("#cancer-type-all").click(function(){
-			ChimerSeq.chimrSeqTcgaState = !ChimerSeq.chimrSeqTcgaState;
-			$("#tcgaCancerTypes > option").prop("selected", ChimerSeq.chimrSeqTcgaState);
+		$("#cancer-type-all").on('click', {context:this}, function(event){
+			event.data.chimrSeqTcgaState = !event.data.chimrSeqTcgaState;
+			
+			$("#tcgaCancerTypes > option").prop("selected", event.data.chimrSeqTcgaState);
 		});
 
-		$("#tcgaCancerTypes > option.cancer-type").click(function(){
-			if( ChimerSeq.chimrSeqTcgaState ) ChimerSeq.chimrSeqTcgaState = false;
+		$("#tcgaCancerTypes > option.cancer-type").on('click', {context:this}, function(event){
+			event.data.chimrSeqTcgaState = false;
 		});
 	},
 	setDefaultValues: function() {
 		// The default value of Search panel is 'by_gene' and '5''
 		$("#searchType1").prop("checked", true).change();
 		$("#byGene5Prime").prop("checked", true);
+	},
+	addAutocompleteField: function ( selector, type ) {
+		$(selector).autocomplete({
+			source: function(request, response) {
+				$.ajax({
+					type: 'post',
+					url: 'autocomplete.cdb',
+					dataType: 'json',
+					data:{service:'ChimerSeq', type:type, text:request.term},
+					success:function(data) {
+						response($.map(data, function(item){
+							return {
+								label: item,
+								value: item
+							};
+						}));
+					}
+				});
+			},
+			minLength:2
+		});
+	},
+	checkInputPrams: function (searchType) {
+		var keyVal = "";
+
+		switch(searchType){
+			case "byGene":{
+				keyVal = $("#byGeneTxt").val();
+				if( (keyVal === "") || ($.trim(keyVal) === "") || (keyVal === null) ){
+					alert("You have to input Gene symbol which is user interested in");
+					$("#byGeneTxt").focus();
+					return false;
+				}
+			};break;
+			case "byGenePair":{
+				keyVal = $("#byGenePairTxt").val();
+
+				if( (keyVal === "") || ($.trim(keyVal) === "") || (keyVal === null) ){
+					alert("You have to input Pair Gene symbols which is user interested in");
+					$("#byGenePairTxt").focus();
+					return false;
+				}
+			};break;
+			case "byChrLocus":{
+				keyVal = $("#byChrLocusTxt").val();
+				if( (keyVal === "") || ($.trim(keyVal) === "") || (keyVal === null) ){
+					alert("You have to input chromosome locus(cytoband) which is user interested in");
+					$("#byChrLocusTxt").focus();
+					return false;
+				}
+			};break;
+			case "byDisease":{
+				keyVal = $("#byDiseaseTxt").val();
+				if( (keyVal === "") || ($.trim(keyVal) === "") || (keyVal === null) ){
+					alert("You have to input disease which is user interested in");
+					$("#byDiseaseTxt").focus();
+					return false;
+				}
+			};break;
+		}
+		return true;
+	},
+	search: function () {
+		var searchType = $("input:radio[name='searchType']:checked").val();
+
+		if( this.checkInputPrams(searchType) ) {
+			$("#chimerSeqQueryForm").submit();
+		}
+
+		return false;
 	}
 };
 
-function addAutocompleteField( selector, type ) {
-	$(selector).autocomplete({
-		source: function(request, response) {
-			$.ajax({
-				type: 'post',
-				url: 'autocomplete.cdb',
-				dataType: 'json',
-				data:{service:'ChimerSeq', type:type, text:request.term},
-				success:function(data) {
-					response($.map(data, function(item){
-						return {
-							label: item,
-							value: item
-						};
-					}));
-				}
-			});
-		},
-		minLength:2
-	});
-}
-
 $(document).ready(function () {
-	// to express which menu user has choosed
+//     to express which menu user has choosed
 //	check_m_state("mmchimerseqbtn");
 
-	ChimerSeq.init();
+	ChimerSeqForm.init();
+	
+	$("#resetButton").click(function(){
+		$("form").each(function() {  
+			this.reset();  
+		 });
+
+		ChimerSeqForm.init();
+	});
 });
 
 function search() {
-	var searchType = $("input:radio[name='searchType']:checked").val();
-
-	if( checkInputPrams(searchType) ) {
-		$("#chimerSeqQueryForm").submit();
-	}
-
-	return false;
-}
-
-function checkInputPrams(searchType) {
-	var keyVal = "";
-
-	switch(searchType){
-		case "byGene":{
-			keyVal = $("#byGeneTxt").val();
-			if( (keyVal === "") || ($.trim(keyVal) === "") || (keyVal === null) ){
-				alert("You have to input Gene symbol which is user interested in");
-				$("#byGeneTxt").focus();
-				return false;
-			}
-		};break;
-		case "byGenePair":{
-			keyVal = $("#byGenePairTxt").val();
-
-			if( (keyVal === "") || ($.trim(keyVal) === "") || (keyVal === null) ){
-				alert("You have to input Pair Gene symbols which is user interested in");
-				$("#byGenePairTxt").focus();
-				return false;
-			}
-		};break;
-		case "byChrLocus":{
-			keyVal = $("#byChrLocusTxt").val();
-			if( (keyVal === "") || ($.trim(keyVal) === "") || (keyVal === null) ){
-				alert("You have to input chromosome locus(cytoband) which is user interested in");
-				$("#byChrLocusTxt").focus();
-				return false;
-			}
-		};break;
-		case "byDisease":{
-			keyVal = $("#byDiseaseTxt").val();
-			if( (keyVal === "") || ($.trim(keyVal) === "") || (keyVal === null) ){
-				alert("You have to input disease which is user interested in");
-				$("#byDiseaseTxt").focus();
-				return false;
-			}
-		};break;
-	}
-	return true;
+	ChimerSeqForm.search();
 }
