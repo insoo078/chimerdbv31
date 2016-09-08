@@ -56,7 +56,7 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 			$('td:eq(9)', nRow).html(imgTag); // where 4 is the zero-origin visible column in the HTML
 
 			// When this page is opend, default fusion structure is drawing by first row data
-			if( iDisplayIndex === 2 ){
+			if( iDisplayIndex === 0 ){
 				obj.getGeneInformation( aData );
 			}
 
