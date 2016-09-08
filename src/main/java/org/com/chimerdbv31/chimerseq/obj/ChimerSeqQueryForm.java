@@ -50,7 +50,7 @@ public class ChimerSeqQueryForm {
 	private String sortOrderDir;
 	private String searchKeyword;
 	
-	public void revalidateData() {
+	public void validateData() {
 		this.cancerTypes = new ArrayList<String>();
 		if( this.tcgaCancerTypes != null ) {
 			String[] cancers = this.tcgaCancerTypes.split(",");

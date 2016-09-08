@@ -24,7 +24,34 @@ public class Gff3Vo {
 	private String attributes;
 	private Map<String, String> attributesMap;
 	
+	private int relativeStart;
+	private int relativeEnd;
+	
 	private int elementIndex;
+	
+	public Gff3Vo() {}
+	public Gff3Vo(String seqid, String source, String type, int start, int end, float score
+			, String strand, String phase, String attributes, Map<String, String> attributesMap, int relativeStart, int relativeEnd, int elementIndex) {
+		this.seqid = seqid;
+		this.source = source;
+		this.type = type;
+		this.start = start;
+		this.end = end;
+		this.score = score;
+		this.strand = strand;
+		this.phase = phase;
+		this.attributes = attributes;
+		this.attributesMap = attributesMap;
+		this.relativeEnd = relativeEnd;
+		this.relativeStart = relativeStart;
+		this.elementIndex = elementIndex;
+	}
+	
+	@Override
+	public Gff3Vo clone() {
+		return new Gff3Vo(this.seqid, this.source, this.type, this.start, this.end, this.score
+		, this.strand, this.phase, this.attributes, this.attributesMap, this.relativeStart, this.relativeEnd, this.elementIndex);
+	}
 
 	public int getElementIndex() {
 		return elementIndex;
@@ -120,6 +147,22 @@ public class Gff3Vo {
 
 	public Map<String, String> getAttributesMap() {
 		return attributesMap;
+	}
+
+	public int getRelativeStart() {
+		return relativeStart;
+	}
+
+	public void setRelativeStart(int relativeStart) {
+		this.relativeStart = relativeStart;
+	}
+
+	public int getRelativeEnd() {
+		return relativeEnd;
+	}
+
+	public void setRelativeEnd(int relativeEnd) {
+		this.relativeEnd = relativeEnd;
 	}
 
 }
