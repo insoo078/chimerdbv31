@@ -152,6 +152,13 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 	
 	var lenJunction5p = gene5Junc - gene5p.start + 1;
 	var lenJunction3p = gene3p.end - gene3Junc + 1;
+
+	if( gene5p.strand==='-' ) {
+		lenJunction5p = gene5p.end - gene5Junc + 1;
+	}
+	if( gene3p.strand==='-' ) {
+		lenJunction3p = gene3Junc - gene3p.start + 1;
+	}
 	
 	var gene_total_length = lenJunction5p + lenJunction3p;
 	var geneBackbonLength = config.BACKBONE_LENGTH;
@@ -184,8 +191,6 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 		.attr("y2", y)
 		.attr("style", "stroke:"+backbone_color[i]+";stroke-width:5;");
 
-		startX += final_screen_gene_length;
-
 		try {
 			var breakPointRect = d3.select("#breakpoint-line-"+type).node().getBoundingClientRect();
 			var backboneRect = backboneLine.node().getBoundingClientRect();
@@ -200,112 +205,52 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 		}catch(e) {
 			console.log(e);
 		}
-		
-		
-		console.log( exons );
+
+		var x1 = startX;
+			
+		var wholeExonLength = 0;
+		for(var j=0; j<exons.length; j++){
+			wholeExonLength += exons[j].end - exons[j].start + 1;
+		}
+
+		var wholeIntronLength = (wholeExonLength * 0.2) / 0.8;		// Fixed each intron size
+
+		var final_gene_length = wholeExonLength + wholeIntronLength;			// modified gene length with shorten intron size
+		var final_unit_nt_size = final_screen_gene_length / final_gene_length;	// calculate each nucleotide uni length
+
+		var no_of_intron_size = wholeIntronLength / (exons.length+1);
+
+		var exonGroup = canvas.append("g").attr("id", "fused-gene-exon-group");
+		exonGroup.selectAll("path")
+				.data(exons)
+				.enter()
+				.append("path")
+				.classed("exon-feature-rect", true)
+				.classed("exon-feature-3p", type==="3pGene"?true:false)
+				.classed("exon-feature-5p", type==="5pGene"?true:false)
+				.attr("d", function(d, i){
+					var realExonLength = d.end - d.start + 1;
+					var onlyLength = 0;
+
+					var ratio = realExonLength/(wholeExonLength/exons.length);
+					var stable_length = (wholeExonLength / exons.length) * 0.7;
+					var variable_length = ((wholeExonLength / exons.length) * 0.3) * ratio;
+
+					onlyLength = stable_length + variable_length;
+
+					var width = onlyLength * final_unit_nt_size;
+
+					x1 += (1 * no_of_intron_size) * final_unit_nt_size;
+					var expX = x1;
+					x1 += width;
+
+					return "M"+expX+","+(y-10)+" L" + (expX+width) +","+(y-10)+" L"+(expX+width)+","+(y+10)+" L"+expX+","+(y+10)+ " Z";
+				})
+				;
+		startX += final_screen_gene_length;
 	}
 
 	d3.select("svg").attr("height", y + 50);
-//
-//	var backbone_color = ["#555", "#f7e"];
-//	for(var i=0; i<fusion.length; i++) {
-//		var gene_length = fusion[i].endPos - fusion[i].startPos + 1;
-//		var gene_length_ratio = gene_length / gene_total_length;
-//
-//		var stable_length = ((geneBackbonLength/2) * 0.7);
-//		var variable_length = (((geneBackbonLength/2) * 0.3) * 2) * gene_length_ratio;
-//
-//		var final_screen_gene_length = stable_length + variable_length;
-//
-//		var backbone = canvas.append('line')
-//		.attr("class", "fusion-gene-backbone-5p")
-//		.attr('x1', startX)
-//		.attr('y1', 400)
-//		.attr('x2', startX + final_screen_gene_length )
-//		.attr("y2", 400)
-//		.attr("style", "stroke:"+backbone_color[i]+";stroke-width:5;");
-//
-//		var wholeExonLength = 0;
-//		var transcriptExons = fusion[i].fusionStructure;
-//		for(var j=0; j<transcriptExons.length; j++){
-//			wholeExonLength += transcriptExons[j].end - transcriptExons[j].start + 1;
-//		}
-//
-//		var wholeIntronLength = (wholeExonLength * 0.2) / 0.8;		// Fixed each intron size
-//
-//		var final_gene_length = wholeExonLength + wholeIntronLength;			// modified gene length with shorten intron size
-//		var final_unit_nt_size = final_screen_gene_length / final_gene_length;	// calculate each nucleotide uni length
-//
-//		var no_of_intron_size = wholeIntronLength / (transcriptExons.length+1);
-//		
-//		var x1 = startX;
-//		
-//		var exonLabelStartIdx = fusion[i].exonLabelStartIdx;
-//		for(var j=0; j<transcriptExons.length; j++){
-//			var realExonLength = transcriptExons[j].end - transcriptExons[j].start + 1;
-//			var onlyLength = 0;
-//			
-//			if( drawingType === 1 )
-//				onlyLength = realExonLength;
-//			else if( drawingType === 2 )
-//				onlyLength = wholeExonLength / transcriptExons.length;
-//			else if( drawingType === 3 ) {
-//				var ratio = realExonLength/(wholeExonLength/transcriptExons.length);
-//				var stable_length = (wholeExonLength / transcriptExons.length) * 0.7;
-//				var variable_length = ((wholeExonLength / transcriptExons.length) * 0.3) * ratio;
-//				
-//				onlyLength = stable_length + variable_length;
-//			}
-//
-//			x1 += (1 * no_of_intron_size) * final_unit_nt_size;
-//
-//			var exonColor = "orange";
-//			if( i === 0)	exonColor = "#33ff99";
-//
-//			var width = onlyLength * final_unit_nt_size;
-//			var exon = canvas.append("rect")
-//				.attr("id", "exon-" + j)
-//				.attr("class", "exon-feature-label")
-//				.style("fill", exonColor)
-//				.style("stroke-width", 1)
-//				.style("stroke", "#bbb")
-//				.attr("rx", 2)
-//				.attr("ry", 2)
-//				.attr("x", x1)
-//				.attr("y", 390)
-//				.attr("width", width)
-//				.attr("height", 20);
-//		
-//			var exonRect = exon.node().getBoundingClientRect();
-//
-//			canvas.append("text")
-//					.attr("text-anchor", "middle")
-//					.attr("dominant-baseline", "central")
-//					.attr("x", exonRect.left - canvas.node().getBoundingClientRect().left + exonRect.width/2)
-//					.attr("y", exonRect.top - canvas.node().getBoundingClientRect().top + exonRect.height/2)
-//					.text(exonLabelStartIdx+j);
-//
-//			x1 += width;
-//		}
-//
-//		try {
-//			var breakPointRect = d3.select(".break-point-"+fusion[i].fusionLocation).node().getBoundingClientRect();
-//			var baseRect = canvas.node().getBoundingClientRect();
-//			var backboneRect = backbone.node().getBoundingClientRect();
-//
-//			canvas.append("line")
-//				.attr("x1", breakPointRect.left - baseRect.left)
-//				.attr("y1", breakPointRect.bottom - baseRect.top + 30)
-//				.attr("x2", fusion[i].fusionLocation === '5p'?backboneRect.right - baseRect.left:backboneRect.left - baseRect.left)
-//				.attr("y2", backboneRect.top - baseRect.top)
-//				.attr("style", "stroke:#00f;stroke-width:1;")
-//				.style("stroke-dasharray", ("2,3"));
-//		}catch(e) {
-//			console.log(e);
-//		}
-//		
-//		startX += final_screen_gene_length;
-//	}
 };
 
 //ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function( config, canvas, fusionData, drawingType ) {
