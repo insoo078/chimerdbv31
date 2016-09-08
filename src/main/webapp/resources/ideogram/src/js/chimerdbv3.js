@@ -205,8 +205,6 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 		}catch(e) {
 			console.log(e);
 		}
-
-		var x1 = startX;
 			
 		var wholeExonLength = 0;
 		for(var j=0; j<exons.length; j++){
@@ -220,7 +218,10 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 
 		var no_of_intron_size = wholeIntronLength / (exons.length+1);
 
+		var exonPos = {};
+		var INTRON_UNIT_WIDTH = (1 * no_of_intron_size) * final_unit_nt_size;
 		var exonGroup = canvas.append("g").attr("id", "fused-gene-exon-group");
+		var x1 = startX + INTRON_UNIT_WIDTH;
 		exonGroup.selectAll("path")
 				.data(exons)
 				.enter()
@@ -230,23 +231,41 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 				.classed("exon-feature-5p", type==="5pGene"?true:false)
 				.attr("d", function(d, i){
 					var realExonLength = d.end - d.start + 1;
-					var onlyLength = 0;
 
 					var ratio = realExonLength/(wholeExonLength/exons.length);
 					var stable_length = (wholeExonLength / exons.length) * 0.7;
 					var variable_length = ((wholeExonLength / exons.length) * 0.3) * ratio;
 
-					onlyLength = stable_length + variable_length;
+					var onlyLength = stable_length + variable_length;
 
 					var width = onlyLength * final_unit_nt_size;
 
-					x1 += (1 * no_of_intron_size) * final_unit_nt_size;
-					var expX = x1;
-					x1 += width;
+					var points = "M"+x1+","+(y-10)+" L" + (x1+width) +","+(y-10)+" L"+(x1+width)+","+(y+10)+" L"+x1+","+(y+10)+ " Z";
+					
+					exonPos[ d.elementIndex ] = {x1:x1, width:width};
+					
+					x1 += width + INTRON_UNIT_WIDTH;
 
-					return "M"+expX+","+(y-10)+" L" + (expX+width) +","+(y-10)+" L"+(expX+width)+","+(y+10)+" L"+expX+","+(y+10)+ " Z";
+					return points;
 				})
 				;
+				
+		exonGroup.selectAll("text")
+				.data(exons)
+				.enter()
+				.append("text")
+				.attr("text-anchor", "middle")
+				.attr("dominant-baseline", "central")
+				.attr("x", function(d, i){
+					var x1 = exonPos[d.elementIndex].x1;
+					var width = exonPos[d.elementIndex].width;
+
+					return (x1 + (width/2));
+				})
+				.attr("y", y)
+				.text( function(d, i){ return d.elementIndex; } );
+				
+				
 		startX += final_screen_gene_length;
 	}
 
