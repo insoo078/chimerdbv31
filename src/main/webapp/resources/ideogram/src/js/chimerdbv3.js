@@ -109,7 +109,7 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 
 	this.drawGeneStructure( this.config, drawingType, isAllowedReversed, isPacked );
 
-	this.drawFusionGeneStructure( this.config, drawingType, isAllowedReversed );
+	this.drawFusionGeneStructure( this.config, drawingType, isAllowedReversed, isPacked );
 };
 
 
@@ -140,8 +140,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.init = function( config ) {
 	this.config.drawingObj = drawingObj;
 };
 
-
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function( config, drawingType, isAllowedReverse ) {
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function( config, drawingType, isAllowedReverse, isPacked ) {
 	var canvas = config.canvas;
 	var canvasRect = config.canvas.node().getBoundingClientRect();
 	var fusedExons = config.fusionInfo.fusedExons;
@@ -174,6 +173,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 	
 	var y = relativeOffsetY(orginalGeneStructureRect, canvasRect) + orginalGeneStructureRect.height + config.MARGIN_BETWEEN_BACKBONES;
 
+	var onScreen= {};
 	var backbone_color = ["#555", "#f7e"];
 	for(var i=0; i<fused.length; i++) {
 		var type = fused[i].type;
@@ -275,8 +275,70 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 				.attr("y", y)
 				.text( function(d, i){ return d.elementIndex; } );
 				
-				
+		onScreen[type] = {exons:exonPos};
 		startX += final_screen_gene_length;
+	}
+	config.fusedExonsOnScreen = onScreen;
+	
+	
+//	var fused = [{type:'5pGene', exons:fusedExons["5'"]}, {type:'3pGene', exons:fusedExons["3'"]}];
+	
+	for( var j=0; j<config.fusion_genes.length; j++) {
+		var obj = config.fusion_genes[j];
+		
+		var exons = fusedExons[obj.type==='5pGene'?"5'":"3'"];
+
+		var domainGroup = backbone.select("#fused-gene-backbone-" + obj.type).append("g").attr("class", "domain-group-" + obj.type);
+
+		var exonPos = config.exonsOnScreen[obj.type];
+
+		for(var j=0; j<obj.gene.pFamDomainList.length; j++ ) {
+			var domainFragments = obj.gene.pFamDomainList[j].fragments;
+
+			var domainLayerGroup = domainGroup.append("g").attr("id", "domain-group-" + obj.type + "-" + j);
+
+			var isFirst = {flag:false, startX:-1};
+			for(var k=0; k<domainFragments.length; k++) {
+				var fragment = domainFragments[k];
+				for(var t=0; t<exons.length; t++) {
+					var exon = exons[t];
+
+					var isoverlapped = isOverlapped( fragment, exon );
+					if( isoverlapped ) {
+						var pos = exonPos.exons[ exon.elementIndex ];
+
+						var relativeY = isPacked===false?(j+1):(obj.gene.pFamDomainList[j].layerNo+1);
+
+						domainLayerGroup.append("rect")
+						.classed("domain-feature-rect", true)
+						.attr("fill", config.DOMAIN_COLOURS[j])
+						.attr("rx", 2)
+						.attr("ry", 2)
+						.attr("x", pos.x1)
+						.attr("y", config.EXON_Y_POS + (relativeY * (config.EXON_HEIGHT + 5) ) )
+						.attr("width", pos.width)
+						.attr("height", config.EXON_HEIGHT);
+
+						if( isFirst.flag === false ) {
+							isFirst.startX = pos.x1;
+							isFirst.flag = true;
+						}
+					}
+				}
+			}
+
+//			var domainLayerGroupRect = domainLayerGroup.node().getBoundingClientRect();
+//			var domainLayerLabelGroup = domainGroup.append("g").attr("id", "domain-label-group-" + obj.type + "-" + j);
+//			if( domainFragments[j] ) {
+//				domainLayerLabelGroup.append("text")
+//						.attr("text-anchor", "end")
+//						.attr("dominant-baseline", "central")
+//						.attr("x", isAllowedReverse===true?relativeOffsetX(domainLayerGroupRect, canvasRect) - 10:(isFirst.startX - 5))
+//						.attr("y", relativeOffsetY(domainLayerGroupRect, canvasRect) + config.EXON_HEIGHT/2 )
+//						.text( !domainFragments[j] ? "": domainFragments[j].name );
+//				;
+//			}
+		}
 	}
 
 	d3.select("svg").attr("height", y + 50);
