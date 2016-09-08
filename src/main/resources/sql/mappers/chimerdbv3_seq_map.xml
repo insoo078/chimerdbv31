@@ -375,13 +375,13 @@
 				SELECT a.id FROM (
 					SELECT 
 						a.id
-						, (greatest(chromEnd, ${geneEnd}) - least(chromStart, ${geneStart}) +1) AS val_a
-						, ((chromEnd-chromStart+1) + (${geneEnd}-${geneStart}+1)) AS val_b
+						, (GREATEST(chromEnd, ${geneEnd}) - LEAST(chromStart, ${geneStart}) +1) AS val_max
+						, ((chromEnd-chromStart+1) + (${geneEnd}-${geneStart}+1)) AS val_sum
 					FROM ChimerSeq_Pfam a, ChimerSeq_Pfam_Chr b
 					WHERE a.id BETWEEN b.start_id AND b.end_id
 					AND b.chromosome=#{chromosome}
 				) a
-				WHERE val_a < val_b
+				WHERE val_max < val_sum
 			) b
 			WHERE a.id=b.id
 		]]>

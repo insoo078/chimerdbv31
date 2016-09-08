@@ -38,7 +38,6 @@ var lineFunction = d3.svg.line()
 	.y(function(d) { return d.y; })
 	.interpolate("linear");
 					
-					
 var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
     this.config = JSON.parse( JSON.stringify(config) );
 
@@ -201,6 +200,9 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 		}catch(e) {
 			console.log(e);
 		}
+		
+		
+		console.log( exons );
 	}
 
 	d3.select("svg").attr("height", y + 50);

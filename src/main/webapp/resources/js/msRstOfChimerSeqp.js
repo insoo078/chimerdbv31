@@ -50,8 +50,9 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 
 			var tmp = aData.supported.split("_");
 
-			if(tmp[0]==='1') imgTag += '<div class="rcorner-3" style="width:30px;height:20px;line-height:20px;text-align:center;background:green;">KB</div>';
-			if(tmp[1]==='1') imgTag += '<div class="rcorner-3" style="width:30px;height:20px;line-height:20px;text-align:center;background:purple;">Pub</div>';
+			if( tmp[0]==='1' ) imgTag += "<img src='./resources/images/icons/ickb.png'></img>";
+			if( tmp[1]==='1' ) imgTag += "<img src='./resources/images/icons/icpub.png'></img>";
+			
 			$('td:eq(9)', nRow).html(imgTag); // where 4 is the zero-origin visible column in the HTML
 
 			// When this page is opend, default fusion structure is drawing by first row data
@@ -149,7 +150,17 @@ ChimerSeqResult.prototype.showDetailInfo = function(rowdata) {
 			$("#srt_td_tcga_barcode").text( jData.barcodeID );
 			$("#srt_cancer_type").text( jData.cancertype==='NA'?"": jData.cancertype );
 			$("#srt_td_frame").text( jData.frame );
-			console.log( jData );
+			$("#srt_td_chr_info").text( jData.chr_info );
+			
+			
+			var supported = "";
+			if( jData.chimerKB > 0 ) {
+				supported += "<img src='./resources/images/icons/ickb.png'></img>";
+			}
+			if( jData.chimerPub > 0 ) {
+				supported += "<img src='./resources/images/icons/icpub.png'></img>";
+			}
+			$("#srt_td_supported").html( supported );
 		},
 		error : function(xhr, status) {
 			alert(status);
