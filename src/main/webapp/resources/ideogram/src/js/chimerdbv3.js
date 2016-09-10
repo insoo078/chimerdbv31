@@ -86,6 +86,10 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 		this.config.BASE_UNIT_LENGTH = 200;
 	}
 	
+	if( !this.config.zoom ) {
+		this.config.zoom = 1;
+	}
+	
 	if( !this.config.MARGIN_BETWEEN_BACKBONES ) {
 		this.config.MARGIN_BETWEEN_BACKBONES = 10 * this.config.sideMargin;
 	}
@@ -119,8 +123,9 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.init = function( config ) {
-	this.config.GENE_TOTAL_LENGTH = getTotalLengthIn( config.fusion_genes );
-	this.config.BACKBONE_LENGTH = config.canvas.node().getBoundingClientRect().width - config.LEFT_MARGIN - config.MARGIN_BETWEEN_BACKBONES;
+	// Gene length
+	this.config.GENE_TOTAL_LENGTH = this.getTotalLengthIn( config.fusion_genes );
+	this.config.SCREEN_BACKBONE_AREALENGTH = config.canvas.node().getBoundingClientRect().width - config.LEFT_MARGIN - config.MARGIN_BETWEEN_BACKBONES;
 	
 	var drawingObj = {};
 	for(var i=0; i<config.fusion_genes.length; i++) {
@@ -133,14 +138,14 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.init = function( config ) {
 			wholeExonLength += getLength(transcriptExons[j]);
 		}
 
-		var len = getLength( obj.gene );
-		var screenObj = getWithOfScreenForGene(len, this.config.GENE_TOTAL_LENGTH, this.config.BACKBONE_LENGTH);
+		var eachGeneLength = this.getLength( obj.gene );
+		var screenObj = this.getWithOfScreenForGene( eachGeneLength, this.config.GENE_TOTAL_LENGTH, this.config.SCREEN_BACKBONE_AREALENGTH );
 		var wholeIntronLength = (wholeExonLength * 0.2) / 0.8;
 		var final_gene_length = wholeExonLength + wholeIntronLength;			// modified gene length with shorten intron size
 		var final_unit_nt_size = screenObj.final_screen_gene_length / final_gene_length;	// calculate each nucleotide uni length
 		var no_of_intron_size = wholeIntronLength / (transcriptExons.length+1);
 
-		drawingObj[obj.type] = { gene_length:len, screenObj:screenObj, exon_length:wholeExonLength, whole_intron_length:wholeIntronLength, final_unit_nt_size:final_unit_nt_size, no_of_intron_size:no_of_intron_size };
+		drawingObj[obj.type] = { gene_length:eachGeneLength, screenObj:screenObj, exon_length:wholeExonLength, whole_intron_length:wholeIntronLength, final_unit_nt_size:final_unit_nt_size, no_of_intron_size:no_of_intron_size };
 	}
 	this.config.drawingObj = drawingObj;
 };
@@ -343,7 +348,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneExons = function( con
 	}
 	
 	var gene_total_length = lenJunction5p + lenJunction3p;
-	var geneBackbonLength = config.BACKBONE_LENGTH;
+	var geneBackbonLength = config.SCREEN_BACKBONE_AREALENGTH;
 	var startX = (canvasRect.width/2) - (geneBackbonLength/2) + config.LEFT_MARGIN - (10*config.sideMargin);
 
 	var orginalGeneStructureRect = d3.select("#fusion-gene-backbone-group").node().getBoundingClientRect();
@@ -455,7 +460,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneBackbone = function( 
 	}
 	
 	var gene_total_length = lenJunction5p + lenJunction3p;
-	var geneBackbonLength = config.BACKBONE_LENGTH;
+	var geneBackbonLength = config.SCREEN_BACKBONE_AREALENGTH;
 	var startX = (canvasRect.width/2) - (geneBackbonLength/2) + config.LEFT_MARGIN - (10*config.sideMargin);
 		
 	var backbone = canvas.append("g").attr("id", "fused-gene-backbone-group");
@@ -608,7 +613,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawDonorGeneBackbone = function( c
 				var y2 = 250;
 
 				if( i !== 0 ) {
-					var offset = (config.BACKBONE_LENGTH - screenObj.final_screen_gene_length);
+					var offset = (config.SCREEN_BACKBONE_AREALENGTH - screenObj.final_screen_gene_length);
 					x1 += offset + (config.MARGIN_BETWEEN_BACKBONES/2);
 				}
 
@@ -1185,24 +1190,20 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.initDefs = function() {
 		.attr("style", "stroke:#555;stroke-width:2;");
 };
 
-function relativeOffsetY(current, base) {
-	return current.top - base.top;
-}
 
-function relativeOffsetX(current, base) {
-	return current.left - base.left;
-}
-
-function getTotalLengthIn( genes ) {
+ChimeraDbV3ViewerWithOutChromosome.prototype.getTotalLengthIn = function( genes ) {
 	var length = 0;
 	for( var i=0; i<genes.length; i++ ) {
 		length += genes[i].gene.length;
 	}
 	return length;
-}
+};
 
+ChimeraDbV3ViewerWithOutChromosome.prototype.getLength = function( obj ) {
+	return obj.end - obj.start + 1;
+};
 
-function getWithOfScreenForGene(gene_length, GENE_TOTAL_LENGTH, BACKBONE_LENGTH) {
+ChimeraDbV3ViewerWithOutChromosome.prototype.getWithOfScreenForGene = function( gene_length, GENE_TOTAL_LENGTH, BACKBONE_LENGTH ) {
 	var gene_length_ratio = gene_length / GENE_TOTAL_LENGTH;
 
 	var stable_length = (BACKBONE_LENGTH * 0.8)/2;
@@ -1210,10 +1211,14 @@ function getWithOfScreenForGene(gene_length, GENE_TOTAL_LENGTH, BACKBONE_LENGTH)
 	var final_screen_gene_length = stable_length + variable_length;
 
 	return {final_screen_gene_length:final_screen_gene_length, gene_length_ratio:gene_length_ratio};
+};
+
+function relativeOffsetY(current, base) {
+	return current.top - base.top;
 }
 
-function getLength(obj) {
-	return obj.end - obj.start + 1;
+function relativeOffsetX(current, base) {
+	return current.left - base.left;
 }
 
 function isOverlapped( fragment, exon ) {
