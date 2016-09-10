@@ -207,8 +207,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 	this.drawFusionGeneExons( config );
 	this.drawFusionGenePfamdomains( config, isAllowedReverse, isPacked, isConservedPfamDomainColor );
 	
-	var heightVal5p = d3.select("#fused-gene-exon-group-5pGene").node().getBoundingClientRect().height;
-	var heightVal3p = d3.select("#fused-gene-exon-group-3pGene").node().getBoundingClientRect().height;
+	var heightVal5p = d3.select(".fused-domain-group-5pGene").node().getBoundingClientRect().height;
+	var heightVal3p = d3.select(".fused-domain-group-3pGene").node().getBoundingClientRect().height;
 
 	var domainAreaHeight = Math.max(heightVal5p, heightVal3p);
 
@@ -235,18 +235,19 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = functio
 		var obj = config.fusion_genes[i];
 		
 		var exons = fusedExons[obj.type==='5pGene'?"5'":"3'"];
-		
-		var domainGroup = d3.select("#fused-gene-exon-group-" + obj.type);
 
 		var exonPos = config.fusedExonsOnScreen[obj.type];
 
-		var backboneRect = d3.select("#fused-gene-backbone-" + obj.type).node().getBoundingClientRect();
+		var parentGroup = d3.select("#fused-gene-backbone-"+obj.type);
+
+		var domainGroup = parentGroup.append("g").attr("class", "fused-domain-group-"+obj.type);
+		
+		var backboneRect = d3.select("#fused-gene-backbone-line-"+obj.type).node().getBoundingClientRect();
+
 		var yPos = relativeOffsetY(backboneRect, canvasRect) - (config.EXON_HEIGHT/2);
 
 		for(var j=0; j<obj.gene.pFamDomainList.length; j++ ) {
 			var domainFragments = obj.gene.pFamDomainList[j].fragments;
-
-			var domainLayerGroup = domainGroup.append("g").attr("id", "fused-domain-group-" + obj.type + "-" + j);
 
 			var relativeY = isPacked===false?(j+1):(obj.gene.pFamDomainList[j].layerNo+1);
 			
@@ -254,14 +255,28 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = functio
 			if( isConservedPfamDomainColor )
 				DOMAIN_COLOR = config.DOMAIN_COLOURS[ config.PFAM_DOMAIN_MAP.indexOf(obj.gene.pFamDomainList[j].name ) ];
 
+			var domainLayerGroup = null;
 			var isFirst = {flag:false, startX:-1};
 			for(var k=0; k<domainFragments.length; k++) {
 				var fragment = domainFragments[k];
+				
+				var isoverlapped = false;
+				
 				for(var t=0; t<exons.length; t++) {
 					var exon = exons[t];
 
-					var isoverlapped = isOverlapped( fragment, exon );
+					isoverlapped = isOverlapped( fragment, exon );
 					if( isoverlapped ) {
+						break;
+					}
+				}
+				if( isoverlapped ) {
+					var kk = domainGroup.select("#fused-domain-group-" + obj.type + "-" + j).node();
+					if( kk === null ) {
+						domainLayerGroup = domainGroup.append("g").attr("id", "fused-domain-group-" + obj.type + "-" + j);
+					}
+
+					if ( domainLayerGroup ) {
 						var pos = exonPos.exons[ exon.elementIndex ];
 
 						domainLayerGroup.append("rect")
@@ -281,20 +296,22 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = functio
 					}
 				}
 			}
-			
-			if( (yPos +  ((relativeY * (config.EXON_HEIGHT + 5) ))) > DOMAINS_HEIGHT )
-				DOMAINS_HEIGHT = (yPos +  ((relativeY * (config.EXON_HEIGHT + 5) )));
 
-			var domainLayerGroupRect = domainLayerGroup.node().getBoundingClientRect();
-			var domainLayerLabelGroup = domainGroup.append("g").attr("id", "domain-label-group-" + obj.type + "-" + j);
-			if( domainFragments[j] ) {
-				domainLayerLabelGroup.append("text")
-						.attr("text-anchor", "end")
-						.attr("dominant-baseline", "central")
-						.attr("x", isAllowedReverse===true?relativeOffsetX(domainLayerGroupRect, canvasRect) - 10:(isFirst.startX - 5))
-						.attr("y", relativeOffsetY(domainLayerGroupRect, canvasRect) + config.EXON_HEIGHT/2 )
-						.text( !domainFragments[j] ? "": domainFragments[j].name );
-				;
+			if( domainLayerGroup ) {
+				if( (yPos +  ((relativeY * (config.EXON_HEIGHT + 5) ))) > DOMAINS_HEIGHT )
+					DOMAINS_HEIGHT = (yPos +  ((relativeY * (config.EXON_HEIGHT + 5) )));
+
+				var domainLayerGroupRect = domainLayerGroup.node().getBoundingClientRect();
+				var domainLayerLabelGroup = domainGroup.append("g").attr("id", "fused-domain-label-group-" + obj.type + "-" + j);
+				if( domainFragments[j] ) {
+					domainLayerLabelGroup.append("text")
+							.attr("text-anchor", "end")
+							.attr("dominant-baseline", "central")
+							.attr("x", isAllowedReverse===true?relativeOffsetX(domainLayerGroupRect, canvasRect) - 10:(isFirst.startX - 5))
+							.attr("y", relativeOffsetY(domainLayerGroupRect, canvasRect) + config.EXON_HEIGHT/2 )
+							.text( !domainFragments[j] ? "": domainFragments[j].name );
+					;
+				}
 			}
 		}
 	}
@@ -360,7 +377,10 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneExons = function( con
 
 		var exonPos = {};
 		var INTRON_UNIT_WIDTH = (1 * no_of_intron_size) * final_unit_nt_size;
-		var exonGroup = canvas.append("g").attr("id", "fused-gene-exon-group-"+type);
+		
+		var parentGroup = d3.select("#fused-gene-backbone-"+type);
+
+		var exonGroup = parentGroup.append("g").attr("class", "fused-gene-exon-group-"+type);
 		var x1 = startX + INTRON_UNIT_WIDTH;
 		exonGroup.selectAll("path")
 				.data(exons)
@@ -456,8 +476,10 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneBackbone = function( 
 
 		var final_screen_gene_length = stable_length + variable_length;
 
-		var backboneLine = backbone.append('line')
-		.attr("id", "fused-gene-backbone-" + type)
+		var backboneLine = backbone.append("g").attr("id", "fused-gene-backbone-" + type);
+				
+		backboneLine.append('line')
+		.attr("id", "fused-gene-backbone-line-" + type)
 		.attr('x1', startX)
 		.attr('y1', y)
 		.attr('x2', startX + final_screen_gene_length )
@@ -473,7 +495,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneBackbone = function( 
 			var breakPointRect = d3.select("#breakpoint-line-"+type).node().getBoundingClientRect();
 			var backboneRect = backboneLine.node().getBoundingClientRect();
 
-			backbone.append("line")
+			backboneLine.append("line")
 				.attr("x1", breakPointRect.left - canvasRect.left)
 				.attr("y1", breakPointRect.bottom - canvasRect.top + 30)
 				.attr("x2", type === '5pGene'?backboneRect.right - canvasRect.left:backboneRect.left - canvasRect.left)
