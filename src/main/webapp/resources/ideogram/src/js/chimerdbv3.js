@@ -147,12 +147,12 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.init = function( config ) {
 
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(config, drawingType, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
-	var backbone = this.drawFusionGeneBackbone( config, isAllowedReverse );
-	this.drawFusionGeneExons( config, backbone, drawingType, isAllowedReverse );
-	this.drawFusionGenePfamdomains( config, backbone, isAllowedReverse, isPacked, isConservedPfamDomainColor );
+	var backbone = this.drawFusionGeneBackbone( config );
+	this.drawFusionGeneExons( config );
+	this.drawFusionGenePfamdomains( config, isAllowedReverse, isPacked, isConservedPfamDomainColor );
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = function( config, drawingType, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = function( config, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
 	var canvasRect = config.canvas.node().getBoundingClientRect();
 	var fusedExons = config.fusionInfo.fusedExons;
 
@@ -229,7 +229,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = functio
 	d3.select("svg").attr("height", DOMAINS_HEIGHT + 30);
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneExons = function( config, drawingType, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneExons = function( config ) {
 	var canvas = config.canvas;
 	var canvasRect = config.canvas.node().getBoundingClientRect();
 	var fusedExons = config.fusionInfo.fusedExons;
