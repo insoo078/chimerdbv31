@@ -145,11 +145,84 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.init = function( config ) {
 	this.config.drawingObj = drawingObj;
 };
 
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneLabel= function( config, labelData ){
+	var canvasRect = this.config.canvas.node().getBoundingClientRect();
+	
+	var label = d3.select("#fused-gene-backbone-group").insert("g", ":first-child").attr("id", "fused-gene-structure-label");
+	
+	label.append("g")
+			.selectAll("rect")
+			.data( labelData )
+			.enter()
+			.append("rect")
+			.classed("structure-background", true)
+			.attr("x", function(d){
+				return d.startX + d.width;
+			})
+			.attr("y", function(d){
+				return d.startY;
+			})
+			.attr("width", function(d){
+				return canvasRect.width - (d.startX + d.width) - (2*config.sideMargin);
+			})
+			.attr("height", function(d){
+				return d.height;
+			});					
+
+	var lblGene = label.append("g");
+			lblGene.selectAll("rect")
+			.data( labelData )
+			.enter()
+			.append("rect")
+			.classed("structure-label", true)
+			.attr("x", function(d){
+				return d.startX;
+			})
+			.attr("y", function(d){
+				return d.startY;
+			})
+			.attr("width", function(d){
+				return d.width;
+			})
+			.attr("height", function(d){
+				return d.height;
+			});
+
+	lblGene.selectAll("text")
+		.data(labelData)
+		.enter()
+		.append("text")
+		.style("font-size", "14px")
+		.attr("text-anchor", "middle")
+		.attr("baseline-shift", "-24%")
+		.attr("x",function(d){return d.startX + d.width/2;})
+		.attr("y", function(d){return d.startY + d.height/2;} )
+		.text( function(d){return d.name;} );
+};
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(config, drawingType, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
-	var backbone = this.drawFusionGeneBackbone( config );
+	var canvasRect = config.canvas.node().getBoundingClientRect();
+
+	this.drawFusionGeneBackbone( config );
 	this.drawFusionGeneExons( config );
 	this.drawFusionGenePfamdomains( config, isAllowedReverse, isPacked, isConservedPfamDomainColor );
+	
+	var heightVal5p = d3.select("#fused-gene-exon-group-5pGene").node().getBoundingClientRect().height;
+	var heightVal3p = d3.select("#fused-gene-exon-group-3pGene").node().getBoundingClientRect().height;
+
+	var domainAreaHeight = Math.max(heightVal5p, heightVal3p);
+
+	var orginalGeneStructureRect = d3.select("#fusion-gene-backbone-group").node().getBoundingClientRect();
+	var y = relativeOffsetY(orginalGeneStructureRect, canvasRect) + orginalGeneStructureRect.height + config.MARGIN_BETWEEN_BACKBONES - (config.EXON_HEIGHT/2);
+	
+	var labelData = [
+		{name:"Gene", startX:config.sideMargin, startY:y-7.5, width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:30}
+		,{name:"Domain", startX:config.sideMargin, startY:(y + config.EXON_HEIGHT + 5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:domainAreaHeight + 5}
+	];
+	
+	this.drawFusionGeneLabel( config, labelData );
+	
+	console.log( domainAreaHeight );
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = function( config, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
