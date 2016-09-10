@@ -103,7 +103,8 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 				topPanelHeightToExplain : 170,
 				fusionInfo : jData,
 				showBandLabels: true,
-				container: container
+				container: container,
+				zoom: 1.1
 			  };
 
 			  var viewer = new ChimeraDbV3ViewerWithOutChromosome(config);

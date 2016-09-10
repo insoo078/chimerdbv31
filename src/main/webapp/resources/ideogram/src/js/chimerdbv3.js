@@ -87,7 +87,7 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 	}
 	
 	if( !this.config.zoom ) {
-		this.config.zoom = 1;
+		this.config.zoom = 2;
 	}
 	
 	if( !this.config.MARGIN_BETWEEN_BACKBONES ) {
@@ -125,7 +125,7 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 ChimeraDbV3ViewerWithOutChromosome.prototype.init = function( config ) {
 	// Gene length
 	this.config.GENE_TOTAL_LENGTH = this.getTotalLengthIn( config.fusion_genes );
-	this.config.SCREEN_BACKBONE_AREALENGTH = config.canvas.node().getBoundingClientRect().width - config.LEFT_MARGIN - config.MARGIN_BETWEEN_BACKBONES;
+	this.config.SCREEN_BACKBONE_AREALENGTH = ((config.canvas.node().getBoundingClientRect().width - config.LEFT_MARGIN) * config.zoom) - config.MARGIN_BETWEEN_BACKBONES;
 	
 	var drawingObj = {};
 	for(var i=0; i<config.fusion_genes.length; i++) {
@@ -135,11 +135,11 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.init = function( config ) {
 		
 		var wholeExonLength = 0;
 		for(var j=0; j<transcriptExons.length; j++){
-			wholeExonLength += getLength(transcriptExons[j]);
+			wholeExonLength += this.getLength(transcriptExons[j]);
 		}
 
 		var eachGeneLength = this.getLength( obj.gene );
-		var screenObj = this.getWithOfScreenForGene( eachGeneLength, this.config.GENE_TOTAL_LENGTH, this.config.SCREEN_BACKBONE_AREALENGTH );
+		var screenObj = this.getWithOfScreenForGene( config, eachGeneLength, this.config.GENE_TOTAL_LENGTH, this.config.SCREEN_BACKBONE_AREALENGTH );
 		var wholeIntronLength = (wholeExonLength * 0.2) / 0.8;
 		var final_gene_length = wholeExonLength + wholeIntronLength;			// modified gene length with shorten intron size
 		var final_unit_nt_size = screenObj.final_screen_gene_length / final_gene_length;	// calculate each nucleotide uni length
@@ -226,8 +226,6 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 	];
 	
 	this.drawFusionGeneLabel( config, labelData );
-	
-	console.log( domainAreaHeight );
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = function( config, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
@@ -349,7 +347,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneExons = function( con
 	
 	var gene_total_length = lenJunction5p + lenJunction3p;
 	var geneBackbonLength = config.SCREEN_BACKBONE_AREALENGTH;
-	var startX = (canvasRect.width/2) - (geneBackbonLength/2) + config.LEFT_MARGIN - (10*config.sideMargin);
+//	var startX = (canvasRect.width/2) - (geneBackbonLength/2) + config.LEFT_MARGIN - (10*config.sideMargin);
+	var startX = config.LEFT_MARGIN;
 
 	var orginalGeneStructureRect = d3.select("#fusion-gene-backbone-group").node().getBoundingClientRect();
 	
@@ -367,7 +366,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneExons = function( con
 		var variable_length = (((geneBackbonLength/2) * 0.3) * 2) * gene_length_ratio;
 
 		var final_screen_gene_length = stable_length + variable_length;
-		
+
 		var wholeExonLength = 0;
 		for(var j=0; j<exons.length; j++){
 			wholeExonLength += exons[j].end - exons[j].start + 1;
@@ -460,8 +459,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneBackbone = function( 
 	}
 	
 	var gene_total_length = lenJunction5p + lenJunction3p;
-	var geneBackbonLength = config.SCREEN_BACKBONE_AREALENGTH;
-	var startX = (canvasRect.width/2) - (geneBackbonLength/2) + config.LEFT_MARGIN - (10*config.sideMargin);
+	var startX = config.LEFT_MARGIN;
 		
 	var backbone = canvas.append("g").attr("id", "fused-gene-backbone-group");
 
@@ -476,8 +474,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneBackbone = function( 
 		var gene_length = (type==='5pGene')?lenJunction5p:lenJunction3p;
 		var gene_length_ratio = gene_length / gene_total_length;
 
-		var stable_length = ((geneBackbonLength/2) * 0.7);
-		var variable_length = (((geneBackbonLength/2) * 0.3) * 2) * gene_length_ratio;
+		var stable_length = ((config.SCREEN_BACKBONE_AREALENGTH/2) * 0.7);
+		var variable_length = (((config.SCREEN_BACKBONE_AREALENGTH/2) * 0.3) * 2) * gene_length_ratio;
 
 		var final_screen_gene_length = stable_length + variable_length;
 
@@ -640,6 +638,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawDonorGeneBackbone = function( c
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backbone, drawingType, isAllowedReverse ) {
 	config.EXON_Y_POS = 240;
 	config.EXON_HEIGHT = 20;
+	
+	var viewer = this;
 	var onScreen= {};
 	for( var j=0; j<config.fusion_genes.length; j++) {
 		var obj = config.fusion_genes[j];
@@ -665,7 +665,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backb
 				.classed("exon-feature-3p", obj.type==="3pGene"?true:false)
 				.classed("exon-feature-5p", obj.type==="5pGene"?true:false)
 				.attr("d", function(d, i) {
-					var realExonLength = getLength(d);
+					var realExonLength = viewer.getLength(d);
 					var onlyLength = 0;
 
 					if( drawingType === 1 )
@@ -1203,11 +1203,11 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.getLength = function( obj ) {
 	return obj.end - obj.start + 1;
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.getWithOfScreenForGene = function( gene_length, GENE_TOTAL_LENGTH, BACKBONE_LENGTH ) {
+ChimeraDbV3ViewerWithOutChromosome.prototype.getWithOfScreenForGene = function( config, gene_length, GENE_TOTAL_LENGTH, SCREEN_BACKBONE_AREALENGTH ) {
 	var gene_length_ratio = gene_length / GENE_TOTAL_LENGTH;
 
-	var stable_length = (BACKBONE_LENGTH * 0.8)/2;
-	var variable_length = (BACKBONE_LENGTH * 0.2) * gene_length_ratio;
+	var stable_length = (SCREEN_BACKBONE_AREALENGTH * 0.8)/2;
+	var variable_length = (SCREEN_BACKBONE_AREALENGTH * 0.2) * gene_length_ratio;
 	var final_screen_gene_length = stable_length + variable_length;
 
 	return {final_screen_gene_length:final_screen_gene_length, gene_length_ratio:gene_length_ratio};
