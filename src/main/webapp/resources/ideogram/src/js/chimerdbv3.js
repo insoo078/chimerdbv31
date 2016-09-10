@@ -91,7 +91,11 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 	}
 	
 	if( !this.config.DOMAIN_COLOURS ) {
-		this.config.DOMAIN_COLOURS = ["#F7819F", "#D0F5A9", "#A9D0F5", "#AC58FA", "#F7FE2E", "#DF0101"];
+		this.config.DOMAIN_COLOURS = ["#F7819F", "#D0F5A9", "#A9D0F5", "#AC58FA", "#F7FE2E", "#DF0101", "", "", "", "", "", "", ""];
+	}
+	
+	if( !this.config.PFAM_DOMAIN_MAP ) {
+		this.config.PFAM_DOMAIN_MAP = [];
 	}
 	
 	this.init( this.config );
@@ -101,15 +105,16 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 	var isAllowedReversed = true;
 	var drawingType = 1;
 	var isPacked = true;
+	var isConservedPfamDomainColor = true;
 
 	this.drawEachGeneAreaLabel( this.config );
 	this.drawGeneLabel( this.config );
 	this.drawMessagerRnaIdLabel( this.config );
 	this.drawChromosomeLabel( this.config );
 
-	this.drawGeneStructure( this.config, drawingType, isAllowedReversed, isPacked );
+	this.drawGeneStructure( this.config, drawingType, isAllowedReversed, isPacked, isConservedPfamDomainColor );
 
-	this.drawFusionGeneStructure( this.config, drawingType, isAllowedReversed, isPacked );
+	this.drawFusionGeneStructure( this.config, drawingType, isAllowedReversed, isPacked, isConservedPfamDomainColor );
 };
 
 
@@ -140,7 +145,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.init = function( config ) {
 	this.config.drawingObj = drawingObj;
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function( config, drawingType, isAllowedReverse, isPacked ) {
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function( config, drawingType, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
 	var canvas = config.canvas;
 	var canvasRect = config.canvas.node().getBoundingClientRect();
 	var fusedExons = config.fusionInfo.fusedExons;
@@ -294,7 +299,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 		var exonPos = config.fusedExonsOnScreen[obj.type];
 
 		var backboneRect = d3.select("#fused-gene-backbone-" + obj.type).node().getBoundingClientRect()
-		var yPos = relativeOffsetY(backboneRect, canvasRect);
+		var yPos = relativeOffsetY(backboneRect, canvasRect) - (config.EXON_HEIGHT/2);
 
 		for(var j=0; j<obj.gene.pFamDomainList.length; j++ ) {
 			var domainFragments = obj.gene.pFamDomainList[j].fragments;
@@ -302,6 +307,10 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 			var domainLayerGroup = domainGroup.append("g").attr("id", "fused-domain-group-" + obj.type + "-" + j);
 
 			var relativeY = isPacked===false?(j+1):(obj.gene.pFamDomainList[j].layerNo+1);
+			
+			var DOMAIN_COLOR = config.DOMAIN_COLOURS[j];
+			if( isConservedPfamDomainColor )
+				DOMAIN_COLOR = config.DOMAIN_COLOURS[ config.PFAM_DOMAIN_MAP.indexOf(obj.gene.pFamDomainList[j].name ) ];
 
 			var isFirst = {flag:false, startX:-1};
 			for(var k=0; k<domainFragments.length; k++) {
@@ -315,7 +324,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 
 						domainLayerGroup.append("rect")
 						.classed("domain-feature-rect", true)
-						.attr("fill", config.DOMAIN_COLOURS[j])
+						.attr("fill", DOMAIN_COLOR)
 						.attr("rx", 2)
 						.attr("ry", 2)
 						.attr("x", pos.x1)
@@ -552,7 +561,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backb
 	config.exonsOnScreen = onScreen;
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, backbone, isAllowedReverse, isPacked ) {
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, backbone, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
 	var canvasRect = this.config.canvas.node().getBoundingClientRect();
 			
 	for( var i=0; i<config.fusion_genes.length; i++) {
@@ -564,6 +573,13 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, 
 		var exonPos = config.exonsOnScreen[obj.type];
 
 		for(var j=0; j<obj.gene.pFamDomainList.length; j++ ) {
+			if( config.PFAM_DOMAIN_MAP.indexOf(obj.gene.pFamDomainList[j].name ) === -1 )
+				config.PFAM_DOMAIN_MAP.push( obj.gene.pFamDomainList[j].name );
+			
+			var DOMAIN_COLOR = config.DOMAIN_COLOURS[j];
+			if( isConservedPfamDomainColor )
+				DOMAIN_COLOR = config.DOMAIN_COLOURS[ config.PFAM_DOMAIN_MAP.indexOf(obj.gene.pFamDomainList[j].name ) ];
+
 			var domainFragments = obj.gene.pFamDomainList[j].fragments;
 
 			var domainLayerGroup = domainGroup.append("g").attr("id", "domain-group-" + obj.type + "-" + j);
@@ -582,7 +598,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, 
 
 						domainLayerGroup.append("rect")
 						.classed("domain-feature-rect", true)
-						.attr("fill", config.DOMAIN_COLOURS[j])
+						.attr("fill", DOMAIN_COLOR)
 						.attr("rx", 2)
 						.attr("ry", 2)
 						.attr("x", pos.x1)
@@ -729,12 +745,12 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawBreakPointInGeneStructure = fun
 	}
 };
 
-ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( config, drawingType, isAllowedReverse, isPacked ) {
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( config, drawingType, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
 	this.drawUnitLengthOfEachGene( config );
 
 	var backbone = this.drawDonorGeneBackbone( config, isAllowedReverse );
 	this.drawExons( config, backbone, drawingType, isAllowedReverse );
-	this.drawPfamdomains( config, backbone, isAllowedReverse, isPacked );
+	this.drawPfamdomains( config, backbone, isAllowedReverse, isPacked, isConservedPfamDomainColor );
 
 	var heightVal5p = d3.select(".domain-group-5pGene").node().getBBox().height;
 	var heightVal3p = d3.select(".domain-group-3pGene").node().getBBox().height;
