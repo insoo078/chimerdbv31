@@ -180,40 +180,42 @@ public class GeneObj extends GeneBaseObj{
 	public void setpFamDomainList(List<PfamVo> pFamDomainList) {
 		this.pFamDomainList = pFamDomainList;
 		
-		Map<Integer, List<PfamVo>> map = this.makeHashMap4DomainLayerOrder( this.pFamDomainList.get(0) );
-		
-		for(int i=1; i<this.pFamDomainList.size(); i++) {
-			PfamVo eachPfam = this.pFamDomainList.get(i);
+		if( this.pFamDomainList != null && this.pFamDomainList.size() > 0 ) {
+			Map<Integer, List<PfamVo>> map = this.makeHashMap4DomainLayerOrder( this.pFamDomainList.get(0) );
 
-			boolean isFitted4ThisLayer = true;
-			for( int layerNo : map.keySet() ) {
-				List<PfamVo> currentLayerPfamList = map.get( layerNo );
+			for(int i=1; i<this.pFamDomainList.size(); i++) {
+				PfamVo eachPfam = this.pFamDomainList.get(i);
 
-				// 같은 Layer에 있는 모든 domain을 조사하여 overlap 되는지 조사
-				for( PfamVo vo:currentLayerPfamList ) {
-					// 만약 오버랩 된다면 다음번 layer 조사를 위해 break
-					if( Utilities.isOverlapped( eachPfam.getChromStart(), eachPfam.getChromEnd(), vo.getChromStart(), vo.getChromEnd() ) ) {
-						isFitted4ThisLayer = false;
+				boolean isFitted4ThisLayer = true;
+				for( int layerNo : map.keySet() ) {
+					List<PfamVo> currentLayerPfamList = map.get( layerNo );
+
+					// 같은 Layer에 있는 모든 domain을 조사하여 overlap 되는지 조사
+					for( PfamVo vo:currentLayerPfamList ) {
+						// 만약 오버랩 된다면 다음번 layer 조사를 위해 break
+						if( Utilities.isOverlapped( eachPfam.getChromStart(), eachPfam.getChromEnd(), vo.getChromStart(), vo.getChromEnd() ) ) {
+							isFitted4ThisLayer = false;
+							break;
+						}
+					}
+
+					// 만약 현재 layer에서 overlap 되지 않는 다면 현재 layer로 세팅
+					if( isFitted4ThisLayer ) {
+						eachPfam.setLayerNo( layerNo );
+						currentLayerPfamList.add( eachPfam );
 						break;
 					}
 				}
 
-				// 만약 현재 layer에서 overlap 되지 않는 다면 현재 layer로 세팅
-				if( isFitted4ThisLayer ) {
-					eachPfam.setLayerNo( layerNo );
-					currentLayerPfamList.add( eachPfam );
-					break;
+				if( isFitted4ThisLayer == false ) {
+					List<PfamVo> nextLayerPfamArray = new ArrayList<PfamVo>();
+					eachPfam.setLayerNo( map.size() );
+					nextLayerPfamArray.add( eachPfam );
+					map.put( map.size() , nextLayerPfamArray );
 				}
 			}
-
-			if( isFitted4ThisLayer == false ) {
-				List<PfamVo> nextLayerPfamArray = new ArrayList<PfamVo>();
-				eachPfam.setLayerNo( map.size() );
-				nextLayerPfamArray.add( eachPfam );
-				map.put( map.size() , nextLayerPfamArray );
-			}
+			map = null;
 		}
-		map = null;
 	}
 
 	public int getLength() {
