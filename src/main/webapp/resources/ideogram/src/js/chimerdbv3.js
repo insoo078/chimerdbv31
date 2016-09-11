@@ -1233,6 +1233,10 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.getLength = function( obj ) {
 	return obj.end - obj.start + 1;
 };
 
+ChimeraDbV3ViewerWithOutChromosome.prototype.getConfig = function() {
+	return this.config;
+};
+
 ChimeraDbV3ViewerWithOutChromosome.prototype.getWithOfScreenForGene = function( config, gene_length, GENE_TOTAL_LENGTH, SCREEN_BACKBONE_AREALENGTH ) {
 	var gene_length_ratio = gene_length / GENE_TOTAL_LENGTH;
 

@@ -117,10 +117,11 @@
 							<div class='controller'>
 								<button class='w3-btn w3-light-grey w3-border' id='move_left_1000'><<</button>
 								<button class='w3-btn w3-light-grey w3-border' id='move_left'><</button>
-								<button class='w3-btn w3-light-grey w3-border' id='zoom-in'>+</button>
-								<button class='w3-btn w3-light-grey w3-border' id='zomm-out'>-</button>
-								<button class='w3-btn w3-light-grey w3-border' id='move_right_1000'>>></button>
+								<button class='w3-btn w3-light-grey w3-border' id='zoom_in'>+</button>
+								<button class='w3-btn w3-light-grey w3-border' id='zoom_out'>-</button>
 								<button class='w3-btn w3-light-grey w3-border' id='move_right'>></button>
+								<button class='w3-btn w3-light-grey w3-border' id='move_right_1000'>>></button>
+								<button class='w3-btn w3-light-grey w3-border' id='controller_init'>Fit</button>
 							</div>
 						</div>
 						<div id="chimer-seq-viewer-content"></div>

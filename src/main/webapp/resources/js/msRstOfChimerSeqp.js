@@ -5,12 +5,90 @@
 
 var ChimerSeqResult = function( config ) {
 	this.config = JSON.parse( JSON.stringify(config) );
+	this.viewer = null;
 
 	this.init();
+	this.initController();
 };
 
 ChimerSeqResult.prototype.init = function() {
 	this.initChimerSeqResultjQueryDataTables();
+};
+
+ChimerSeqResult.prototype.init4Redraw = function() {
+	var config = this.viewer.getConfig();
+
+	d3.selectAll('svg').remove();
+
+	var nconfig = {
+		organism: "human",
+		orientation: "horizontal",
+		chrMargin: 300,
+		chrHeight: 1024,
+		chrWidth: 20,
+		topMargin : 20,
+		sideMargin : 10,
+		canvasHeight : 700,
+		topPanelHeightToExplain : 170,
+		fusionInfo : config.fusionInfo,
+		showBandLabels: true,
+		container: config.container,
+		zoom: config.zoom,
+		currentXPos: config.currentXPos
+	};
+	return nconfig;
+};
+
+ChimerSeqResult.prototype.initController = function() {
+	var chimerSeq = this;
+	
+	$("#move_left_1000").click(function(){
+		var nconfig = chimerSeq.init4Redraw();
+		nconfig.currentXPos = nconfig.currentXPos - 100;
+		if( nconfig.currentXPos <= 0 )	nconfig.currentXPos = 0;
+
+		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
+	});
+	$("#move_left").click(function(){
+		var nconfig = chimerSeq.init4Redraw();
+		nconfig.currentXPos = nconfig.currentXPos - 10;
+		if( nconfig.currentXPos <= 0 )	nconfig.currentXPos = 0;
+
+		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
+	});
+	$("#zoom_in").click(function(){
+		var nconfig = chimerSeq.init4Redraw();
+		nconfig.zoom = nconfig.zoom + 0.1;
+
+		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
+	});
+	$("#zoom_out").click(function(){
+		var nconfig = chimerSeq.init4Redraw();
+		nconfig.zoom = nconfig.zoom - 0.1;
+		
+		console.log( nconfig.zoom );
+
+		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
+	});
+	$("#move_right").click(function(){
+		var nconfig = chimerSeq.init4Redraw();
+		nconfig.currentXPos = nconfig.currentXPos + 10;
+
+		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
+	});
+	$("#move_right_1000").click(function(){
+		var nconfig = chimerSeq.init4Redraw();
+		nconfig.currentXPos = nconfig.currentXPos + 100;
+
+		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
+	});
+	$("#controller_init").click(function(){
+		var nconfig = chimerSeq.init4Redraw();
+		nconfig.currentXPos = 0;
+		nconfig.zoom = 1;
+
+		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
+	})
 };
 
 ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
@@ -104,11 +182,11 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 				fusionInfo : jData,
 				showBandLabels: true,
 				container: container,
-				zoom: 2.0,
-				currentXPos: 700
+				zoom: 1.0,
+				currentXPos: 0
 			  };
 
-			  var viewer = new ChimeraDbV3ViewerWithOutChromosome(config);
+			  chimerSeqResult.viewer = new ChimeraDbV3ViewerWithOutChromosome(config);
 		},
 		error: function(e, status) {
 			alert(status);
