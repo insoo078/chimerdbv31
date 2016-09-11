@@ -99,7 +99,7 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 				chrWidth: 20,
 				topMargin : 20,
 				sideMargin : 10,
-				canvasHeight : 500,
+				canvasHeight : 700,
 				topPanelHeightToExplain : 170,
 				fusionInfo : jData,
 				showBandLabels: true,

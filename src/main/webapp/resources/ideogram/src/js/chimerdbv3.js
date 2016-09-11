@@ -218,7 +218,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 
 	this.drawFusionGeneBackbone( config );
 	this.drawFusionGeneExons( config );
-//	this.drawFusionGenePfamdomains( config, isAllowedReverse, isPacked, isConservedPfamDomainColor );
+	this.drawFusionGenePfamdomains( config, isAllowedReverse, isPacked, isConservedPfamDomainColor );
 //	
 //	var heightVal5p = d3.select(".fused-domain-group-5pGene").node().getBoundingClientRect().height;
 //	var heightVal3p = d3.select(".fused-domain-group-3pGene").node().getBoundingClientRect().height;
@@ -237,7 +237,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = function( config, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
-	var canvasRect = config.canvas.node().getBoundingClientRect();
+	var canvasRect = config.drawingSvg.node().getBoundingClientRect();
 	var fusedExons = config.fusionInfo.fusedExons;
 
 	var DOMAINS_HEIGHT = -9999;
@@ -252,10 +252,10 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = functio
 		var parentGroup = d3.select("#fused-gene-backbone-"+obj.type);
 
 		var domainGroup = parentGroup.append("g").attr("class", "fused-domain-group-"+obj.type);
-		
-		var backboneRect = d3.select("#fused-gene-backbone-line-"+obj.type).node().getBoundingClientRect();
+//		
+//		var backboneRect = d3.select("#fused-gene-backbone-line-"+obj.type).node().getBoundingClientRect();
 
-		var yPos = relativeOffsetY(backboneRect, canvasRect) - (config.EXON_HEIGHT/2);
+		var yPos = d3.select("#fused-gene-backbone-line-"+obj.type).attr("y1") - (config.EXON_HEIGHT/2);
 
 		for(var j=0; j<obj.gene.pFamDomainList.length; j++ ) {
 			var domainFragments = obj.gene.pFamDomainList[j].fragments;
@@ -309,17 +309,23 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = functio
 			}
 
 			if( domainLayerGroup ) {
-				if( (yPos +  ((relativeY * (config.EXON_HEIGHT + 5) ))) > DOMAINS_HEIGHT )
-					DOMAINS_HEIGHT = (yPos +  ((relativeY * (config.EXON_HEIGHT + 5) )));
+//				if( (yPos +  ((relativeY * (config.EXON_HEIGHT + 5) ))) > DOMAINS_HEIGHT )
+//					DOMAINS_HEIGHT = (yPos +  ((relativeY * (config.EXON_HEIGHT + 5) )));
+				
+				var domainLayerGroupRect = domainLayerGroup.node().getBBox();
 
-				var domainLayerGroupRect = domainLayerGroup.node().getBoundingClientRect();
+				var ny = parseFloat(d3.select("#fused-gene-backbone-line-"+obj.type).attr("y1"));
+				
+				var nx = relativeOffsetX( domainLayerGroupRect, canvasRect ) - config.currentXPos;
+
 				var domainLayerLabelGroup = domainGroup.append("g").attr("id", "fused-domain-label-group-" + obj.type + "-" + j);
 				if( domainFragments[j] ) {
+					
 					domainLayerLabelGroup.append("text")
 							.attr("text-anchor", "end")
 							.attr("dominant-baseline", "central")
-							.attr("x", isAllowedReverse===true?relativeOffsetX(domainLayerGroupRect, canvasRect) - 10:(isFirst.startX - 5))
-							.attr("y", relativeOffsetY(domainLayerGroupRect, canvasRect) + config.EXON_HEIGHT/2 )
+							.attr("x", isAllowedReverse===true?domainLayerGroupRect.x - 5:(isFirst.startX - 5))
+							.attr("y", domainLayerGroupRect.y + (domainLayerGroupRect.height/2))
 							.text( !domainFragments[j] ? "": domainFragments[j].name );
 					;
 				}
@@ -327,7 +333,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = functio
 		}
 	}
 
-	d3.select("svg").attr("height", DOMAINS_HEIGHT + 30);
+//	d3.select("svg").attr("height", DOMAINS_HEIGHT + 30);
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneExons = function( config ) {
@@ -796,8 +802,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, 
 			var domainLayerGroupRect = domainLayerGroup.node().getBoundingClientRect();
 			var domainLayerLabelGroup = domainGroup.append("g").attr("id", "domain-label-group-" + obj.type + "-" + j);
 			if( domainFragments[j] ) {
-				var ny = relativeOffsetY( canvasRect, config.canvas.node().getBoundingClientRect() );
-				ny = config.GENE_BACKBONE_Y;
+				var ny = config.GENE_BACKBONE_Y;
 				
 				var nx = relativeOffsetX( domainLayerGroupRect, canvasRect ) - config.currentXPos;
 
