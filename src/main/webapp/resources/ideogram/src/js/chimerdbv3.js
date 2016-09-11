@@ -985,6 +985,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawChromosomeLabel = function(conf
 				var y = relativeOffsetY(rectSymbol, canvasRect) + rectSymbol.height + config.MARGIN_BETWEEN_LABLES;
 				var x = rectTranscript.right - canvasRect.left;
 				x = relativeOffsetX(rectSymbol, canvasRect) + (x - relativeOffsetX(rectSymbol, canvasRect))/2;
+				if( i===1 ) x -= 40;
 
 				return "translate(" + x + "," + y + ")";
 			})
