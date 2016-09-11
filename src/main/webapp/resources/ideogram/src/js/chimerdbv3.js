@@ -126,7 +126,7 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 
 	this.drawGeneStructure( this.config, drawingType, isAllowedReversed, isPacked, isConservedPfamDomainColor );
 
-//	this.drawFusionGeneStructure( this.config, drawingType, isAllowedReversed, isPacked, isConservedPfamDomainColor );
+	this.drawFusionGeneStructure( this.config, drawingType, isAllowedReversed, isPacked, isConservedPfamDomainColor );
 };
 
 
@@ -217,23 +217,23 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 	var canvasRect = config.canvas.node().getBoundingClientRect();
 
 	this.drawFusionGeneBackbone( config );
-	this.drawFusionGeneExons( config );
-	this.drawFusionGenePfamdomains( config, isAllowedReverse, isPacked, isConservedPfamDomainColor );
-	
-	var heightVal5p = d3.select(".fused-domain-group-5pGene").node().getBoundingClientRect().height;
-	var heightVal3p = d3.select(".fused-domain-group-3pGene").node().getBoundingClientRect().height;
-
-	var domainAreaHeight = Math.max(heightVal5p, heightVal3p);
-
-	var orginalGeneStructureRect = d3.select("#fusion-gene-backbone-group").node().getBoundingClientRect();
-	var y = relativeOffsetY(orginalGeneStructureRect, canvasRect) + orginalGeneStructureRect.height + config.MARGIN_BETWEEN_BACKBONES - (config.EXON_HEIGHT/2);
-	
-	var labelData = [
-		{name:"Gene", startX:config.sideMargin, startY:y-7.5, width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:30}
-		,{name:"Domain", startX:config.sideMargin, startY:(y + config.EXON_HEIGHT + 5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:domainAreaHeight + 5}
-	];
-	
-	this.drawFusionGeneLabel( config, labelData );
+//	this.drawFusionGeneExons( config );
+//	this.drawFusionGenePfamdomains( config, isAllowedReverse, isPacked, isConservedPfamDomainColor );
+//	
+//	var heightVal5p = d3.select(".fused-domain-group-5pGene").node().getBoundingClientRect().height;
+//	var heightVal3p = d3.select(".fused-domain-group-3pGene").node().getBoundingClientRect().height;
+//
+//	var domainAreaHeight = Math.max(heightVal5p, heightVal3p);
+//
+//	var orginalGeneStructureRect = d3.select("#fusion-gene-backbone-group").node().getBoundingClientRect();
+//	var y = relativeOffsetY(orginalGeneStructureRect, canvasRect) + orginalGeneStructureRect.height + config.MARGIN_BETWEEN_BACKBONES - (config.EXON_HEIGHT/2);
+//	
+//	var labelData = [
+//		{name:"Gene", startX:config.sideMargin, startY:y-7.5, width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:30}
+//		,{name:"Domain", startX:config.sideMargin, startY:(y + config.EXON_HEIGHT + 5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:domainAreaHeight + 5}
+//	];
+//	
+//	this.drawFusionGeneLabel( config, labelData );
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = function( config, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
@@ -444,8 +444,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneExons = function( con
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneBackbone = function( config ) {
-	var canvas = config.canvas;
-	var canvasRect = config.canvas.node().getBoundingClientRect();
+	var canvas = config.drawingSvg;
+	var canvasRect = canvas.node().getBoundingClientRect();
 	var fusedExons = config.fusionInfo.fusedExons;
 
 	var fused = [{type:'5pGene', exons:fusedExons["5'"]}, {type:'3pGene', exons:fusedExons["3'"]}];
@@ -467,13 +467,17 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneBackbone = function( 
 	}
 	
 	var gene_total_length = lenJunction5p + lenJunction3p;
-	var startX = config.LEFT_MARGIN;
+	var startX = config.sideMargin;
 		
 	var backbone = canvas.append("g").attr("id", "fused-gene-backbone-group");
 
-	var orginalGeneStructureRect = d3.select("#fusion-gene-backbone-group").node().getBoundingClientRect();
+	var orginalGeneStructure = d3.select("#each-gene-structure-label");
+
+	var orginalGeneStructureRect = orginalGeneStructure.node().getBoundingClientRect();
+	var ny1 = relativeOffsetY( orginalGeneStructureRect, config.canvas.node().getBoundingClientRect() );
+	var ny2 = relativeOffsetY( canvasRect, config.canvas.node().getBoundingClientRect() );
 	
-	var y = relativeOffsetY(orginalGeneStructureRect, canvasRect) + orginalGeneStructureRect.height + config.MARGIN_BETWEEN_BACKBONES;
+	var y = ny1 - ny2 + orginalGeneStructureRect.height + config.MARGIN_BETWEEN_BACKBONES;
 
 	var backbone_color = ["#555", "#f7e"];
 	for(var i=0; i<fused.length; i++) {
@@ -489,7 +493,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneBackbone = function( 
 
 		var backboneLine = backbone.append("g").attr("id", "fused-gene-backbone-" + type);
 				
-		backboneLine.append('line')
+		var lineObj = backboneLine.append('line')
 		.attr("id", "fused-gene-backbone-line-" + type)
 		.attr('x1', startX)
 		.attr('y1', y)
@@ -503,14 +507,13 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneBackbone = function( 
 		});
 
 		try {
-			var breakPointRect = d3.select("#breakpoint-line-"+type).node().getBoundingClientRect();
-			var backboneRect = backboneLine.node().getBoundingClientRect();
+			var breakPoint = d3.select("#breakpoint-line-"+type);
 
 			backboneLine.append("line")
-				.attr("x1", breakPointRect.left - canvasRect.left)
-				.attr("y1", breakPointRect.bottom - canvasRect.top + 30)
-				.attr("x2", type === '5pGene'?backboneRect.right - canvasRect.left:backboneRect.left - canvasRect.left)
-				.attr("y2", relativeOffsetY(backboneRect, canvasRect ))
+				.attr("x1", breakPoint.attr("x1"))
+				.attr("y1", config.GENE_BACKBONE_Y)
+				.attr("x2", type === '5pGene'?lineObj.attr("x2"):lineObj.attr("x1"))
+				.attr("y2", lineObj.attr("y1"))
 				.attr("style", "stroke:#00f;stroke-width:1;")
 				.style("stroke-dasharray", ("2,3"));
 		}catch(e) {
@@ -808,8 +811,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, 
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawLabel= function( config, labelData ){
 	var canvasRect = this.config.canvas.node().getBoundingClientRect();
-	
-	var label = d3.select("#fusion-gene-backbone-group").insert("g", ":first-child").attr("id", "each-gene-structure-label");
+
+	var label = this.config.canvas.insert("g", ":first-child").attr("id", "each-gene-structure-label");
 	
 	label.append("g")
 			.selectAll("rect")
@@ -821,10 +824,12 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawLabel= function( config, labelD
 				return d.startX + d.width;
 			})
 			.attr("y", function(d){
-				return d.startY;
+				var h = parseFloat(d3.select("#inner_svg").attr("y"));
+				var val = d.startY + h;
+				return val;
 			})
 			.attr("width", function(d){
-				return canvasRect.width - (d.startX + d.width) - (2*config.sideMargin);
+				return canvasRect.width - (d.startX + d.width) - (1*config.sideMargin);
 			})
 			.attr("height", function(d){
 				return d.height;
@@ -840,7 +845,9 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawLabel= function( config, labelD
 				return d.startX;
 			})
 			.attr("y", function(d){
-				return d.startY;
+				var h = parseFloat(d3.select("#inner_svg").attr("y"));
+				var val = d.startY + h;
+				return val;
 			})
 			.attr("width", function(d){
 				return d.width;
@@ -857,7 +864,11 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawLabel= function( config, labelD
 		.attr("text-anchor", "middle")
 		.attr("dominant-baseline", "central")
 		.attr("x",function(d){return d.startX + d.width/2;})
-		.attr("y", function(d){return d.startY + d.height/2;} )
+		.attr("y", function(d){
+			var h = parseFloat(d3.select("#inner_svg").attr("y"));
+			var val = d.startY + h;
+			return val + (d.height/2);
+		} )
 		.text( function(d){return d.name;} );
 };
 
@@ -937,11 +948,11 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 	var domainAreaHeight = Math.max(heightVal5p, heightVal3p);
 
 	var labelData = [
-		{name:"Gene", startX:config.sideMargin, startY:(config.EXON_Y_POS - 7.5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:30}
-		,{name:"Domain", startX:config.sideMargin, startY:(config.EXON_Y_POS + config.EXON_HEIGHT + 5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:domainAreaHeight + 5}
+		{name:"Gene", startX:config.sideMargin, startY:(config.GENE_BACKBONE_Y - 15), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:30}
+		,{name:"Domain", startX:config.sideMargin, startY:(config.GENE_BACKBONE_Y + 15 + 2), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:domainAreaHeight + 5}
 	];
 
-//	this.drawLabel( config, labelData );
+	this.drawLabel( config, labelData );
 	this.drawBreakPointInGeneStructure( config, backbone );
 };
 
