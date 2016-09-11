@@ -217,7 +217,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 	var canvasRect = config.canvas.node().getBoundingClientRect();
 
 	this.drawFusionGeneBackbone( config );
-//	this.drawFusionGeneExons( config );
+	this.drawFusionGeneExons( config );
 //	this.drawFusionGenePfamdomains( config, isAllowedReverse, isPacked, isConservedPfamDomainColor );
 //	
 //	var heightVal5p = d3.select(".fused-domain-group-5pGene").node().getBoundingClientRect().height;
@@ -331,8 +331,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = functio
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneExons = function( config ) {
-	var canvas = config.canvas;
-	var canvasRect = config.canvas.node().getBoundingClientRect();
+	var canvas = config.drawingSvg;
+	var canvasRect = canvas.node().getBoundingClientRect();
 	var fusedExons = config.fusionInfo.fusedExons;
 
 	var fused = [{type:'5pGene', exons:fusedExons["5'"]}, {type:'3pGene', exons:fusedExons["3'"]}];
@@ -355,12 +355,16 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneExons = function( con
 	
 	var gene_total_length = lenJunction5p + lenJunction3p;
 	var geneBackbonLength = config.SCREEN_BACKBONE_AREALENGTH;
-//	var startX = (canvasRect.width/2) - (geneBackbonLength/2) + config.LEFT_MARGIN - (10*config.sideMargin);
-	var startX = config.LEFT_MARGIN;
 
-	var orginalGeneStructureRect = d3.select("#fusion-gene-backbone-group").node().getBoundingClientRect();
+	var orginalGeneStructure = d3.select("#each-gene-structure-label");
 	
-	var y = relativeOffsetY(orginalGeneStructureRect, canvasRect) + orginalGeneStructureRect.height + config.MARGIN_BETWEEN_BACKBONES;
+	var startX = config.sideMargin;
+
+	var orginalGeneStructureRect = orginalGeneStructure.node().getBoundingClientRect();
+	var ny1 = relativeOffsetY( orginalGeneStructureRect, config.canvas.node().getBoundingClientRect() );
+	var ny2 = relativeOffsetY( canvasRect, config.canvas.node().getBoundingClientRect() );
+	
+	var y = ny1 - ny2 + orginalGeneStructureRect.height + config.MARGIN_BETWEEN_BACKBONES;
 
 	var onScreen= {};
 	for(var i=0; i<fused.length; i++) {

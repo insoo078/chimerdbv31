@@ -104,8 +104,8 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 				fusionInfo : jData,
 				showBandLabels: true,
 				container: container,
-				zoom: 2.0,
-				currentXPos: 100
+				zoom: 1.0,
+				currentXPos: 0
 			  };
 
 			  var viewer = new ChimeraDbV3ViewerWithOutChromosome(config);
