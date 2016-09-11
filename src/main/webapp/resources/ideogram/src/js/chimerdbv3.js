@@ -159,9 +159,9 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.init = function( config ) {
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneLabel= function( config, labelData ){
-	var canvasRect = this.config.canvas.node().getBoundingClientRect();
-	
-	var label = d3.select("#fused-gene-backbone-group").insert("g", ":first-child").attr("id", "fused-gene-structure-label");
+	var canvasRect = this.config.canvas.node().getBBox();
+
+	var label = this.config.canvas.insert("g", ":first-child").attr("id", "fused-gene-structure-label");
 	
 	label.append("g")
 			.selectAll("rect")
@@ -176,7 +176,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneLabel= function( conf
 				return d.startY;
 			})
 			.attr("width", function(d){
-				return canvasRect.width - (d.startX + d.width) - (2*config.sideMargin);
+				return canvasRect.width - (d.startX + d.width) - (1*config.sideMargin);
 			})
 			.attr("height", function(d){
 				return d.height;
@@ -214,26 +214,26 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneLabel= function( conf
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(config, drawingType, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
-	var canvasRect = config.canvas.node().getBoundingClientRect();
+//	var canvasRect = config.canvas.node().getBBox();
 
 	this.drawFusionGeneBackbone( config );
 	this.drawFusionGeneExons( config );
 	this.drawFusionGenePfamdomains( config, isAllowedReverse, isPacked, isConservedPfamDomainColor );
-//	
-//	var heightVal5p = d3.select(".fused-domain-group-5pGene").node().getBoundingClientRect().height;
-//	var heightVal3p = d3.select(".fused-domain-group-3pGene").node().getBoundingClientRect().height;
-//
-//	var domainAreaHeight = Math.max(heightVal5p, heightVal3p);
-//
-//	var orginalGeneStructureRect = d3.select("#fusion-gene-backbone-group").node().getBoundingClientRect();
-//	var y = relativeOffsetY(orginalGeneStructureRect, canvasRect) + orginalGeneStructureRect.height + config.MARGIN_BETWEEN_BACKBONES - (config.EXON_HEIGHT/2);
-//	
-//	var labelData = [
-//		{name:"Gene", startX:config.sideMargin, startY:y-7.5, width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:30}
-//		,{name:"Domain", startX:config.sideMargin, startY:(y + config.EXON_HEIGHT + 5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:domainAreaHeight + 5}
-//	];
-//	
-//	this.drawFusionGeneLabel( config, labelData );
+	
+	var heightVal5p = d3.select(".fused-domain-group-5pGene").node().getBBox().height;
+	var heightVal3p = d3.select(".fused-domain-group-3pGene").node().getBBox().height;
+
+	var domainAreaHeight = Math.max(heightVal5p, heightVal3p);
+
+	var orginalGeneStructureRect = d3.select("#fused-gene-backbone-line-5pGene").node().getBBox();
+	var y = orginalGeneStructureRect.y + parseFloat(config.drawingSvg.attr("y"));
+
+	var labelData = [
+		{name:"Gene", startX:config.sideMargin, startY:y-15, width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:30}
+		,{name:"Domain", startX:config.sideMargin, startY:(y + 15 + 2), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:domainAreaHeight + 5}
+	];
+	
+	this.drawFusionGeneLabel( config, labelData );
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = function( config, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
@@ -252,8 +252,6 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = functio
 		var parentGroup = d3.select("#fused-gene-backbone-"+obj.type);
 
 		var domainGroup = parentGroup.append("g").attr("class", "fused-domain-group-"+obj.type);
-//		
-//		var backboneRect = d3.select("#fused-gene-backbone-line-"+obj.type).node().getBoundingClientRect();
 
 		var yPos = d3.select("#fused-gene-backbone-line-"+obj.type).attr("y1") - (config.EXON_HEIGHT/2);
 
@@ -313,10 +311,6 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = functio
 //					DOMAINS_HEIGHT = (yPos +  ((relativeY * (config.EXON_HEIGHT + 5) )));
 				
 				var domainLayerGroupRect = domainLayerGroup.node().getBBox();
-
-				var ny = parseFloat(d3.select("#fused-gene-backbone-line-"+obj.type).attr("y1"));
-				
-				var nx = relativeOffsetX( domainLayerGroupRect, canvasRect ) - config.currentXPos;
 
 				var domainLayerLabelGroup = domainGroup.append("g").attr("id", "fused-domain-label-group-" + obj.type + "-" + j);
 				if( domainFragments[j] ) {
@@ -819,7 +813,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, 
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawLabel= function( config, labelData ){
-	var canvasRect = this.config.canvas.node().getBoundingClientRect();
+	var canvasRect = this.config.canvas.node().getBBox();
 
 	var label = this.config.canvas.insert("g", ":first-child").attr("id", "each-gene-structure-label");
 	
