@@ -34,7 +34,8 @@ ChimerSeqResult.prototype.init4Redraw = function() {
 		showBandLabels: true,
 		container: config.container,
 		zoom: config.zoom,
-		currentXPos: config.currentXPos
+		currentXPos: config.currentXPos,
+		SCREEN_BACKBONE_AREALENGTH: config.SCREEN_BACKBONE_AREALENGTH
 	};
 	return nconfig;
 };
@@ -73,12 +74,18 @@ ChimerSeqResult.prototype.initController = function() {
 	$("#move_right").click(function(){
 		var nconfig = chimerSeq.init4Redraw();
 		nconfig.currentXPos = nconfig.currentXPos + 10;
+		
+		if( nconfig.SCREEN_BACKBONE_AREALENGTH < nconfig.currentXPos )
+			nconfig.currentXPos = nconfig.SCREEN_BACKBONE_AREALENGTH;
 
 		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
 	});
 	$("#move_right_1000").click(function(){
 		var nconfig = chimerSeq.init4Redraw();
 		nconfig.currentXPos = nconfig.currentXPos + 100;
+		
+		if( nconfig.SCREEN_BACKBONE_AREALENGTH < nconfig.currentXPos )
+			nconfig.currentXPos = nconfig.SCREEN_BACKBONE_AREALENGTH;
 
 		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
 	});
