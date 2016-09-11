@@ -90,6 +90,10 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 		this.config.zoom = 2;
 	}
 	
+	if( !this.config.currentBasePos ) {
+		this.config.currentBasePos = 1;
+	}
+	
 	if( !this.config.MARGIN_BETWEEN_BACKBONES ) {
 		this.config.MARGIN_BETWEEN_BACKBONES = 10 * this.config.sideMargin;
 	}
@@ -118,7 +122,7 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 
 	this.drawGeneStructure( this.config, drawingType, isAllowedReversed, isPacked, isConservedPfamDomainColor );
 
-	this.drawFusionGeneStructure( this.config, drawingType, isAllowedReversed, isPacked, isConservedPfamDomainColor );
+//	this.drawFusionGeneStructure( this.config, drawingType, isAllowedReversed, isPacked, isConservedPfamDomainColor );
 };
 
 
@@ -904,21 +908,21 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 	this.drawUnitLengthOfEachGene( config );
 
 	var backbone = this.drawDonorGeneBackbone( config, isAllowedReverse );
-	this.drawExons( config, backbone, drawingType, isAllowedReverse );
-	this.drawPfamdomains( config, backbone, isAllowedReverse, isPacked, isConservedPfamDomainColor );
-
-	var heightVal5p = d3.select(".domain-group-5pGene").node().getBBox().height;
-	var heightVal3p = d3.select(".domain-group-3pGene").node().getBBox().height;
-
-	var domainAreaHeight = Math.max(heightVal5p, heightVal3p);
-	
-	var labelData = [
-		{name:"Gene", startX:config.sideMargin, startY:(config.EXON_Y_POS - 7.5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:30}
-		,{name:"Domain", startX:config.sideMargin, startY:(config.EXON_Y_POS + config.EXON_HEIGHT + 5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:domainAreaHeight + 5}
-	];
-
-	this.drawLabel( config, labelData );
-	this.drawBreakPointInGeneStructure( config, backbone );
+//	this.drawExons( config, backbone, drawingType, isAllowedReverse );
+//	this.drawPfamdomains( config, backbone, isAllowedReverse, isPacked, isConservedPfamDomainColor );
+//
+//	var heightVal5p = d3.select(".domain-group-5pGene").node().getBBox().height;
+//	var heightVal3p = d3.select(".domain-group-3pGene").node().getBBox().height;
+//
+//	var domainAreaHeight = Math.max(heightVal5p, heightVal3p);
+//	
+//	var labelData = [
+//		{name:"Gene", startX:config.sideMargin, startY:(config.EXON_Y_POS - 7.5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:30}
+//		,{name:"Domain", startX:config.sideMargin, startY:(config.EXON_Y_POS + config.EXON_HEIGHT + 5), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:domainAreaHeight + 5}
+//	];
+//
+//	this.drawLabel( config, labelData );
+//	this.drawBreakPointInGeneStructure( config, backbone );
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawChromosomeLabel = function(config) {
