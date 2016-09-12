@@ -672,11 +672,15 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = functio
 
 					var domainLayerLabelGroup = domainGroup.append("g").attr("id", "fused-domain-label-group-" + obj.type + "-" + j);
 					if( domainFragments[j] ) {
+						var nx = domainLayerGroupRect.x + (domainLayerGroupRect.width/2);
 
-						domainLayerLabelGroup.append("text")
-								.attr("text-anchor", "end")
+						domainLayerLabelGroup.insert("text", ":first-child")
+								.attr("text-anchor", "middle")
 								.attr("dominant-baseline", "central")
-								.attr("x", isAllowedReverse===true?domainLayerGroupRect.x - 5:(isFirst.startX - 5))
+								.style("font-size", function() {
+									return "11px";
+								})
+								.attr("x", isAllowedReverse===true?nx:(isFirst.startX - 5))
 								.attr("y", domainLayerGroupRect.y + (domainLayerGroupRect.height/2))
 								.text( !domainFragments[j] ? "": domainFragments[j].name );
 						;
@@ -1188,6 +1192,25 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, 
 						}
 					}
 				}
+				
+				var domainLayerGroupRect = domainLayerGroup.node().getBoundingClientRect();
+				var domainLayerLabelGroup = domainGroup.append("g").attr("id", "domain-label-group-" + obj.type + "-" + j);
+				if( domainFragments[j] ) {
+					var ny = config.GENE_BACKBONE_Y;
+
+					var nx = relativeOffsetX( domainLayerGroupRect, canvasRect ) + (domainLayerGroupRect.width/2) - config.currentXPos;
+
+					domainLayerLabelGroup.insert("text", ":first-child")
+							.attr("text-anchor", "middle")
+							.attr("dominant-baseline", "central")
+							.style("font-size", function(){
+								return "11px";
+							})
+							.attr("x", isAllowedReverse===true?nx:(isFirst.startX - 5))
+							.attr("y", ny + relativeOffsetY(domainLayerGroupRect, canvasRect) )
+							.text( !domainFragments[j] ? "": domainFragments[j].name );
+					;
+				}
 			}
 		}else {
 			var domainLayerGroup = domainGroup.append("g").attr("id", "domain-group-" + obj.type + "-" + 0);
@@ -1200,33 +1223,6 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, 
 							.attr("y", config.EXON_Y_POS + (0 * (config.EXON_HEIGHT + 5) ) )
 							.attr("width", 10)
 							.attr("height", config.EXON_HEIGHT);
-		}
-	}
-
-	for( var i=0; i<config.fusion_genes.length; i++) {
-		var obj = config.fusion_genes[i];
-		var transcriptExons = obj.gene.canonicalTranscript.exons;
-
-		var domainGroup = backbone.select("#fusion-gene-backbone-" + obj.type).select(".domain-group-" + obj.type);
-
-		for(var j=0; j<obj.gene.pFamDomainList.length; j++ ) {
-			var domainLayerGroup = domainGroup.select("#domain-group-" + obj.type + "-" + j);
-
-			var domainLayerGroupRect = domainLayerGroup.node().getBoundingClientRect();
-			var domainLayerLabelGroup = domainGroup.append("g").attr("id", "domain-label-group-" + obj.type + "-" + j);
-			if( domainFragments[j] ) {
-				var ny = config.GENE_BACKBONE_Y;
-
-				var nx = relativeOffsetX( domainLayerGroupRect, canvasRect ) - config.currentXPos;
-
-				domainLayerLabelGroup.insert("text", ":first-child")
-						.attr("text-anchor", "end")
-						.attr("dominant-baseline", "central")
-						.attr("x", isAllowedReverse===true?nx - 5:(isFirst.startX - 5))
-						.attr("y", ny + relativeOffsetY(domainLayerGroupRect, canvasRect) )
-						.text( !domainFragments[j] ? "": domainFragments[j].name );
-				;
-			}
 		}
 	}
 };
