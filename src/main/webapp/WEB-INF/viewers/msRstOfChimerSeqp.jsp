@@ -117,8 +117,10 @@
 							<div class='controller'>
 								<button class='w3-btn w3-light-grey w3-border' id='move_left_1000'><<</button>
 								<button class='w3-btn w3-light-grey w3-border' id='move_left'><</button>
-								<button class='w3-btn w3-light-grey w3-border' id='zoom_in'>+</button>
-								<button class='w3-btn w3-light-grey w3-border' id='zoom_out'>-</button>
+								<button class='w3-btn w3-light-grey w3-border' id='zoom_in'>10% +</button>
+								<button class='w3-btn w3-light-grey w3-border' id='zoom_in_3x'>x3 +</button>
+								<button class='w3-btn w3-light-grey w3-border' id='zoom_out'>10% -</button>
+								<button class='w3-btn w3-light-grey w3-border' id='zoom_out_3x'>x3 -</button>
 								<button class='w3-btn w3-light-grey w3-border' id='move_right'>></button>
 								<button class='w3-btn w3-light-grey w3-border' id='move_right_1000'>>></button>
 								<button class='w3-btn w3-light-grey w3-border' id='controller_init'>Fit</button>

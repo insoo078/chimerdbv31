@@ -28,7 +28,7 @@ ChimerSeqResult.prototype.init4Redraw = function() {
 		chrWidth: 20,
 		topMargin : 20,
 		sideMargin : 10,
-		canvasHeight : 700,
+		canvasHeight : 900,
 		topPanelHeightToExplain : 170,
 		fusionInfo : config.fusionInfo,
 		showBandLabels: true,
@@ -63,11 +63,21 @@ ChimerSeqResult.prototype.initController = function() {
 
 		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
 	});
+	$("#zoom_in_3x").click(function(){
+		var nconfig = chimerSeq.init4Redraw();
+		nconfig.zoom = nconfig.zoom * 3;
+
+		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
+	});
 	$("#zoom_out").click(function(){
 		var nconfig = chimerSeq.init4Redraw();
 		nconfig.zoom = nconfig.zoom - 0.1;
-		
-		console.log( nconfig.zoom );
+
+		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
+	});
+	$("#zoom_out_3x").click(function(){
+		var nconfig = chimerSeq.init4Redraw();
+		nconfig.zoom = nconfig.zoom / 3;
 
 		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
 	});
@@ -184,7 +194,7 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 				chrWidth: 20,
 				topMargin : 20,
 				sideMargin : 10,
-				canvasHeight : 700,
+				canvasHeight : 900,
 				topPanelHeightToExplain : 170,
 				fusionInfo : jData,
 				showBandLabels: true,
