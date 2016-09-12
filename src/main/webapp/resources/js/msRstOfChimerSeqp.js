@@ -222,8 +222,12 @@ ChimerSeqResult.prototype.showDetailInfo = function(rowdata) {
 			$("#srt_td_3gene_nm").text( jData.t_gene );
 			$("#srt_td_5g_chr_nm").text( jData.h_chr );
 			$("#srt_td_3g_chr_nm").text( jData.t_chr );
-			$("#srt_td_5g_junc_point").text( jData.gene5Junc );
-			$("#srt_td_3g_junc_point").text( jData.gene3Junc );
+			
+			var junc5pWithUcsc = "<span style='float:left;margin-left:50px;'>"+jData.gene5Junc+"</span><span style='float:left;margin-left:20px;'>UCSC</span>";
+			var junc3pWithUcsc = "<span style='float:left;margin-left:50px;'>"+jData.gene3Junc+"</span><span style='float:left;margin-left:20px;'>UCSC</span>";
+			
+			$("#srt_td_5g_junc_point").html( junc5pWithUcsc );
+			$("#srt_td_3g_junc_point").html( junc3pWithUcsc );
 			$("#srt_td_5g_strand").text( rowdata.genes["5'"].strand );
 			$("#srt_td_3g_strand").text( rowdata.genes["3'"].strand );
 			

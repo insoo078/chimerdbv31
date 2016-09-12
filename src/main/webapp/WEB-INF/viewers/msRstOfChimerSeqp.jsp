@@ -84,7 +84,7 @@
 						<table id="chimerSeqTbl" class="hover" style="margin: 0 auto; " >
 							<thead>
 								<tr>
-									<td>Fusion Pair</td>
+									<td>Fusion Pair(5'_3')</td>
 									<td>5 Gene Junction</td>
 									<td>3 Gene Junction</td>
 									<td>Breakpoint Type</td>

@@ -50,6 +50,30 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 			.attr("width", canvasRect.width)
 			.attr("height", this.config.canvasHeight);
 	
+//		var tmp = this.config.canvas.append("rect").attr("x", 100).attr("y", 100).attr("width", 30).attr("height", 30).attr("fill", "red");
+//	var nodes = [{ id: 0, x: 10, y: 10 }, { id: 1, x: 600, y: 10 }];
+//	
+//	var drag = d3.behavior.drag()
+//            .origin(function (d) {
+//              return { x: d.x, y: d.y };
+//            })
+//            .on("drag", dragged);
+//	
+////	this.config.canvas.append("g").selectAll("rect").data(nodes).enter().append("rect")
+////    .attr("x", function (d) { return d.x })
+////    .attr("y", function (d) { return d.y })
+////    .attr("width", 30)
+////    .attr("height", 30)
+////	.attr("fill", "red")
+//    tmp.call(drag);
+//	var drag = d3.behavior.drag()
+//		.origin(function (d) {
+//              return { x: d.x, y: d.y };
+//            })
+//        .on("drag", dragged);
+//
+//	tmp.call(drag);
+	
 		this.config.canvas.call( chromosomeTip );
 		this.config.canvas.call( exonTip );
 	}
@@ -1283,7 +1307,11 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawBreakPointInGeneStructure = fun
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( config, drawingType, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
 	this.drawUnitLengthOfEachGene( config );
 
-	config.drawingSvg = config.canvas.append("svg").attr("id", "inner_svg").attr("width", 970).attr("x", config.LEFT_MARGIN).attr("y", 160);
+	config.drawingSvg = config.canvas.append("svg")
+			.attr("id", "inner_svg")
+			.attr("width", 970)
+			.attr("x", config.LEFT_MARGIN)
+			.attr("y", 160);
 	
 	var backbone = this.drawDonorGeneBackbone( config, isAllowedReverse );
 	this.drawExons( config, backbone, drawingType, isAllowedReverse );
@@ -1620,4 +1648,8 @@ function isOverlappedPoint( range, point ) {
 	if( range.start <= point && range.end >= point )	return true;
 	
 	return false;
+}
+
+function dragged(d) {
+  d3.select(this).attr("x", d.x = d3.event.x).attr("y", d.y = d3.event.y);
 }
