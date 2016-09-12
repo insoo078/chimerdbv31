@@ -41,7 +41,6 @@ $(document).ready(function () {
         ],
          "scrollX":true,
          "tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
-         "iDisplayLength": 25,
          "deferRender": true
     });
     

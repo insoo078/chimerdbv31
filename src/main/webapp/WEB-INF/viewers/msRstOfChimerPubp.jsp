@@ -79,12 +79,9 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Fusion Gene(5'_3')</th>
-                                                        <th>5 Gene Junction</th>
-                                                        <th>3 Gene Junction</th>
-                                                        <th>Breakpoint Type</th>
+                                                        <th>Translocation</th>
+                                                        <th>Function</th>
                                                         <th>Disease</th>
-                                                        <th>Frame</th>
-                                                        <th>Chromosome Info.</th>
                                                         <th>Supported</th>
                                                         <th>PMID</th>
                                                         <th>H_gene</th>
@@ -96,13 +93,9 @@
                                                     <c:forEach var="chimerpubLst" items="${chimerpub_lst}">
                                                         <tr>
                                                             <td><c:out value="${chimerpubLst.getFusion_pair()}" /></td>
-                                                            <td><c:out value="${chimerpubLst.getGene5Junc()}" /></td>
-                                                            <td><c:out value="${chimerpubLst.getGene3Junc()}" /></td>
-                                                            <td><c:out value="${chimerpubLst.getBreakpoint_Type()}" /></td>
+                                                            <td><c:out value="${chimerpubLst.getTranslocation()}" /></td>
+                                                            <td></td>
                                                             <td><c:out value="${chimerpubLst.getDisease()}" /></td>
-                                                            <td><c:out value="${chimerpubLst.getFrame()}" /></td>
-                                                            <td><c:out value="${chimerpubLst.getChr_info()}" /></td>
-                                                            
                                                             <td style="text-align: center;">
                                                                 <c:choose>
                                                                     <c:when test="${chimerpubLst.getChimerKB() == 1}">

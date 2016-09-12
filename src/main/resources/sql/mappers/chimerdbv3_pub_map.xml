@@ -17,36 +17,23 @@
     </select>
 
     <select id="getChimerPubResult" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerpub.vo.ChimerPubVo">
-        select
-            t1.ChimerDB_Type as ChimerDB_Type
+        select t1.ChimerDB_Type as ChimerDB_Type
             , t1.Fusion_pair as Fusion_pair
-            , t2.Fusion_pair as Fusion_pair2
-            , t1.5Gene_Junction as gene5Junc
-            , t1.3Gene_Junction as gene3Junc
+            , t1.Translocation as Translocation
             , t1.H_gene as H_gene
-            , t1.H_chr as H_chr
-            , t1.H_position as H_position
-            , t1.H_strand as H_strand
+            , t1.H_raw as H_raw
             , t1.T_gene as T_gene
-            , t1.T_chr as T_chr
-            , t1.T_position as T_position
-            , t1.T_strand as T_strand
-            , t1.Genomic_breakpoint as Genomic_breakpoint
-            , t1.Exon_breakpoint as Exon_breakpoint
-            , t1.Breakpoint_Type as Breakpoint_Type
-            , t1.Genome_Build_Version as Genome_Build_Version
+            , t1.T_raw as T_raw
             , t1.PMID as PMID
-            , t1.Disease as Disease
+            , t1.Disease_raw as Disease_raw
             , t1.Validation as Validation
+            , t1.Validation_raw as Validation_raw
             , t1.Score as Score
             , t1.Title as Title
+            , t1.Sentence as Sentence
             , t1.DateofPublication as DateofPublication
             , t1.Journal as Journal
             , t1.AbstractText as AbstractText
-            , t1.Frame as Frame
-            , t1.Chr_info as Chr_info
-            , t1.H_locus as H_locus
-            , t1.T_locus as T_locus
             , t1.Kinase as Kinase
             , t1.Oncogene as Oncogene
             , t1.Tumor_suppressor as Tumor_suppressor
@@ -54,12 +41,55 @@
             , t1.Transcription_Factor as Transcription_Factor
             , t1.ChimerKB as ChimerKB
             , t1.ChimerSeq as ChimerSeq
+            , t1.Disease as Disease
+            , t1.Disease_mod as Disease_mod
             , t2.num_pub as num_pub
-        from ChimerDB3.ChimerPub_ver1 t1,
-        (
-        select Fusion_pair, count(Fusion_pair) as num_pub from 
-        (select distinct Fusion_pair, PMID from ChimerDB3.ChimerPub_ver1) it1 group by it1.Fusion_pair
-        ) t2
+        from ChimerDB3.ChimerPub_ver8 t1
+        
+        
+        <choose>
+            <when test="searchType == 'by_gene'">
+                <choose>
+                    <when test="gene5">
+                        ,(
+                            select H_gene, count(H_gene) as num_pub from 
+                            (select distinct H_gene, PMID from ChimerDB3.ChimerPub_ver8) it1 group by it1.H_gene
+                        ) t2
+                    </when>
+                    <when test="gene3">
+                        ,(
+                            select T_gene, count(T_gene) as num_pub from 
+                            (select distinct T_gene, PMID from ChimerDB3.ChimerPub_ver8) it1 group by it1.T_gene
+                        ) t2
+                    </when>
+                    <when test="gene53">
+                        ,(
+                            select gene, count(gene) as num_pub from 
+                            (select distinct H_gene as gene, PMID from ChimerDB3.ChimerPub_ver8 
+                              union 
+                             select distinct T_gene as gene, PMID from ChimerDB3.ChimerPub_ver8) it1 group by it1.gene
+                        ) t2
+                    </when>
+                </choose>
+            </when>
+            <when test="searchType == 'by_gene_pair'">
+                ,(
+                    select Fusion_pair, count(Fusion_pair) as num_pub from 
+                    (select distinct Fusion_pair, PMID from ChimerDB3.ChimerPub_ver8) it1 group by it1.Fusion_pair
+                ) t2
+            </when>
+            <when test="searchType == 'by_disease'">
+                ,(
+                    select Disease, count(Disease) as num_pub from ChimerDB3.ChimerPub_disease group by Disease
+                ) t2
+            </when>
+            <otherwise>
+                ,(
+                    select 100 as num_pub
+                ) t2
+            </otherwise>
+        </choose>
+        
         where 1=1
         
         <choose>
@@ -67,12 +97,14 @@
                 <choose>
                     <when test="gene5">
                         and t1.H_gene = "${dataForSearchType}" 
+                        and t2.H_gene = "${dataForSearchType}" 
                     </when>
                     <when test="gene3">
                         and t1.T_gene = "${dataForSearchType}" 
+                        and t2.T_gene = "${dataForSearchType}" 
                     </when>
                     <when test="gene53">
-                        and t1.H_gene = "${dataForSearchType}" or t1.T_gene = "${dataForSearchType}" 
+                        and ( t1.H_gene = "${dataForSearchType}" and t2.gene = "${dataForSearchType}" ) or ( t1.T_gene = "${dataForSearchType}" and t2.gene = "${dataForSearchType}" )
                     </when>
                 </choose>
             </when>
@@ -82,6 +114,7 @@
             </when>
             <when test="searchType == 'by_disease'">
                 and t1.Disease like "%${dataForSearchType}%" 
+                and t2.Disease like "%${dataForSearchType}%" 
             </when>
             <when test="searchType == 'by_chr_locus'">
                 and (t1.H_locus like "${dataForSearchType}%" or t1.T_locus like "${dataForSearchType}%")
@@ -103,32 +136,21 @@
         select
             t1.ChimerDB_Type as ChimerDB_Type
             , t1.Fusion_pair as Fusion_pair
-            , t1.5Gene_Junction as gene5Junc
-            , t1.3Gene_Junction as gene3Junc
+            , t1.Translocation as Translocation
             , t1.H_gene as H_gene
-            , t1.H_chr as H_chr
-            , t1.H_position as H_position
-            , t1.H_strand as H_strand
+            , t1.H_raw as H_raw
             , t1.T_gene as T_gene
-            , t1.T_chr as T_chr
-            , t1.T_position as T_position
-            , t1.T_strand as T_strand
-            , t1.Genomic_breakpoint as Genomic_breakpoint
-            , t1.Exon_breakpoint as Exon_breakpoint
-            , t1.Breakpoint_Type as Breakpoint_Type
-            , t1.Genome_Build_Version as Genome_Build_Version
+            , t1.T_raw as T_raw
             , t1.PMID as PMID
-            , t1.Disease as Disease
+            , t1.Disease_raw as Disease_raw
             , t1.Validation as Validation
+            , t1.Validation_raw as Validation_raw
             , t1.Score as Score
             , t1.Title as Title
+            , t1.Sentence as Sentence
             , t1.DateofPublication as DateofPublication
             , t1.Journal as Journal
             , t1.AbstractText as AbstractText
-            , t1.Frame as Frame
-            , t1.Chr_info as Chr_info
-            , t1.H_locus as H_locus
-            , t1.T_locus as T_locus
             , t1.Kinase as Kinase
             , t1.Oncogene as Oncogene
             , t1.Tumor_suppressor as Tumor_suppressor
@@ -136,15 +158,16 @@
             , t1.Transcription_Factor as Transcription_Factor
             , t1.ChimerKB as ChimerKB
             , t1.ChimerSeq as ChimerSeq
-        from ChimerDB3.ChimerPub_ver1 t1
+            , t1.Disease as Disease
+            , t1.Disease_mod as Disease_mod
+        from ChimerDB3.ChimerPub_ver8 t1
         where 1=1
         
         <if test="Fusion_pair != null and Fusion_pair != ''"> and t1.Fusion_pair =  "${Fusion_pair}" </if>
-        <if test="gene5Junc != null and gene5Junc != ''"> and t1.gene5Junc like "%${gene5Junc}%" </if>
-        <if test="gene3Junc != null and gene3Junc != ''"> and t1.gene3Junc like "%${gene3Junc}%" </if>
-        <if test="Breakpoint_Type != null and Breakpoint_Type != ''"> and t1.Breakpoint_Type =  "${Breakpoint_Type}" </if>
         <if test="Disease != null and Disease != ''"> and t1.Disease =  "${Disease}" </if>
         <if test="PMID != null and PMID != ''"> and t1.PMID =  "${PMID}" </if>
+        <if test="H_gene != null and H_gene != ''"> and t1.H_gene =  "${H_gene}" </if>
+        <if test="T_gene != null and T_gene != ''"> and t1.T_gene =  "${T_gene}" </if>
         limit 1;
         
         

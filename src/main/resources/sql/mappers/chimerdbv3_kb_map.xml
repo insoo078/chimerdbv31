@@ -5,7 +5,7 @@
 
     <select id="getChimerKBTotalNumber" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerkb.vo.ChimerKbVo">
         SELECT count( * ) allNum
-        FROM ChimerDB3.ChimerKB_ver4 
+        FROM ChimerDB3.ChimerKB_ver7 
         WHERE 1=1
         <if test="queryForWebSource != null"> ${queryForWebSource} </if>
         <if test="queryForBreakPointType != null"> ${queryForBreakPointType} </if>
@@ -43,7 +43,7 @@
         , if(Frame = "NA","",Frame) as Frame
         , Chr_info, H_locus, T_locus, Kinase, Oncogene, Tumor_suppressor, Receptor
         , Transcription_Factor, ChimerSeq, ChimerPub
-        from ChimerDB3.ChimerKB_ver5
+        from ChimerDB3.ChimerKB_ver7
         where 1=1
         
         <choose>
@@ -104,7 +104,7 @@
         , if(Frame = "NA","",Frame) as Frame
         , Chr_info, H_locus, T_locus, Kinase, Oncogene, Tumor_suppressor, Receptor
         , Transcription_Factor, ChimerSeq, ChimerPub
-        from ChimerDB3.ChimerKB_ver5
+        from ChimerDB3.ChimerKB_ver7
         where 1=1
         
         
@@ -116,7 +116,7 @@
     </select>
     
     <select id="getDiseaseList" parameterType="String" resultType="String">
-        select distinct(Disease) lst from ChimerDB3.ChimerKB_ver5
+        select distinct(Disease) lst from ChimerDB3.ChimerKB_ver7
         where Disease != "NA"
         <choose>
             <when test="_parameter != null and _parameter != ''">

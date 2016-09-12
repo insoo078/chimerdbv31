@@ -267,9 +267,9 @@ public class ChimerPubController {
             
             ChimerPubVo param = new ChimerPubVo();
             param.setFusion_pair( request.getParameter("fuspair") );
-            param.setGene5Junc( request.getParameter("gene5junc") );
-            param.setGene3Junc( request.getParameter("gene3junc") );
-            param.setBreakpoint_Type( request.getParameter("breaktype") );
+            //param.setGene5Junc( request.getParameter("gene5junc") );
+            //param.setGene3Junc( request.getParameter("gene3junc") );
+            //param.setBreakpoint_Type( request.getParameter("breaktype") );
             param.setDisease( request.getParameter("disease") );
             param.setPMID( request.getParameter("pmid") );
             
