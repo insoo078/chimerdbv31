@@ -7,7 +7,7 @@ var ChimerSeqForm = {
 	name:'ChimerSeq',
 	chimrSeqTcgaState:null,
 	init: function(){
-		this.chimrSeqTcgaState = false;
+		this.chimrSeqTcgaState = true;
 
 		// to express which menu user has choosed
 		check_m_state("mmchimerseqbtn");
@@ -24,7 +24,7 @@ var ChimerSeqForm = {
 		this.addAutocompleteField( "#byGeneTxt",		1);
 		this.addAutocompleteField( "#byGenePairTxt",	2);
 		this.addAutocompleteField( "#byChrLocusTxt",	3);
-		this.addAutocompleteField( "#byDiseaseTxt",	4);
+		this.addAutocompleteField( "#byDiseaseTxt",		4);
 
 		// If user choose one radio button, then other radios are disabled
 		// and active filed is moving their text filed
@@ -46,7 +46,7 @@ var ChimerSeqForm = {
 			if( value==='byGene' ) {
 				$("div#search-Panel input[type=checkbox]").each(function(){
 					$(this).prop("disabled", false);
-					if( this.name === 'byGene5Prime' ) {
+					if( this.name === 'byGene3Prime' ) {
 						$(this).prop("checked", true);
 					}
 				});
@@ -63,7 +63,6 @@ var ChimerSeqForm = {
 		});
 	},
 	setOptionPanelSetting: function() {
-	
 		$("#chkChimerDbV21").change(function(){
 			var flag = $(this).is(':checked');
 			
@@ -87,12 +86,15 @@ var ChimerSeqForm = {
 		$("#chkAllOptions").change(function(){
 			var flag = $(this).is(':checked');
 
-			$("#chkTcgaOption1").trigger('click');
+			$("#chkTcgaOption1").prop("checked", flag);
+			$("#chkTcgaOption1").trigger('change');
+
 			$("#chkChimerDbV21").prop("checked", flag);
 			$("#chkChiTaRs1").prop("checked", flag);
 		});
 	},
 	setTcgaInOptionPanel: function() {
+		var ChimerSeq = this;
 		$("#chkTcgaOption1").change(function(){
 			var flag = $(this).is(':checked');
 
@@ -106,13 +108,14 @@ var ChimerSeqForm = {
 			}
 		});
 
-		$("#cancer-type-all").click(function(){
+		$("#cancer-type-all").on('click', {context:this}, function(event){						
 			ChimerSeq.chimrSeqTcgaState = !ChimerSeq.chimrSeqTcgaState;
+			
 			$("#tcgaCancerTypes > option").prop("selected", ChimerSeq.chimrSeqTcgaState);
 		});
 
-		$("#tcgaCancerTypes > option.cancer-type").click(function(){
-			if( ChimerSeq.chimrSeqTcgaState ) ChimerSeq.chimrSeqTcgaState = false;
+		$("#tcgaCancerTypes > option.cancer-type").on('click', {context:this}, function(event){
+			event.data.chimrSeqTcgaState = false;
 		});
 	},
 	setDefaultValues: function() {
@@ -197,6 +200,16 @@ $(document).ready(function () {
 //	check_m_state("mmchimerseqbtn");
 
 	ChimerSeqForm.init();
+	
+	$("#resetButton").click(function(){
+		this.chimrSeqTcgaState = true;
+
+		$("form").each(function() {  
+			this.reset();  
+		 });
+
+//		ChimerSeqForm.init();
+	});
 });
 
 function search() {

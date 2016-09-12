@@ -34,13 +34,31 @@ public class ChimerSeqDetailVo extends ChimerSeqVo{
 	private String tumor_suppressor;
 	private String receptor;
 	private String transcripton_Factor;
+	private String oncogene;
+	private String disease;
 
+	public String getDisease() {
+		return disease;
+	}
+
+	public void setDisease(String disease) {
+		this.disease = disease;
+	}
+	
 	public String getChimerDB_Type() {
 		return chimerDB_Type;
 	}
 
 	public void setChimerDB_Type(String ChimerDB_Type) {
 		this.chimerDB_Type = ChimerDB_Type;
+	}
+
+	public String getOncogene() {
+		return oncogene;
+	}
+
+	public void setOncogene(String oncogene) {
+		this.oncogene = oncogene;
 	}
 
 	public String getWebSource() {

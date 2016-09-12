@@ -10,9 +10,11 @@ package org.com.chimerdbv31.chimerseq.com;
  * @author 김수린
  */
 public class Utilities {
-	public static boolean isOverlapped( int start1, int end1, int start2, int end2 ) {
-		int sum = (end1 - start1 + 1) + (end2 - start2 + 1);
-		int max = Math.max(end1, end2) + Math.min(start1, start2);
+	public static boolean isOverlapped( long start1, long end1, long start2, long end2 ) {
+		long sum = (end1 - start1 + 1) + (end2 - start2 + 1);
+		long m1 = Math.max(end1, end2);
+		long m2 = Math.min(start1, start2);
+		long max = m1 - m2 + 1;
 		
 		if( sum > max ) return true;
 		

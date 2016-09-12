@@ -141,10 +141,10 @@
                                                             <td style="text-align: center;">
                                                                 <c:choose>
                                                                     <c:when test="${chimerKbLst.getChimerSeq() == 1}">
-                                                                        <img alt="ChimerSeq" src="resources/images/icons/icseq.png" style="width: 16px; height: 16px;" />&nbsp;&nbsp;
+                                                                        <span style="color: #ffffff; border: 1px #3071a9 solid; border-radius:4px; background-color:#3071a9; font-size:12px; font-weight:bold;">Seq</span>&nbsp;
                                                                     </c:when>
                                                                     <c:when test="${chimerKbLst.getChimerPub() == 1}">
-                                                                        <img alt="ChimerSeq" src="resources/images/icons/icpub.png" style="width: 16px; height: 16px;" />
+                                                                        <span style="color: #ffffff; border: 1px #3071a9 solid; border-radius:4px; background-color:#3071a9; font-size:12px; font-weight:bold;">Pub</span>&nbsp;
                                                                     </c:when>
                                                                 </c:choose>
                                                             </td>

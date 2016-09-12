@@ -6,10 +6,7 @@
 
 $(document).ready(function () {
     check_m_state("mmchimerpubbtn");
-    init_variable_values();
-    
     $(".chimerkbsearchdiv").equalHeights();
-    
     $("#by_disease_txt").autocomplete({
         minLength:2,
         source: "chimerpubdiseaselst.cdb"
@@ -20,10 +17,6 @@ $(document).ready(function () {
 });
 
 
-
-function init_variable_values(){
-    
-}
 
 //-----------
 //-----------
@@ -90,6 +83,31 @@ function validatnmtd_toggle(type){
 }
 
 
+function resetall(){
+    if( $("input:radio[id='search_type_gene_rdo']").is(":checked") == false ){ $("#search_type_gene_rdo").prop("checked",true); }
+    $("#pub_num_txt").val("1");
+    $("#txt_mining_score_txt").val("10");            
+    $('input:checkbox').each(function(){
+        var chkObjId = $(this).attr("id");
+        if( chkObjId == "by_gene_chk_3" ){
+            if( $("input:checkbox[id='"+chkObjId+"']").is(":checked") == false ){ $("#"+chkObjId).prop("checked",true); }
+        }else if( chkObjId == "vm_fish_chk" ){
+            if( $("input:checkbox[id='"+chkObjId+"']").is(":checked") == false ){ $("#"+chkObjId).prop("checked",true); }
+        }else if( chkObjId == "vm_sanger_chk" ){
+            if( $("input:checkbox[id='"+chkObjId+"']").is(":checked") == false ){ $("#"+chkObjId).prop("checked",true); }
+        }else if( chkObjId == "vm_rtpcr_chk" ){
+            if( $("input:checkbox[id='"+chkObjId+"']").is(":checked") == false ){ $("#"+chkObjId).prop("checked",true); }
+        }else if( chkObjId == "vm_none_chk" ){
+            if( $("input:checkbox[id='"+chkObjId+"']").is(":checked") == false ){ $("#"+chkObjId).prop("checked",true); }
+        }else{
+            if(this.checked){
+                this.checked = false;
+            }
+        }
+    });
+}
+
+
 function searching(){
     var chkData = true;
     
@@ -119,6 +137,15 @@ function searching(){
                         case "by_gene_pair":{
                                 keyVal = $("#by_gene_pair_txt").val();
                                 
+                                if( (keyVal == "") || ($.trim(keyVal) == "") || (keyVal == null) ){
+                                    $("#chimerdb_empty_data").modal("show");
+                                    return;
+                                }else{
+                                    $("#key_data_for_search_type").val( keyVal );
+                                }
+                        };break;
+                        case "by_disease":{
+                                keyVal = $("#by_disease_txt").val();
                                 if( (keyVal == "") || ($.trim(keyVal) == "") || (keyVal == null) ){
                                     $("#chimerdb_empty_data").modal("show");
                                     return;

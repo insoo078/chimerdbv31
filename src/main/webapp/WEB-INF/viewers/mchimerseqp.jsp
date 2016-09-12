@@ -121,17 +121,17 @@
 							<div class="row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
 								<div class="col-md-11 col-md-offset-1 margin-bottom-30">
 									<div class="row margin-bottom-15">
-										<span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Data Source</span>
+										<span style="font-size: 15px; font-weight:bold;">&ndash;&nbsp;&nbsp;Data Source</span>
 									</div>
 									<div class="row margin-bottom-15">
 										<div class="col-md-11 col-md-offset-1">
-											<label class="checkbox-inline"><input type="checkbox" id="chkAllOptions"/>All Sources</label>
+											<label class="checkbox-inline"><input type="checkbox" id="chkAllOptions" checked="true"/>All Sources</label>
 										</div>
 									</div>
 
 									<div class="row margin-bottom-15">
 										<div class="col-md-11 col-md-offset-1">
-											<label class="checkbox-inline"><form:checkbox path="chkTcgaOption" value="on"/>TCGA RNA-Seq</label>
+											<label class="checkbox-inline"><form:checkbox path="chkTcgaOption" value="on" checked="true"/>TCGA RNA-Seq</label>
 										</div>
 									</div>
 
@@ -143,10 +143,10 @@
 											<div class="row">
 												<div class="col-md-11 col-md-offset-1">
 													<form:select path="tcgaCancerTypes" class="form-control" size="6" style="width: 190px; margin-top: 10px;" multiple="true">
-														<form:option class='cancer-type' id="cancer-type-all" value="All cancer types"/>
+														<form:option id="cancer-type-all" value="All cancer types" selected="true"/>
 														<c:if test="${not empty cancer_type}">
 															<c:forEach var="type" items="${cancer_type}">
-																<form:option class='cancer-type' value="${type}"/>
+																<form:option class='cancer-type' value="${type}" selected="true"/>
 															</c:forEach>
 														</c:if>
 													</form:select>
@@ -154,7 +154,7 @@
 											</div>
 											<div class="row">
 												<div class="col-md-11 col-md-offset-1">
-													<span style="font-size: 13px;">* Use Ctrl for multiple selection.</span>
+													<span style="font-size: 13px;">* Use Ctrl or Command key for multiple selection.</span>
 												</div>
 											</div>
 										</div>
@@ -167,7 +167,7 @@
 												<div class="col-md-11 col-md-offset-1">
 													<table>
 														<tr>
-															<td><label class="checkbox-inline"><form:checkbox path="chkFusionScan" value="on"/>FusionScan</label></td>
+															<td><label class="checkbox-inline"><form:checkbox path="chkFusionScan" value="on" checked="true"/>FusionScan</label></td>
 															<td><span style="font-size: 13px;">Number of seed reads &#62;&#61;</span></td>
 															<td><form:input path="noOfSeedReads" class="form-control" style="width: 70px; height: 25px;" value="2"/></td>
 														</tr>
@@ -179,7 +179,7 @@
 												<div class="col-md-11 col-md-offset-1">
 													<table>
 														<tr>
-															<td><label class="checkbox-inline"><form:checkbox path="chkTophat" value="on"/>TopHat-Fusion</label></td>
+															<td><label class="checkbox-inline"><form:checkbox path="chkTophat" value="on" checked="true"/>TopHat-Fusion</label></td>
 															<td><span style="font-size: 13px;">Number of spanning pairs &#62;&#61;</span></td>
 															<td><form:input path="noOfSpaningPairs" class="form-control" style="width: 70px; height: 25px;" value="100"/></td>
 														</tr>
@@ -191,7 +191,7 @@
 												<div class="col-md-11 col-md-offset-1">
 													<table>
 														<tr>
-															<td><label class="checkbox-inline"><form:checkbox path="chkPrada" value="on"/>PRADA</label></td>
+															<td><label class="checkbox-inline"><form:checkbox path="chkPrada" value="on" checked="true"/>PRADA</label></td>
 															<td><span style="font-size: 13px;">Number of junction reads &#62;&#61;</span></td>
 															<td><form:input path="noOfJunctionReads" class="form-control" style="width: 70px; height: 25px;" value="2"/></td>
 														</tr>
@@ -203,12 +203,12 @@
 
 									<div class="row margin-bottom-15">
 										<div class="col-md-11 col-md-offset-1">
-											<label class="checkbox-inline"><form:checkbox path="chkChimerDbV2" value="on"/>ChimerDB 2.0 SRA</label>
+											<label class="checkbox-inline"><form:checkbox path="chkChimerDbV2" value="on" checked="true"/>ChimerDB 2.0 SRA</label>
 										</div>
 									</div>
 									<div class="row margin-bottom-15">
 										<div class="col-md-11 col-md-offset-1">
-											<label class="checkbox-inline"><form:checkbox path="chkChiTaRs" value="on"/>ChiTaRs</label>
+											<label class="checkbox-inline"><form:checkbox path="chkChiTaRs" value="on" checked="true"/>ChiTaRs</label>
 										</div>
 									</div>
 
@@ -227,38 +227,39 @@
 								<span class="bold-sub-title">Filters</span>
 							</div>
 							<div class="row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
-									<div class="col-md-11 col-md-offset-1 margin-bottom-30">
-
+								
+								<div class="col-md-11 col-md-offset-1 margin-bottom-30">
+									<div class="row margin-bottom-15">
+										
 										<div class="row margin-bottom-15">
-											<span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Function</span>
-										</div>
-										<div class="row margin-bottom-15">
-											<div class="col-md-11 col-md-offset-1">
-												<label class="checkbox-inline"><form:checkbox path="chkKinaseFusion" value="on"/>Kinase fusion</label>
-												<label class="checkbox-inline"><form:checkbox path="chkOncogene" value="on" checked="true"/>Oncogene</label>
+											<div class="col-md-3">
+												<span style="font-size: 15px; font-weight:bold;">&ndash;&nbsp;&nbsp;Function</span>
+											</div>
+											<div class="col-md-9">
+												<label class="checkbox-inline"><form:checkbox path="chkKinaseFusion" value="on"/>Kinase</label>
+												<label class="checkbox-inline"><form:checkbox path="chkOncogene" value="on"/>Oncogene</label>
 												<label class="checkbox-inline"><form:checkbox path="chkTumorSuppressor" value="on"/>Tumor suppressor</label>
 												<label class="checkbox-inline"><form:checkbox path="chkReceptor" value="on"/>Receptor</label>
-												<label class="checkbox-inline"><form:checkbox path="chkTranscriptionFactor" value="on" checked="true"/>Transcription factor</label>
+												<label class="checkbox-inline"><form:checkbox path="chkTranscriptionFactor" value="on"/>Transcription factor</label>
 											</div>
 										</div>
 
-
 										<div class="row margin-bottom-15">
-											<span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Function type</span>
-										</div>
-										<div class="row margin-bottom-15">
-											<div class="col-md-11 col-md-offset-1">
-												<label class="checkbox-inline"><form:checkbox path="chkInterChromosomal" value="on" checked="true"/>Inter chromosomal</label>
+											<div class="col-md-3">
+												<span style="font-size: 15px; font-weight:bold;">&ndash;&nbsp;&nbsp;Function type</span>
+											</div>
+											<div class="col-md-9">
+												<label class="checkbox-inline"><form:checkbox path="chkInterChromosomal" value="on"/>Inter chromosomal</label>
 												<label class="checkbox-inline"><form:checkbox path="chkIxtraChromosomal" value="on"/>Intra chromosomal</label>
 											</div>
 										</div>
 
 
 										<div class="row margin-bottom-15">
-											<span style="font-size: 15px;">&ndash;&nbsp;&nbsp;Supporting information</span>
-										</div>
-										<div class="row">
-											<div class="col-md-11 col-md-offset-1">
+											<div class="col-md-3">
+												<span style="font-size: 15px; font-weight:bold;">&ndash;&nbsp;&nbsp;Supporting information</span>
+											</div>
+											<div class="col-md-9">
 												<label class="checkbox-inline" id="chimrKb_fbySupot_chimrSeqS_lvl"><form:checkbox path="chkChimerKbSupport" value="on"/>ChimerSeq supported</label>
 												<label class="checkbox-inline" id="chimrKb_fbySupot_chimrPubS_lvl"><form:checkbox path="chkChimerPubSupport" value="on"/>ChimerPub supported</label>
 											</div>
@@ -276,7 +277,7 @@
 			<div class="row margin-bottom-30" style="margin-top: 30px; ">
 
 				<div class="col-md-12" style="text-align: right;">
-					<button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" >
+					<button class="btn btn-primary" type="button" id="resetButton" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" >
 						<span class="fa fa-arrow-left"></span>&nbsp;&nbsp;Reset
 					</button>
 					<button class="btn btn-primary" type="button" style="width: 180px; height: 40px; font-size: 20px; font-weight: bold;" onclick="search();">

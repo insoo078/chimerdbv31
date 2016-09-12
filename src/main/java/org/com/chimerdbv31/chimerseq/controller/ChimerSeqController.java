@@ -161,6 +161,7 @@ public class ChimerSeqController {
 		String resultJson = obj.toString();
 		
 		System.out.println( resultJson );
+
 		return resultJson;
     }
 
