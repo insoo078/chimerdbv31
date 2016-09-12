@@ -71,7 +71,7 @@
 			, IF(T_gene='NA', '', T_chr) AS t_chr
 			, IF(H_gene='NA', '', H_chr) AS h_chr
 			, a.id
-		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
+		FROM ChimerDB3.ChimerSeq a, ChimerDB3.ChimerSeq_Fulltext b
 		WHERE a.id=b.id
 		<!-- Search method -->
 		<choose>
@@ -174,7 +174,7 @@
     </select>
     <select id="getChimerSeqTotalNumber" parameterType="org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm" resultType="int">
         SELECT COUNT( * ) AS allNum
-		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
+		FROM ChimerDB3.ChimerSeq a, ChimerDB3.ChimerSeq_Fulltext b
 		WHERE a.id=b.id
 		<!-- Search method -->
 		<choose>
@@ -390,10 +390,10 @@
 			, IF( Genomic_breakpoint='NA', '', Genomic_breakpoint )		AS genomic_breakpoint
 			, IF( Exon_breakpoint='NA', '', Exon_breakpoint )			AS exon_breakpoint
 			, IF( Genome_Build_Version='NA', '', Genome_Build_Version )	AS genome_Build_Version
-			, IF( H_transcript='NA', '', H_transcript )					AS h_transcript
-			, IF( H_exon='NA', '', H_exon )								AS h_exon
-			, IF( T_transcript='NA', '', T_transcript )					AS t_transcript
-			, IF( T_exon='NA', '', T_exon )								AS t_exon
+			<!--, IF( H_transcript='NA', '', H_transcript )					AS h_transcript-->
+<!--			, IF( H_exon='NA', '', H_exon )								AS h_exon-->
+<!--			, IF( T_transcript='NA', '', T_transcript )					AS t_transcript-->
+<!--			, IF( T_exon='NA', '', T_exon )								AS t_exon-->
 			, IF( Seed_reads_num='NA', '', Seed_reads_num )				AS seed_reads_num
 			, IF( Spanning_pairs_num='NA', '', Spanning_pairs_num )		AS spanning_pairs_num
 			, IF( Junction_reads_num='NA', '', Junction_reads_num )		AS junction_reads_num
@@ -405,7 +405,7 @@
 			, IF( Oncogene='NA', '', Oncogene )							AS oncogene
 			, IF( Transcription_Factor='NA', '', Transcription_Factor )	AS transcription_Factor
 			, IF( Disease='NA', '', Disease )							AS disease
-		FROM ChimerDB3.ChimerSeq_ver7
+		FROM ChimerDB3.ChimerSeq
 		WHERE id=${id}
 	</select>
 	

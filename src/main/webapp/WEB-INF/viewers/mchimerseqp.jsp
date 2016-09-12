@@ -49,13 +49,13 @@
 											<div class="row margin-bottom-15">
 												<div class="col-md-7">
 													<label class="radio-inline" style="font-weight: bold; margin-right: 20px;">
-														<form:radiobutton path="searchType" value="byGene"/>Gene
+														<form:radiobutton path="searchType" value="byGene" checked="true"/>Gene
 													</label>
 													<label class="checkbox-inline">
 														<form:checkbox path="byGene5Prime" value="on"/>5'
 													</label>
 													<label class="checkbox-inline">
-														<form:checkbox path="byGene3Prime" value="on"/>3'
+														<form:checkbox path="byGene3Prime" value="on" checked="true"/>3'
 													</label>
 												</div>
 												<div class="col-md-5">
@@ -111,11 +111,12 @@
 									<div class="row margin-bottom-15">
 										<span style="font-size: 15px; font-weight:bold;">&ndash;&nbsp;&nbsp;Data Source</span>
 									</div>
-									<div class="row margin-bottom-15">
+
+<!--									<div class="row margin-bottom-15">
 										<div class="col-md-11 col-md-offset-1">
 											<label class="checkbox-inline"><input type="checkbox" id="chkAllOptions" checked="true"/>All Sources</label>
 										</div>
-									</div>
+									</div>-->
 
 									<div class="row margin-bottom-15">
 										<div class="col-md-11 col-md-offset-1">
