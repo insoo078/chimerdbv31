@@ -171,10 +171,11 @@
 		</if>
     </select>
     <select id="getChimerSeqTotalNumber" parameterType="org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm" resultType="int">
-        SELECT DISTINCT COUNT( * ) AS allNum
+        SELECT COUNT( * ) AS allNum
 		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
 		WHERE a.id=b.id
-            <choose>
+		<!-- Search method -->
+		<choose>
 			<when test="searchType == 'byGene'">
 				<choose>
 					<when test="byGene5Prime == 'on' and byGene3Prime == 'on'">
@@ -256,16 +257,16 @@
 			</when>
 		</choose>
 		<trim prefix="AND (" suffix=")" prefixOverrides="AND|OR">
-		<choose>
-			<when test="chkChimerKbSupport == 'on' and chkChimerPubSupport == 'on'">
-				AND ChimerKB != 0 OR ChimerPub != 0
-			</when>
-			<when test="chkChimerKbSupport == 'on'">AND ChimerKB != 0</when>
-			<when test="chkChimerPubSupport == 'on'">AND ChimerPub != 0</when>
-		</choose>
+			<choose>
+				<when test="chkChimerKbSupport == 'on' and chkChimerPubSupport == 'on'">
+					AND (ChimerKB != 0 OR ChimerPub != 0)
+				</when>
+				<when test="chkChimerKbSupport == 'on'">AND ChimerKB != 0</when>
+				<when test="chkChimerPubSupport == 'on'">AND ChimerPub != 0</when>
+			</choose>
 		</trim>
 		<if test="searchKeyword != null">
-			AND MATCH(b.all_columns) AGAINST(#{searchKeyword} IN BOOLEAN MODE)
+			AND MATCH(b.all_columns) AGAINST( CONCAT(#{searchKeyword}, '*') IN BOOLEAN MODE)
 		</if>
     </select>
 	
