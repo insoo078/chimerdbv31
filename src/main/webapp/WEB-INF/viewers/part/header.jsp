@@ -1,4 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+
+
+
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -14,6 +19,14 @@
         <li><a href="mhelp.cdb"> <span id="mmhelpbtn" class="mmAtagcss" >Help</span> </a></li>
         <li><a href="#"> <span id="mmdownloadbtn" class="mmAtagcss" >Download</span> </a></li>
       </ul>
+    </div>
+    <div>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
     </div>
   </div>
 </nav>
