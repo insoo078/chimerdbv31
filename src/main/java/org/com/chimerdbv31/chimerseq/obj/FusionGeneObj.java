@@ -115,30 +115,60 @@ public class FusionGeneObj extends ChimerSeqVo{
 
 			for(Gff3Vo gff : gene.getCanonicalTranscript().getExons()) {
 				if( keyGeneType.equals( FusionGeneObj._5P_GENE ) ) {
-					if( gff.getEnd() < breakPoint ) {
-						Gff3Vo newGff = gff.clone();
-						fusedGenes.add( newGff );
-					}else if( gff.getStart() <= breakPoint && gff.getEnd() >= breakPoint ) {
-						Gff3Vo newGff = gff.clone();
+					if( gene.getStrand().equals("+") ) {
+						if( gff.getEnd() < breakPoint ) {
+							Gff3Vo newGff = gff.clone();
+							fusedGenes.add( newGff );
+						}else if( gff.getStart() <= breakPoint && gff.getEnd() >= breakPoint ) {
+							Gff3Vo newGff = gff.clone();
 
-						if( gff.getStart() < breakPoint && gff.getEnd() >= breakPoint ) {
-							gff.setEnd(breakPoint);
+							if( gff.getStart() < breakPoint && gff.getEnd() >= breakPoint ) {
+								newGff.setEnd(breakPoint);
+							}
+
+							fusedGenes.add( newGff );
 						}
+					}else {
+						if( gff.getStart() > breakPoint && gff.getEnd() > breakPoint ) {
+							Gff3Vo newGff = gff.clone();
+							fusedGenes.add( newGff );
+						}else if( gff.getStart() <= breakPoint && gff.getEnd() >= breakPoint ) {
+							Gff3Vo newGff = gff.clone();
 
-						fusedGenes.add( newGff );
+							if( gff.getStart() < breakPoint && gff.getEnd() >= breakPoint ) {
+								newGff.setStart(breakPoint);
+							}
+
+							fusedGenes.add( newGff );
+						}
 					}
 				}else {
-					if( gff.getStart() > breakPoint ) {
-						Gff3Vo newGff = gff.clone();
-						fusedGenes.add( newGff );
-					}else if( gff.getStart() <= breakPoint && gff.getEnd() >= breakPoint ) {
-						Gff3Vo newGff = gff.clone();
+					if( gene.getStrand().equals("+") ) {
+						if( gff.getStart() > breakPoint ) {
+							Gff3Vo newGff = gff.clone();
+							fusedGenes.add( newGff );
+						}else if( gff.getStart() >= breakPoint && gff.getEnd() <= breakPoint ) {
+							Gff3Vo newGff = gff.clone();
 
-						if( gff.getStart() < breakPoint && gff.getEnd() >= breakPoint ) {
-							gff.setStart(breakPoint);
+							if( gff.getStart() > breakPoint && gff.getEnd() <= breakPoint ) {
+								newGff.setStart(breakPoint);
+							}
+
+							fusedGenes.add( newGff );
 						}
+					}else {
+						if( gff.getEnd() < breakPoint ) {
+							Gff3Vo newGff = gff.clone();
+							fusedGenes.add( newGff );
+						}else if( gff.getStart() <= breakPoint && gff.getEnd() >= breakPoint ) {
+							Gff3Vo newGff = gff.clone();
 
-						fusedGenes.add( newGff );
+							if( gff.getStart() < breakPoint && gff.getEnd() >= breakPoint ) {
+								newGff.setStart(breakPoint);
+							}
+
+							fusedGenes.add( newGff );
+						}
 					}
 				}
 			}

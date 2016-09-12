@@ -6,6 +6,8 @@
 package org.com.chimerdbv31.chimerseq.obj;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.com.chimerdbv31.chimerseq.com.Utilities;
@@ -163,28 +165,56 @@ public class GeneObj extends GeneBaseObj{
 	public List<PfamVo> getpFamDomainList() {
 		return pFamDomainList;
 	}
+	
+	private Map<Integer, List<PfamVo>> makeHashMap4DomainLayerOrder( PfamVo firstDomain ) {
+		Map<Integer, List<PfamVo>> map = new LinkedHashMap<Integer, List<PfamVo>>();
+
+		firstDomain.setLayerNo(0);
+		List<PfamVo> firstLayerPfamArray = new ArrayList<PfamVo>();
+		firstLayerPfamArray.add( firstDomain );
+		map.put(0, firstLayerPfamArray);
+		
+		return map;
+	}
 
 	public void setpFamDomainList(List<PfamVo> pFamDomainList) {
 		this.pFamDomainList = pFamDomainList;
 		
-		int idx = 0;
-		List<PfamVo> layerIndexList = new ArrayList<PfamVo>();
-		for(int i=0; i<this.pFamDomainList.size(); i++) {
-			PfamVo eachPfam = this.pFamDomainList.get(i);
-			boolean isFound = false;
-			for(PfamVo vo:layerIndexList) {
-//				boolean isOverlapped = Utilities.isOverlapped( eachPfam.getChromStart(), eachPfam.getChromEnd(), vo.getChromStart(), vo.getChromEnd() );
-//				System.out.println( isOverlapped + " : " + eachPfam.getChromStart() + " - " + eachPfam.getChromEnd() + "   vs   " +  vo.getChromStart() + "-" + vo.getChromEnd() );
-				if( Utilities.isOverlapped( eachPfam.getChromStart(), eachPfam.getChromEnd(), vo.getChromStart(), vo.getChromEnd() ) == false ) {
-					eachPfam.setLayerNo( vo.getLayerNo() );
-					isFound = true;
-					break;
+		if( this.pFamDomainList != null && this.pFamDomainList.size() > 0 ) {
+			Map<Integer, List<PfamVo>> map = this.makeHashMap4DomainLayerOrder( this.pFamDomainList.get(0) );
+
+			for(int i=1; i<this.pFamDomainList.size(); i++) {
+				PfamVo eachPfam = this.pFamDomainList.get(i);
+
+				boolean isFitted4ThisLayer = true;
+				for( int layerNo : map.keySet() ) {
+					List<PfamVo> currentLayerPfamList = map.get( layerNo );
+
+					// 같은 Layer에 있는 모든 domain을 조사하여 overlap 되는지 조사
+					for( PfamVo vo:currentLayerPfamList ) {
+						// 만약 오버랩 된다면 다음번 layer 조사를 위해 break
+						if( Utilities.isOverlapped( eachPfam.getChromStart(), eachPfam.getChromEnd(), vo.getChromStart(), vo.getChromEnd() ) ) {
+							isFitted4ThisLayer = false;
+							break;
+						}
+					}
+
+					// 만약 현재 layer에서 overlap 되지 않는 다면 현재 layer로 세팅
+					if( isFitted4ThisLayer ) {
+						eachPfam.setLayerNo( layerNo );
+						currentLayerPfamList.add( eachPfam );
+						break;
+					}
+				}
+
+				if( isFitted4ThisLayer == false ) {
+					List<PfamVo> nextLayerPfamArray = new ArrayList<PfamVo>();
+					eachPfam.setLayerNo( map.size() );
+					nextLayerPfamArray.add( eachPfam );
+					map.put( map.size() , nextLayerPfamArray );
 				}
 			}
-			if( isFound == false ) {
-				eachPfam.setLayerNo(idx++);
-				layerIndexList.add(eachPfam);
-			}
+			map = null;
 		}
 	}
 
