@@ -34,81 +34,69 @@
 		<div id="main-wrapper">
 			<div class="template-page-wrapper">
 				<div class="templatemo-content-wrapper">
-
-					<div id="search-Panel" class="row margin-bottom-30" style="margin-top: 30px;">
-						<div class="row">
-							<div class="col-md-1"></div>
-
-							<div class="col-md-10" style="background-color: #fdfdfd;">
-
-								<div class="row margin-bottom-30" style="margin-left: 5px; margin-top: 0px;">
-									<span class="bold-sub-title">Search</span>
-								</div>
-
-								<div class="chimerkbsearchdiv row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
-									<div class="col-md-4 col-md-offset-1 margin-bottom-30" style="border-right: 1px #dcdcdc dotted;">    
-										<div class="row margin-bottom-15">
-											<div class="col-md-6">
-												<label class="radio-inline">
-													<form:radiobutton path="searchType" value="byGene"/>Gene
-												</label>
-												<label class="checkbox-inline">
-													<form:checkbox path="byGene5Prime" value="on"/>5'
-												</label>
-												<label class="checkbox-inline">
-													<form:checkbox path="byGene3Prime" value="on"/>3'
-												</label>
-											</div>
-											<div class="col-md-6">
-												<form:input path="byGeneTxt" value="ALK"/>
-											</div>
-										</div>
-
-										<div class="row margin-bottom-15">
-											<div class="col-md-6">
-												<label class="radio-inline">
-													<form:radiobutton path="searchType" value="byGenePair"/>Gene pair
-												</label>
-											</div>
-											<div class="col-md-6">
-												<form:input path="byGenePairTxt" value="EML4_ALK"/>
-											</div>
-										</div>
-
-										<div class="row">
-											<div class="col-md-6">
-												<label class="radio-inline">
-													<form:radiobutton path="searchType" value="byChrLocus"/>Chromosome locus
-												</label>
-											</div>
-											<div class="col-md-6">
-												<form:input path="byChrLocusTxt" value="2p23"/>
-											</div>
-										</div>
-
-									</div>
-									<div class="col-md-4 margin-bottom-30" style="border-right: 1px #dcdcdc dotted;">
-										<div class="row margin-bottom-15">
-											<div class="col-md-4">
-												<label class="radio-inline">
-													<form:radiobutton path="searchType" value="byDisease"/>Disease
-												</label>
-											</div>
-											<div class="col-md-8">
-												<form:input path="byDiseaseTxt" value="Adenocarcinoma (CA ad)."/>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3 margin-bottom-30">
-										<label class="radio-inline">
-											<form:radiobutton path="searchType" value="all_genes"/>Show all entries
-										</label>
-									</div>
-								</div>
-
+					<div class="row margin-bottom-30" style="margin-top: 30px;">
+						<div class="col-md-1"></div>
+						<div class="col-md-10" style="background-color: #fdfdfd;">
+							<div class="row margin-bottom-30" style="margin-left: 5px; margin-top: 15px;">
+								<span style="font-size: 30px; font-weight: bold; color: #428bca;">Search</span>
 							</div>
-							<div class="col-md-1"></div>
+							<div class="row" style="background: linear-gradient(#fdfdfd,#f3f3f3);">
+
+								<div class="chimerkbsearchdiv col-md-11 col-md-offset-1 margin-bottom-30">
+
+										<div class="col-md-4" style="border-right: 2px #999999 dotted;">
+
+											<div class="row margin-bottom-15">
+												<div class="col-md-7">
+													<label class="radio-inline" style="font-weight: bold; margin-right: 20px;">
+														<form:radiobutton path="searchType" value="byGene"/>Gene
+													</label>
+													<label class="checkbox-inline">
+														<form:checkbox path="byGene5Prime" value="on"/>5'
+													</label>
+													<label class="checkbox-inline">
+														<form:checkbox path="byGene3Prime" value="on"/>3'
+													</label>
+												</div>
+												<div class="col-md-5">
+													<form:input path="byGeneTxt" value="ALK" class="form-control"/>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-md-6">
+													<label class="radio-inline" style="font-weight: bold;">
+														<form:radiobutton path="searchType" value="byGenePair"/>Gene pair
+													</label>
+												</div>
+												<div class="col-md-6">
+													<form:input path="byGenePairTxt" value="EML4_ALK" class="form-control"/>
+												</div>
+											</div>
+
+										</div>
+										<div class="col-md-4" style="border-right: 2px #999999 dotted;">
+											<div class="row margin-bottom-15">
+												<div class="col-md-4">
+													<label class="radio-inline" style="font-weight: bold;">
+														<form:radiobutton path="searchType" value="byDisease"/>Disease
+													</label>
+												</div>
+												<div class="col-md-8">
+													<form:input path="byDiseaseTxt" value="Adenocarcinoma (CA ad)." class="form-control"/>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4" style="text-align: center;">
+											<label class="radio-inline" style="font-weight: bold;">
+												<form:radiobutton path="searchType" value="all_genes"/>Show all entries
+											</label>
+										</div>
+								</div>
+							</div>
+
 						</div>
+						<div class="col-md-1"></div>
 					</div>
 
 					<div id="option-Panel" class="row margin-bottom-30">

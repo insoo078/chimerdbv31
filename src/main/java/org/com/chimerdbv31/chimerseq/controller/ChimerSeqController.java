@@ -12,6 +12,7 @@ import org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm;
 import org.com.chimerdbv31.chimerseq.services.ChimerSeqService;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqDetailVo;
+import org.com.chimerdbv31.chimerseq.vo.SynonymVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -142,6 +143,7 @@ public class ChimerSeqController {
 		int displaySize = Integer.parseInt( request.getParameter("length") );										// jQuery datatable에서 얻어온 한 테이블에서 보여질 데이터 size
 		String sortedKey = request.getParameter("order[0][column]");												// jQuery datatable에서 얻어온 정렬 필드 번호
 
+		model.validateData();
 		model.setStart( pagingStart );
 		model.setLength( displaySize );
 		model.setSortKey( Integer.parseInt( sortedKey ) );
@@ -159,8 +161,6 @@ public class ChimerSeqController {
 		obj.add("aaData", gson.toJsonTree(dataList));
 		
 		String resultJson = obj.toString();
-		
-		System.out.println( resultJson );
 
 		return resultJson;
     }
@@ -200,6 +200,15 @@ public class ChimerSeqController {
 		ModelAndView result = new ModelAndView("/popup/chimerseq_popup");
 		result.addObject("result", vo);
 
+		return result;
+	}
+	
+	@RequestMapping(value="/process_synonym", method = RequestMethod.GET)
+	public ModelAndView processSynonym(HttpServletRequest request){
+		List<SynonymVo> lst = this.chimerSeqService.getSynonym();
+		
+		ModelAndView result = new ModelAndView("mindexp");
+		
 		return result;
 	}
 }

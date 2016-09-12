@@ -1,6 +1,10 @@
 package org.com.chimerdbv31.chimerseq.services;
 
 import com.google.gson.Gson;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -15,6 +19,7 @@ import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqDetailVo;
 import org.com.chimerdbv31.chimerseq.vo.PfamVo;
+import org.com.chimerdbv31.chimerseq.vo.SynonymVo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +43,6 @@ public class ChimerSeqService {
 	 * @throws java.lang.Exception
 	 */
 	public List<ChimerSeqVo> getChimerSeqResult( ChimerSeqQueryForm param ) throws Exception{
-		param.validateData();
-
 		return this.chimerSeqMapper.getChimerSeqResult(param);
 	}
 
@@ -48,6 +51,7 @@ public class ChimerSeqService {
 	 * 
 	 * @param param 조회 옵션 기능을 담고 있는 오브젝트
 	 * @return int 전체 조회된 데이터의 Size
+	 * @throws java.lang.Exception
 	 */
 	public int getChimerSeqTotalNumber(ChimerSeqQueryForm param) throws Exception{
 		return this.chimerSeqMapper.getChimerSeqTotalNumber(param);
@@ -108,5 +112,31 @@ public class ChimerSeqService {
 		int end = geneObj.getEnd();
 
 		return this.getPfamDomainInfo(chr, start, end);
+	}
+	
+	public List<SynonymVo> getSynonym() {
+
+		List<SynonymVo> lst = this.chimerSeqMapper.getSynonym();
+
+		File file = new File("c:\\Users\\insoo078\\Desktop");
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter("c:\\Users\\insoo078\\Desktop\\synonym.txt"));
+
+			for(SynonymVo vo:lst) {
+				int gene_id = vo.getGene_id();
+				String[] txt = vo.getTxt().split("\\|");
+				for(String symbol:txt) {
+					if( symbol.equals("-") ) continue;
+
+					out.write(gene_id + "\t" + symbol.trim());
+					out.newLine();
+				}
+			}
+			out.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		return lst;
 	}
 }

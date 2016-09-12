@@ -293,18 +293,28 @@
 			,a.other_designations
 			,a.modification_date
 			,b.*
-		FROM I1_Gene_Info a LEFT JOIN I1_GRCh37_GFF b
+		FROM (
+			SELECT a.* FROM I1_Gene_Info a, (
+				SELECT gene_id FROM I1_GeneSymbol_Synonym
+				WHERE MATCH(symbol) AGAINST(#{symbol} IN BOOLEAN MODE)
+				AND symbol = #{symbol}
+			) b
+			WHERE a.gene_id=b.gene_id
+		) a LEFT JOIN I1_GRCh37_GFF b
 		ON b.Gene_ID=a.gene_id
 		AND b.no BETWEEN a.gff_start AND a.gff_end
 		AND b.type IN ('gene', 'exon', 'mRNA', 'transcript')
-		WHERE a.symbol=#{symbol}
 		ORDER BY b.no
 	</select>
 	
 	<select id="getGeneFeatureInfo" parameterType="java.lang.String" resultMap="Gff3VoMap">
 		SELECT * FROM I1_GRCh37_GFF a, (
-			SELECT gene_id, gff_start, gff_end FROM I1_Gene_Info a
-			WHERE symbol=#{symbol}
+			SELECT gene_id, gff_start, gff_end FROM I1_Gene_Info a, (
+				SELECT gene_id FROM I1_GeneSymbol_Synonym
+				WHERE MATCH(symbol) AGAINST(#{symbol} IN BOOLEAN MODE)
+				AND symbol = #{symbol}
+			) b
+			WHERE a.gene_id=b.gene_id
 		) b
 		WHERE a.Gene_ID=b.gene_id
 		AND a.no BETWEEN b.gff_start AND b.gff_end
@@ -317,15 +327,21 @@
 			@rownum:=@rownum+1 AS elementIndex
 			, a.*
 		FROM (
-			SELECT a.* FROM I1_GRCh37_GFF a, (
-				SELECT max(no) no FROM I1_Gene_Info a LEFT JOIN I1_GRCh37_GFF b
-						ON b.Gene_ID=a.gene_id
-						AND b.no BETWEEN a.gff_start AND a.gff_end
-						AND b.type IN ('exon')
-						WHERE a.symbol=#{symbol}
-				GROUP BY start, end
-			) b
-			WHERE a.no=b.no
+		SELECT a.* FROM I1_GRCh37_GFF a, (
+			SELECT max(no) no FROM (
+				SELECT a.* FROM I1_Gene_Info a, (
+					SELECT gene_id FROM I1_GeneSymbol_Synonym
+					WHERE MATCH(symbol) AGAINST(#{symbol} IN BOOLEAN MODE)
+					AND symbol = #{symbol}
+				) b
+				WHERE a.gene_id=b.gene_id
+			) a LEFT JOIN I1_GRCh37_GFF b
+			ON b.Gene_ID=a.gene_id
+			AND b.no BETWEEN a.gff_start AND a.gff_end
+			AND b.type IN ('exon')
+			GROUP BY start, end
+		) b
+		WHERE a.no=b.no
 		) a, (SELECT @rownum:=0) b
 	</select>
 	
@@ -336,8 +352,11 @@
 	</select>
 	
 	<select id="getTcgaCancerTypes" resultType="java.lang.String">
+		<![CDATA[
 		SELECT DISTINCT CancerType FROM ChimerSeq_ver7
+		WHERE CancerType <> 'NA'
 		ORDER BY CancerType
+		]]>
 	</select>
 	
 	<select id="getFusionGeneDetailInfo" parameterType="java.lang.String" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqDetailVo">
@@ -405,6 +424,13 @@
 			) b
 			WHERE a.id=b.id
 		]]>
+	</select>
+	
+	<select id="getSynonym" resultType="org.com.chimerdbv31.chimerseq.vo.SynonymVo">  
+		select 
+		  gene_id
+		  , concat(symbol,'|', synonyms) txt
+		from I1_Gene_Info
 	</select>
 </mapper>
 

@@ -478,7 +478,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptBackbone = func
 
 	var heightVal5p = d3.select(".fused-domain-group-5pGene").node().getBBox().y + d3.select(".fused-domain-group-5pGene").node().getBBox().height + d3.select(".fused-gene-exon-group-5pGene").node().getBBox().height + (3*config.sideMargin);
 	var heightVal3p = d3.select(".fused-domain-group-3pGene").node().getBBox().y + d3.select(".fused-domain-group-3pGene").node().getBBox().height + d3.select(".fused-gene-exon-group-3pGene").node().getBBox().height + (3*config.sideMargin);
-	
+
 	var height = Math.max( heightVal5p, heightVal3p );
 
 	var y = height + config.MARGIN_BETWEEN_BACKBONES;
@@ -612,75 +612,88 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGenePfamdomains = functio
 
 		var yPos = d3.select("#fused-gene-backbone-line-"+obj.type).attr("y1") - (config.EXON_HEIGHT/2);
 
-		for(var j=0; j<obj.gene.pFamDomainList.length; j++ ) {
-			var domainFragments = obj.gene.pFamDomainList[j].fragments;
+		if( obj.gene.pFamDomainList.length > 0 ) {
+			for(var j=0; j<obj.gene.pFamDomainList.length; j++ ) {
+				var domainFragments = obj.gene.pFamDomainList[j].fragments;
 
-			var relativeY = isPacked===false?(j+1):(obj.gene.pFamDomainList[j].layerNo+1);
-			
-			var DOMAIN_COLOR = config.DOMAIN_COLOURS[j];
-			if( isConservedPfamDomainColor )
-				DOMAIN_COLOR = config.DOMAIN_COLOURS[ config.PFAM_DOMAIN_MAP.indexOf(obj.gene.pFamDomainList[j].name ) ];
+				var relativeY = isPacked===false?(j+1):(obj.gene.pFamDomainList[j].layerNo+1);
 
-			var domainLayerGroup = null;
-			var isFirst = {flag:false, startX:-1};
-			for(var k=0; k<domainFragments.length; k++) {
-				var fragment = domainFragments[k];
-				
-				var isoverlapped = false;
-				
-				for(var t=0; t<exons.length; t++) {
-					var exon = exons[t];
+				var DOMAIN_COLOR = config.DOMAIN_COLOURS[j];
+				if( isConservedPfamDomainColor )
+					DOMAIN_COLOR = config.DOMAIN_COLOURS[ config.PFAM_DOMAIN_MAP.indexOf(obj.gene.pFamDomainList[j].name ) ];
 
-					isoverlapped = isOverlapped( fragment, exon );
+				var domainLayerGroup = null;
+				var isFirst = {flag:false, startX:-1};
+				for(var k=0; k<domainFragments.length; k++) {
+					var fragment = domainFragments[k];
+
+					var isoverlapped = false;
+
+					for(var t=0; t<exons.length; t++) {
+						var exon = exons[t];
+
+						isoverlapped = isOverlapped( fragment, exon );
+						if( isoverlapped ) {
+							break;
+						}
+					}
 					if( isoverlapped ) {
-						break;
-					}
-				}
-				if( isoverlapped ) {
-					var kk = domainGroup.select("#fused-domain-group-" + obj.type + "-" + j).node();
-					if( kk === null ) {
-						domainLayerGroup = domainGroup.append("g").attr("id", "fused-domain-group-" + obj.type + "-" + j);
-					}
+						var kk = domainGroup.select("#fused-domain-group-" + obj.type + "-" + j).node();
+						if( kk === null ) {
+							domainLayerGroup = domainGroup.append("g").attr("id", "fused-domain-group-" + obj.type + "-" + j);
+						}
 
-					if ( domainLayerGroup ) {
-						var pos = exonPos.exons[ exon.elementIndex ];
+						if ( domainLayerGroup ) {
+							var pos = exonPos.exons[ exon.elementIndex ];
 
-						domainLayerGroup.append("rect")
-						.classed("domain-feature-rect", true)
-						.attr("fill", DOMAIN_COLOR)
-						.attr("rx", 2)
-						.attr("ry", 2)
-						.attr("x", pos.x1)
-						.attr("y", yPos +  ((relativeY * (config.EXON_HEIGHT + 5) )))
-						.attr("width", pos.width)
-						.attr("height", config.EXON_HEIGHT);
+							domainLayerGroup.append("rect")
+							.classed("domain-feature-rect", true)
+							.attr("fill", DOMAIN_COLOR)
+							.attr("rx", 2)
+							.attr("ry", 2)
+							.attr("x", pos.x1)
+							.attr("y", yPos +  ((relativeY * (config.EXON_HEIGHT + 5) )))
+							.attr("width", pos.width)
+							.attr("height", config.EXON_HEIGHT);
 
-						if( isFirst.flag === false ) {
-							isFirst.startX = pos.x1;
-							isFirst.flag = true;
+							if( isFirst.flag === false ) {
+								isFirst.startX = pos.x1;
+								isFirst.flag = true;
+							}
 						}
 					}
 				}
-			}
 
-			if( domainLayerGroup ) {
-//				if( (yPos +  ((relativeY * (config.EXON_HEIGHT + 5) ))) > DOMAINS_HEIGHT )
-//					DOMAINS_HEIGHT = (yPos +  ((relativeY * (config.EXON_HEIGHT + 5) )));
-				
-				var domainLayerGroupRect = domainLayerGroup.node().getBBox();
+				if( domainLayerGroup ) {
+	//				if( (yPos +  ((relativeY * (config.EXON_HEIGHT + 5) ))) > DOMAINS_HEIGHT )
+	//					DOMAINS_HEIGHT = (yPos +  ((relativeY * (config.EXON_HEIGHT + 5) )));
 
-				var domainLayerLabelGroup = domainGroup.append("g").attr("id", "fused-domain-label-group-" + obj.type + "-" + j);
-				if( domainFragments[j] ) {
-					
-					domainLayerLabelGroup.append("text")
-							.attr("text-anchor", "end")
-							.attr("dominant-baseline", "central")
-							.attr("x", isAllowedReverse===true?domainLayerGroupRect.x - 5:(isFirst.startX - 5))
-							.attr("y", domainLayerGroupRect.y + (domainLayerGroupRect.height/2))
-							.text( !domainFragments[j] ? "": domainFragments[j].name );
-					;
+					var domainLayerGroupRect = domainLayerGroup.node().getBBox();
+
+					var domainLayerLabelGroup = domainGroup.append("g").attr("id", "fused-domain-label-group-" + obj.type + "-" + j);
+					if( domainFragments[j] ) {
+
+						domainLayerLabelGroup.append("text")
+								.attr("text-anchor", "end")
+								.attr("dominant-baseline", "central")
+								.attr("x", isAllowedReverse===true?domainLayerGroupRect.x - 5:(isFirst.startX - 5))
+								.attr("y", domainLayerGroupRect.y + (domainLayerGroupRect.height/2))
+								.text( !domainFragments[j] ? "": domainFragments[j].name );
+						;
+					}
 				}
 			}
+		}else {
+			var domainLayerGroup = domainGroup.append("g").attr("id", "fused-domain-group-" + obj.type + "-" + 0);
+			domainLayerGroup.append("rect")
+							.classed("domain-feature-rect", true)
+							.attr("fill", DOMAIN_COLOR)
+							.attr("rx", 2)
+							.attr("ry", 2)
+							.attr("x", 0)
+							.attr("y", yPos +  ((0 * (config.EXON_HEIGHT + 5) )))
+							.attr("width", 10)
+							.attr("height", config.EXON_HEIGHT);
 		}
 	}
 
@@ -893,6 +906,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneStructure = function(
 	var heightVal3p = d3.select(".fused-domain-group-3pGene").node().getBBox().height;
 
 	var domainAreaHeight = Math.max(heightVal5p, heightVal3p);
+	
+	if( domainAreaHeight < config.EXON_HEIGHT ) domainAreaHeight = config.EXON_HEIGHT;
 
 	var orginalGeneStructureRect = d3.select("#fused-gene-backbone-line-5pGene").node().getBBox();
 	var y = orginalGeneStructureRect.y + parseFloat(config.drawingSvg.attr("y"));
@@ -1131,50 +1146,63 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, 
 	
 		var exonPos = config.exonsOnScreen[obj.type];
 
-		for(var j=0; j<obj.gene.pFamDomainList.length; j++ ) {
-			if( config.PFAM_DOMAIN_MAP.indexOf(obj.gene.pFamDomainList[j].name ) === -1 )
-				config.PFAM_DOMAIN_MAP.push( obj.gene.pFamDomainList[j].name );
-			
-			var DOMAIN_COLOR = config.DOMAIN_COLOURS[j];
-			if( isConservedPfamDomainColor )
-				DOMAIN_COLOR = config.DOMAIN_COLOURS[ config.PFAM_DOMAIN_MAP.indexOf(obj.gene.pFamDomainList[j].name ) ];
+		if( obj.gene.pFamDomainList.length > 0 ) {
+			for(var j=0; j<obj.gene.pFamDomainList.length; j++ ) {
+				if( config.PFAM_DOMAIN_MAP.indexOf(obj.gene.pFamDomainList[j].name ) === -1 )
+					config.PFAM_DOMAIN_MAP.push( obj.gene.pFamDomainList[j].name );
 
-			var domainFragments = obj.gene.pFamDomainList[j].fragments;
+				var DOMAIN_COLOR = config.DOMAIN_COLOURS[j];
+				if( isConservedPfamDomainColor )
+					DOMAIN_COLOR = config.DOMAIN_COLOURS[ config.PFAM_DOMAIN_MAP.indexOf(obj.gene.pFamDomainList[j].name ) ];
 
-			var domainLayerGroup = domainGroup.append("g").attr("id", "domain-group-" + obj.type + "-" + j);
+				var domainFragments = obj.gene.pFamDomainList[j].fragments;
 
-			var isFirst = {flag:false, startX:-1};
-			for(var k=0; k<domainFragments.length; k++) {
-				var fragment = domainFragments[k];
-				for(var t=0; t<transcriptExons.length; t++) {
-					var exon = transcriptExons[t];
+				var domainLayerGroup = domainGroup.append("g").attr("id", "domain-group-" + obj.type + "-" + j);
 
-					var isoverlapped = isOverlapped( fragment, exon );
-					if( isoverlapped ) {
-						var pos = exonPos.exons[ exon.elementIndex ];
+				var isFirst = {flag:false, startX:-1};
+				for(var k=0; k<domainFragments.length; k++) {
+					var fragment = domainFragments[k];
+					for(var t=0; t<transcriptExons.length; t++) {
+						var exon = transcriptExons[t];
 
-						var relativeY = isPacked===false?(j+1):(obj.gene.pFamDomainList[j].layerNo+1);
+						var isoverlapped = isOverlapped( fragment, exon );
+						if( isoverlapped ) {
+							var pos = exonPos.exons[ exon.elementIndex ];
 
-						domainLayerGroup.append("rect")
-						.classed("domain-feature-rect", true)
-						.attr("fill", DOMAIN_COLOR)
-						.attr("rx", 2)
-						.attr("ry", 2)
-						.attr("x", pos.x1)
-						.attr("y", config.EXON_Y_POS + (relativeY * (config.EXON_HEIGHT + 5) ) )
-						.attr("width", pos.width)
-						.attr("height", config.EXON_HEIGHT);
+							var relativeY = isPacked===false?(j+1):(obj.gene.pFamDomainList[j].layerNo+1);
 
-						if( isFirst.flag === false ) {
-							isFirst.startX = pos.x1;
-							isFirst.flag = true;
+							domainLayerGroup.append("rect")
+							.classed("domain-feature-rect", true)
+							.attr("fill", DOMAIN_COLOR)
+							.attr("rx", 2)
+							.attr("ry", 2)
+							.attr("x", pos.x1)
+							.attr("y", config.EXON_Y_POS + (relativeY * (config.EXON_HEIGHT + 5) ) )
+							.attr("width", pos.width)
+							.attr("height", config.EXON_HEIGHT);
+
+							if( isFirst.flag === false ) {
+								isFirst.startX = pos.x1;
+								isFirst.flag = true;
+							}
 						}
 					}
 				}
 			}
+		}else {
+			var domainLayerGroup = domainGroup.append("g").attr("id", "domain-group-" + obj.type + "-" + 0);
+			domainLayerGroup.append("rect")
+							.classed("domain-feature-rect", true)
+							.attr("fill", DOMAIN_COLOR)
+							.attr("rx", 2)
+							.attr("ry", 2)
+							.attr("x", 0)
+							.attr("y", config.EXON_Y_POS + (0 * (config.EXON_HEIGHT + 5) ) )
+							.attr("width", 10)
+							.attr("height", config.EXON_HEIGHT);
 		}
 	}
-	
+
 	for( var i=0; i<config.fusion_genes.length; i++) {
 		var obj = config.fusion_genes[i];
 		var transcriptExons = obj.gene.canonicalTranscript.exons;
@@ -1188,7 +1216,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, 
 			var domainLayerLabelGroup = domainGroup.append("g").attr("id", "domain-label-group-" + obj.type + "-" + j);
 			if( domainFragments[j] ) {
 				var ny = config.GENE_BACKBONE_Y;
-				
+
 				var nx = relativeOffsetX( domainLayerGroupRect, canvasRect ) - config.currentXPos;
 
 				domainLayerLabelGroup.insert("text", ":first-child")
@@ -1344,6 +1372,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 	var heightVal3p = d3.select(".domain-group-3pGene").node().getBBox().height;
 
 	var domainAreaHeight = Math.max(heightVal5p, heightVal3p);
+
+	if( domainAreaHeight < config.EXON_HEIGHT ) domainAreaHeight = config.EXON_HEIGHT;
 
 	var labelData = [
 		{name:"Gene", startX:config.sideMargin, startY:(config.GENE_BACKBONE_Y - 15), width:(config.LEFT_MARGIN - (5*config.sideMargin)), height:30}
