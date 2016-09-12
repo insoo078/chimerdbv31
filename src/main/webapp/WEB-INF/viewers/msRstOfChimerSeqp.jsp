@@ -115,23 +115,23 @@
 						<div id="chimer-seq-viewer-controller">
 							<div class="controller-header">Controller</div>
 							<div class='controller'>
-								<span>Move</span>
+								<span style="margin-left:10px;">Move</span>
 								<button class='w3-btn w3-light-grey w3-border' id='move_left_1000'><<</button>
 								<button class='w3-btn w3-light-grey w3-border' id='move_left'><</button>
 								<button class='w3-btn w3-light-grey w3-border' id='move_right'>></button>
 								<button class='w3-btn w3-light-grey w3-border' id='move_right_1000'>>></button>
 								
-								<span>Zoom in</span>
+								<span style="margin-left:10px;">Zoom in</span>
 								<button class='w3-btn w3-light-grey w3-border' id='zoom_in'>x1.1</button>
 								<button class='w3-btn w3-light-grey w3-border' id='zoom_in_15x'>x1.5</button>
 								<button class='w3-btn w3-light-grey w3-border' id='zoom_in_30x'>x3</button>
 								
-								<span>Zoom out</span>
+								<span style="margin-left:10px;">Zoom out</span>
 								<button class='w3-btn w3-light-grey w3-border' id='zoom_out'>x1.1</button>
 								<button class='w3-btn w3-light-grey w3-border' id='zoom_out_15x'>x1.5</button>
 								<button class='w3-btn w3-light-grey w3-border' id='zoom_out_30x'>x3</button>
 
-								<span>Fit 2 screen</span>
+								<span style="margin-left:10px;">Fit 2 screen</span>
 								<button class='w3-btn w3-light-grey w3-border' id='controller_init'>Fit</button>
 							</div>
 						</div>
