@@ -14,8 +14,8 @@ public class ChimerSeqDetailVo extends ChimerSeqVo{
 	private String webSource;
 	private String h_position;
 	private String h_strand;
-	private String t_chr;
-	private String h_chr;
+//	private String t_chr;
+//	private String h_chr;
 	private String t_position;
 	private String t_strand;
 	private String genomic_breakpoint;
@@ -69,13 +69,13 @@ public class ChimerSeqDetailVo extends ChimerSeqVo{
 		this.webSource = webSource;
 	}
 
-	public String getH_chr() {
-		return h_chr;
-	}
-
-	public void setH_chr(String h_chr) {
-		this.h_chr = h_chr;
-	}
+//	public String getH_chr() {
+//		return h_chr;
+//	}
+//
+//	public void setH_chr(String h_chr) {
+//		this.h_chr = h_chr;
+//	}
 
 
 	public String getH_position() {
@@ -239,11 +239,11 @@ public class ChimerSeqDetailVo extends ChimerSeqVo{
 		this.transcripton_Factor = Transcripton_Factor;
 	}
 
-	public String getT_chr() {
-		return t_chr;
-	}
-
-	public void setT_chr(String t_chr) {
-		this.t_chr = t_chr;
-	}
+//	public String getT_chr() {
+//		return t_chr;
+//	}
+//
+//	public void setT_chr(String t_chr) {
+//		this.t_chr = t_chr;
+//	}
 }

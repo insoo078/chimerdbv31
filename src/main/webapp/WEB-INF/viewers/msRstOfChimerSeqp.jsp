@@ -97,6 +97,8 @@
 									<td>id</td>
 									<td>h_gene</td>
 									<td>t_gene</td>
+									<td>h_chr</td>
+									<td>t_chr</td>
 								</tr>
 							</thead>
 						</table>

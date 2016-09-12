@@ -27,7 +27,7 @@ public class FusionGeneObj extends ChimerSeqVo{
 	public FusionGeneObj(ChimerSeqVo vo) {
 		super( vo.getId(), vo.getFusion_pair(), vo.getGene5Junc(), vo.getGene3Junc(), vo.getBreakpoint_Type()
 				, vo.getCancertype(), vo.getBarcodeID(), vo.getFrame(), vo.getChr_info(), vo.getSource()
-				, vo.getChimerKB(), vo.getChimerPub(), vo.getSupported(), vo.getT_gene(), vo.getH_gene() );
+				, vo.getChimerKB(), vo.getChimerPub(), vo.getSupported(), vo.getT_gene(), vo.getH_gene(), vo.getT_chr(), vo.getH_chr() );
 
 		this.genes = new LinkedHashMap<String, GeneObj>();
 	}

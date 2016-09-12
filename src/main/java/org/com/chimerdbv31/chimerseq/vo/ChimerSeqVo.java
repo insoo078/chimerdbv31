@@ -26,16 +26,18 @@ public class ChimerSeqVo {
     private String supported;
 	private String t_gene;
 	private String h_gene;
+	private String t_chr;
+	private String h_chr;
 	
 	public ChimerSeqVo() {
 		this(-1, null, null, null, null, null, null, null
-		, null, null, null, null, null, null, null);
+		, null, null, null, null, null, null, null, null, null);
 	}
 	
 	public ChimerSeqVo(int id, String fusion_pair, String gene5Junc, String gene3Junc
 			, String breakpoint_Type, String cancertype, String barcodeID, String frame
 			, String chr_info, String source, String chimerKB, String chimerPub
-			, String supported, String t_gene, String h_gene) {
+			, String supported, String t_gene, String h_gene, String t_chr, String h_chr) {
 		this.id = id;
 		this.fusion_pair = fusion_pair;
 		this.gene5Junc = gene5Junc;
@@ -51,6 +53,8 @@ public class ChimerSeqVo {
 		this.supported = supported;
 		this.t_gene = t_gene;
 		this.h_gene = h_gene;
+		this.t_chr = t_chr;
+		this.h_chr = h_chr;
 	}
 
 	public int getId() {
@@ -171,5 +175,21 @@ public class ChimerSeqVo {
 
 	public void setH_gene(String h_gene) {
 		this.h_gene = h_gene;
-	}   
+	}
+
+	public String getT_chr() {
+		return t_chr;
+	}
+
+	public void setT_chr(String t_chr) {
+		this.t_chr = t_chr;
+	}
+
+	public String getH_chr() {
+		return h_chr;
+	}
+
+	public void setH_chr(String h_chr) {
+		this.h_chr = h_chr;
+	}
 }

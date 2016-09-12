@@ -61,12 +61,16 @@ public class ChimerSeqService {
 		Gson gson = new Gson();
 
 		String[] genes = new String[]{chimerSeqRecord.getH_gene(), chimerSeqRecord.getT_gene()};
+		String[] chromosomes = new String[]{chimerSeqRecord.getH_chr(), chimerSeqRecord.getT_chr()};
 		String[] loc = new String[]{ FusionGeneObj._5P_GENE, FusionGeneObj._3P_GENE };
 
 		FusionGeneObj fusionGene = new FusionGeneObj( chimerSeqRecord );
 		for( int i=0; i<genes.length; i++ ) {
 			// Find gene info by gene symbol
-			GeneInfoVo geneInfoVo = (GeneInfoVo)this.chimerSeqMapper.getGeneInfo( genes[i] );
+			Map<String, String> paramMap = new HashMap<String, String>();
+			paramMap.put("symbol", genes[i]);
+			paramMap.put("chr", chromosomes[i].replace("chr", ""));
+			GeneInfoVo geneInfoVo = (GeneInfoVo)this.chimerSeqMapper.getGeneInfo( paramMap );
 
 			GeneObj obj = new GeneObj( geneInfoVo );
 			geneInfoVo.setFusionLocation( loc[i] );

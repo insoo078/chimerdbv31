@@ -68,6 +68,8 @@
 			, CONCAT(ChimerKB, "_", ChimerPub) AS supported
 			, IF(T_gene='NA', '', T_gene) AS t_gene
 			, IF(H_gene='NA', '', H_gene) AS h_gene
+			, IF(T_gene='NA', '', T_chr) AS t_chr
+			, IF(H_gene='NA', '', H_chr) AS h_chr
 			, a.id
 		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
 		WHERE a.id=b.id
@@ -270,7 +272,7 @@
 		</if>
     </select>
 	
-	<select id="getGeneInfo" parameterType="java.lang.String" resultMap="GeneInfoVoMap">
+	<select id="getGeneInfo" parameterType="java.util.Map" resultMap="GeneInfoVoMap">
 		SELECT
 			a.tax_id
 			,a.gene_id
@@ -300,6 +302,7 @@
 				AND symbol = #{symbol}
 			) b
 			WHERE a.gene_id=b.gene_id
+			AND a.chromosome=#{chr}
 		) a LEFT JOIN I1_GRCh37_GFF b
 		ON b.Gene_ID=a.gene_id
 		AND b.no BETWEEN a.gff_start AND a.gff_end

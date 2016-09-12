@@ -150,7 +150,9 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 			{"data":"supported"},
 			{"data":"id"},
 			{"data":"h_gene"},
-			{"data":"t_gene"}
+			{"data":"t_gene"},
+			{"data":"h_chr"},
+			{"data":"t_chr"}
 		],
 		"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
 			var imgTag = "";
