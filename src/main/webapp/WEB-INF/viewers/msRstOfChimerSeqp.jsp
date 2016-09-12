@@ -115,14 +115,23 @@
 						<div id="chimer-seq-viewer-controller">
 							<div class="controller-header">Controller</div>
 							<div class='controller'>
+								<span>Move</span>
 								<button class='w3-btn w3-light-grey w3-border' id='move_left_1000'><<</button>
 								<button class='w3-btn w3-light-grey w3-border' id='move_left'><</button>
-								<button class='w3-btn w3-light-grey w3-border' id='zoom_in'>10% +</button>
-								<button class='w3-btn w3-light-grey w3-border' id='zoom_in_3x'>x3 +</button>
-								<button class='w3-btn w3-light-grey w3-border' id='zoom_out'>10% -</button>
-								<button class='w3-btn w3-light-grey w3-border' id='zoom_out_3x'>x3 -</button>
 								<button class='w3-btn w3-light-grey w3-border' id='move_right'>></button>
 								<button class='w3-btn w3-light-grey w3-border' id='move_right_1000'>>></button>
+								
+								<span>Zoom in</span>
+								<button class='w3-btn w3-light-grey w3-border' id='zoom_in'>x1.1</button>
+								<button class='w3-btn w3-light-grey w3-border' id='zoom_in_15x'>x1.5</button>
+								<button class='w3-btn w3-light-grey w3-border' id='zoom_in_30x'>x3</button>
+								
+								<span>Zoom out</span>
+								<button class='w3-btn w3-light-grey w3-border' id='zoom_out'>x1.1</button>
+								<button class='w3-btn w3-light-grey w3-border' id='zoom_out_15x'>x1.5</button>
+								<button class='w3-btn w3-light-grey w3-border' id='zoom_out_30x'>x3</button>
+
+								<span>Fit 2 screen</span>
 								<button class='w3-btn w3-light-grey w3-border' id='controller_init'>Fit</button>
 							</div>
 						</div>
@@ -210,19 +219,6 @@
 						</table>
 				</div>
 			</div>
-			</div>
-		</div>
-		
-		<div class="templatemo-panels">
-			<div class="col-md-12">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<span style="font-size: 20px; font-weight: bold;">Fusion Structure (Image)</span>
-					</div>
-					<div class="panel-body" style="text-align: center;">
-						<img alt="" src="./resources/images/exon_img.png" style="width: 95%; height: 95%;" />
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>

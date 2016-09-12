@@ -59,11 +59,17 @@ ChimerSeqResult.prototype.initController = function() {
 	});
 	$("#zoom_in").click(function(){
 		var nconfig = chimerSeq.init4Redraw();
-		nconfig.zoom = nconfig.zoom + 0.1;
+		nconfig.zoom = nconfig.zoom * 1.1;
 
 		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
 	});
-	$("#zoom_in_3x").click(function(){
+	$("#zoom_in_15x").click(function(){
+		var nconfig = chimerSeq.init4Redraw();
+		nconfig.zoom = nconfig.zoom * 1.5;
+
+		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
+	});
+	$("#zoom_in_30x").click(function(){
 		var nconfig = chimerSeq.init4Redraw();
 		nconfig.zoom = nconfig.zoom * 3;
 
@@ -71,11 +77,17 @@ ChimerSeqResult.prototype.initController = function() {
 	});
 	$("#zoom_out").click(function(){
 		var nconfig = chimerSeq.init4Redraw();
-		nconfig.zoom = nconfig.zoom - 0.1;
+		nconfig.zoom = nconfig.zoom / 1.1;
 
 		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
 	});
-	$("#zoom_out_3x").click(function(){
+	$("#zoom_out_15x").click(function(){
+		var nconfig = chimerSeq.init4Redraw();
+		nconfig.zoom = nconfig.zoom / 1.5;
+
+		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
+	});
+	$("#zoom_out_30x").click(function(){
 		var nconfig = chimerSeq.init4Redraw();
 		nconfig.zoom = nconfig.zoom / 3;
 
@@ -124,7 +136,7 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 			"type": "POST"
 		},
 		"iDisplayLength": 10,
-		"columnDefs":[{targets:[0,1,2,3,4,5,6,7,8,9], visible:true}, {targets:'_all', visible:false}],
+		"columnDefs":[{targets:[0,1,2,3,4,6,7,8,9], visible:true}, {targets:'_all', visible:false}],
 		"columns":[
 			{"data":"fusion_pair"},
 			{"data":"gene5Junc"},
@@ -148,7 +160,7 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 			if( tmp[0]==='1' ) imgTag += "<img src='./resources/images/icons/ickb.png'></img>";
 			if( tmp[1]==='1' ) imgTag += "<img src='./resources/images/icons/icpub.png'></img>";
 			
-			$('td:eq(9)', nRow).html(imgTag); // where 4 is the zero-origin visible column in the HTML
+			$('td:eq(8)', nRow).html(imgTag); // where 4 is the zero-origin visible column in the HTML
 
 			// When this page is opend, default fusion structure is drawing by first row data
 			if( iDisplayIndex === 0 ){

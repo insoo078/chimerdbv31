@@ -54,10 +54,20 @@
 
     <select id="getChimerSeqResult" parameterType="org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
 		SELECT 
-			Fusion_pair AS fusion_pair , 5Gene_Junction AS gene5Junc , 3Gene_Junction AS gene3Junc , Breakpoint_Type AS breakpoint_type , Cancertype AS cancertype, BarcodeID AS barcodeID
+			Fusion_pair AS fusion_pair 
+			, IF(5Gene_Junction='NA', '', 5Gene_Junction) AS gene5Junc 
+			, IF(3Gene_Junction='NA', '', 3Gene_Junction) AS gene3Junc 
+			, IF(Breakpoint_Type='NA', '', Breakpoint_Type) AS breakpoint_type 
+			, IF(Cancertype='NA', '', Cancertype) AS cancertype
+			, IF(BarcodeID='NA', '', BarcodeID) AS barcodeID
 			, IF(Frame = "NA","",Frame) AS frame
-			, Chr_info AS chr_info , Source AS source, ChimerKB AS chimerKB, ChimerPub AS chimerPub, CONCAT(ChimerKB, "_", ChimerPub) AS supported
-			, a.T_gene AS t_gene, a.H_gene AS h_gene
+			, IF(Chr_info='NA', '', Chr_info) AS chr_info 
+			, IF(Source='NA', '', Source) AS source
+			, IF(ChimerKB='NA', '', ChimerKB) AS chimerKB
+			, IF(ChimerPub='NA', '', ChimerPub) AS chimerPub
+			, CONCAT(ChimerKB, "_", ChimerPub) AS supported
+			, IF(T_gene='NA', '', T_gene) AS t_gene
+			, IF(H_gene='NA', '', H_gene) AS h_gene
 			, a.id
 		FROM ChimerDB3.ChimerSeq_ver7 a, ChimerDB3.ChimerSeq_ver7_Fulltext b
 		WHERE a.id=b.id
@@ -331,38 +341,47 @@
 	
 	<select id="getFusionGeneDetailInfo" parameterType="java.lang.String" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqDetailVo">
 		SELECT 
-			Fusion_pair AS fusion_pair , 5Gene_Junction AS gene5Junc , 3Gene_Junction AS gene3Junc , Breakpoint_Type AS breakpoint_type , Cancertype AS cancertype, BarcodeID AS barcodeID
-			, IF(Frame = "NA","",Frame) AS frame
-			, Chr_info AS chr_info , Source AS source, ChimerKB AS chimerKB, ChimerPub AS chimerPub, CONCAT(ChimerKB, "_", ChimerPub) AS supported
-			, id
-			, ChimerDB_Type			AS chimerDB_Type
-			, webSource				AS webSource
-			, H_gene				AS h_gene
-			, H_chr					AS h_chr
-			, H_position			AS h_position
-			, H_strand				AS h_strand
-			, T_gene				AS t_gene
-			, T_position			AS t_position
-			, T_chr					AS t_chr
-			, T_strand				AS t_strand
-			, Genomic_breakpoint	AS genomic_breakpoint
-			, Exon_breakpoint		AS exon_breakpoint
-			, Genome_Build_Version	AS genome_Build_Version
-			, H_transcript			AS h_transcript
-			, H_exon				AS h_exon
-			, T_transcript			AS t_transcript
-			, T_exon				AS t_exon
-			, Seed_reads_num		AS seed_reads_num
-			, Spanning_pairs_num	AS spanning_pairs_num
-			, Junction_reads_num	AS junction_reads_num
-			, H_locus				AS h_locus
-			, T_locus				AS t_locus
-			, Kinase				AS kinase
-			, Tumor_suppressor		AS tumor_suppressor
-			, Receptor				AS receptor
-			, Oncogene				AS oncogene
-			, Transcription_Factor	AS transcription_Factor
-			, Disease				AS disease
+			Fusion_pair													AS fusion_pair 
+			, IF(5Gene_Junction='NA', '', 5Gene_Junction)				AS gene5Junc 
+			, IF(3Gene_Junction='NA', '', 3Gene_Junction)				AS gene3Junc 
+			, IF(Breakpoint_Type='NA', '', Breakpoint_Type)				AS breakpoint_type 
+			, IF(Cancertype='NA', '', Cancertype)						AS cancertype
+			, IF(BarcodeID='NA', '', BarcodeID)							AS barcodeID
+			, IF(Frame = "NA","",Frame)									AS frame
+			, IF(Chr_info='NA', '', Chr_info)							AS chr_info 
+			, IF(Source='NA', '', Source)								AS source
+			, IF(ChimerKB='NA', '', ChimerKB)							AS chimerKB
+			, IF(ChimerPub='NA', '', ChimerPub)							AS chimerPub
+			, CONCAT(ChimerKB, "_", ChimerPub)							AS supported
+			, IF(T_gene='NA', '', T_gene)								AS t_gene
+			, IF(H_gene='NA', '', H_gene)								AS h_gene
+		
+			, IF( ChimerDB_Type='NA', '', ChimerDB_Type )				AS chimerDB_Type
+			, IF( webSource='NA', '', webSource )						AS webSource
+			, IF( H_chr='NA', '', H_chr )								AS h_chr
+			, IF( H_position='NA', '', H_position )						AS h_position
+			, IF( H_strand='NA', '', H_strand )						AS h_strand
+			, IF( T_position='NA', '', T_position )						AS t_position
+			, IF( T_chr='NA', '', T_chr )								AS t_chr
+			, IF( T_strand='NA', '', T_strand )							AS t_strand
+			, IF( Genomic_breakpoint='NA', '', Genomic_breakpoint )		AS genomic_breakpoint
+			, IF( Exon_breakpoint='NA', '', Exon_breakpoint )			AS exon_breakpoint
+			, IF( Genome_Build_Version='NA', '', Genome_Build_Version )	AS genome_Build_Version
+			, IF( H_transcript='NA', '', H_transcript )					AS h_transcript
+			, IF( H_exon='NA', '', H_exon )								AS h_exon
+			, IF( T_transcript='NA', '', T_transcript )					AS t_transcript
+			, IF( T_exon='NA', '', T_exon )								AS t_exon
+			, IF( Seed_reads_num='NA', '', Seed_reads_num )				AS seed_reads_num
+			, IF( Spanning_pairs_num='NA', '', Spanning_pairs_num )		AS spanning_pairs_num
+			, IF( Junction_reads_num='NA', '', Junction_reads_num )		AS junction_reads_num
+			, IF( H_locus='NA', '', H_locus )							AS h_locus
+			, IF( T_locus='NA', '', T_locus )							AS t_locus
+			, IF( Kinase='NA', '', Kinase )								AS kinase
+			, IF( Tumor_suppressor='NA', '', Tumor_suppressor )			AS tumor_suppressor
+			, IF( Receptor='NA', '', Receptor )							AS receptor
+			, IF( Oncogene='NA', '', Oncogene )							AS oncogene
+			, IF( Transcription_Factor='NA', '', Transcription_Factor )	AS transcription_Factor
+			, IF( Disease='NA', '', Disease )							AS disease
 		FROM ChimerDB3.ChimerSeq_ver7
 		WHERE id=${id}
 	</select>
