@@ -7,7 +7,7 @@ var ChimerSeqForm = {
 	name:'ChimerSeq',
 	chimrSeqTcgaState:null,
 	init: function(){
-		this.chimrSeqTcgaState = false;
+		this.chimrSeqTcgaState = true;
 
 		// to express which menu user has choosed
 		check_m_state("mmchimerseqbtn");
@@ -63,7 +63,6 @@ var ChimerSeqForm = {
 		});
 	},
 	setOptionPanelSetting: function() {
-	
 		$("#chkChimerDbV21").change(function(){
 			var flag = $(this).is(':checked');
 			
@@ -87,7 +86,9 @@ var ChimerSeqForm = {
 		$("#chkAllOptions").change(function(){
 			var flag = $(this).is(':checked');
 
-			$("#chkTcgaOption1").trigger('click');
+			$("#chkTcgaOption1").prop("checked", flag);
+			$("#chkTcgaOption1").trigger('change');
+
 			$("#chkChimerDbV21").prop("checked", flag);
 			$("#chkChiTaRs1").prop("checked", flag);
 		});
@@ -107,10 +108,10 @@ var ChimerSeqForm = {
 			}
 		});
 
-		$("#cancer-type-all").on('click', {context:this}, function(event){
-			event.data.chimrSeqTcgaState = !event.data.chimrSeqTcgaState;
+		$("#cancer-type-all").on('click', {context:this}, function(event){						
+			ChimerSeq.chimrSeqTcgaState = !ChimerSeq.chimrSeqTcgaState;
 			
-			$("#tcgaCancerTypes > option").prop("selected", event.data.chimrSeqTcgaState);
+			$("#tcgaCancerTypes > option").prop("selected", ChimerSeq.chimrSeqTcgaState);
 		});
 
 		$("#tcgaCancerTypes > option.cancer-type").on('click', {context:this}, function(event){
@@ -201,11 +202,13 @@ $(document).ready(function () {
 	ChimerSeqForm.init();
 	
 	$("#resetButton").click(function(){
+		this.chimrSeqTcgaState = true;
+
 		$("form").each(function() {  
 			this.reset();  
 		 });
 
-		ChimerSeqForm.init();
+//		ChimerSeqForm.init();
 	});
 });
 
