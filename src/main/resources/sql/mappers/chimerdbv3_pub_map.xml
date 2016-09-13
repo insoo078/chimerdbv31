@@ -4,11 +4,11 @@
 <mapper namespace="org.com.chimerdbv31.chimerpub.mapper.ChimerPubMapper">
     
     <select id="getDiseaseList" parameterType="String" resultType="String">
-        select Diseases as lst from ChimerDB3.ChimerPub_disease
-        where Diseases != "NA"
+        select distinct Disease as lst from ChimerDB3.ChimerPub
+        where Disease != "NA" and Disease != ""
         <choose>
             <when test="_parameter != null and _parameter != ''">
-                and Diseases like "%${_parameter}%" ;
+                and Disease like "%${_parameter}%" ;
             </when>
             <otherwise>
                 limit 10;
@@ -17,23 +17,16 @@
     </select>
 
     <select id="getChimerPubResult" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerpub.vo.ChimerPubVo">
-        select t1.ChimerDB_Type as ChimerDB_Type
+        select t1.id as id
+            , t1.ChimerDB_Type as ChimerDB_Type
             , t1.Fusion_pair as Fusion_pair
-            , t1.Translocation as Translocation
+            , substring(t1.Translocation,1,length(rtrim(t1.Translocation))-1) as Translocation
             , t1.H_gene as H_gene
-            , t1.H_raw as H_raw
             , t1.T_gene as T_gene
-            , t1.T_raw as T_raw
             , t1.PMID as PMID
-            , t1.Disease_raw as Disease_raw
-            , t1.Validation as Validation
-            , t1.Validation_raw as Validation_raw
             , t1.Score as Score
-            , t1.Title as Title
-            , t1.Sentence as Sentence
-            , t1.DateofPublication as DateofPublication
-            , t1.Journal as Journal
-            , t1.AbstractText as AbstractText
+            , t1.Disease as Disease
+            , t1.Validation as Validation
             , t1.Kinase as Kinase
             , t1.Oncogene as Oncogene
             , t1.Tumor_suppressor as Tumor_suppressor
@@ -41,10 +34,13 @@
             , t1.Transcription_Factor as Transcription_Factor
             , t1.ChimerKB as ChimerKB
             , t1.ChimerSeq as ChimerSeq
-            , t1.Disease as Disease
-            , t1.Disease_mod as Disease_mod
+            , t1.Sentence_highlight as Sentence_highlight
+            , t1.H_gene_highlight as H_gene_highlight
+            , t1.T_gene_highlight as T_gene_highlight
+            , t1.Disease_highlight as Disease_highlight
+            , t1.Validation_highlight as Validation_highlight
             , t2.num_pub as num_pub
-        from ChimerDB3.ChimerPub_ver8 t1
+        from ChimerDB3.ChimerPub t1
         
         
         <choose>
@@ -53,21 +49,21 @@
                     <when test="gene5">
                         ,(
                             select H_gene, count(H_gene) as num_pub from 
-                            (select distinct H_gene, PMID from ChimerDB3.ChimerPub_ver8) it1 group by it1.H_gene
+                            (select distinct H_gene, PMID from ChimerDB3.ChimerPub) it1 group by it1.H_gene
                         ) t2
                     </when>
                     <when test="gene3">
                         ,(
                             select T_gene, count(T_gene) as num_pub from 
-                            (select distinct T_gene, PMID from ChimerDB3.ChimerPub_ver8) it1 group by it1.T_gene
+                            (select distinct T_gene, PMID from ChimerDB3.ChimerPub) it1 group by it1.T_gene
                         ) t2
                     </when>
                     <when test="gene53">
                         ,(
                             select gene, count(gene) as num_pub from 
-                            (select distinct H_gene as gene, PMID from ChimerDB3.ChimerPub_ver8 
+                            (select distinct H_gene as gene, PMID from ChimerDB3.ChimerPub 
                               union 
-                             select distinct T_gene as gene, PMID from ChimerDB3.ChimerPub_ver8) it1 group by it1.gene
+                             select distinct T_gene as gene, PMID from ChimerDB3.ChimerPub) it1 group by it1.gene
                         ) t2
                     </when>
                 </choose>
@@ -75,12 +71,12 @@
             <when test="searchType == 'by_gene_pair'">
                 ,(
                     select Fusion_pair, count(Fusion_pair) as num_pub from 
-                    (select distinct Fusion_pair, PMID from ChimerDB3.ChimerPub_ver8) it1 group by it1.Fusion_pair
+                    (select distinct Fusion_pair, PMID from ChimerDB3.ChimerPub) it1 group by it1.Fusion_pair
                 ) t2
             </when>
             <when test="searchType == 'by_disease'">
                 ,(
-                    select Disease, count(Disease) as num_pub from ChimerDB3.ChimerPub_disease group by Disease
+                    select Disease, count(Disease) as num_pub from ChimerDB3.ChimerPub group by Disease
                 ) t2
             </when>
             <otherwise>
@@ -123,34 +119,24 @@
         
         <if test="numOfPub != null and numOfPub != ''"> and t2.num_pub >=  ${numOfPub} </if>
         <if test="txtMiningScore != null and txtMiningScore != ''"> and t1.Score >= ${txtMiningScore} </if>
-        <if test="queryForBreakPointType != null and queryForBreakPointType != ''"> and t1.Breakpoint_Type in (${queryForBreakPointType}) </if>
         <if test="queryForValidationMtd != null and queryForValidationMtd != ''"> and t1.Validation in (${queryForValidationMtd}) </if>
         <if test="queryForFilterByFunc != null and queryForFilterByFunc != ''"> and (${queryForFilterByFunc}) </if>
-        <if test="queryForFusType != null and queryForFusType != ''"> and t1.Chr_info in (${queryForFusType}) </if>
         <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>;
-        
     </select>
 
 
     <select id="getJournal" parameterType="org.com.chimerdbv31.chimerpub.vo.ChimerPubVo" resultType="org.com.chimerdbv31.chimerpub.vo.ChimerPubVo">
         select
-            t1.ChimerDB_Type as ChimerDB_Type
+            t1.id as id
+            , t1.ChimerDB_Type as ChimerDB_Type
             , t1.Fusion_pair as Fusion_pair
-            , t1.Translocation as Translocation
+            , substring(t1.Translocation,1,length(rtrim(t1.Translocation))-1) as Translocation
             , t1.H_gene as H_gene
-            , t1.H_raw as H_raw
             , t1.T_gene as T_gene
-            , t1.T_raw as T_raw
             , t1.PMID as PMID
-            , t1.Disease_raw as Disease_raw
-            , t1.Validation as Validation
-            , t1.Validation_raw as Validation_raw
             , t1.Score as Score
-            , t1.Title as Title
-            , t1.Sentence as Sentence
-            , t1.DateofPublication as DateofPublication
-            , t1.Journal as Journal
-            , t1.AbstractText as AbstractText
+            , t1.Disease as Disease
+            , t1.Validation as Validation
             , t1.Kinase as Kinase
             , t1.Oncogene as Oncogene
             , t1.Tumor_suppressor as Tumor_suppressor
@@ -158,13 +144,16 @@
             , t1.Transcription_Factor as Transcription_Factor
             , t1.ChimerKB as ChimerKB
             , t1.ChimerSeq as ChimerSeq
-            , t1.Disease as Disease
-            , t1.Disease_mod as Disease_mod
-        from ChimerDB3.ChimerPub_ver8 t1
+            , t1.Sentence_highlight as Sentence_highlight
+            , t1.H_gene_highlight as H_gene_highlight
+            , t1.T_gene_highlight as T_gene_highlight
+            , t1.Disease_highlight as Disease_highlight
+            , t1.Validation_highlight as Validation_highlight
+        from ChimerDB3.ChimerPub t1
         where 1=1
         
         <if test="Fusion_pair != null and Fusion_pair != ''"> and t1.Fusion_pair =  "${Fusion_pair}" </if>
-        <if test="Disease != null and Disease != ''"> and t1.Disease =  "${Disease}" </if>
+        <if test="Disease != null and Disease != ''"> and t1.Disease like  "%${Disease}%" </if>
         <if test="PMID != null and PMID != ''"> and t1.PMID =  "${PMID}" </if>
         <if test="H_gene != null and H_gene != ''"> and t1.H_gene =  "${H_gene}" </if>
         <if test="T_gene != null and T_gene != ''"> and t1.T_gene =  "${T_gene}" </if>
@@ -175,277 +164,6 @@
     </select>
 
 
-<!--    
-    <select id="q1_result_for_search" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
-        SELECT DISTINCT Fusion_pair,
-        CONCAT(H_chr,':',H_position) AS Gene5_Junction, 
-        CONCAT(T_chr,':',T_position) AS Gene3_Junction,
-        Exon_breakpoint AS Breakpoint_Type,
-        Cancertype AS Cancer_Type,
-        BarcodeID AS TCGA_Sample_Id,
-        Frame,
-        Chr_info AS Chromosome_Information,
-        Source,
-        CONCAT(ChimerKB,' ',ChimerPub) AS Supported,
-        '' AS  Detail
-        FROM ChimerDB3.ChimerSeq_ver1
-        WHERE (Source = 'FusionScan' OR Source = 'TopHat-Fusion' OR Source =  'PRADA' OR Source = 'ChimerDB2_SRA' OR Source = 'ChiTaRs' ) 
-        AND (Kinase != 'NA' OR Oncogene != 'NA' OR Tumor_suppressor != 'NA' OR Receptor != 'NA' )
-        AND (Chr_info = 'Inter-chr' OR Chr_info = 'Intra-chr' OR Chr_info = 'NA')
-        AND (ChimerKB != 'NA' OR ChimerPub != 'NA')
-        limit 1000;
-        
-    </select>
-    <select id="q2_result_for_search" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
-        SELECT DISTINCT Fusion_pair,CONCAT(H_chr,':',H_position) AS Gene5_Junction, CONCAT(T_chr,':',T_position) AS Gene3_Junction,Exon_breakpoint AS Breakpoint_Type,
-        Cancertype AS Cancer_Type,BarcodeID AS TCGA_Sample_Id,Frame,Chr_info AS Chromosome_Information,
-        Source,CONCAT(ChimerKB,' ',ChimerPub) AS Supported,
-        '' AS  Detail
-        FROM ChimerDB3.ChimerSeq_ver1
-        WHERE (Source = 'FusionScan' OR Source = 'TopHat-Fusion' OR Source =  'PRADA' OR Source = 'ChimerDB2_SRA' OR Source = 'ChiTaRs' ) 
-        AND (Kinase != 'NA' OR Oncogene != 'NA' OR Tumor_suppressor != 'NA' OR Receptor != 'NA' )
-        AND (Chr_info = 'Inter-chr' OR Chr_info = 'Intra-chr' OR Chr_info = 'NA')
-        AND (ChimerKB != 'NA' OR ChimerPub != 'NA')
-        limit ${strtn},${lntn};
-    </select>
-    
-    
-    <select id="q3_result_of_chimerseq" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
-        SELECT Fusion_pair AS Fusion_Pair,CONCAT(H_chr,':',H_position) AS Gene5_Junction, CONCAT(T_chr,':',T_position) AS Gene3_Junction,Breakpoint_Type,
-        Cancertype AS Cancer_Type,BarcodeID AS TCGA_Sample_Id,Frame,Chr_info AS Chromosome_Information,
-        Source,CONCAT(ChimerKB,' ',ChimerPub) AS Supported, 'rslt_tbl_row' as DT_RowClass
-        FROM ChimerDB3.ChimerSeq_ver3
-        WHERE 1=1
-        <if test="queryForWebSource != null"> ${queryForWebSource} </if>
-        AND (Breakpoint_Type = 'None' OR Breakpoint_Type = 'Genomic' OR Breakpoint_Type = 'Exonic' OR Breakpoint_Type = 'Genomic,Exonic' ) 
-        <if test="queryForFilterByFunc != null"> ${queryForFilterByFunc} </if>
-        <if test="queryForFusType != null"> ${queryForFusType} </if>
-        <if test="queryForSupInfo != null"> ${queryForSupInfo} </if>
-        <if test="sortedKeyword != null"> ORDER BY ${sortedKeyword} ${sortType} </if>
-        limit ${strtn},${lntn};
-    </select>
-    
-    
-    <select id="q4_count_result_of_chimerseq" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="int">
-        SELECT count( * ) allNum
-        FROM ChimerDB3.ChimerSeq_ver3
-        WHERE 1=1
-        <if test="queryForWebSource != null"> ${queryForWebSource} </if>
-        AND (Breakpoint_Type = 'None' OR Breakpoint_Type = 'Genomic' OR Breakpoint_Type = 'Exonic' OR Breakpoint_Type = 'Genomic,Exonic' ) 
-        <if test="queryForFilterByFunc != null"> ${queryForFilterByFunc} </if>
-        <if test="queryForFusType != null"> ${queryForFusType} </if>
-        <if test="queryForSupInfo != null"> ${queryForSupInfo} </if>;
-    </select>
-    
-    
-    <select id="q5_result_of_chimerkb" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
-        SELECT Fusion_pair AS Fusion_Pair,CONCAT(H_chr,':',H_position) AS Gene5_Junction, CONCAT(T_chr,':',T_position) AS Gene3_Junction,Breakpoint_Type,
-        Disease,Frame,Chr_info AS Chromosome_Information,
-        Source,CONCAT(ChimerSeq,' ',ChimerPub) AS Supported,PMID
-        FROM ChimerDB3.ChimerKB_ver4 
-        WHERE 1=1
-        <if test="queryForWebSource != null"> ${queryForWebSource} </if>
-        <if test="queryForBreakPointType != null"> ${queryForBreakPointType} </if>
-        <if test="queryForValidationMtd != null"> ${queryForValidationMtd} </if>
-        <if test="queryForFilterByFunc != null"> ${queryForFilterByFunc} </if>
-        <if test="queryForFusType != null"> ${queryForFusType} </if>
-        <if test="queryForSupInfo != null"> ${queryForSupInfo} </if>
-        <if test="sortedKeyword != null"> ORDER BY ${sortedKeyword} ${sortType} </if>
-        limit ${strtn},${lntn};
-    </select>
-    
-    <select id="q5_count_result_of_chimerkb" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
-        SELECT count( * ) allNum
-        FROM ChimerDB3.ChimerKB_ver4 
-        WHERE 1=1
-        <if test="queryForWebSource != null"> ${queryForWebSource} </if>
-        <if test="queryForBreakPointType != null"> ${queryForBreakPointType} </if>
-        <if test="queryForValidationMtd != null"> ${queryForValidationMtd} </if>
-        <if test="queryForFilterByFunc != null"> ${queryForFilterByFunc} </if>
-        <if test="queryForFusType != null"> ${queryForFusType} </if>
-        <if test="queryForSupInfo != null"> ${queryForSupInfo} </if>;
-    </select>
-    
-    
-    <select id="q10_result_of_chimerkb" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
-        select distinct
-          ChimerDB_Type, Source, webSource
-        , Fusion_pair
-        , if( instr(5Gene_Junction, "NA") > -1, substring_index(5Gene_Junction,":",-1), 5Gene_Junction ) as gene5Junc
-        , if( instr(3Gene_Junction, "NA") > -1, substring_index(3Gene_Junction,":",-1), 3Gene_Junction ) as gene3Junc
-        , H_gene
-        , if(H_chr = "NA","",H_chr) as H_chr
-        , H_position
-        , if(H_strand = "NA","",H_strand) as H_strand
-        , T_gene
-        , if(T_chr = "NA","",T_chr) as T_chr
-        , T_position
-        , if(T_strand = "NA","",T_strand) as T_strand
-        , Genomic_breakpoint, Exon_breakpoint, Breakpoint_Type, Genome_Build_Version
-        , H_tanscript, H_exon, T_tanscript, T_exon
-        , if(PMID = "NA","",PMID) as PMID
-        , if(Disease = "NA","",Disease) as Disease
-        , Validation
-        , if(Frame = "NA","",Frame) as Frame
-        , Chr_info, H_locus, T_locus, Kinase, Oncogene, Tumor_suppressor, Receptor
-        , Transcription_Factor, ChimerSeq, ChimerPub
-        from ChimerDB3.ChimerKB_ver5
-        where 1=1
-        
-        <choose>
-            <when test="searchType == 'by_gene'">
-                <choose>
-                    <when test="gene5">
-                        and H_gene = "${dataForSearchType}" 
-                    </when>
-                    <when test="gene3">
-                        and T_gene = "${dataForSearchType}" 
-                    </when>
-                    <when test="gene5 and gene3">
-                        and H_gene = "${dataForSearchType}" or T_gene = "${dataForSearchType}" 
-                    </when>
-                </choose>
-            </when>
-            <when test="searchType == 'by_gene_pair'">
-                and Fusion_pair = "${dataForSearchType}" 
-            </when>
-            <when test="searchType == 'by_chr_locus'">
-                
-            </when>
-        </choose>
-        <if test="queryForWebSource != null and queryForWebSource != ''"> and webSource in (${queryForWebSource}) </if>
-        <if test="queryForBreakPointType != null and queryForBreakPointType != ''"> and Breakpoint_Type in (${queryForBreakPointType}) </if>
-        <if test="queryForValidationMtd != null and queryForValidationMtd != ''"> and Validation in (${queryForValidationMtd}) </if>
-        <if test="queryForFilterByFunc != null and queryForFilterByFunc != ''"> and (${queryForFilterByFunc}) </if>
-        <if test="queryForFusType != null and queryForFusType != ''"> and Chr_info in (${queryForFusType}) </if>
-        <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>;
-    </select>
-    
-    
-    
-    
-    
-    <select id="q100_result_of_chimerseq" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
-        select distinct
-            Fusion_pair
-            , 5Gene_Junction as gene5Junc
-            , 3Gene_Junction as gene3Junc
-            , Breakpoint_Type
-            , Cancertype
-            , BarcodeID
-            , if(Frame = "NA","",Frame) as Frame
-            , Chr_info
-            , Source
-            , ChimerDB_Type
-            , webSource
-            , H_gene
-            , H_chr
-            , H_position
-            , H_strand
-            , T_gene
-            , T_chr
-            , T_position
-            , T_strand
-            , Genomic_breakpoint
-            , Exon_breakpoint
-            , Genome_Build_Version
-            , H_tanscript
-            , H_exon
-            , T_tanscript
-            , T_exon
-            , Seed_reads_num
-            , Spanning_pairs_num
-            , Junction_reads_num
-            , H_locus
-            , T_locus
-            , Kinase
-            , Oncogene
-            , Tumor_suppressor
-            , Receptor
-            , Transcription_Factor
-            , ChimerKB
-            , ChimerPub
-            from ChimerDB3.ChimerSeq_ver5 
-            where 1=1
-            and webSource in ()
-            and Cancertype in ()
-            and Source in ()
-            and Seed_reads_num = 
-            and Spanning_pairs_num = 
-            and (Oncogene != 0 or Transcription_Factor != 0)
-            and Chr_info in ("Inter-chr") 
-            and ChimerSeq = "1"
-    </select>
-    
-    <select id="q10_result_of_chimerseq" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo">
-        select distinct Fusion_pair , 5Gene_Junction as gene5Junc , 3Gene_Junction as gene3Junc , Breakpoint_Type , Cancertype , BarcodeID
-            , if(Frame = "NA","",Frame) as Frame
-            , Chr_info , Source , ChimerKB , ChimerPub, concat(ChimerKB, "_", ChimerPub) as supported
-            from ChimerDB3.ChimerSeq_ver5 
-            where 1=1
-        
-            <choose>
-                <when test="searchType == 'by_gene'">
-                    <choose>
-                        <when test="gene5">
-                            and H_gene = "${dataForSearchType}" 
-                        </when>
-                        <when test="gene3">
-                            and T_gene = "${dataForSearchType}" 
-                        </when>
-                        <when test="gene5 and gene3">
-                            and H_gene = "${dataForSearchType}" or T_gene = "${dataForSearchType}" 
-                        </when>
-                    </choose>
-                </when>
-                <when test="searchType == 'by_gene_pair'">
-                    and Fusion_pair = "${dataForSearchType}" 
-                </when>
-                <when test="searchType == 'by_chr_locus'">
-                    and (H_locus LIKE "${dataForSearchType}" OR T_locus LIKE "${dataForSearchType}")
-                </when>
-            </choose>
-        
-            <if test="queryForWebSource != null and queryForWebSource != ''"> and webSource in (${queryForWebSource}) </if>
-            <if test="queryForCancerType != null and queryForCancerType != ''"> and Cancertype in (${queryForCancerType}) </if>
-            <if test="queryForSource != null and queryForSource != ''"> and (${queryForSource}) </if>
-            <if test="queryForFilterByFunc != null and queryForFilterByFunc != ''"> and (${queryForFilterByFunc}) </if>
-            <if test="queryForFusType != null and queryForFusType != ''"> and Chr_info in (${queryForFusType}) </if>
-            <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>
-            <if test="sortedKeyword != null"> ORDER BY ${sortedKeyword} ${sortType} </if>
-            limit ${strtn},${lntn};
-    </select>
-    <select id="q10_count_result_of_chimerseq" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="int">
-        select distinct count( * ) as allNum
-            from ChimerDB3.ChimerSeq_ver5 
-            where 1=1
-            <choose>
-                <when test="searchType == 'by_gene'">
-                    <choose>
-                        <when test="gene5">
-                            and H_gene = "${dataForSearchType}" 
-                        </when>
-                        <when test="gene3">
-                            and T_gene = "${dataForSearchType}" 
-                        </when>
-                        <when test="gene5 and gene3">
-                            and H_gene = "${dataForSearchType}" or T_gene = "${dataForSearchType}" 
-                        </when>
-                    </choose>
-                </when>
-                <when test="searchType == 'by_gene_pair'">
-                    and Fusion_pair = "${dataForSearchType}" 
-                </when>
-                <when test="searchType == 'by_chr_locus'">
-                    and (H_locus LIKE "${dataForSearchType}%" or T_locus LIKE "${dataForSearchType}%")
-                </when>
-            </choose>
-            <if test="queryForWebSource != null and queryForWebSource != ''"> and webSource in (${queryForWebSource}) </if>
-            <if test="queryForCancerType != null and queryForCancerType != ''"> and Cancertype in (${queryForCancerType}) </if>
-            <if test="queryForSource != null and queryForSource != ''"> and (${queryForSource}) </if>
-            <if test="queryForFilterByFunc != null and queryForFilterByFunc != ''"> and (${queryForFilterByFunc}) </if>
-            <if test="queryForFusType != null and queryForFusType != ''"> and Chr_info in (${queryForFusType}) </if>
-            <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>
-    </select>-->
+
     
 </mapper>

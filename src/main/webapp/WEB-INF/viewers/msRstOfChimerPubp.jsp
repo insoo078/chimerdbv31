@@ -73,6 +73,7 @@
                             <div class="col-md-12">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
+                                        <span style="font-size: 20px; font-weight: bold;">Result</span>
                                     </div>
                                     <div class="panel-body">
                                             <table id="chimerPubTbl" class="display compact hover" style="margin: 0 auto; " >
@@ -94,17 +95,33 @@
                                                         <tr>
                                                             <td><c:out value="${chimerpubLst.getFusion_pair()}" /></td>
                                                             <td><c:out value="${chimerpubLst.getTranslocation()}" /></td>
-                                                            <td></td>
+                                                            
+                                                            <td>
+                                                                <c:if test="${chimerpubLst.getKinase()>0}">
+                                                                    Kinase,
+                                                                </c:if>
+                                                                <c:if test="${chimerpubLst.getOncogene()>0}">
+                                                                    Oncogene,
+                                                                </c:if>
+                                                                <c:if test="${chimerpubLst.getTumor_suppressor()>0}">
+                                                                    Tumor suppressor,
+                                                                </c:if>
+                                                                <c:if test="${chimerpubLst.getReceptor()>0}">
+                                                                    Receptor,
+                                                                </c:if>
+                                                                <c:if test="${chimerpubLst.getTranscription_Factor()>0}">
+                                                                    Transcription factor,
+                                                                </c:if>
+                                                            </td>
+                                                            
                                                             <td><c:out value="${chimerpubLst.getDisease()}" /></td>
                                                             <td style="text-align: center;">
-                                                                <c:choose>
-                                                                    <c:when test="${chimerpubLst.getChimerKB() == 1}">
-                                                                        <img alt="ChimerSeq" src="images/icons/icseq.png" style="width: 16px; height: 16px;" />&nbsp;&nbsp;
-                                                                    </c:when>
-                                                                    <c:when test="${chimerpubLst.getChimerSeq() == 1}">
-                                                                        <img alt="ChimerSeq" src="images/icons/icpub.png" style="width: 16px; height: 16px;" />
-                                                                    </c:when>
-                                                                </c:choose>
+                                                                <c:if test="${chimerpubLst.getChimerKB() == 1}">
+                                                                    <span style="color: #ffffff; border: 1px #3071a9 solid; border-radius:4px; background-color:#3071a9; font-size:12px; font-weight:bold;">KB</span>&nbsp;
+                                                                </c:if>
+                                                                <c:if test="${chimerpubLst.getChimerSeq() == 1}">
+                                                                    <span style="color: #ffffff; border: 1px #3071a9 solid; border-radius:4px; background-color:#3071a9; font-size:12px; font-weight:bold;">Seq</span>&nbsp;
+                                                                </c:if>
                                                             </td>
                                                             <td><c:out value="${chimerpubLst.getPMID()}" /></td>
                                                             <td><c:out value="${chimerpubLst.getH_gene()}" /></td>
@@ -154,23 +171,6 @@
                                     </tr>
                                 </table>
                                 
-                            </div>
-                        </div>
-                    </div>
-
-            </div>
-        
-        
-        
-        <div class="templatemo-panels">
-                    
-                    <div class="col-md-12">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <span style="font-size: 20px; font-weight: bold;">Query</span>
-                            </div>
-                            <div class="panel-body" style="text-align: left;">
-                                <c:out value="${output_query_str}" />
                             </div>
                         </div>
                     </div>

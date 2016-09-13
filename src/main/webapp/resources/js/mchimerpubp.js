@@ -30,9 +30,6 @@ function checkbtnofradio(type){
         case "by_gene_pair":{
                 $("#search_type_gp_rdo").prop("checked",true);
         };break;
-        case "by_chr_locus":{
-                $("#search_type_chr_rdo").prop("checked",true);
-        };break;
         case "by_disease":{
                 $("#search_type_dses_rdo").prop("checked",true);
         };break;
@@ -85,6 +82,7 @@ function validatnmtd_toggle(type){
 
 function resetall(){
     if( $("input:radio[id='search_type_gene_rdo']").is(":checked") == false ){ $("#search_type_gene_rdo").prop("checked",true); }
+    $("#by_disease_txt").val("");
     $("#pub_num_txt").val("1");
     $("#txt_mining_score_txt").val("10");            
     $('input:checkbox').each(function(){
@@ -153,15 +151,7 @@ function searching(){
                                     $("#key_data_for_search_type").val( keyVal );
                                 }
                         };break;
-                        case "by_chr_locus":{
-                                keyVal = $("#by_chr_locus_txt").val();
-                                if( (keyVal == "") || ($.trim(keyVal) == "") || (keyVal == null) ){
-                                    $("#chimerdb_empty_data").modal("show");
-                                    return;
-                                }else{
-                                    $("#key_data_for_search_type").val( keyVal );
-                                }
-                        };break;
+                        
                     }
                 ///////////////////////////////
                 keyVal = "";
@@ -222,14 +212,14 @@ function searching(){
                 }
                 $("#key_flt_by_func").val( keyVal );
                 
-                keyVal = "each";
-                if( $("input:checkbox[id='fbyfusn_inter_chr_chk']").is(":checked") == true ){
-                    keyVal += ","+"inter_chr";
-                }
-                if( $("input:checkbox[id='fbyfusn_intra_chr_chk']").is(":checked") == true ){
-                    keyVal += ","+"intra_chr";
-                }
-                $("#key_flt_by_fusn_type").val( keyVal );
+//                keyVal = "each";
+//                if( $("input:checkbox[id='fbyfusn_inter_chr_chk']").is(":checked") == true ){
+//                    keyVal += ","+"inter_chr";
+//                }
+//                if( $("input:checkbox[id='fbyfusn_intra_chr_chk']").is(":checked") == true ){
+//                    keyVal += ","+"intra_chr";
+//                }
+//                $("#key_flt_by_fusn_type").val( keyVal );
                 
                 keyVal = "each";
                 if( $("input:checkbox[id='fbySupot_chimrSeqS_chk']").is(":checked") == true ){

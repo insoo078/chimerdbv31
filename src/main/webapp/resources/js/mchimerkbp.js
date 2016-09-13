@@ -129,6 +129,7 @@ function chimerkb_no_evidence_toggle(){
 
 function resetall(){
     if( $("input:radio[id='search_type_gene_rdo']").is(":checked") == false ){ $("#search_type_gene_rdo").prop("checked",true); }
+    $("#by_disease_txt").val("");
     $('input:checkbox').each(function(){
         var chkObjId = $(this).attr("id");
         if( chkObjId == "by_gene_chk_3" ){

@@ -6,9 +6,10 @@
 $(document).ready(function () {
     check_m_state("mmchimerkbbtn");
     
+    //$("#chimerKbTbl").css({"display": "none"});
     var mainTable = null;
     
-    mainTable =  mainTable = $("#chimerKbTbl").DataTable({
+    mainTable = $("#chimerKbTbl").DataTable({
         "dom":"Tfrt<'row'<'col-md-2'l><'col-md-5'i><'col-md-5'p>>",
         "columnDefs": [
             { 'targets': [10], 'visible': false, 'searchable': false }
@@ -33,15 +34,10 @@ $(document).ready(function () {
             ,{ 'targets': [29], 'visible': false, 'searchable': false }
             ,{ 'targets': [30], 'visible': false, 'searchable': false }
             ,{ 'targets': [31], 'visible': false, 'searchable': false }
-            ,{ 'targets': [32], 'visible': false, 'searchable': false }
-            ,{ 'targets': [33], 'visible': false, 'searchable': false }
-            ,{ 'targets': [34], 'visible': false, 'searchable': false }
-            ,{ 'targets': [35], 'visible': false, 'searchable': false }
-            ,{ 'targets': [36], 'visible': false, 'searchable': false }
         ],
-         "scrollX":true,
-         "tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
-         "deferRender": true
+        "scrollX":true,
+        "tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
+        "deferRender": true
     });
     
     $('#chimerKbTbl tbody').on('click', 'tr', function(){
@@ -51,49 +47,50 @@ $(document).ready(function () {
         showDesc( mainTable.row( this ).data() );
     });
     
+    showDesc( mainTable.row(0).data() );
    
 });
 
 
 function showDesc(popupdataobj){
     $("#selectedrowtitle").text( popupdataobj[0] );
-    $("#srt_td_5gene_nm").text( popupdataobj[12] );
-    $("#srt_td_3gene_nm").text( popupdataobj[16] );
+    $("#srt_td_5gene_nm").text( popupdataobj[13] );
+    $("#srt_td_3gene_nm").text( popupdataobj[17] );
 
-    $("#srt_td_5g_chr_nm").text( popupdataobj[13] );
-    $("#srt_td_3g_chr_nm").text( popupdataobj[17] );
+    $("#srt_td_5g_chr_nm").text( popupdataobj[14] );
+    $("#srt_td_3g_chr_nm").text( popupdataobj[18] );
 
     $("#srt_td_5g_junc_point").text( popupdataobj[1] );
     $("#srt_td_3g_junc_point").text( popupdataobj[2] );
 
-    $("#srt_td_5g_strand").text( popupdataobj[15] );
-    $("#srt_td_3g_strand").text( popupdataobj[19] );
+    $("#srt_td_5g_strand").text( popupdataobj[16] );
+    $("#srt_td_3g_strand").text( popupdataobj[20] );
 
     var selectedFuncStr = "";
-    if( popupdataobj[30] === "1"){
+    if( popupdataobj[25] === "1"){
         selectedFuncStr += "Kinase" + ", ";
     }
-    if( popupdataobj[31] === "1"){
+    if( popupdataobj[26] === "1"){
         selectedFuncStr += "Oncogene" + ", ";
     }
-    if( popupdataobj[32] === "1"){
+    if( popupdataobj[27] === "1"){
         selectedFuncStr += "Tumor suppressor" + ", ";
     }
-    if( popupdataobj[33] === "1"){
+    if( popupdataobj[28] === "1"){
         selectedFuncStr += "Receptor" + ", ";
     }
-    if( popupdataobj[34] === "1"){
+    if( popupdataobj[29] === "1"){
         selectedFuncStr += "Transcription factor" + ", ";
     }
 
 
     $("#srt_td_5g_3g_func").text( selectedFuncStr );
     
-    $("#srt_td_chimerdb_type").text( popupdataobj[10] );
+    $("#srt_td_chimerdb_type").text( popupdataobj[11] );
     $("#srt_td_source").text( popupdataobj[7] );
-    $("#srt_td_genome_build_ver").text( popupdataobj[22] );
+    $("#srt_td_genome_build_ver").text( popupdataobj[23] );
     $("#srt_td_disease").text( popupdataobj[4] );
-    $("#srt_td_validation_mtd").text( popupdataobj[27] );
+    $("#srt_td_validation_mtd").text( popupdataobj[24] );
     $("#srt_td_pmid").text( popupdataobj[9] );
     $("#srt_td_frame").text( popupdataobj[5] );
     $("#srt_td_chr_info").text( popupdataobj[6] );

@@ -11,23 +11,16 @@ package org.com.chimerdbv31.chimerpub.vo;
  * @author Ik-Jung Choi <cij@ewha.ac.kr>
  */
 public class ChimerPubVo {
+    private int id;
     private String ChimerDB_Type;
     private String Fusion_pair;
     private String Translocation;
     private String H_gene;
-    private String H_raw;
     private String T_gene;
-    private String T_raw;
     private String PMID;
-    private String Disease_raw;
-    private String Validation;
-    private String Validation_raw;
     private String Score;
-    private String Title;
-    private String Sentence;
-    private String DateofPublication;
-    private String Journal;
-    private String AbstractText;
+    private String Disease;
+    private String Validation;
     private int Kinase;
     private int Oncogene;
     private int Tumor_suppressor;
@@ -35,8 +28,19 @@ public class ChimerPubVo {
     private int Transcription_Factor;
     private String ChimerKB;
     private String ChimerSeq;
-    private String Disease;
-    private String Disease_mod;
+    private String Sentence_highlight;
+    private String H_gene_highlight;
+    private String T_gene_highlight;
+    private String Disease_highlight;
+    private String Validation_highlight;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getChimerDB_Type() {
         return ChimerDB_Type;
@@ -70,28 +74,12 @@ public class ChimerPubVo {
         this.H_gene = H_gene;
     }
 
-    public String getH_raw() {
-        return H_raw;
-    }
-
-    public void setH_raw(String H_raw) {
-        this.H_raw = H_raw;
-    }
-
     public String getT_gene() {
         return T_gene;
     }
 
     public void setT_gene(String T_gene) {
         this.T_gene = T_gene;
-    }
-
-    public String getT_raw() {
-        return T_raw;
-    }
-
-    public void setT_raw(String T_raw) {
-        this.T_raw = T_raw;
     }
 
     public String getPMID() {
@@ -102,30 +90,6 @@ public class ChimerPubVo {
         this.PMID = PMID;
     }
 
-    public String getDisease_raw() {
-        return Disease_raw;
-    }
-
-    public void setDisease_raw(String Disease_raw) {
-        this.Disease_raw = Disease_raw;
-    }
-
-    public String getValidation() {
-        return Validation;
-    }
-
-    public void setValidation(String Validation) {
-        this.Validation = Validation;
-    }
-
-    public String getValidation_raw() {
-        return Validation_raw;
-    }
-
-    public void setValidation_raw(String Validation_raw) {
-        this.Validation_raw = Validation_raw;
-    }
-
     public String getScore() {
         return Score;
     }
@@ -134,44 +98,20 @@ public class ChimerPubVo {
         this.Score = Score;
     }
 
-    public String getTitle() {
-        return Title;
+    public String getDisease() {
+        return Disease;
     }
 
-    public void setTitle(String Title) {
-        this.Title = Title;
+    public void setDisease(String Disease) {
+        this.Disease = Disease;
     }
 
-    public String getSentence() {
-        return Sentence;
+    public String getValidation() {
+        return Validation;
     }
 
-    public void setSentence(String Sentence) {
-        this.Sentence = Sentence;
-    }
-
-    public String getDateofPublication() {
-        return DateofPublication;
-    }
-
-    public void setDateofPublication(String DateofPublication) {
-        this.DateofPublication = DateofPublication;
-    }
-
-    public String getJournal() {
-        return Journal;
-    }
-
-    public void setJournal(String Journal) {
-        this.Journal = Journal;
-    }
-
-    public String getAbstractText() {
-        return AbstractText;
-    }
-
-    public void setAbstractText(String AbstractText) {
-        this.AbstractText = AbstractText;
+    public void setValidation(String Validation) {
+        this.Validation = Validation;
     }
 
     public int getKinase() {
@@ -230,21 +170,47 @@ public class ChimerPubVo {
         this.ChimerSeq = ChimerSeq;
     }
 
-    public String getDisease() {
-        return Disease;
+    public String getSentence_highlight() {
+        return Sentence_highlight;
     }
 
-    public void setDisease(String Disease) {
-        this.Disease = Disease;
+    public void setSentence_highlight(String Sentence_highlight) {
+        this.Sentence_highlight = Sentence_highlight;
     }
 
-    public String getDisease_mod() {
-        return Disease_mod;
+    public String getH_gene_highlight() {
+        return H_gene_highlight;
     }
 
-    public void setDisease_mod(String Disease_mod) {
-        this.Disease_mod = Disease_mod;
+    public void setH_gene_highlight(String H_gene_highlight) {
+        this.H_gene_highlight = H_gene_highlight;
     }
+
+    public String getT_gene_highlight() {
+        return T_gene_highlight;
+    }
+
+    public void setT_gene_highlight(String T_gene_highlight) {
+        this.T_gene_highlight = T_gene_highlight;
+    }
+
+    public String getDisease_highlight() {
+        return Disease_highlight;
+    }
+
+    public void setDisease_highlight(String Disease_highlight) {
+        this.Disease_highlight = Disease_highlight;
+    }
+
+    public String getValidation_highlight() {
+        return Validation_highlight;
+    }
+
+    public void setValidation_highlight(String Validation_highlight) {
+        this.Validation_highlight = Validation_highlight;
+    }
+    
+    
 
     
 }
