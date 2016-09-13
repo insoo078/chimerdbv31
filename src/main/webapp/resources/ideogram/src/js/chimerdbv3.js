@@ -134,6 +134,11 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 		this.config.PFAM_DOMAIN_MAP = [];
 	}
 	
+	this.config.GENE_BACKBONE_Y = 100;
+	this.config.UTR_HEIGHT = 10;
+	this.config.EXON_HEIGHT = 20;
+	this.config.EXON_Y_POS = this.config.GENE_BACKBONE_Y - (this.config.EXON_HEIGHT/2);
+
 	this.init( this.config );
 
 	this.initDefs();
@@ -161,7 +166,7 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 ChimeraDbV3ViewerWithOutChromosome.prototype.init = function( config ) {
 	// Gene length
 	this.config.GENE_TOTAL_LENGTH = this.getTotalLengthIn( config.fusion_genes );
-	this.config.SCREEN_BACKBONE_AREALENGTH = ((config.canvas.node().getBoundingClientRect().width - config.LEFT_MARGIN) * config.zoom) - config.MARGIN_BETWEEN_BACKBONES;
+	this.config.SCREEN_BACKBONE_AREALENGTH = ((config.canvas.node().getBoundingClientRect().width - config.LEFT_MARGIN) * config.zoom) - config.MARGIN_BETWEEN_BACKBONES - (3*config.sideMargin);
 	
 	var drawingObj = {};
 	for(var i=0; i<config.fusion_genes.length; i++) {
@@ -1010,8 +1015,6 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawUnitLengthOfEachGene = function
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawDonorGeneBackbone = function( config, isAllowedReverse ) {
 	var canvas = this.config.drawingSvg;
 	var canvasRect = canvas.node().getBoundingClientRect();
-	
-	config.GENE_BACKBONE_Y = 100;
 
 	var backbone = canvas.append("g")
 		.attr("id", "fusion-gene-backbone-group");
@@ -1064,10 +1067,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawDonorGeneBackbone = function( c
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backbone, drawingType, isAllowedReverse ) {
 	var canvas = this.config.drawingSvg;
-	
-	config.EXON_HEIGHT = 20;
-	config.EXON_Y_POS = config.GENE_BACKBONE_Y - (config.EXON_HEIGHT/2);
-	
+
 	var viewer = this;
 	var onScreen= {};
 	for( var j=0; j<config.fusion_genes.length; j++) {
@@ -1148,8 +1148,6 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backb
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, backbone, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
 	var canvas = config.drawingSvg;
 	var canvasRect = canvas.node().getBoundingClientRect();
-	
-	var rootRect = config.canvas.node().getBoundingClientRect();
 			
 	for( var i=0; i<config.fusion_genes.length; i++) {
 		var obj = config.fusion_genes[i];

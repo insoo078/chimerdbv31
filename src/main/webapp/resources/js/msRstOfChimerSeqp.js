@@ -45,13 +45,13 @@ ChimerSeqResult.prototype.initUcscSettings = function( rowdata ) {
 	var gene3p = rowdata.fusionGene3p;
 
 	$("#ucsc_5pGene").click(function(){
-		var url = "https://genome.ucsc.edu/cgi-bin/hgTracks?org=human&db=hg19&position="+gene5p.chromosome+"%3A"+gene5p.start+"%2D"+gene5p.end+"&visibility=0";
+		var url = "https://genome.ucsc.edu/cgi-bin/hgTracks?org=human&db=hg19&position="+gene5p.chromosome+"%3A"+gene5p.start+"%2D"+gene5p.end+"&hideTracks=1&knownGene=dense&refGene=dense&ucscGenePfam=dense&hgt.custom=http://genome.ucsc.edu/goldenPath/help/test.bed";
 
 		window.open(url, 'UCSC Genome Browser', 'window settings');
 	});
 
 	$("#ucsc_3pGene").click(function(){
-		var url = "https://genome.ucsc.edu/cgi-bin/hgTracks?org=human&db=hg19&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position="+gene3p.chromosome+"%3A"+gene3p.start+"%2D"+gene3p.end+"&hgsid=512041203_WWcmwaD77NwdZynImwrFUikFn7PJ";
+		var url = "https://genome.ucsc.edu/cgi-bin/hgTracks?org=human&db=hg19&position="+gene3p.chromosome+"%3A"+gene3p.start+"%2D"+gene3p.end+"&hideTracks=1&knownGene=dense&refGene=dense&ucscGenePfam=dense&hgt.custom=http://genome.ucsc.edu/goldenPath/help/test.bed";
 		window.open(url, 'UCSC Genome Browser', 'window settings');
 	});
 };
