@@ -237,7 +237,9 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 				currentXPos: 0
 			  };
 
-			  chimerSeqResult.viewer = new ChimeraDbV3ViewerWithOutChromosome(config);
+			  if( (typeof  jData.fusionGene3p !== "undefined") && (typeof jData.fusionGene5p !== "undefined") ) {
+				chimerSeqResult.viewer = new ChimeraDbV3ViewerWithOutChromosome(config);
+			  }
 		},
 		error: function(e, status) {
 			alert(status);
@@ -269,8 +271,8 @@ ChimerSeqResult.prototype.showDetailInfo = function(rowdata) {
 				var junc3pWithUcsc = "<span class='junction_label_pos' style='margin-left:"+margin+"px;'>"+jData.gene3Junc+"</span><span id='ucsc_3pGene' class='junction_label_ucsc'>UCSC</span>";
 				return junc3pWithUcsc;
 			});
-			$("#srt_td_5g_strand").text( rowdata.genes["5'"].strand );
-			$("#srt_td_3g_strand").text( rowdata.genes["3'"].strand );
+			$("#srt_td_5g_strand").text( jData.h_strand );
+			$("#srt_td_3g_strand").text( jData.t_strand );
 			
 			var funcArray = [];
 			if( jData.receptor > 0 )			funcArray.push("Receptor");

@@ -72,13 +72,15 @@ public class ChimerSeqService {
 			paramMap.put("chr", chromosomes[i].replace("chr", ""));
 			GeneInfoVo geneInfoVo = (GeneInfoVo)this.chimerSeqMapper.getGeneInfo( paramMap );
 
-			GeneObj obj = new GeneObj( geneInfoVo );
-			geneInfoVo.setFusionLocation( loc[i] );
+			if( geneInfoVo != null ) {
+				GeneObj obj = new GeneObj( geneInfoVo );
+				geneInfoVo.setFusionLocation( loc[i] );
 
-			// Find Pfam domains by gene information
-			obj.setpFamDomainList( this.getPfamDomainInfo( obj ) );
+				// Find Pfam domains by gene information
+				obj.setpFamDomainList( this.getPfamDomainInfo( obj ) );
 
-			fusionGene.addGene( loc[i], obj );
+				fusionGene.addGene( loc[i], obj );
+			}
 		}
 
 		return fusionGene;

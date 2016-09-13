@@ -1273,7 +1273,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawPfamdomains= function( config, 
 							.attr("ry", 2)
 							.attr("x", 0)
 							.attr("y", config.EXON_Y_POS + (0 * (config.EXON_HEIGHT + 5) ) )
-							.attr("width", 10)
+							.attr("width", 0)
 							.attr("height", config.EXON_HEIGHT);
 		}
 	}

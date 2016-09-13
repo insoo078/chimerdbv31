@@ -85,14 +85,20 @@ public class ChimerSeqController {
 	 */
 	@RequestMapping(value="getGeneInfo",method=RequestMethod.POST)
 	@ResponseBody
-	public String getGeneInfo(HttpServletRequest request) throws Exception{
+	public String getGeneInfo(HttpServletRequest request){
 		Gson gson = new Gson();
 		
 		String queryGenes = request.getParameter("data");
 		
 		ChimerSeqVo chimerSeqRecord = gson.fromJson(queryGenes, ChimerSeqVo.class);
 
-		String json = gson.toJson( this.chimerSeqService.getGeneInfo( chimerSeqRecord ) );
+		String json = "";
+		try {
+			json = gson.toJson( this.chimerSeqService.getGeneInfo( chimerSeqRecord ) );
+		}catch(Exception e) {
+			e.printStackTrace();
+			json = null;
+		}
 
 		return json;
 	}
