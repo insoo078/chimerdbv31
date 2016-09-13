@@ -15,6 +15,7 @@ import org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper;
 import org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm;
 import org.com.chimerdbv31.chimerseq.obj.FusionGeneObj;
 import org.com.chimerdbv31.chimerseq.obj.GeneObj;
+import org.com.chimerdbv31.chimerseq.obj.TranscriptObj;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqDetailVo;
@@ -75,6 +76,8 @@ public class ChimerSeqService {
 			if( geneInfoVo != null ) {
 				GeneObj obj = new GeneObj( geneInfoVo );
 				geneInfoVo.setFusionLocation( loc[i] );
+				
+				TranscriptObj to = obj.getCanonicalTranscript();
 
 				// Find Pfam domains by gene information
 				obj.setpFamDomainList( this.getPfamDomainInfo( obj ) );

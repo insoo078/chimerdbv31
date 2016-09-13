@@ -48,7 +48,7 @@ public class GeneObj extends GeneBaseObj{
 	private void makeHierachyTreeOfFeatures( List<Gff3Vo> features ) {
 		List<TranscriptObj> transcripts = new ArrayList<TranscriptObj>();
 		TranscriptObj obj = null;
-		
+
 		int i = 1;
 		for( Gff3Vo vo : features ) {
 			if( vo != null ) {
