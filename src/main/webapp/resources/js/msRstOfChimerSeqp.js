@@ -40,6 +40,22 @@ ChimerSeqResult.prototype.init4Redraw = function() {
 	return nconfig;
 };
 
+ChimerSeqResult.prototype.initUcscSettings = function( rowdata ) {
+	var gene5p = rowdata.fusionGene5p;
+	var gene3p = rowdata.fusionGene3p;
+
+	$("#ucsc_5pGene").click(function(){
+		var url = "https://genome.ucsc.edu/cgi-bin/hgTracks?org=human&db=hg19&position="+gene5p.chromosome+"%3A"+gene5p.start+"%2D"+gene5p.end+"&visibility=0";
+
+		window.open(url, 'UCSC Genome Browser', 'window settings');
+	});
+
+	$("#ucsc_3pGene").click(function(){
+		var url = "https://genome.ucsc.edu/cgi-bin/hgTracks?org=human&db=hg19&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position="+gene3p.chromosome+"%3A"+gene3p.start+"%2D"+gene3p.end+"&hgsid=512041203_WWcmwaD77NwdZynImwrFUikFn7PJ";
+		window.open(url, 'UCSC Genome Browser', 'window settings');
+	});
+};
+
 ChimerSeqResult.prototype.initController = function() {
 	var chimerSeq = this;
 	
@@ -226,6 +242,8 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 };
 
 ChimerSeqResult.prototype.showDetailInfo = function(rowdata) {
+	var ChimerSeq = this;
+
 	$.ajax({
 		url: "getFusionDetailInfo.cdb",
 		type : 'POST',
@@ -239,12 +257,12 @@ ChimerSeqResult.prototype.showDetailInfo = function(rowdata) {
 				
 			$("#srt_td_5g_junc_point").html( function() {
 				var margin = $(this).width()/2 - 105;
-				var junc5pWithUcsc = "<span class='junction_label_pos' style='margin-left:"+margin+"px;'>"+jData.gene5Junc+"</span><span class='junction_label_ucsc'>UCSC</span>";
+				var junc5pWithUcsc = "<span class='junction_label_pos' style='margin-left:"+margin+"px;'>"+jData.gene5Junc+"</span><span id='ucsc_5pGene' class='junction_label_ucsc'>UCSC</span>";
 				return junc5pWithUcsc ;
 			});
 			$("#srt_td_3g_junc_point").html( function() {
 				var margin = $(this).width()/2 - 105;
-				var junc3pWithUcsc = "<span class='junction_label_pos' style='margin-left:"+margin+"px;'>"+jData.gene3Junc+"</span><span class='junction_label_ucsc'>UCSC</span>";
+				var junc3pWithUcsc = "<span class='junction_label_pos' style='margin-left:"+margin+"px;'>"+jData.gene3Junc+"</span><span id='ucsc_3pGene' class='junction_label_ucsc'>UCSC</span>";
 				return junc3pWithUcsc;
 			});
 			$("#srt_td_5g_strand").text( rowdata.genes["5'"].strand );
@@ -271,8 +289,7 @@ ChimerSeqResult.prototype.showDetailInfo = function(rowdata) {
 			$("#srt_cancer_type").text( jData.cancertype==='NA'?"": jData.cancertype );
 			$("#srt_td_frame").text( jData.frame );
 			$("#srt_td_chr_info").text( jData.chr_info );
-			
-			
+
 			var supported = "";
 			if( jData.chimerKB > 0 ) {
 				supported += "<img class='chimerkb-btn' src='./resources/images/icons/ickb.png' style='margin-left:5px;'></img>";
@@ -281,6 +298,8 @@ ChimerSeqResult.prototype.showDetailInfo = function(rowdata) {
 				supported += " <img class='chimerpub-btn' src='./resources/images/icons/icpub.png' style='margin-left:5px;'></img>";
 			}
 			$("#srt_td_supported").html( supported );
+
+			ChimerSeq.initUcscSettings( rowdata );
 		},
 		error : function(xhr, status) {
 			alert(status);
