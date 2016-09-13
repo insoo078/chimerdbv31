@@ -75,17 +75,6 @@
                                         </div>
                                     </div>
 
-<!--                                    <div class="row">
-                                        <div class="col-md-7">
-                                            <label class="radio-inline">
-                                                <input type="radio" name="search_type_rdo" id="search_type_chr_rdo" value="by_chr_locus">Chromosome locus
-                                            </label>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <input id="by_chr_locus_txt" class="form-control" title="type &quot;T&quot;" value="2p23" onfocus="clearText(this);" onblur="clearText(this);" onclick="checkbtnofradio('by_chr_locus');">
-                                        </div>
-                                    </div>-->
-
                                 </div>
                                 <div class="col-md-4" style="border-right: 2px #999999 dotted;">
                                     <div class="row margin-bottom-15">
@@ -184,7 +173,7 @@
                             </div>
                             
 
-                            <div class="row margin-bottom-15">
+<!--                            <div class="row margin-bottom-15">
                                 <div class="col-md-3">
                                     <span style="font-size: 15px; font-weight: bold;">&ndash;&nbsp;&nbsp;Function Type</span>
                                 </div>
@@ -192,7 +181,7 @@
                                     <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="fbyfusn_inter_chr_chk" value="inter_chr">Inter chromosomal</label>
                                     <label class="checkbox-inline"><input type="checkbox" id="fbyfusn_intra_chr_chk" value="intra_chr" >Intra chromosomal</label>
                                 </div>
-                            </div>
+                            </div>-->
                             
 
 

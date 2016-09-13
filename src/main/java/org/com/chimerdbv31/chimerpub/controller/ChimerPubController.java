@@ -91,7 +91,7 @@ public class ChimerPubController {
                         sParam.setGene53(true);
                     }
                 }
-                System.out.println("=================== "+request.getParameter("key_num_of_pub"));
+                
                 int numOfPub = Integer.valueOf( request.getParameter("key_num_of_pub") );
                 sParam.setNumOfPub(numOfPub);
                 
@@ -190,37 +190,37 @@ public class ChimerPubController {
                 result.addObject("selected_function", data);
 
 
-                data = "";
-                data = request.getParameter("key_flt_by_fusn_type");
-                dataArr = null;
-                queryStr = new StringBuffer();
-                if( data != "each" && data != ""){
-                
-                    dataArr = data.split(",");
-                    if(dataArr != null && dataArr.length > 0){
-                            for(int i = 0; i < dataArr.length; i++){
-                                if(i > 0){
-                                    switch(dataArr[i]){
-                                        case "inter_chr":{
-                                            queryStr.append(" 'Inter-chr' ");
-                                            if( i < (dataArr.length -1) ){
-                                                queryStr.append(",");
-                                            }
-                                        };break;
-                                        case "intra_chr":{
-                                            queryStr.append(" 'Intra-chr' ");
-                                            if( i < (dataArr.length -1) ){
-                                                queryStr.append(",");
-                                            }
-                                        };break;
-                                    }
-                                }
-                            }
-                        if(queryStr.length() > 0){
-                            sParam.setQueryForFusType(queryStr.toString());
-                        }
-                    }
-                }
+//                data = "";
+//                data = request.getParameter("key_flt_by_fusn_type");
+//                dataArr = null;
+//                queryStr = new StringBuffer();
+//                if( data != "each" && data != ""){
+//                
+//                    dataArr = data.split(",");
+//                    if(dataArr != null && dataArr.length > 0){
+//                            for(int i = 0; i < dataArr.length; i++){
+//                                if(i > 0){
+//                                    switch(dataArr[i]){
+//                                        case "inter_chr":{
+//                                            queryStr.append(" 'Inter-chr' ");
+//                                            if( i < (dataArr.length -1) ){
+//                                                queryStr.append(",");
+//                                            }
+//                                        };break;
+//                                        case "intra_chr":{
+//                                            queryStr.append(" 'Intra-chr' ");
+//                                            if( i < (dataArr.length -1) ){
+//                                                queryStr.append(",");
+//                                            }
+//                                        };break;
+//                                    }
+//                                }
+//                            }
+//                        if(queryStr.length() > 0){
+//                            sParam.setQueryForFusType(queryStr.toString());
+//                        }
+//                    }
+//                }
 
                 data = "";
                 data = request.getParameter("key_flt_by_supted_info");
@@ -267,9 +267,9 @@ public class ChimerPubController {
             
             ChimerPubVo param = new ChimerPubVo();
             param.setFusion_pair( request.getParameter("fuspair") );
-            param.setGene5Junc( request.getParameter("gene5junc") );
-            param.setGene3Junc( request.getParameter("gene3junc") );
-            param.setBreakpoint_Type( request.getParameter("breaktype") );
+            //param.setGene5Junc( request.getParameter("gene5junc") );
+            //param.setGene3Junc( request.getParameter("gene3junc") );
+            //param.setBreakpoint_Type( request.getParameter("breaktype") );
             param.setDisease( request.getParameter("disease") );
             param.setPMID( request.getParameter("pmid") );
             
@@ -279,20 +279,20 @@ public class ChimerPubController {
             JSONObject jsonData = null;
             ChimerPubVo rowdata = this.chimerPubService.getJournal(param);
             
-            String replace_title1 = rowdata.getTitle().replaceAll(param.getH_gene(), "<span style='color:#990033;font-size:15px;font-weight:bold;'>"+param.getH_gene()+"</span>");
-            String replace_title2 = replace_title1.replaceAll(param.getT_gene(), "<span style='color:#3300cc;font-size:15px;font-weight:bold;'>"+param.getT_gene()+"</span>");
-            rowdata.setTitle(replace_title2);
-            
-            String[] sliceTxt = rowdata.getAbstractText().split("\\.{2}",2);
-            String replace_txt1 = null;
-            String replace_txt2 = null;
-            if( sliceTxt.length > 1){
-                replace_txt1 = sliceTxt[1].replaceAll(param.getH_gene(), "<span style='color:#990033;font-size:15px;font-weight:bold;'>"+param.getH_gene()+"</span>");
-            }else{
-                replace_txt1 = rowdata.getAbstractText().replaceAll(param.getH_gene(), "<span style='color:#990033;font-size:15px;font-weight:bold;'>"+param.getH_gene()+"</span>");
-            }
-            replace_txt2 = replace_txt1.replaceAll(param.getT_gene(), "<span style='color:#3300cc;font-size:15px;font-weight:bold;'>"+param.getT_gene()+"</span>");
-            rowdata.setAbstractText(replace_txt2);
+//            String replace_title1 = rowdata.getTitle().replaceAll(param.getH_gene(), "<span style='color:#990033;font-size:15px;font-weight:bold;'>"+param.getH_gene()+"</span>");
+//            String replace_title2 = replace_title1.replaceAll(param.getT_gene(), "<span style='color:#3300cc;font-size:15px;font-weight:bold;'>"+param.getT_gene()+"</span>");
+//            rowdata.setTitle(replace_title2);
+//            
+//            String[] sliceTxt = rowdata.getAbstractText().split("\\.{2}",2);
+//            String replace_txt1 = null;
+//            String replace_txt2 = null;
+//            if( sliceTxt.length > 1){
+//                replace_txt1 = sliceTxt[1].replaceAll(param.getH_gene(), "<span style='color:#990033;font-size:15px;font-weight:bold;'>"+param.getH_gene()+"</span>");
+//            }else{
+//                replace_txt1 = rowdata.getAbstractText().replaceAll(param.getH_gene(), "<span style='color:#990033;font-size:15px;font-weight:bold;'>"+param.getH_gene()+"</span>");
+//            }
+//            replace_txt2 = replace_txt1.replaceAll(param.getT_gene(), "<span style='color:#3300cc;font-size:15px;font-weight:bold;'>"+param.getT_gene()+"</span>");
+//            rowdata.setAbstractText(replace_txt2);
             
             jsonData = JSONObject.fromObject(rowdata);
             

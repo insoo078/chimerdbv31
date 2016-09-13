@@ -326,51 +326,7 @@ public class ChimerKbController {
                     }
                     List<ChimerKbVo> chimerKbLst = this.chimerKbService.getChimerKBResult(sParam);
                     result.addObject("chimerKb_lst", chimerKbLst);
-                    // out query ////////////////////////////////////////////////////////////////////////////////////////////
-                    String outPutQueryStr = "select distinct * from ChimerDB3.ChimerKB_ver5 where 1=1 ";
-                    switch( sParam.getSearchType() ){
-                        case "by_gene":{
-                            if( sParam.isGene53() ){
-                                outPutQueryStr += " and H_gene = '"+sParam.getDataForSearchType()+"' or T_gene = '"+sParam.getDataForSearchType()+"' ";
-                            }else{
-                                if( sParam.isGene5() ){
-                                    outPutQueryStr += " and H_gene = '"+sParam.getDataForSearchType()+"' ";
-                                }
-                                if( sParam.isGene3() ){
-                                    outPutQueryStr += " and T_gene = '"+sParam.getDataForSearchType()+"' ";
-                                }
-                            }
-                        };break;
-                        case "by_gene_pair":{
-                            outPutQueryStr += " and Fusion_pair = '"+sParam.getDataForSearchType()+"' ";
-                        };break;
-                        case "by_disease":{
-                            outPutQueryStr += " and Disease like '%"+sParam.getDataForSearchType()+"%' ";
-                        };break;
-                        case "by_chr_locus":{};break;
-                    }
-                    if( sParam.getQueryForWebSource() != null && sParam.getQueryForWebSource() != ""){
-                        outPutQueryStr += " and webSource in ("+sParam.getQueryForWebSource()+") ";
-                    }
-                    if( sParam.getQueryForBreakPointType() != null && sParam.getQueryForBreakPointType() != ""){
-                        outPutQueryStr += " and Breakpoint_Type in ("+sParam.getQueryForBreakPointType()+") ";
-                    }
-                    if( sParam.getQueryForValidationMtd() != null && sParam.getQueryForValidationMtd() != ""){
-                        outPutQueryStr += " and Validation in ("+sParam.getQueryForValidationMtd()+") ";
-                    }
-                    if( sParam.getQueryForFilterByFunc() != null && sParam.getQueryForFilterByFunc() != ""){
-                        outPutQueryStr += " and ("+sParam.getQueryForFilterByFunc()+") ";
-                    }
-                    if( sParam.getQueryForFusType() != null && sParam.getQueryForFusType() != ""){
-                        outPutQueryStr += " and Chr_info in ("+sParam.getQueryForFusType()+") ";
-                    }
-                    if( sParam.getQueryForSupInfo() != null && sParam.getQueryForSupInfo() != ""){
-                        outPutQueryStr += " and ("+sParam.getQueryForSupInfo()+"); ";
-                    }
-
-                    result.addObject("output_query_str", outPutQueryStr);
-                    System.out.println("outPutQueryStr ---> "+outPutQueryStr);
-                    // out query ////////////////////////////////////////////////////////////////////////////////////////////
+                    
             return result;
         }
         

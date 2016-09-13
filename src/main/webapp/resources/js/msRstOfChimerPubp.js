@@ -10,9 +10,12 @@ $(document).ready(function () {
     
     mainTable =  mainTable = $("#chimerPubTbl").DataTable({
         "dom":"Tfrt<'row'<'col-md-2'l><'col-md-5'i><'col-md-5'p>>",
+        "columnDefs": [
+            { 'targets': [6], 'visible': false, 'searchable': false }
+            ,{ 'targets': [7], 'visible': false, 'searchable': false }
+        ],
          "scrollX":true,
          "tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
-         "iDisplayLength": 25,
          "deferRender": true
     });
     
@@ -25,13 +28,9 @@ $(document).ready(function () {
 });
 
 
-function initVariable(){
-};
-
-
 function showAbstractText(rowObj){
             
-        var data = "fuspair=" + rowObj[0] + "&gene5junc=" + rowObj[1] + "&gene3junc=" + rowObj[2] + "&breaktype=" + rowObj[3] + "&disease=" + rowObj[4] + "&pmid=" + rowObj[8] + "&hgene=" + rowObj[9] + "&tgene=" + rowObj[10];
+        var data = "fuspair=" + rowObj[0] + "&disease=" + rowObj[3] + "&pmid=" + rowObj[5] + "&hgene=" + rowObj[6] + "&tgene=" + rowObj[7];
 
         $.ajax({
             url: "getjournaldata.cdb",
@@ -40,13 +39,11 @@ function showAbstractText(rowObj){
             dataType: "json",
             success: function(jData) {
                 
-                $("#selectedfusiongene").text(jData.fusion_pair);
-                
-                $("#selectedrowtitle").html(jData.title);
-                
-                $("#dateofpublicationtxt").text(jData.dateofPublication);
-                $("#journaltxt").text(jData.journal);
-                $("#abstracttxt").html(jData.abstractText);                        
+//                $("#selectedfusiongene").text(jData.fusion_pair);
+//                $("#selectedrowtitle").html(jData.sentence_highlight);
+//                $("#dateofpublicationtxt").text(jData.h_gene_highlight);
+//                $("#journaltxt").text(jData.t_gene_highlight);
+//                $("#abstracttxt").html(jData.disease_highlight);                        
             },
             error : function(xhr, status) {
 

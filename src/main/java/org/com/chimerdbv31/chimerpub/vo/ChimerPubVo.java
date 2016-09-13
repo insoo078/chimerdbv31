@@ -11,41 +11,36 @@ package org.com.chimerdbv31.chimerpub.vo;
  * @author Ik-Jung Choi <cij@ewha.ac.kr>
  */
 public class ChimerPubVo {
+    private int id;
     private String ChimerDB_Type;
     private String Fusion_pair;
-    private String gene5Junc;
-    private String gene3Junc;
+    private String Translocation;
     private String H_gene;
-    private String H_chr;
-    private String H_position;
-    private String H_strand;
     private String T_gene;
-    private String T_chr;
-    private String T_position;
-    private String T_strand;
-    private String Genomic_breakpoint;
-    private String Exon_breakpoint;
-    private String Breakpoint_Type;
-    private String Genome_Build_Version;
     private String PMID;
+    private String Score;
     private String Disease;
     private String Validation;
-    private String Score;
-    private String Title;
-    private String DateofPublication;
-    private String Journal;
-    private String AbstractText;
-    private String Frame;
-    private String Chr_info;
-    private String H_locus;
-    private String T_locus;
-    private String Kinase;
-    private String Oncogene;
-    private String Tumor_suppressor;
-    private String Receptor;
-    private String Transcription_Factor;
+    private int Kinase;
+    private int Oncogene;
+    private int Tumor_suppressor;
+    private int Receptor;
+    private int Transcription_Factor;
     private String ChimerKB;
     private String ChimerSeq;
+    private String Sentence_highlight;
+    private String H_gene_highlight;
+    private String T_gene_highlight;
+    private String Disease_highlight;
+    private String Validation_highlight;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getChimerDB_Type() {
         return ChimerDB_Type;
@@ -63,20 +58,12 @@ public class ChimerPubVo {
         this.Fusion_pair = Fusion_pair;
     }
 
-    public String getGene5Junc() {
-        return gene5Junc;
+    public String getTranslocation() {
+        return Translocation;
     }
 
-    public void setGene5Junc(String gene5Junc) {
-        this.gene5Junc = gene5Junc;
-    }
-
-    public String getGene3Junc() {
-        return gene3Junc;
-    }
-
-    public void setGene3Junc(String gene3Junc) {
-        this.gene3Junc = gene3Junc;
+    public void setTranslocation(String Translocation) {
+        this.Translocation = Translocation;
     }
 
     public String getH_gene() {
@@ -87,30 +74,6 @@ public class ChimerPubVo {
         this.H_gene = H_gene;
     }
 
-    public String getH_chr() {
-        return H_chr;
-    }
-
-    public void setH_chr(String H_chr) {
-        this.H_chr = H_chr;
-    }
-
-    public String getH_position() {
-        return H_position;
-    }
-
-    public void setH_position(String H_position) {
-        this.H_position = H_position;
-    }
-
-    public String getH_strand() {
-        return H_strand;
-    }
-
-    public void setH_strand(String H_strand) {
-        this.H_strand = H_strand;
-    }
-
     public String getT_gene() {
         return T_gene;
     }
@@ -119,68 +82,20 @@ public class ChimerPubVo {
         this.T_gene = T_gene;
     }
 
-    public String getT_chr() {
-        return T_chr;
-    }
-
-    public void setT_chr(String T_chr) {
-        this.T_chr = T_chr;
-    }
-
-    public String getT_position() {
-        return T_position;
-    }
-
-    public void setT_position(String T_position) {
-        this.T_position = T_position;
-    }
-
-    public String getT_strand() {
-        return T_strand;
-    }
-
-    public void setT_strand(String T_strand) {
-        this.T_strand = T_strand;
-    }
-
-    public String getGenomic_breakpoint() {
-        return Genomic_breakpoint;
-    }
-
-    public void setGenomic_breakpoint(String Genomic_breakpoint) {
-        this.Genomic_breakpoint = Genomic_breakpoint;
-    }
-
-    public String getExon_breakpoint() {
-        return Exon_breakpoint;
-    }
-
-    public void setExon_breakpoint(String Exon_breakpoint) {
-        this.Exon_breakpoint = Exon_breakpoint;
-    }
-
-    public String getBreakpoint_Type() {
-        return Breakpoint_Type;
-    }
-
-    public void setBreakpoint_Type(String Breakpoint_Type) {
-        this.Breakpoint_Type = Breakpoint_Type;
-    }
-
-    public String getGenome_Build_Version() {
-        return Genome_Build_Version;
-    }
-
-    public void setGenome_Build_Version(String Genome_Build_Version) {
-        this.Genome_Build_Version = Genome_Build_Version;
-    }
-
     public String getPMID() {
         return PMID;
     }
 
     public void setPMID(String PMID) {
         this.PMID = PMID;
+    }
+
+    public String getScore() {
+        return Score;
+    }
+
+    public void setScore(String Score) {
+        this.Score = Score;
     }
 
     public String getDisease() {
@@ -199,115 +114,43 @@ public class ChimerPubVo {
         this.Validation = Validation;
     }
 
-    public String getScore() {
-        return Score;
-    }
-
-    public void setScore(String Score) {
-        this.Score = Score;
-    }
-
-    public String getTitle() {
-        return Title;
-    }
-
-    public void setTitle(String Title) {
-        this.Title = Title;
-    }
-
-    public String getDateofPublication() {
-        return DateofPublication;
-    }
-
-    public void setDateofPublication(String DateofPublication) {
-        this.DateofPublication = DateofPublication;
-    }
-
-    public String getJournal() {
-        return Journal;
-    }
-
-    public void setJournal(String Journal) {
-        this.Journal = Journal;
-    }
-
-    public String getAbstractText() {
-        return AbstractText;
-    }
-
-    public void setAbstractText(String AbstractText) {
-        this.AbstractText = AbstractText;
-    }
-
-    public String getFrame() {
-        return Frame;
-    }
-
-    public void setFrame(String Frame) {
-        this.Frame = Frame;
-    }
-
-    public String getChr_info() {
-        return Chr_info;
-    }
-
-    public void setChr_info(String Chr_info) {
-        this.Chr_info = Chr_info;
-    }
-
-    public String getH_locus() {
-        return H_locus;
-    }
-
-    public void setH_locus(String H_locus) {
-        this.H_locus = H_locus;
-    }
-
-    public String getT_locus() {
-        return T_locus;
-    }
-
-    public void setT_locus(String T_locus) {
-        this.T_locus = T_locus;
-    }
-
-    public String getKinase() {
+    public int getKinase() {
         return Kinase;
     }
 
-    public void setKinase(String Kinase) {
+    public void setKinase(int Kinase) {
         this.Kinase = Kinase;
     }
 
-    public String getOncogene() {
+    public int getOncogene() {
         return Oncogene;
     }
 
-    public void setOncogene(String Oncogene) {
+    public void setOncogene(int Oncogene) {
         this.Oncogene = Oncogene;
     }
 
-    public String getTumor_suppressor() {
+    public int getTumor_suppressor() {
         return Tumor_suppressor;
     }
 
-    public void setTumor_suppressor(String Tumor_suppressor) {
+    public void setTumor_suppressor(int Tumor_suppressor) {
         this.Tumor_suppressor = Tumor_suppressor;
     }
 
-    public String getReceptor() {
+    public int getReceptor() {
         return Receptor;
     }
 
-    public void setReceptor(String Receptor) {
+    public void setReceptor(int Receptor) {
         this.Receptor = Receptor;
     }
 
-    public String getTranscription_Factor() {
+    public int getTranscription_Factor() {
         return Transcription_Factor;
     }
 
-    public void setTranscription_Factor(String Transcription_Factor) {
+    public void setTranscription_Factor(int Transcription_Factor) {
         this.Transcription_Factor = Transcription_Factor;
     }
 
@@ -326,6 +169,48 @@ public class ChimerPubVo {
     public void setChimerSeq(String ChimerSeq) {
         this.ChimerSeq = ChimerSeq;
     }
+
+    public String getSentence_highlight() {
+        return Sentence_highlight;
+    }
+
+    public void setSentence_highlight(String Sentence_highlight) {
+        this.Sentence_highlight = Sentence_highlight;
+    }
+
+    public String getH_gene_highlight() {
+        return H_gene_highlight;
+    }
+
+    public void setH_gene_highlight(String H_gene_highlight) {
+        this.H_gene_highlight = H_gene_highlight;
+    }
+
+    public String getT_gene_highlight() {
+        return T_gene_highlight;
+    }
+
+    public void setT_gene_highlight(String T_gene_highlight) {
+        this.T_gene_highlight = T_gene_highlight;
+    }
+
+    public String getDisease_highlight() {
+        return Disease_highlight;
+    }
+
+    public void setDisease_highlight(String Disease_highlight) {
+        this.Disease_highlight = Disease_highlight;
+    }
+
+    public String getValidation_highlight() {
+        return Validation_highlight;
+    }
+
+    public void setValidation_highlight(String Validation_highlight) {
+        this.Validation_highlight = Validation_highlight;
+    }
     
+    
+
     
 }

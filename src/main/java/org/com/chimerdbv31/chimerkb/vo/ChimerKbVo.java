@@ -11,6 +11,7 @@ package org.com.chimerdbv31.chimerkb.vo;
  * @author Ik-Jung Choi <cij@ewha.ac.kr>
  */
 public class ChimerKbVo {
+    private int id;
     private String ChimerDB_Type;
     private String Source;
     private String webSource;
@@ -29,24 +30,26 @@ public class ChimerKbVo {
     private String Exon_breakpoint;
     private String Breakpoint_Type;
     private String Genome_Build_Version;
-    private String H_tanscript;
-    private String H_exon;
-    private String T_tanscript;
-    private String T_exon;
     private String PMID;
     private String Disease;
     private String Validation;
     private String Frame;
     private String Chr_info;
-    private String H_locus;
-    private String T_locus;
     private int Kinase;
     private int Oncogene;
     private int Tumor_suppressor;
     private int Receptor;
     private int Transcription_Factor;
-    private String ChimerSeq;
     private String ChimerPub;
+    private String ChimerSeq;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getChimerDB_Type() {
         return ChimerDB_Type;
@@ -192,38 +195,6 @@ public class ChimerKbVo {
         this.Genome_Build_Version = Genome_Build_Version;
     }
 
-    public String getH_tanscript() {
-        return H_tanscript;
-    }
-
-    public void setH_tanscript(String H_tanscript) {
-        this.H_tanscript = H_tanscript;
-    }
-
-    public String getH_exon() {
-        return H_exon;
-    }
-
-    public void setH_exon(String H_exon) {
-        this.H_exon = H_exon;
-    }
-
-    public String getT_tanscript() {
-        return T_tanscript;
-    }
-
-    public void setT_tanscript(String T_tanscript) {
-        this.T_tanscript = T_tanscript;
-    }
-
-    public String getT_exon() {
-        return T_exon;
-    }
-
-    public void setT_exon(String T_exon) {
-        this.T_exon = T_exon;
-    }
-
     public String getPMID() {
         return PMID;
     }
@@ -262,22 +233,6 @@ public class ChimerKbVo {
 
     public void setChr_info(String Chr_info) {
         this.Chr_info = Chr_info;
-    }
-
-    public String getH_locus() {
-        return H_locus;
-    }
-
-    public void setH_locus(String H_locus) {
-        this.H_locus = H_locus;
-    }
-
-    public String getT_locus() {
-        return T_locus;
-    }
-
-    public void setT_locus(String T_locus) {
-        this.T_locus = T_locus;
     }
 
     public int getKinase() {
@@ -320,14 +275,6 @@ public class ChimerKbVo {
         this.Transcription_Factor = Transcription_Factor;
     }
 
-    public String getChimerSeq() {
-        return ChimerSeq;
-    }
-
-    public void setChimerSeq(String ChimerSeq) {
-        this.ChimerSeq = ChimerSeq;
-    }
-
     public String getChimerPub() {
         return ChimerPub;
     }
@@ -336,4 +283,15 @@ public class ChimerKbVo {
         this.ChimerPub = ChimerPub;
     }
 
+    public String getChimerSeq() {
+        return ChimerSeq;
+    }
+
+    public void setChimerSeq(String ChimerSeq) {
+        this.ChimerSeq = ChimerSeq;
+    }
+
+    
+    
+    
 }
