@@ -1,0 +1,11 @@
+.junction_label_pos{
+	float:left;width:150px;background:none;
+}
+
+.junction_label_ucsc{
+	float:left;width:50px;margin-left:10px;background:purple;color:white;cursor:pointer;
+}
+
+#chimerSeqTbl tbody tr {
+	cursor:pointer;
+}

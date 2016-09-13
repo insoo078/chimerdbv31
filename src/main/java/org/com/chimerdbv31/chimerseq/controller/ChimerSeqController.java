@@ -2,11 +2,10 @@ package org.com.chimerdbv31.chimerseq.controller;
 
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Type;
+import org.com.chimerdbv31.chimerseq.com.Utilities;
 import org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm;
 
 import org.com.chimerdbv31.chimerseq.services.ChimerSeqService;
@@ -133,20 +132,42 @@ public class ChimerSeqController {
 	@ResponseBody
 	public String getTheRowLeft( HttpServletRequest request) throws Exception{
 		Gson gson = new Gson();
+
+		ChimerSeqQueryForm model = gson.fromJson(request.getParameter("formData"), ChimerSeqQueryForm.class);		// 사용자가 입력한 query form
+
+		return this.searchChimerSeq(model, request);
+    }
+	
+	private String searchChimerSeq(ChimerSeqQueryForm model, HttpServletRequest request) throws Exception{
+		Gson gson = new Gson();
 		
 		com.google.gson.JsonObject obj = new com.google.gson.JsonObject();
 
-		ChimerSeqQueryForm model = gson.fromJson(request.getParameter("formData"), ChimerSeqQueryForm.class);		// 사용자가 입력한 query form
-		String searchKeyword = request.getParameter("search[value]");												// jQuery datatable에서 입력받은 search keyword
-		String sortOrderDir = request.getParameter("order[0][dir]");												// jQuery datatable에서 얻어온 정렬 방향 (ASC or DESC)
-		int pagingStart = Integer.parseInt( request.getParameter("start") );										// jQuery datatable에서 얻어온 페이지 시작 번호 (1)
-		int displaySize = Integer.parseInt( request.getParameter("length") );										// jQuery datatable에서 얻어온 한 테이블에서 보여질 데이터 size
-		String sortedKey = request.getParameter("order[0][column]");												// jQuery datatable에서 얻어온 정렬 필드 번호
+		String strStart = request.getParameter("start");
+		String strLength = request.getParameter("length");
+		String strSortedKey = request.getParameter("order[0][column]");
+		
+		if( strStart != null )	strStart = Utilities.emptyToNull( strStart.replace("null", "") );
+		if( strLength != null )	strLength = Utilities.emptyToNull( strLength.replace("null", "") );
+		if( strSortedKey != null )	strSortedKey = Utilities.emptyToNull( strSortedKey.replace("null", "") );
+
+		if( strStart != null )		strStart = request.getParameter("start");
+		else						strStart = "1";
+		if( strLength != null )		strLength = request.getParameter("length");
+		else						strLength = "10";
+		if( strSortedKey != null )	strSortedKey = request.getParameter("length");
+		else						strSortedKey = "1";
+		
+		String searchKeyword = request.getParameter("search[value]");						// jQuery datatable에서 입력받은 search keyword
+		String sortOrderDir = request.getParameter("order[0][dir]");						// jQuery datatable에서 얻어온 정렬 방향 (ASC or DESC)
+		int pagingStart = Integer.parseInt( strStart );										// jQuery datatable에서 얻어온 페이지 시작 번호 (1)
+		int displaySize = Integer.parseInt( strLength );									// jQuery datatable에서 얻어온 한 테이블에서 보여질 데이터 size
+		int sortedKey = Integer.parseInt( strSortedKey );						// jQuery datatable에서 얻어온 정렬 필드 번호
 
 		model.validateData();
 		model.setStart( pagingStart );
 		model.setLength( displaySize );
-		model.setSortKey( Integer.parseInt( sortedKey ) );
+		model.setSortKey( sortedKey );
 		model.setSearchKeyword( Strings.emptyToNull(searchKeyword) );
 		model.setSortOrderDir(sortOrderDir);
 
@@ -159,10 +180,22 @@ public class ChimerSeqController {
 		obj.addProperty("iTotalRecords", totalNum);
 		obj.addProperty("iTotalDisplayRecords", totalNum);
 		obj.add("aaData", gson.toJsonTree(dataList));
-		
+
 		String resultJson = obj.toString();
 
 		return resultJson;
+	}
+	
+	
+	@RequestMapping(value="chimerseq_link",method=RequestMethod.GET)
+	@ResponseBody
+	public String linkToChimerSeq( HttpServletRequest request) throws Exception{
+		ChimerSeqQueryForm model = new ChimerSeqQueryForm();
+		String gene_pair = request.getParameter("gene_pair");
+
+		model.setByGenePairTxt(gene_pair);
+
+		return this.searchChimerSeq(model, request);
     }
 
 	/**

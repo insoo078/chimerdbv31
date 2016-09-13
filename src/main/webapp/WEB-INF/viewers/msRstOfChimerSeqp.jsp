@@ -19,6 +19,7 @@
 <link type="text/css" rel="stylesheet" href="resources/css/templatemo_main.css"/>
 
 <link type="text/css" rel="stylesheet" href="resources/css/chimerdbv3.css"/>
+<link type="text/css" rel="stylesheet" href="resources/css/chimerseq.css"/>
 <style type="text/css">
     .kFont{font-weight: bold;color: #F00;}
     .base_line{

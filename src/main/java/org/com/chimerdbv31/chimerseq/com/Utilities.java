@@ -20,4 +20,11 @@ public class Utilities {
 		
 		return false;
 	}
+	
+	public static String emptyToNull(String str) {
+		if( str != null ) {
+			if( str.trim().equals("") )	return null;
+		}
+		return str;
+	}
 }
