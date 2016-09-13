@@ -50,29 +50,32 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 			.attr("width", canvasRect.width)
 			.attr("height", this.config.canvasHeight);
 	
-//		var tmp = this.config.canvas.append("rect").attr("x", 100).attr("y", 100).attr("width", 30).attr("height", 30).attr("fill", "red");
-//	var nodes = [{ id: 0, x: 10, y: 10 }, { id: 1, x: 600, y: 10 }];
-//	
-//	var drag = d3.behavior.drag()
-//            .origin(function (d) {
-//              return { x: d.x, y: d.y };
-//            })
-//            .on("drag", dragged);
-//	
-////	this.config.canvas.append("g").selectAll("rect").data(nodes).enter().append("rect")
-////    .attr("x", function (d) { return d.x })
-////    .attr("y", function (d) { return d.y })
-////    .attr("width", 30)
-////    .attr("height", 30)
-////	.attr("fill", "red")
-//    tmp.call(drag);
-//	var drag = d3.behavior.drag()
-//		.origin(function (d) {
-//              return { x: d.x, y: d.y };
-//            })
-//        .on("drag", dragged);
-//
-//	tmp.call(drag);
+		var thisobj = this;
+
+		var drag = d3.behavior.drag()
+				.on("drag", function(d) {
+					thisobj.config.currentXPos -= d3.event.dx;
+
+					d3.select("svg").remove();
+					
+					var canvasRect = d3.select(thisobj.config.container).node().getBoundingClientRect();
+					
+					thisobj.config.canvas = d3.select(thisobj.config.container)
+					.append("svg")
+					.attr("id", "canvas")
+					.attr("width", canvasRect.width)
+					.attr("height", thisobj.config.canvasHeight);
+			
+					thisobj.config.canvas.call(drag);
+			
+					thisobj.init( thisobj.config );
+
+					thisobj.initDefs();
+					
+					thisobj.redraw();
+				});
+
+		this.config.canvas.call(drag);
 	
 		this.config.canvas.call( chromosomeTip );
 		this.config.canvas.call( exonTip );
@@ -123,7 +126,7 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 	}
 	
 	if( !this.config.MARGIN_BETWEEN_BACKBONES ) {
-		this.config.MARGIN_BETWEEN_BACKBONES = 1.5 * this.config.sideMargin;
+		this.config.MARGIN_BETWEEN_BACKBONES = 3 * this.config.sideMargin;
 	}
 	
 	if( !this.config.DOMAIN_COLOURS ) {
@@ -143,6 +146,10 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 
 	this.initDefs();
 
+	this.redraw();
+};
+
+ChimeraDbV3ViewerWithOutChromosome.prototype.redraw = function( ) {
 	var isAllowedReversed = true;
 	var drawingType = 1;
 	var isPacked = true;
@@ -1040,9 +1047,9 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawDonorGeneBackbone = function( c
 				var y2 = config.GENE_BACKBONE_Y;
 
 				if( d.type === "3pGene" ) {
-					var backbone5pGeneRect = d3.select("#fusion-gene-backbone-5pGene").node().getBoundingClientRect();
+					var backbone5pGeneRect = d3.select("#fusion-gene-backbone-5pGene").node().getBBox();
 
-					x1 = relativeOffsetX(backbone5pGeneRect, canvasRect) + backbone5pGeneRect.width + (config.MARGIN_BETWEEN_BACKBONES/2);
+					x1 = backbone5pGeneRect.x + backbone5pGeneRect.width + config.MARGIN_BETWEEN_BACKBONES;
 				}
 
 				x2 += x1;
@@ -1706,6 +1713,9 @@ function isOverlappedPoint( range, point ) {
 	return false;
 }
 
-function dragged(d) {
-  d3.select(this).attr("x", d.x = d3.event.x).attr("y", d.y = d3.event.y);
-}
+//function dragged(d) {
+//	var svg = d3.select("svg");
+//	var t = d3.transform(svg.attr("transform")).translate;
+//	
+//	console.log( d3.event.dx );
+//}
