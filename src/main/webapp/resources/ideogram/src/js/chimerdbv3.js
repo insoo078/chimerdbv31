@@ -153,8 +153,10 @@ var ChimeraDbV3ViewerWithOutChromosome = function( config ) {
 	this.drawFusionGeneStructure( this.config, drawingType, isAllowedReversed, isPacked, isConservedPfamDomainColor );
 	
 	this.drawFustionTranscriptStructure( this.config, drawingType, isAllowedReversed, isPacked, isConservedPfamDomainColor );
+	
+	
+	this.validateSvgSize();
 };
-
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.init = function( config ) {
 	// Gene length
@@ -182,6 +184,13 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.init = function( config ) {
 		drawingObj[obj.type] = { gene_length:eachGeneLength, screenObj:screenObj, exon_length:wholeExonLength, whole_intron_length:wholeIntronLength, final_unit_nt_size:final_unit_nt_size, no_of_intron_size:no_of_intron_size };
 	}
 	this.config.drawingObj = drawingObj;
+};
+
+ChimeraDbV3ViewerWithOutChromosome.prototype.validateSvgSize = function() {
+	var lastRect = d3.select("#fused-transcript-structure-label").node().getBBox();
+
+	var DOMAINS_HEIGHT = lastRect.y + lastRect.height + 30;
+	d3.select("svg").attr("height", DOMAINS_HEIGHT);
 };
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptLabel= function( config, labelData ){
