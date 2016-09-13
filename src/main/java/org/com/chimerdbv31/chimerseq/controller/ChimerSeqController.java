@@ -155,7 +155,7 @@ public class ChimerSeqController {
 		else						strStart = "1";
 		if( strLength != null )		strLength = request.getParameter("length");
 		else						strLength = "10";
-		if( strSortedKey != null )	strSortedKey = request.getParameter("length");
+		if( strSortedKey != null )	strSortedKey = request.getParameter("order[0][column]");
 		else						strSortedKey = "1";
 		
 		String searchKeyword = request.getParameter("search[value]");						// jQuery datatable에서 입력받은 search keyword

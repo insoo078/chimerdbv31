@@ -138,10 +138,10 @@
                                                                 <td><c:out value="${chimerKbLst.getSource()}" /></td>
                                                                 <td style="text-align: center;">
                                                                     <c:if test="${chimerKbLst.getChimerPub() == 1}">
-                                                                        <span style="color: #ffffff; border: 1px #3071a9 solid; border-radius:4px; background-color:#3071a9; font-size:12px; font-weight:bold;">Pub</span>&nbsp;
+                                                                        <span class="chimerdb-icon">Pub</span>
                                                                     </c:if>
                                                                     <c:if test="${chimerKbLst.getChimerSeq() == 1}">
-                                                                        <span style="color: #ffffff; border: 1px #3071a9 solid; border-radius:4px; background-color:#3071a9; font-size:12px; font-weight:bold;">Seq</span>&nbsp;
+                                                                        <span class="chimerdb-icon">Seq</span>
                                                                     </c:if>
                                                                 </td>
                                                                 <td><c:out value="${chimerKbLst.getPMID()}" /></td>

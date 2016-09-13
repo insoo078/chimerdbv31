@@ -140,7 +140,7 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 	var obj = this;
 
 	var mainTable = $( this.config.container ).DataTable({
-		"dom":"T<'clear'>frtilp",
+		"dom":"Tfrt<'row'<'col-md-2'l><'col-md-5'i><'col-md-5'p>>",
 		"scrollX":true,
 		"tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
 		"processing": true,
@@ -175,8 +175,12 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 
 			var tmp = aData.supported.split("_");
 
-			if( tmp[0]==='1' ) imgTag += "<img src='./resources/images/icons/ickb.png'></img>";
-			if( tmp[1]==='1' ) imgTag += "<img src='./resources/images/icons/icpub.png'></img>";
+			var pubIcon = "<span class='chimerdb-icon'>Pub</span>";
+			var kbIcon = "<span class='chimerdb-icon'>KB</span>";
+			
+			if( tmp[0]==='1' ) imgTag += pubIcon;
+			if( tmp[1]==='1' ) imgTag += kbIcon;
+			
 			
 			$('td:eq(8)', nRow).html(imgTag); // where 4 is the zero-origin visible column in the HTML
 
@@ -290,13 +294,17 @@ ChimerSeqResult.prototype.showDetailInfo = function(rowdata) {
 			$("#srt_td_frame").text( jData.frame );
 			$("#srt_td_chr_info").text( jData.chr_info );
 
+			var pubIcon = "<span class='chimerdb-icon'>Pub</span>";
+			var kbIcon = "<span class='chimerdb-icon'>KB</span>";
+			
 			var supported = "";
-			if( jData.chimerKB > 0 ) {
-				supported += "<img class='chimerkb-btn' src='./resources/images/icons/ickb.png' style='margin-left:5px;'></img>";
-			}
 			if( jData.chimerPub > 0 ) {
-				supported += " <img class='chimerpub-btn' src='./resources/images/icons/icpub.png' style='margin-left:5px;'></img>";
+				supported += pubIcon;
 			}
+			if( jData.chimerKB > 0 ) {
+				supported += kbIcon;
+			}
+
 			$("#srt_td_supported").html( supported );
 
 			ChimerSeq.initUcscSettings( rowdata );

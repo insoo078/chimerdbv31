@@ -3,7 +3,7 @@
 }
 
 .junction_label_ucsc{
-	float:left;width:50px;margin-left:10px;background:purple;color:white;cursor:pointer;
+	float:left;width:50px;margin-left:10px;background:purple;color:white;cursor:pointer;font-weight:bold;border-radius:4px;
 }
 
 #chimerSeqTbl tbody tr {
