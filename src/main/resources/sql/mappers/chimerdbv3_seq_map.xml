@@ -356,7 +356,7 @@
 	
 	<select id="getTcgaCancerTypes" resultType="java.lang.String">
 		<![CDATA[
-		SELECT DISTINCT CancerType FROM ChimerSeq_ver7
+		SELECT DISTINCT CancerType FROM ChimerSeq
 		WHERE CancerType <> 'NA'
 		ORDER BY CancerType
 		]]>
