@@ -59,7 +59,7 @@
                     <div class="templatemo-panels">
                         <div class="panel panel-primary">
                             <div class="panel-body" style="text-align: center;">
-                                <img alt="" src="resources/images/chimerdbv3_main2.png" style="width: 95%; height: 95%;" />
+                                <img alt="" src="resources/images/chimerdbv3_main_final.png" style="width: 80%; height: 80%;" />
                             </div>
                         </div>
                     </div>

@@ -17,7 +17,7 @@
         <li><a href="mchimerseq.cdb"> <span id="mmchimerseqbtn" class="mmAtagcss" >ChimerSeq</span> </a></li>
         <li><a href="mstatistic.cdb"> <span id="mmstatisticbtn" class="mmAtagcss" >Statistic</span> </a></li>
         <li><a href="mhelp.cdb"> <span id="mmhelpbtn" class="mmAtagcss" >Help</span> </a></li>
-        <li><a href="#"> <span id="mmdownloadbtn" class="mmAtagcss" >Download</span> </a></li>
+        <li><a href="mdownload.cdb"> <span id="mmdownloadbtn" class="mmAtagcss" >Download</span> </a></li>
       </ul>
     </div>
     <div>

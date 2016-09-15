@@ -1,15 +1,8 @@
 package org.com.chimerdbv31.common.controller;
 
-import java.util.List;
-import java.util.Locale;
-import javax.annotation.Resource;
-import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.com.chimerdbv31.chimerkb.vo.ChimerKbVo;
-import org.com.chimerdbv31.chimerseq.mapper.ChimerSeqMapper;
-import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,31 +23,35 @@ public class CommonController {
 //	private ChimerSeqMapper chimerSeqService;
 //
         
-        @RequestMapping(value="/mindex", method = RequestMethod.GET)
-        public ModelAndView indexPage() throws RuntimeException{
-            ModelAndView result = new ModelAndView("mindexp");
-            return result;
-        }
-		
-		@RequestMapping(value="/description_popup", method = RequestMethod.GET)
-        public ModelAndView descPopup() throws RuntimeException{
-            ModelAndView result = new ModelAndView("/popup/description");
-            return result;
-        }
+	@RequestMapping(value="/mindex", method = RequestMethod.GET)
+	public ModelAndView indexPage() throws RuntimeException{
+		ModelAndView result = new ModelAndView("mindexp");
+		return result;
+	}
 
-        @RequestMapping(value="/mstatistic", method = RequestMethod.GET)
-        public ModelAndView statisticPage() throws RuntimeException{
-            ModelAndView result = new ModelAndView("mstatisticp");
-            return result;
-        }
+	@RequestMapping(value="/description_popup", method = RequestMethod.GET)
+	public ModelAndView descPopup() throws RuntimeException{
+		ModelAndView result = new ModelAndView("/popup/description");
+		return result;
+	}
 
-        @RequestMapping(value="/mhelp", method = RequestMethod.GET)
-        public ModelAndView helpPage() throws RuntimeException{
-            ModelAndView result = new ModelAndView("mhelpp");
-            return result;
-        }
-		
-	
+	@RequestMapping(value="/mstatistic", method = RequestMethod.GET)
+	public ModelAndView statisticPage() throws RuntimeException{
+		ModelAndView result = new ModelAndView("mstatisticp");
+		return result;
+	}
+
+	@RequestMapping(value="/mhelp", method = RequestMethod.GET)
+	public ModelAndView helpPage() throws RuntimeException{
+		ModelAndView result = new ModelAndView("mhelpp");
+		return result;
+	}
+
+	@RequestMapping(value="/mdownload", method = RequestMethod.GET)
+	public ModelAndView downloadPage() throws RuntimeException{
+		ModelAndView result = new ModelAndView("mdownload");
+		return result;
+	}
     
     @RequestMapping(value="/descofgene",method=RequestMethod.POST)
     @ResponseBody

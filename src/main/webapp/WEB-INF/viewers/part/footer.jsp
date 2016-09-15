@@ -3,12 +3,19 @@
 
 <footer class="templatemo-footer">
     <div class="row">
-        <div class="col-md-6" style="height: 100px;"></div>
-        <div class="col-md-6" style="height: 100px;"></div>
+        <div class="col-md-6" style="height: 30px;"></div>
+        <div class="col-md-6" style="height: 30px;"></div>
     </div>
     
     <div class="chimerdb-copyright">
-		<p>Copyright &copy; 2084 Your Company Name</p>
+		<p>
+			<div>
+				<div>
+					<img alt="" src="resources/images/footer_symbol/main_symbol_ercsb.png" />
+					<img alt="" src="resources/images/footer_symbol/main_symbol_kobic.png" style="margin-left:20px;"/>
+				</div>
+			</div>
+		</p>
     </div>
 </footer>
 

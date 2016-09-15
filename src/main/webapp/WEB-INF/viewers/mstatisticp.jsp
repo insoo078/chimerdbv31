@@ -31,6 +31,48 @@
 <div id="main-wrapper">
     <div class="template-page-wrapper">
         <div class="templatemo-content-wrapper">
+			
+			<div class="row margin-bottom-30" style="margin-top: 30px;">
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+                    
+                    <div class="templatemo-panels">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <span style="font-size: 20px; font-weight: bold;">Table</span>
+                            </div>
+                            <div class="panel-body">
+								<img alt="" src="resources/images/chimerdbv3_statistics_table.png" style="width: 100%; height: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-md-5">
+                    
+                    <div class="templatemo-panels">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <span style="font-size: 20px; font-weight: bold;">Venn Diagram</span>
+                            </div>
+                            <div class="panel-body">
+								<img alt="" src="resources/images/chimerdbv3_statistics_diagram.png" style="width: 100%; height: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+		</div>
+	</div>
+</div>
+
+<!--
+<div id="main-wrapper">
+    <div class="template-page-wrapper">
+        <div class="templatemo-content-wrapper">
             
             <div class="row margin-bottom-15" style="margin-top: 30px;">
                 <div class="col-md-1"></div>
@@ -166,6 +208,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>
@@ -239,8 +282,7 @@
             
         </div>
     </div>
-</div>
-
+</div>-->
 
 <!-- content -->
 <%@include file="part/footer.jsp" %>
