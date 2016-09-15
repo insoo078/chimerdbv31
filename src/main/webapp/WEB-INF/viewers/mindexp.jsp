@@ -122,17 +122,19 @@
                             </div>
                             <div class="panel-body">
                                 <ul>
-                                    <li>
+                                    <li class='reference'>
                                         <span style="font-weight: bold;">ChimerDB 3.0 :</span>
                                         <span style="font-size: 14px;">an enhanced database of fusion genes with cancer transcriptome and literature data mining. in press</span>
                                     </li>
-                                    <li>
-                                        <a href="http://biome.ewha.ac.kr:8080/FusionGene" target="_blank"><span style="font-weight: bold;">ChimerDB 2.0 :</span></a>
+                                    <li class='reference'>
+                                        <a href="http://www.ncbi.nlm.nih.gov/pubmed/19906715" target="_blank"><span style="font-weight: bold;">ChimerDB 2.0 :</span></a>
                                         <span style="font-size: 13px;">a knowledgebase for fusion genes updated. Kim P, Yoon S, Kim N, Lee S, Ko M, Lee H, Kang H, Kim J, Lee S. Nucleic Acids Res. 2010 Jan;38(Database issue):D81-5.</span>
+										<span id='chimerdbv2_site' class='site_link'>Website</span>
                                     </li>
-                                    <li>
-                                        <a href="http://genome.ewha.ac.kr/ChimerDB" target="_blank"><span style="font-weight: bold;">ChimerDB :</span></a>
+                                    <li class='reference'>
+                                        <a href="http://www.ncbi.nlm.nih.gov/pubmed/16381848" target="_blank"><span style="font-weight: bold;">ChimerDB :</span></a>
                                         <span style="font-size: 14px;">a knowledgebase for fusion sequences. Kim N, Kim P, Nam S, Shin S, Lee S. Nucleic Acids Res. 2006 Jan 1;34(Database issue):D21-4.</span>
+										<span id='chimerdbv1_site' class='site_link'>Website</span>
                                     </li>
                                 </ul>
                             </div>

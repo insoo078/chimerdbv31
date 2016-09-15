@@ -273,3 +273,15 @@ text.text-hover {
 .chimerdb-icon{
 	display:inline-block;width:26px; color: #ffffff; border: 1px #3071a9 solid; border-radius:4px; background-color:#3071a9; font-size:12px; font-weight:bold; margin-left:5px;text-align:center;
 }
+
+.site_link{
+	background:purple;color:white;font-weight:bold;margin-left:5px;display:inline-block;width:70px;text-align: center;border-radius: 4px;cursor:pointer;height:25px;line-height:25px;
+}
+
+.reference{
+	height:27px;line-height:27px;
+}
+
+.shadow{
+		box-shadow: 0px 0px 5px #888888;
+}
