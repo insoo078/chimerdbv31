@@ -173,7 +173,7 @@
 
                             <div class="row margin-bottom-15">
                                 <div class="col-md-3">
-                                    <span style="font-size: 15px; font-weight: bold;">&ndash;&nbsp;&nbsp;Function Type</span>
+                                    <span style="font-size: 15px; font-weight: bold;">&ndash;&nbsp;&nbsp;Chromosome Type</span>
                                 </div>
                                 <div class="col-md-9">
                                     <label class="checkbox-inline" style="margin-right: 20px;"><input type="checkbox" id="chimrKb_fbyfusn_inter_chr_chk" value="inter_chr">Inter chromosomal</label>

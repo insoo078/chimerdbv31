@@ -192,7 +192,7 @@
 
 									<div class="row margin-bottom-15">
 										<div class="col-md-11 col-md-offset-1">
-											<label class="checkbox-inline"><form:checkbox path="chkChimerDbV2" value="on" checked="true"/>ChimerDB 2.0 SRA</label>
+											<label class="checkbox-inline"><form:checkbox path="chkChimerDbV2" value="on" checked="true"/>ChimerDB 2.0</label>
 										</div>
 									</div>
 									<div class="row margin-bottom-15">
@@ -235,7 +235,7 @@
 
 										<div class="row margin-bottom-15">
 											<div class="col-md-3">
-												<span style="font-size: 15px; font-weight:bold;">&ndash;&nbsp;&nbsp;Function type</span>
+												<span style="font-size: 15px; font-weight:bold;">&ndash;&nbsp;&nbsp;Chromosome type</span>
 											</div>
 											<div class="col-md-9">
 												<label class="checkbox-inline"><form:checkbox path="chkInterChromosomal" value="on"/>Inter chromosomal</label>
