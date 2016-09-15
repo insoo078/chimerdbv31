@@ -2,9 +2,11 @@ package org.com.chimerdbv31.chimerseq.controller;
 
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
+import java.io.IOException;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.com.chimerdbv31.chimerseq.com.Utilities;
 import org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm;
 
@@ -249,5 +251,12 @@ public class ChimerSeqController {
 		ModelAndView result = new ModelAndView("mindexp");
 		
 		return result;
+	}
+	
+	@RequestMapping(value="/bed", method = RequestMethod.GET)
+	public void getBed(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		String gene = request.getParameter("gene");
+
+		response.sendRedirect("resources/data/bed/bedfile_EML4ALK.bed");
 	}
 }
