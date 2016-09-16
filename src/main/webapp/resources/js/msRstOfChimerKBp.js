@@ -53,6 +53,7 @@ $(document).ready(function () {
 
 
 function showDesc(popupdataobj){
+	console.log( popupdataobj );
     $("#selectedrowtitle").text( popupdataobj[0] );
     $("#srt_td_5gene_nm").text( popupdataobj[13] );
     $("#srt_td_3gene_nm").text( popupdataobj[17] );
@@ -95,7 +96,6 @@ function showDesc(popupdataobj){
     $("#srt_td_frame").text( popupdataobj[5] );
     $("#srt_td_chr_info").text( popupdataobj[6] );
     $("#srt_td_supported").html( popupdataobj[8] )
-
 }
 
 

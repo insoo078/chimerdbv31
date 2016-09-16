@@ -50,6 +50,7 @@
     var searchType = "<c:out value="${search_type}" />";
 </script>
 
+<script type="text/javascript" src="resources/js/chimerdbv3_common.js"></script>
 <script type="text/javascript" src="resources/js/msRstOfChimerPubp.js"></script>
 
 </head>
