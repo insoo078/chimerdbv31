@@ -14,6 +14,7 @@ import org.com.chimerdbv31.chimerseq.com.Utilities;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
 import org.com.chimerdbv31.chimerseq.vo.PfamVo;
+import org.com.chimerdbv31.chimerseq.vo.ReadVo;
 
 /**
  *
@@ -28,10 +29,12 @@ public class GeneObj extends GeneBaseObj{
 	private String strand;
 	private String phase;
 	private String fusionLocation;							// 5' or 3'
-	private Map<String, String> attributesMap;	
+	private Map<String, String> attributesMap;
 
 	private TranscriptObj canonicalTranscript;				// transcript hierachy
 	private List<PfamVo> pFamDomainList;					// domain list
+	
+	private List<ReadVo> reads;
 	
 	private int length;
 	private int noOfExons;
@@ -242,4 +245,15 @@ public class GeneObj extends GeneBaseObj{
 //			}
 //		}
 //	}
+
+	public List<ReadVo> getReads() {
+		return reads;
+	}
+
+	public void setReads(List<ReadVo> reads) {
+		this.reads = new ArrayList<ReadVo>();
+		for(ReadVo vo:reads) {
+			if( vo.getType().equals( this.fusionLocation.replace("\'", "p") ) ) this.reads.add( vo );
+		} 
+	}
 }

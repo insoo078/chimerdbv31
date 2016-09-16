@@ -430,10 +430,14 @@
 	</select>
 	
 	<select id="getSynonym" resultType="org.com.chimerdbv31.chimerseq.vo.SynonymVo">  
-		select 
+		SELECT 
 		  gene_id
-		  , concat(symbol,'|', synonyms) txt
-		from I1_Gene_Info
+		  , CONCAT(symbol,'|', synonyms) txt
+		FROM I1_Gene_Info
+	</select>
+	
+	<select id="getReads" parameterType="java.util.Map" resultType="org.com.chimerdbv31.chimerseq.vo.ReadVo">
+		SELECT id, gene_pair, type, chr, start, end FROM I1_AlignedReads
 	</select>
 </mapper>
 

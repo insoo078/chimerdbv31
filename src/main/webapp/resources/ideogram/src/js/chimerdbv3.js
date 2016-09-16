@@ -296,6 +296,51 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptLabel= function
 		.text( function(d){return d.name;} );
 };
 
+ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptAlignedReads = function( config, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
+	var fusedExons = config.fusionInfo.fusedExons;
+	var read_color = ["gray", "lightgray"];
+	for( var i=0; i<config.fusion_genes.length;i++) {
+		var obj = config.fusion_genes[i];
+		
+		var exons = fusedExons[obj.type==='5pGene'?"5'":"3'"];
+				
+		var exonPos = config.fusedExonsOnScreen[obj.type];
+
+		var parentGroup = d3.select("#fused-transcript-backbone-"+obj.type);
+
+		var readsGroup = parentGroup.append("g").attr("class", "fused-transcript-reads-group-"+obj.type);
+
+		var yPos = d3.select("#fused-transcript-backbone-line-"+obj.type).attr("y1");
+		yPos = parseFloat(yPos) + (config.EXON_HEIGHT/2) + 2;
+
+		var reads = config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].reads;
+		
+		var transcript_region = {start:exons[0].start, end:exons[exons.length-1].end };
+		if( config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].strand === '-' )
+			transcript_region = {start:exons[exons.length-1].start, end:exons[0].start};
+		
+		var posStart = exonPos.exons[ exons[0].elementIndex ];
+		var posEnd = exonPos.exons[ exons[exons.length-1].elementIndex ];
+
+		var unit = ((posEnd.x1+posEnd.width) - posStart.x1) / (transcript_region.end - transcript_region.start + 1);
+		
+		for(var j=0; j<reads.length; j++) {
+			var diff = reads[j].start - transcript_region.start;
+			
+			var x1 = posStart.x1 + (diff*unit);
+			var width = (reads[j].end - reads[j].start + 1) * unit;
+	
+			readsGroup.append("rect")
+						.classed("read-feature-rect", true)
+						.attr("fill", read_color[i])
+						.attr("x", x1)
+						.attr("y", yPos + (j*5))
+						.attr("width", width)
+						.attr("height", 3);
+		}
+	}
+};
+
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptPfamdomains = function( config, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
 	var fusedExons = config.fusionInfo.fusedExons;
 
@@ -578,7 +623,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptBackbone = func
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFustionTranscriptStructure = function(config, drawingType, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
 	this.drawFusionTranscriptBackbone( config );
 	this.drawFusionTranscriptExons( config );
-	this.drawFusionTranscriptPfamdomains( config, isAllowedReverse, isPacked, isConservedPfamDomainColor );
+//	this.drawFusionTranscriptPfamdomains( config, isAllowedReverse, isPacked, isConservedPfamDomainColor );
+	this.drawFusionTranscriptAlignedReads( config, isAllowedReverse, isPacked, isConservedPfamDomainColor );
 	
 	var heightVal5p = d3.select(".fused-transcript-domain-group-5pGene").node().getBBox().height;
 	var heightVal3p = d3.select(".fused-transcript-domain-group-3pGene").node().getBBox().height;

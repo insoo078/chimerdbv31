@@ -9,6 +9,7 @@ import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
 import org.com.chimerdbv31.chimerseq.vo.PfamVo;
+import org.com.chimerdbv31.chimerseq.vo.ReadVo;
 import org.com.chimerdbv31.chimerseq.vo.SynonymVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
 import org.springframework.stereotype.Repository;
@@ -30,4 +31,5 @@ public interface ChimerSeqMapper {
 	public List<PfamVo> getPfamDomainInfo(Map<String, Object> param);
 	
 	public List<SynonymVo> getSynonym();
+	public List<ReadVo> getReads(Map<String, String> param);
 }

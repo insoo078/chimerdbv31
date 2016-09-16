@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,6 +18,7 @@ import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqDetailVo;
 import org.com.chimerdbv31.chimerseq.vo.PfamVo;
+import org.com.chimerdbv31.chimerseq.vo.ReadVo;
 import org.com.chimerdbv31.chimerseq.vo.SynonymVo;
 
 import org.slf4j.Logger;
@@ -65,6 +64,7 @@ public class ChimerSeqService {
 		String[] chromosomes = new String[]{chimerSeqRecord.getH_chr(), chimerSeqRecord.getT_chr()};
 		String[] loc = new String[]{ FusionGeneObj._5P_GENE, FusionGeneObj._3P_GENE };
 
+		List<ReadVo> reads = this.chimerSeqMapper.getReads(null);
 		FusionGeneObj fusionGene = new FusionGeneObj( chimerSeqRecord );
 		for( int i=0; i<genes.length; i++ ) {
 			// Find gene info by gene symbol
@@ -75,12 +75,13 @@ public class ChimerSeqService {
 
 			if( geneInfoVo != null ) {
 				GeneObj obj = new GeneObj( geneInfoVo );
-				geneInfoVo.setFusionLocation( loc[i] );
-				
+				obj.setFusionLocation( loc[i] );
+
 				TranscriptObj to = obj.getCanonicalTranscript();
 
 				// Find Pfam domains by gene information
 				obj.setpFamDomainList( this.getPfamDomainInfo( obj ) );
+				obj.setReads( reads );
 
 				fusionGene.addGene( loc[i], obj );
 			}
