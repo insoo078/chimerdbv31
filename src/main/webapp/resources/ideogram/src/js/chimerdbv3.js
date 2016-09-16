@@ -314,19 +314,23 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptAlignedReads = 
 		yPos = parseFloat(yPos) + (config.EXON_HEIGHT/2) + 2;
 
 		var reads = config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].reads;
-		
-		var transcript_region = {start:exons[0].start, end:exons[exons.length-1].end };
-		if( config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].strand === '-' )
-			transcript_region = {start:exons[exons.length-1].start, end:exons[0].start};
-		
+
 		var posStart = exonPos.exons[ exons[0].elementIndex ];
 		var posEnd = exonPos.exons[ exons[exons.length-1].elementIndex ];
+
+		var transcript_region = {start:exons[0].start, end:exons[exons.length-1].end };
+		if( config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].strand === '-' ) {
+			transcript_region = {start:exons[exons.length-1].start, end:exons[0].start};
+		}
 
 		var unit = ((posEnd.x1+posEnd.width) - posStart.x1) / (transcript_region.end - transcript_region.start + 1);
 		
 		for(var j=0; j<reads.length; j++) {
 			var diff = reads[j].start - transcript_region.start;
-			
+
+			if( config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].strand === '-' )
+				diff = transcript_region.end - reads[j].end;
+				
 			var x1 = posStart.x1 + (diff*unit);
 			var width = (reads[j].end - reads[j].start + 1) * unit;
 	
@@ -626,8 +630,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFustionTranscriptStructure = fu
 //	this.drawFusionTranscriptPfamdomains( config, isAllowedReverse, isPacked, isConservedPfamDomainColor );
 	this.drawFusionTranscriptAlignedReads( config, isAllowedReverse, isPacked, isConservedPfamDomainColor );
 	
-	var heightVal5p = d3.select(".fused-transcript-domain-group-5pGene").node().getBBox().height;
-	var heightVal3p = d3.select(".fused-transcript-domain-group-3pGene").node().getBBox().height;
+	var heightVal5p = d3.select(".fused-transcript-reads-group-5pGene").node().getBBox().height;
+	var heightVal3p = d3.select(".fused-transcript-reads-group-3pGene").node().getBBox().height;
 
 	var domainAreaHeight = Math.max(heightVal5p, heightVal3p);
 
