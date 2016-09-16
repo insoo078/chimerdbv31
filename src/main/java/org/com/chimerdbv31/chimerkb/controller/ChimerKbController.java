@@ -1,9 +1,7 @@
 package org.com.chimerdbv31.chimerkb.controller;
 
 import java.util.List;
-import java.util.Locale;
 import javax.annotation.Resource;
-import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -34,6 +32,41 @@ public class ChimerKbController {
 
 		return result;
 	}
+	
+	@RequestMapping(value="/chimerkb_from_others",method=RequestMethod.GET)
+        public ModelAndView rstChimerKBfromOthers( HttpServletRequest request ) throws RuntimeException{
+			ModelAndView result = new ModelAndView("msRstOfChimerKBp");
+
+			String searchType = "by_gene_pair";
+            sParam = new ParamVo(true);
+			
+			String dataForsearchType = request.getParameter("key_data_for_search_type");
+			
+			result.addObject("search_type", searchType);
+			result.addObject("selected_function", "");
+			
+			sParam.setSearchType(searchType);
+            sParam.setDataForSearchType(dataForsearchType);
+			
+			StringBuffer queryStr = new StringBuffer();
+			queryStr.append(" 'Literature_Curation','Cosmic','mRNA_Sequence','Mitelman,OMIM,GenBank' ");
+			
+			sParam.setQueryForWebSource(queryStr.toString());
+			
+			queryStr = new StringBuffer();
+			queryStr.append(" 'Genomic', 'Exonic', 'NA' ");
+			
+			sParam.setQueryForBreakPointType(queryStr.toString());
+
+			queryStr = new StringBuffer();
+			queryStr.append(" 'Sanger sequencing', 'RT-PCR, Sanger sequencing', 'RT-PCR', 'NA' ");
+			sParam.setQueryForValidationMtd(queryStr.toString());
+			
+			List<ChimerKbVo> chimerKbLst = this.chimerKbService.getChimerKBResult(sParam);
+			result.addObject("chimerKb_lst", chimerKbLst);
+			
+			return result;
+		}
 
 
 	@RequestMapping(value="/msrstofchimerkb",method=RequestMethod.POST)

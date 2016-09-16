@@ -9,7 +9,6 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.com.chimerdbv31.chimerpub.services.ChimerPubService;
 import org.com.chimerdbv31.chimerpub.vo.ChimerPubVo;
-import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +47,34 @@ public class ChimerPubController {
             jsonArray = JSONArray.fromObject(mainList);
             return jsonArray.toString();
         }
-        
+
+	@RequestMapping(value="chimerpub_from_others",method=RequestMethod.GET)
+	public ModelAndView rstChimerPubFromOthers( HttpServletRequest request ) throws RuntimeException{
+		ModelAndView result = new ModelAndView("msRstOfChimerPubp");
+
+		String searchType = "by_gene_pair";
+		sParam = new ParamVo(true);
+
+		String dataForsearchType = request.getParameter("key_data_for_search_type");
+
+		result.addObject("search_type", searchType);
+		result.addObject("selected_function", "");
+
+		sParam.setSearchType(searchType);
+		sParam.setDataForSearchType(dataForsearchType);
+		
+		sParam.setNumOfPub(1);
+		sParam.setTxtMiningScore(10);
+		
+		StringBuffer queryStr = new StringBuffer();
+		queryStr.append(" 'Sanger sequencing', 'RT-PCR, Sanger sequencing', 'RT-PCR', 'NA' ");
+		sParam.setQueryForValidationMtd(queryStr.toString());
+		
+		List<ChimerPubVo> chimerpublst = this.chimerPubService.getChimerPubResult(sParam);
+		result.addObject("chimerpub_lst", chimerpublst);
+
+		return result;
+	}
         
 	@RequestMapping(value="msrstofchimerpub",method=RequestMethod.POST)
 	public ModelAndView rstChimerPub( HttpServletRequest request ) throws RuntimeException{
