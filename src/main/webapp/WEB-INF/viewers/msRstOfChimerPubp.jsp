@@ -118,10 +118,10 @@
                                                             <td><c:out value="${chimerpubLst.getDisease()}" /></td>
                                                             <td style="text-align: center;">
                                                                 <c:if test="${chimerpubLst.getChimerKB() == 1}">
-                                                                    <span style="color: #ffffff; border: 1px #3071a9 solid; border-radius:4px; background-color:#3071a9; font-size:12px; font-weight:bold;">KB</span>&nbsp;
+                                                                    <span id="chimer_kb_icon" class="chimerdb-icon">KB</span>&nbsp;
                                                                 </c:if>
                                                                 <c:if test="${chimerpubLst.getChimerSeq() == 1}">
-                                                                    <span style="color: #ffffff; border: 1px #3071a9 solid; border-radius:4px; background-color:#3071a9; font-size:12px; font-weight:bold;">Seq</span>&nbsp;
+                                                                    <span id="chimer_seq_icon" class="chimerdb-icon">Seq</span>&nbsp;
                                                                 </c:if>
                                                             </td>
                                                             <td><c:out value="${chimerpubLst.getPMID()}" /></td>

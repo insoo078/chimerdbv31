@@ -175,8 +175,8 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 
 			var tmp = aData.supported.split("_");
 
-			var pubIcon = "<span class='chimer-pub-icon chimerdb-icon'>Pub</span>";
-			var kbIcon = "<span class='chimer-kb-icon chimerdb-icon'>KB</span>";
+			var pubIcon = "<span class='chimerdb-icon'>Pub</span>";
+			var kbIcon = "<span class='chimerdb-icon'>KB</span>";
 			
 			if( tmp[0]==='1' ) imgTag += pubIcon;
 			if( tmp[1]==='1' ) imgTag += kbIcon;
@@ -296,8 +296,8 @@ ChimerSeqResult.prototype.showDetailInfo = function(rowdata) {
 			$("#srt_td_frame").text( jData.frame );
 			$("#srt_td_chr_info").text( jData.chr_info );
 
-			var pubIcon = "<span class='chimer-pub-icon chimerdb-icon'>Pub</span>";
-			var kbIcon = "<span class='chimer-kb-icon chimerdb-icon'>KB</span>";
+			var pubIcon = "<span id='chimer_pub_icon' class='chimerdb-icon'>Pub</span>";
+			var kbIcon = "<span id='chimer_kb_icon' class='chimerdb-icon'>KB</span>";
 			
 			var supported = "";
 			if( jData.chimerPub > 0 ) {
@@ -308,6 +308,10 @@ ChimerSeqResult.prototype.showDetailInfo = function(rowdata) {
 			}
 
 			$("#srt_td_supported").html( supported );
+			
+			$(kbIcon).on('click', function(){
+				console.log('hello');
+			});
 
 			ChimerSeq.initUcscSettings( rowdata );
 		},

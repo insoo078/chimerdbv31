@@ -271,7 +271,7 @@ text.text-hover {
 }
 
 .chimerdb-icon{
-	display:inline-block;width:26px; color: #ffffff; border: 1px #3071a9 solid; border-radius:4px; background-color:#3071a9; font-size:12px; font-weight:bold; margin-left:5px;text-align:center;
+	display:inline-block;width:26px; color: #ffffff; border: 1px #3071a9 solid; border-radius:4px; background-color:#3071a9; font-size:12px; font-weight:bold; margin-left:5px;text-align:center;cursor:pointer;
 }
 
 .site_link{
