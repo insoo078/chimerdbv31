@@ -1408,7 +1408,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawGeneStructure = function( confi
 
 	config.drawingSvg = config.canvas.append("svg")
 			.attr("id", "inner_svg")
-			.attr("width", 970)
+			.attr("width", config.canvas.node().getBoundingClientRect().width - config.LEFT_MARGIN)
 			.attr("x", config.LEFT_MARGIN)
 			.attr("y", 160);
 	
