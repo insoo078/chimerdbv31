@@ -1,0 +1,55 @@
+<eSummaryResult>
+<DocSum>
+<Id>10702393</Id>
+<Item Name="PubDate" Type="Date">2000 Mar</Item>
+<Item Name="EPubDate" Type="Date"/>
+<Item Name="Source" Type="String">Am J Pathol</Item>
+<Item Name="AuthorList" Type="List">
+<Item Name="Author" Type="String">Colleoni GW</Item>
+<Item Name="Author" Type="String">Bridge JA</Item>
+<Item Name="Author" Type="String">Garicochea B</Item>
+<Item Name="Author" Type="String">Liu J</Item>
+<Item Name="Author" Type="String">Filippa DA</Item>
+<Item Name="Author" Type="String">Ladanyi M</Item>
+</Item>
+<Item Name="LastAuthor" Type="String">Ladanyi M</Item>
+<Item Name="Title" Type="String">
+ATIC-ALK: A novel variant ALK gene fusion in anaplastic large cell lymphoma resulting from the recurrent cryptic chromosomal inversion, inv(2)(p23q35).
+</Item>
+<Item Name="Volume" Type="String">156</Item>
+<Item Name="Issue" Type="String">3</Item>
+<Item Name="Pages" Type="String">781-9</Item>
+<Item Name="LangList" Type="List">
+<Item Name="Lang" Type="String">English</Item>
+</Item>
+<Item Name="NlmUniqueID" Type="String">0370502</Item>
+<Item Name="ISSN" Type="String">0002-9440</Item>
+<Item Name="ESSN" Type="String">1525-2191</Item>
+<Item Name="PubTypeList" Type="List">
+<Item Name="PubType" Type="String">Journal Article</Item>
+</Item>
+<Item Name="RecordStatus" Type="String">PubMed - indexed for MEDLINE</Item>
+<Item Name="PubStatus" Type="String">ppublish</Item>
+<Item Name="ArticleIds" Type="List">
+<Item Name="pubmed" Type="String">10702393</Item>
+<Item Name="pmc" Type="String">PMC1876849</Item>
+<Item Name="pii" Type="String">S0002-9440(10)64945-0</Item>
+<Item Name="doi" Type="String">10.1016/S0002-9440(10)64945-0</Item>
+<Item Name="eid" Type="String">10702393</Item>
+<Item Name="rid" Type="String">10702393</Item>
+<Item Name="pmcid" Type="String">pmc-id: PMC1876849;</Item>
+</Item>
+<Item Name="DOI" Type="String">10.1016/S0002-9440(10)64945-0</Item>
+<Item Name="History" Type="List">
+<Item Name="pubmed" Type="Date">2000/03/07 09:00</Item>
+<Item Name="medline" Type="Date">2000/03/25 09:00</Item>
+<Item Name="entrez" Type="Date">2000/03/07 09:00</Item>
+</Item>
+<Item Name="References" Type="List"/>
+<Item Name="HasAbstract" Type="Integer">1</Item>
+<Item Name="PmcRefCount" Type="Integer">23</Item>
+<Item Name="FullJournalName" Type="String">The American journal of pathology</Item>
+<Item Name="ELocationID" Type="String"/>
+<Item Name="SO" Type="String">2000 Mar;156(3):781-9</Item>
+</DocSum>
+</eSummaryResult>
