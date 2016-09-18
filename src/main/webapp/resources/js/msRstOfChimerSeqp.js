@@ -133,7 +133,7 @@ ChimerSeqResult.prototype.initController = function() {
 		nconfig.zoom = 1;
 
 		chimerSeq.viewer = new ChimeraDbV3ViewerWithOutChromosome(nconfig);
-	})
+	});
 };
 
 ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
@@ -175,12 +175,11 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 
 			var tmp = aData.supported.split("_");
 
-			var pubIcon = "<span class='chimerdb-icon'>Pub</span>";
-			var kbIcon = "<span class='chimerdb-icon'>KB</span>";
+			var pubIcon = "<span class='chimer-pub-icon chimerdb-icon'>Pub</span>";
+			var kbIcon = "<span class='chimer-kb-icon chimerdb-icon'>KB</span>";
 			
 			if( tmp[0]==='1' ) imgTag += pubIcon;
 			if( tmp[1]==='1' ) imgTag += kbIcon;
-			
 			
 			$('td:eq(8)', nRow).html(imgTag); // where 4 is the zero-origin visible column in the HTML
 
@@ -190,6 +189,27 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 			}
 
 			return nRow;
+		},
+		"initComplete": function(settings, json) {
+			$(".chimer-pub-icon").click(function() {
+				var currentTr = $(this).parent().parent();
+				var td = $(currentTr).find("td:first");
+				var gene_pair = td.text();
+
+				var url = "chimerpub_from_others.cdb?key_data_for_search_type=" + gene_pair;
+				window.open(url, 'ChimerPub', 'window settings');
+				return false;
+			});
+			
+			$(".chimer-kb-icon").click(function() {
+				var currentTr = $(this).parent().parent();
+				var td = $(currentTr).find("td:first");
+				var gene_pair = td.text();
+				
+				var url = "chimerkb_from_others.cdb?key_data_for_search_type=" + gene_pair;
+				window.open(url, 'ChimerKb', 'window settings');
+				return false;
+			});
 		}
 	});
 
@@ -309,8 +329,20 @@ ChimerSeqResult.prototype.showDetailInfo = function(rowdata) {
 
 			$("#srt_td_supported").html( supported );
 			
-			$(kbIcon).on('click', function(){
-				console.log('hello');
+			$("#chimer_pub_icon").click( function() {
+				var gene_pair = $("#srt_td_5gene_nm").text() + "_" + $("#srt_td_3gene_nm").text();
+				
+				var url = "chimerpub_from_others.cdb?key_data_for_search_type=" + gene_pair;
+				window.open(url, 'ChimerPub', 'window settings');
+				return false;
+			});
+
+			$("#chimer_kb_icon").click( function() {
+				var gene_pair = $("#srt_td_5gene_nm").text() + "_" + $("#srt_td_3gene_nm").text();
+				
+				var url = "chimerkb_from_others.cdb?key_data_for_search_type=" + gene_pair;
+				window.open(url, 'ChimerKb', 'window settings');
+				return false;
 			});
 
 			ChimerSeq.initUcscSettings( rowdata );

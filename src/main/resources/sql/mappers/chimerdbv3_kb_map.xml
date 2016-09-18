@@ -72,7 +72,8 @@
         <if test="queryForValidationMtd != null and queryForValidationMtd != ''"> and Validation in (${queryForValidationMtd}) </if>
         <if test="queryForFilterByFunc != null and queryForFilterByFunc != ''"> and (${queryForFilterByFunc}) </if>
         <if test="queryForFusType != null and queryForFusType != ''"> and Chr_info in (${queryForFusType}) </if>
-        <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>;
+        <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>
+		ORDER BY Fusion_pair
     </select>
     
     

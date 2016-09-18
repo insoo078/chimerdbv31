@@ -121,7 +121,8 @@
         <if test="txtMiningScore != null and txtMiningScore != ''"> and t1.Score >= ${txtMiningScore} </if>
         <if test="queryForValidationMtd != null and queryForValidationMtd != ''"> and t1.Validation in (${queryForValidationMtd}) </if>
         <if test="queryForFilterByFunc != null and queryForFilterByFunc != ''"> and (${queryForFilterByFunc}) </if>
-        <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>;
+        <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>
+		ORDER BY t1.Fusion_pair
     </select>
 
 
