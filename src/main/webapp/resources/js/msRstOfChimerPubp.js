@@ -111,7 +111,7 @@ function showJournalDataFromNcbi(rowObj) {
 			});
 			pubmedObj.articles = articles;
 			
-			printArticle( pubmedObj, rowObj[8] );
+			printArticle( pubmedObj, rowObj[8], rowObj[6], rowObj[7] );
 		},
 		error : function(xhr, status) {
 
@@ -119,7 +119,7 @@ function showJournalDataFromNcbi(rowObj) {
 	});
 }
 
-function printArticle(pubmedObj, hilight_sentences) {
+function printArticle(pubmedObj, hilight_sentences, gene1, gene2) {
 	var issue_info = pubmedObj.journalTitleAbbr + " " + pubmedObj.issuedYear + " " + pubmedObj.issedMonth + ";" + pubmedObj.volume + "(" + pubmedObj.issue + "):" + pubmedObj.pagination;
 	$("#journal_issue_info").text( issue_info );
 	$("#article_title").text( pubmedObj.title );
@@ -153,11 +153,17 @@ function printArticle(pubmedObj, hilight_sentences) {
 	
 	
 	var abstract = pubmedObj.abstract;
-	
+
 	for(var i=0; i<hilight_sentence.length; i++) {
 		var sentence = hilight_sentence[i].trim().replace("..", "");
 		abstract = abstract.replace(sentence, "<span style='background-color:yellow;'>" + sentence + "</span>");
 	}
+	abstract = replaceAll(abstract, gene1.trim(), "<span style='font-weight:bold;'>" + gene1.trim() + "</span>");
+	abstract = replaceAll(abstract, gene2.trim(), "<span style='font-weight:bold;'>" + gene2.trim() + "</span>");
 	
 	$("#article_abstract").html( abstract );
  }
+ 
+function replaceAll(str, searchStr, replaceStr) {
+	return str.split(searchStr).join(replaceStr);
+}
