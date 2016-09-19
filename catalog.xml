@@ -5,4 +5,10 @@
     <system systemId="file:/C:/Users/insoo078/Documents/NetBeansProjects/chimerdbv31/src/main/resources/xml/NCBI_General.mod.xsd" uri="src/main/resources/jaxb/Ncbi_eutil/NCBI_General.mod.xsd"/>
     <system systemId="file:/C:/Users/insoo078/Documents/NetBeansProjects/chimerdbv31/src/main/resources/xml/NCBI_Medline.mod.xsd" uri="src/main/resources/jaxb/Ncbi_eutil/NCBI_Medline.mod.xsd"/>
     <system systemId="file:/C:/Users/insoo078/Documents/NetBeansProjects/chimerdbv31/src/main/resources/xml/NCBI_PubMed.mod.xsd" uri="src/main/resources/jaxb/Ncbi_eutil/NCBI_PubMed.mod.xsd"/>
+    <system systemId="file:/Users/insoo078/NetBeansProjects/chimerdbv31/src/main/resources/xml/NCBI_Pubmed.xsd" uri="src/main/resources/jaxb/Ncbi_eutils/NCBI_Pubmed.xsd"/>
+    <system systemId="file:/Users/insoo078/NetBeansProjects/chimerdbv31/src/main/resources/xml/NCBI_Biblio.mod.xsd" uri="src/main/resources/jaxb/Ncbi_eutils/NCBI_Biblio.mod.xsd"/>
+    <system systemId="file:/Users/insoo078/NetBeansProjects/chimerdbv31/src/main/resources/xml/NCBI_General.mod.xsd" uri="src/main/resources/jaxb/Ncbi_eutils/NCBI_General.mod.xsd"/>
+    <system systemId="file:/Users/insoo078/NetBeansProjects/chimerdbv31/src/main/resources/xml/NCBI_Medline.mod.xsd" uri="src/main/resources/jaxb/Ncbi_eutils/NCBI_Medline.mod.xsd"/>
+    <system systemId="file:/Users/insoo078/NetBeansProjects/chimerdbv31/src/main/resources/xml/NCBI_PubMed.mod.xsd" uri="src/main/resources/jaxb/Ncbi_eutils/NCBI_PubMed.mod.xsd"/>
+    <system systemId="file:/Users/insoo078/NetBeansProjects/chimerdbv31/src/main/resources/xml/pubmed_150101.dtd" uri="src/main/resources/jaxb/NCBI_eutil/pubmed_150101.dtd"/>
 </catalog>

@@ -1,9 +1,7 @@
 package org.com.chimerdbv31.chimerpub.controller;
 
 import java.util.List;
-import java.util.Locale;
 import javax.annotation.Resource;
-import javax.enterprise.inject.Model;
 import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -327,5 +325,7 @@ public class ChimerPubController {
         
         
         
-        
+//        public String getEutil() {
+////			https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=10702393
+//		}
 }

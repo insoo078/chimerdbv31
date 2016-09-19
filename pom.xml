@@ -359,6 +359,31 @@
                         </configuration>
                         <id>jaxb-generate-Ncbi_eutil_1</id>
                     </execution>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaIncludes>
+                                <include>jaxb/Ncbi_eutils/*.xsd</include>
+                            </schemaIncludes>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-Ncbi_eutils.episode</episodeFile>
+                            <generatePackage>org.com.chimerdbv31.jaxb</generatePackage>
+                        </configuration>
+                        <id>jaxb-generate-Ncbi_eutils</id>
+                    </execution>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaIncludes>
+                                <include>jaxb/NCBI_eutil/*.xsd</include>
+                            </schemaIncludes>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-NCBI_eutil.episode</episodeFile>
+                        </configuration>
+                        <id>jaxb-generate-NCBI_eutil</id>
+                    </execution>
                 </executions>
                 <configuration>
                     <catalog>src/main/resources/jaxb/catalog.xml</catalog>

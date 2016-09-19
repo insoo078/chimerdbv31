@@ -289,3 +289,25 @@ text.text-hover {
 .index-main-feature-li{
 	margin-top:10px;
 }
+
+
+.journal_info_small_font{
+	font-size: 12px;
+}
+
+
+#article_title{
+	font-size:18px;font-weight:bold;
+}
+
+.colored-abstract-text{
+	font-weight:bold;color:#7D4B38;
+}
+
+.author_info_expand{
+	display:inline-block;width:20px;height:20px;text-align: center;margin-right:5px;background:green;color:white;
+}
+
+.author_info_text{
+	font-weight:bold;cursor:pointer;
+}
