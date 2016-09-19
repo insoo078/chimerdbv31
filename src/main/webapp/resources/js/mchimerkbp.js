@@ -15,7 +15,10 @@ $(document).ready(function () {
 //            ui.item ? "Selected: " + ui.item.value + " aka " + ui.item.id : "Nothing selected, input was " + this.value ;
 //        }
     });
-    
+	
+	addAutocompleteField( "#by_gene_txt",		1);
+	addAutocompleteField( "#by_gene_pair_txt",	2);
+	addAutocompleteField( "#by_disease_txt",	4);
 });
 
 
@@ -342,4 +345,27 @@ function searching(){
     
     
     $("#resultmain_form").submit();
+}
+
+
+function addAutocompleteField ( selector, type ) {
+	$(selector).autocomplete({
+		source: function(request, response) {
+			$.ajax({
+				type: 'post',
+				url: 'autocomplete.cdb',
+				dataType: 'json',
+				data:{service:'ChimerKB', type:type, text:request.term},
+				success:function(data) {
+					response($.map(data, function(item){
+						return {
+							label: item,
+							value: item
+						};
+					}));
+				}
+			});
+		},
+		minLength:2
+	});
 }
