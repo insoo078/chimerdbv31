@@ -1179,7 +1179,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backb
 		}
 
 		var exonPos = {};
-
+		
 		var x1 = config.drawingObj[obj.type].startX;
 		exonGroup.selectAll("path")
 				.data(transcriptExons)
@@ -1219,6 +1219,26 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backb
 				.on("mouseout", exonTip.hide);
 
 		onScreen[obj.type] = {exons:exonPos};
+		
+		var intron_size = (1 * config.drawingObj[obj.type].no_of_intron_size) * config.drawingObj[obj.type].final_unit_nt_size;
+		
+		if( obj.type === '5pGene' && obj.gene.strand === '+' ) {
+			console.log( exonPos[1] );
+		}else if( obj.type === '5pGene' && obj.gene.strand === '-' ) {
+			var width = intron_size * 0.8;
+			var x = exonPos[1].x1 - width ;
+			exonGroup.append("rect")
+					.attr("x", x)
+					.attr("y", config.EXON_Y_POS + 4)
+					.attr("width", width)
+					.attr("height", config.EXON_HEIGHT - 8)
+			;
+			
+		}else if( obj.type === '3pGene' && obj.gene.strand === '+' ) {
+			console.log( exonPos[transcriptExons.length-1] );
+		}else if( obj.type === '3pGene' && obj.gene.strand === '-' ) {
+			console.log( exonPos[transcriptExons.length-1] );
+		}
 		
 		exonGroup.selectAll("text")
 				.data(transcriptExons)
