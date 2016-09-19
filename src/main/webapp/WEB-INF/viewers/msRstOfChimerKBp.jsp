@@ -145,7 +145,7 @@
                                                                         <span class="chimer-seq-icon chimerdb-icon">Seq</span>
                                                                     </c:if>
                                                                 </td>
-                                                                <td><c:out value="${chimerKbLst.getPMID()}" /></td>
+                                                                <td><a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=<c:out value='${chimerKbLst.getPMID()}'/>" target="_blank"><c:out value="${chimerKbLst.getPMID()}" /></a></td>
 
                                                                 <td><c:out value="${chimerKbLst.getId()}" /></td>
                                                                 <td><c:out value="${chimerKbLst.getChimerDB_Type()}" /></td>

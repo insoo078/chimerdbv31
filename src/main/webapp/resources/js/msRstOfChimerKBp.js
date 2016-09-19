@@ -91,7 +91,10 @@ function showDesc(popupdataobj){
     $("#srt_td_genome_build_ver").text( popupdataobj[23] );
     $("#srt_td_disease").text( popupdataobj[4] );
     $("#srt_td_validation_mtd").text( popupdataobj[24] );
-    $("#srt_td_pmid").text( popupdataobj[9] );
+	
+	var pmid_url = "<a href='http://www.ncbi.nlm.nih.gov/pubmed/?term=" + popupdataobj[9] + "' target='_blank'>" + popupdataobj[9] + "</a>";
+	
+    $("#srt_td_pmid").html( pmid_url );
     $("#srt_td_frame").text( popupdataobj[5] );
     $("#srt_td_chr_info").text( popupdataobj[6] );
 //    $("#srt_td_supported").html( popupdataobj[8] );
