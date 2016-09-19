@@ -122,6 +122,7 @@
 												<td><c:out value="${chimerpubLst.getPMID()}" /></td>
 												<td><c:out value="${chimerpubLst.getH_gene()}" /></td>
 												<td><c:out value="${chimerpubLst.getT_gene()}" /></td>
+												<td><c:out value="${chimerpubLst.getSentence_highlight()}" /></td>
 											</tr>
 										</c:forEach>
 									</tbody>

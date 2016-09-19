@@ -15,6 +15,7 @@ $(document).ready(function () {
         "columnDefs": [
             { 'targets': [6], 'visible': false, 'searchable': false }
             ,{ 'targets': [7], 'visible': false, 'searchable': false }
+			,{ 'targets': [8], 'visible': false, 'searchable': false }
         ],
          "scrollX":true,
          "tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
@@ -110,7 +111,7 @@ function showJournalDataFromNcbi(rowObj) {
 			});
 			pubmedObj.articles = articles;
 			
-			printArticle( pubmedObj );
+			printArticle( pubmedObj, rowObj[8] );
 		},
 		error : function(xhr, status) {
 
@@ -118,10 +119,13 @@ function showJournalDataFromNcbi(rowObj) {
 	});
 }
 
-function printArticle(pubmedObj) {
+function printArticle(pubmedObj, hilight_sentences) {
 	var issue_info = pubmedObj.journalTitleAbbr + " " + pubmedObj.issuedYear + " " + pubmedObj.issedMonth + ";" + pubmedObj.volume + "(" + pubmedObj.issue + "):" + pubmedObj.pagination;
 	$("#journal_issue_info").text( issue_info );
 	$("#article_title").text( pubmedObj.title );
+		
+	var hilight_sentence = hilight_sentences.split("///");
+	
 
 	var authors = "";
 	var affiliations = [];
@@ -146,5 +150,14 @@ function printArticle(pubmedObj) {
 	$("#author_affiliation").html( str_affiliations );
 	
 	$("#tr_author_affiliation").hide('normal');
-	$("#article_abstract").text( pubmedObj.abstract );
+	
+	
+	var abstract = pubmedObj.abstract;
+	
+	for(var i=0; i<hilight_sentence.length; i++) {
+		var sentence = hilight_sentence[i].trim().replace("..", "");
+		abstract = abstract.replace(sentence, "<span style='background-color:yellow;'>" + sentence + "</span>");
+	}
+	
+	$("#article_abstract").html( abstract );
  }

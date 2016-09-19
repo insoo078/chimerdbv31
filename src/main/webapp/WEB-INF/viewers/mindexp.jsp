@@ -42,7 +42,7 @@
                                 <span style="font-size: 20px; font-weight: bold;">About ChimerDB</span>
                             </div>
                             <div class="panel-body">
-                                <p>ChimerDB 3.0 provides the most comprehensive catalog of fusion genes with extensive manual curation, analysis of all TCGA RNA-Seq data,<br>and text mining of PubMed articles.</p>
+                                <p>ChimerDB is a comprehensive database of fusion genes encompassing analysis of deep sequencing data and manual curations. In this update, the database coverage was enhanced considerably by adding two new modules of TCGA RNA-Seq analysis and PubMed abstract mining.</p>
                             </div>
                         </div>
                     </div>
@@ -79,31 +79,31 @@
                                 <span style="font-size: 20px; font-weight: bold;">Major Features</span>
                             </div>
                             <div class="panel-body">
-                                <p>Representative features of chimerDB 3.0 are summarized as follows:</p>
+                                <p>ChimerDB 3.0 is composed of three modules of ChimerKB, ChimerPub, and ChimerSeq.</p>
                                 <ol>
                                     <li class='index-main-feature-li'>
-										<span style="font-weight: bold;">ChimerKB</span>
-                                        <ul>
+										<span style="font-weight: bold;">ChimerKB</span> represents a knowledgebase including 1,066 fusion genes with manual curation that were compiled from public resources of fusion genes with experimental evidences.
+<!--                                        <ul>
                                             <li style="list-style: none;">
                                                 This knowledgebase includes manually curated and highly reliable 1,770 fusion genes. Fusion genes from COSMIC, GenBank, OMIM, Mitelman, TICdb, ChimerDB 2.0 were included.
                                             </li>
-                                        </ul>
+                                        </ul>-->
                                     </li>
                                     <li class='index-main-feature-li'>
-										<span style="font-weight: bold;">ChimerPub</span>
-                                        <ul>
+										<span style="font-weight: bold;">ChimerPub</span> includes 2,767 fusion genes obtained from text mining of PubMed abstracts.
+<!--                                        <ul>
                                             <li style="list-style: none;">
                                                 We developed a literature-based fusion gene extraction tool using text mining and machine learning. Abstract sentences in 26 million PubMed articles were analyzed for two co-occurring genes with additional information on disease, experimental methods, and translocation position. Elaborate feature selection and machine learning processes were applied to identify reliable PubMed records for gene fusion.
                                             </li>
-                                        </ul>
+                                        </ul>-->
                                     </li>
                                     <li class='index-main-feature-li'>
-										<span style="font-weight: bold;">ChimerSeq</span>
-                                        <ul>
+										<span style="font-weight: bold;">ChimerSeq</span> module is designed to archive the fusion candidates from deep sequencing data. Importantly, we have analyzed RNA-Seq data of the TCGA project covering 4,569 patients in 23 cancer types using two reliable programs of FusionScan and TopHat-Fusion.
+<!--                                        <ul>
                                             <li style="list-style: none;">
                                                 We have analyzed all the TCGA transcriptome sequencing data using FusionScan and TopHat-Fusion, two most reliable programs in our benchmark test. The result from the PRADA pipeline was added as well. We further compiled the existing predictions from ChimerDB 2.0 and ChiTarS databases.
                                             </li>
-                                        </ul>
+                                        </ul>-->
                                     </li>
                                 </ol>
                             </div>
@@ -113,7 +113,7 @@
                 </div>
                 <div class="col-md-1"></div>
             </div>
-            
+								
             <div class="row margin-bottom-30">
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
