@@ -131,7 +131,7 @@
                                     </li>
                                     <li class='reference'>
                                         <a href="http://www.ncbi.nlm.nih.gov/pubmed/19906715" target="_blank"><span style="font-weight: bold;">ChimerDB 2.0 :</span></a>
-                                        <span style="font-size: 13px;display: block;">a knowledgebase for fusion genes updated. Kim P, Yoon S, Kim N, Lee S, Ko M, Lee H, Kang H, Kim J, Lee S. Nucleic Acids Res. 2010 Jan;38(Database issue):D81-5.</span>
+                                        <span style="font-size: 13px;">a knowledgebase for fusion genes updated. Kim P, Yoon S, Kim N, Lee S, Ko M, Lee H, Kang H, Kim J, Lee S. Nucleic Acids Res. 2010 Jan;38(Database issue):D81-5.</span>
 										<span id='chimerdbv2_site' class='site_link'>Website</span>
                                     </li>
                                     <li class='reference'>
