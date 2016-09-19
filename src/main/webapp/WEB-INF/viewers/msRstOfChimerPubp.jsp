@@ -94,19 +94,23 @@
 
 												<td>
 													<c:if test="${chimerpubLst.getKinase()>0}">
-														Kinase,
+														Kinase
 													</c:if>
 													<c:if test="${chimerpubLst.getOncogene()>0}">
-														Oncogene,
+														<c:if test="${chimerpubLst.getKinase()>0}">,</c:if>
+														Oncogene
 													</c:if>
 													<c:if test="${chimerpubLst.getTumor_suppressor()>0}">
-														Tumor suppressor,
+														<c:if test="${chimerpubLst.getKinase()>0} || ${chimerpubLst.getOncogene()>0}">,</c:if>
+														Tumor suppressor
 													</c:if>
 													<c:if test="${chimerpubLst.getReceptor()>0}">
-														Receptor,
+														<c:if test="${chimerpubLst.getKinase()>0} || ${chimerpubLst.getOncogene()>0} || ${chimerpubLst.getTumor_suppressor()>0}">,</c:if>
+														Receptor
 													</c:if>
 													<c:if test="${chimerpubLst.getTranscription_Factor()>0}">
-														Transcription factor,
+														<c:if test="${chimerpubLst.getKinase()>0} || ${chimerpubLst.getOncogene()>0} || ${chimerpubLst.getTumor_suppressor()>0} || ${chimerpubLst.getReceptor()>0}">,</c:if>
+														Transcription factor
 													</c:if>
 												</td>
 
