@@ -64,6 +64,39 @@
                 </div>
                 <div class="col-md-1"></div>
             </div>
+			
+			<div class="row margin-bottom-30" style="margin-top: 30px;">
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+                    
+                    <div class="templatemo-panels">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <span style="font-size: 20px; font-weight: bold;">Reliability of ChimerPub text-mining result</span>
+                            </div>
+                            <div class="panel-body">
+								<img alt="" src="resources/images/Chimerpubrel.png" style="width: 100%; height: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-md-5">
+                    
+                    <div class="templatemo-panels">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <span style="font-size: 20px; font-weight: bold;">Distribution of fusion transcripts for each cancer type</span>
+                            </div>
+                            <div class="panel-body">
+								<img alt="" src="resources/images/cancertype.png" style="width: 100%; height: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-md-1"></div>
+            </div>
 
 		</div>
 	</div>

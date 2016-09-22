@@ -76,7 +76,8 @@ function showJournalDataFromNcbi(rowObj) {
 		type : 'POST',
 		success: function(jData) {
 			var pubmedObj = {};
-			
+
+			pubmedObj.pmid = rowObj[5];
 			pubmedObj.title = $(jData).find("ArticleTitle").text();
 			pubmedObj.journalTitle = $(jData).find("Article").find("Journal").find("Title").text();
 			pubmedObj.journalTitleAbbr = $(jData).find("Article").find("Journal").find("ISOAbbreviation").text();
@@ -122,7 +123,7 @@ function showJournalDataFromNcbi(rowObj) {
 function printArticle(pubmedObj, hilight_sentences, gene1, gene2) {
 	var issue_info = pubmedObj.journalTitleAbbr + " " + pubmedObj.issuedYear + " " + pubmedObj.issedMonth + ";" + pubmedObj.volume + "(" + pubmedObj.issue + "):" + pubmedObj.pagination;
 	$("#journal_issue_info").text( issue_info );
-	$("#article_title").text( pubmedObj.title );
+	$("#article_title").html( "<a href='http://www.ncbi.nlm.nih.gov/pubmed/"+ pubmedObj.pmid +"'>" + pubmedObj.title + "</a>" );
 		
 	var hilight_sentence = hilight_sentences.split("///");
 	

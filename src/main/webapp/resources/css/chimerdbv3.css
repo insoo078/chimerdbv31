@@ -311,3 +311,19 @@ text.text-hover {
 .author_info_text{
 	font-weight:bold;cursor:pointer;
 }
+
+.seq-option-tool-table{
+	width:450px;
+}
+
+.seq-option-tool-table td.seq-prediction-tool-name{
+	width:140px;
+}
+
+.seq-option-tool-table td.seq-tool-option-condition{
+	width:210px;
+}
+
+.seq-option-tool-table td.seq-tool-option-value{
+	width:100px;
+}

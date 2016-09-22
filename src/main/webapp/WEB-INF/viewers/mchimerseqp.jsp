@@ -154,11 +154,11 @@
 
 											<div class="row">
 												<div class="col-md-11 col-md-offset-1">
-													<table>
+													<table class="seq-option-tool-table">
 														<tr>
-															<td><label class="checkbox-inline"><form:checkbox path="chkFusionScan" value="on" checked="true"/>FusionScan</label></td>
-															<td><span style="font-size: 13px;">Number of seed reads &#62;&#61;</span></td>
-															<td><form:input path="noOfSeedReads" class="form-control" style="width: 70px; height: 25px;" value="2"/></td>
+															<td class='seq-prediction-tool-name'><label class="checkbox-inline"><form:checkbox path="chkFusionScan" value="on" checked="true"/>FusionScan</label></td>
+															<td class='seq-tool-option-condition'><span style="font-size: 13px;">Number of seed reads &#62;&#61;</span></td>
+															<td class='seq-tool-option-value'><form:input path="noOfSeedReads" class="form-control" style="width: 70px; height: 25px;" value="2"/></td>
 														</tr>
 													</table>
 												</div>
@@ -166,11 +166,11 @@
 
 											<div class="row">
 												<div class="col-md-11 col-md-offset-1">
-													<table>
+													<table class="seq-option-tool-table">
 														<tr>
-															<td><label class="checkbox-inline"><form:checkbox path="chkTophat" value="on" checked="true"/>TopHat-Fusion</label></td>
-															<td><span style="font-size: 13px;">Number of spanning pairs &#62;&#61;</span></td>
-															<td><form:input path="noOfSpaningPairs" class="form-control" style="width: 70px; height: 25px;" value="100"/></td>
+															<td class='seq-prediction-tool-name'><label class="checkbox-inline"><form:checkbox path="chkTophat" value="on" checked="true"/>TopHat-Fusion</label></td>
+															<td class='seq-tool-option-condition'><span style="font-size: 13px;">Number of spanning pairs &#62;&#61;</span></td>
+															<td class='seq-tool-option-value'><form:input path="noOfSpaningPairs" class="form-control" style="width: 70px; height: 25px;" value="100"/></td>
 														</tr>
 													</table>
 												</div>
@@ -178,11 +178,11 @@
 
 											<div class="row">
 												<div class="col-md-11 col-md-offset-1">
-													<table>
+													<table class="seq-option-tool-table">
 														<tr>
-															<td><label class="checkbox-inline"><form:checkbox path="chkPrada" value="on" checked="true"/>PRADA</label></td>
-															<td><span style="font-size: 13px;">Number of junction reads &#62;&#61;</span></td>
-															<td><form:input path="noOfJunctionReads" class="form-control" style="width: 70px; height: 25px;" value="2"/></td>
+															<td class='seq-prediction-tool-name'><label class="checkbox-inline"><form:checkbox path="chkPrada" value="on" checked="true"/>PRADA</label></td>
+															<td class='seq-tool-option-condition'><span style="font-size: 13px;">Number of junction reads &#62;&#61;</span></td>
+															<td class='seq-tool-option-value'><form:input path="noOfJunctionReads" class="form-control" style="width: 70px; height: 25px;" value="2"/></td>
 														</tr>
 													</table>
 												</div>
