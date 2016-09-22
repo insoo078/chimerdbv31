@@ -531,6 +531,29 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptExons = functio
 					return points;
 				})
 				;
+
+		var intron_size = (1 * config.drawingObj[type].no_of_intron_size) * config.drawingObj[type].final_unit_nt_size;
+		if( type==='5pGene' ) {
+			var width = intron_size * 0.8;
+			var x = exonPos[ exons[0].elementIndex ].x1 - width ;
+			exonGroup.append("rect")
+					.attr("x", x)
+					.attr("y", y - (config.EXON_HEIGHT/2) + 4)
+					.attr("width", width)
+					.attr("height", config.EXON_HEIGHT - 8)
+			;
+		}
+		else if(type === '3pGene' ){
+			//	3p UTR
+			var width = intron_size * 0.8;
+			var x = exonPos[ exons[exons.length-1].elementIndex ].x1 + exonPos[ exons[exons.length-1].elementIndex ].width;
+			exonGroup.append("rect")
+					.attr("x", x)
+					.attr("y", y - (config.EXON_HEIGHT/2) + 4)
+					.attr("width", width)
+					.attr("height", config.EXON_HEIGHT - 8)
+			;
+		}
 				
 		exonGroup.selectAll("text")
 				.data(exons)
@@ -907,6 +930,29 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneExons = function( con
 					return points;
 				})
 				;
+
+		var intron_size = (1 * config.drawingObj[type].no_of_intron_size) * config.drawingObj[type].final_unit_nt_size;
+		if( type==='5pGene' ) {
+			var width = intron_size * 0.8;
+			var x = exonPos[ exons[0].elementIndex ].x1 - width ;
+			exonGroup.append("rect")
+					.attr("x", x)
+					.attr("y", y - (config.EXON_HEIGHT/2) + 4)
+					.attr("width", width)
+					.attr("height", config.EXON_HEIGHT - 8)
+			;
+		}
+		else if(type === '3pGene' ){
+			//	3p UTR
+			var width = intron_size * 0.8;
+			var x = exonPos[ exons[exons.length-1].elementIndex ].x1 + exonPos[ exons[exons.length-1].elementIndex ].width;
+			exonGroup.append("rect")
+					.attr("x", x)
+					.attr("y", y - (config.EXON_HEIGHT/2) + 4)
+					.attr("width", width)
+					.attr("height", config.EXON_HEIGHT - 8)
+			;
+		}
 				
 		exonGroup.selectAll("text")
 				.data(exons)
@@ -1222,9 +1268,50 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backb
 		
 		var intron_size = (1 * config.drawingObj[obj.type].no_of_intron_size) * config.drawingObj[obj.type].final_unit_nt_size;
 		
-		if( obj.type === '5pGene' && obj.gene.strand === '+' ) {
-			console.log( exonPos[1] );
-		}else if( obj.type === '5pGene' && obj.gene.strand === '-' ) {
+		{
+			// 5p UTR
+//			if( obj.type === '5pGene' && obj.gene.strand === '+' ) {
+//				var width = intron_size * 0.8;
+//				var x = exonPos[1].x1 - width ;
+//				exonGroup.append("rect")
+//						.attr("x", x)
+//						.attr("y", config.EXON_Y_POS + 4)
+//						.attr("width", width)
+//						.attr("height", config.EXON_HEIGHT - 8)
+//				;
+//			}else if( obj.type === '5pGene' && obj.gene.strand === '-' ) {
+//				var width = intron_size * 0.8;
+//				var x = exonPos[1].x1 - width ;
+//				exonGroup.append("rect")
+//						.attr("x", x)
+//						.attr("y", config.EXON_Y_POS + 4)
+//						.attr("width", width)
+//						.attr("height", config.EXON_HEIGHT - 8)
+//				;
+//
+//			}else if( obj.type === '3pGene' && obj.gene.strand === '+' ) {
+//				var width = intron_size * 0.8;
+//				var x = exonPos[ 1 ].x1 - width ;
+//				exonGroup.append("rect")
+//						.attr("x", x)
+//						.attr("y", config.EXON_Y_POS + 4)
+//						.attr("width", width)
+//						.attr("height", config.EXON_HEIGHT - 8)
+//				;
+//
+//			}else if( obj.type === '3pGene' && obj.gene.strand === '-' ) {
+//				var width = intron_size * 0.8;
+//				var x = exonPos[ 1 ].x1 - width;
+//				exonGroup.append("rect")
+//						.attr("x", x)
+//						.attr("y", config.EXON_Y_POS + 4)
+//						.attr("width", width)
+//						.attr("height", config.EXON_HEIGHT - 8)
+//				;
+//				
+//				console.log( exonPos[ 1 ] );
+//				console.log( exonPos[ transcriptExons.length - 1 ] );
+//			}
 			var width = intron_size * 0.8;
 			var x = exonPos[1].x1 - width ;
 			exonGroup.append("rect")
@@ -1233,11 +1320,17 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawExons = function( config, backb
 					.attr("width", width)
 					.attr("height", config.EXON_HEIGHT - 8)
 			;
-			
-		}else if( obj.type === '3pGene' && obj.gene.strand === '+' ) {
-			console.log( exonPos[transcriptExons.length-1] );
-		}else if( obj.type === '3pGene' && obj.gene.strand === '-' ) {
-			console.log( exonPos[transcriptExons.length-1] );
+		}
+		{
+			//	3p UTR
+			var width = intron_size * 0.8;
+			var x = exonPos[ transcriptExons.length ].x1 + exonPos[ transcriptExons.length ].width;
+			exonGroup.append("rect")
+					.attr("x", x)
+					.attr("y", config.EXON_Y_POS + 4)
+					.attr("width", width)
+					.attr("height", config.EXON_HEIGHT - 8)
+			;
 		}
 		
 		exonGroup.selectAll("text")
