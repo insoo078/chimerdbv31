@@ -54,3 +54,11 @@ and open the template in the editor.
 		stroke-width:0.2;
 		stroke: rgb(230,230,230);	
 }
+
+.p5-utr{
+	fill:rgb(255, 193, 0);
+}
+
+.p3-utr{
+	fill:rgb(255, 0, 255);
+}
