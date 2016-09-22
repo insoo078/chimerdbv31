@@ -107,21 +107,40 @@ function showDesc(popupdataobj){
     $("#srt_td_3g_strand").text( popupdataobj[20] );
 
     var selectedFuncStr = "";
-    if( popupdataobj[25] === "1"){
-        selectedFuncStr += "Kinase" + ", ";
+	if( popupdataobj[25] === "1"){
+        selectedFuncStr += "Kinase";
     }
     if( popupdataobj[26] === "1"){
-        selectedFuncStr += "Oncogene" + ", ";
+		if( selectedFuncStr === "" )	selectedFuncStr += "Oncogene";
+		else							selectedFuncStr += ", Oncogene";
     }
     if( popupdataobj[27] === "1"){
-        selectedFuncStr += "Tumor suppressor" + ", ";
+		if( selectedFuncStr === "" )	selectedFuncStr += "Tumor suppressor";
+		else							selectedFuncStr += ", Tumor suppressor";
     }
     if( popupdataobj[28] === "1"){
-        selectedFuncStr += "Receptor" + ", ";
+		if( selectedFuncStr === "" )	selectedFuncStr += "Receptor";
+		else							selectedFuncStr += ", Receptor";
     }
     if( popupdataobj[29] === "1"){
-        selectedFuncStr += "Transcription factor" + ", ";
+		if( selectedFuncStr === "" )	selectedFuncStr += "Transcription factor";
+		else							selectedFuncStr += ", Transcription factor";
     }
+//    if( popupdataobj[25] === "1"){
+//        selectedFuncStr += "Kinase" + ", ";
+//    }
+//    if( popupdataobj[26] === "1"){
+//        selectedFuncStr += "Oncogene" + ", ";
+//    }
+//    if( popupdataobj[27] === "1"){
+//        selectedFuncStr += "Tumor suppressor" + ", ";
+//    }
+//    if( popupdataobj[28] === "1"){
+//        selectedFuncStr += "Receptor" + ", ";
+//    }
+//    if( popupdataobj[29] === "1"){
+//        selectedFuncStr += "Transcription factor" + ", ";
+//    }
 
 
     $("#srt_td_5g_3g_func").text( selectedFuncStr );
