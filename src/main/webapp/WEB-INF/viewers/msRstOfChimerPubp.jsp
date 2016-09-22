@@ -123,7 +123,8 @@
 														<span class="chimer-seq-icon chimerdb-icon">Seq</span>&nbsp;
 													</c:if>
 												</td>
-												<td><c:out value="${chimerpubLst.getPMID()}" /></td>
+												<td><a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=<c:out value='${chimerpubLst.getPMID()}'/>" target="_blank"><c:out value="${chimerpubLst.getPMID()}" /></a></td>
+
 												<td><c:out value="${chimerpubLst.getH_gene()}" /></td>
 												<td><c:out value="${chimerpubLst.getT_gene()}" /></td>
 												<td><c:out value="${chimerpubLst.getSentence_highlight()}" /></td>

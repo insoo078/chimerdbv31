@@ -38,6 +38,46 @@ $(document).ready(function () {
 			$("#author_info_expand").text("+");
 		}
 	});
+	
+	
+	$(".chimer-pub-icon").click(function(){
+		var $tr = $(this).closest('tr');
+		var myRow = $tr.index();
+
+		var data = mainTable.row(myRow).data();
+
+		var gene_pair = data[0];
+		
+		var url = "chimerpub_from_others.cdb?key_data_for_search_type=" + gene_pair;
+		window.open(url, 'ChimerPub', 'window settings');
+		return false;
+	});
+	
+	$(".chimer-kb-icon").click(function(){
+		var $tr = $(this).closest('tr');
+		var myRow = $tr.index();
+
+		var data = mainTable.row(myRow).data();
+
+		var gene_pair = data[0];
+
+		var url = "chimerkb_from_others.cdb?key_data_for_search_type=" + gene_pair;
+		window.open(url, 'ChimerKb', 'window settings');
+		return false;
+	});
+	
+	$(".chimer-seq-icon").click(function(){
+		var $tr = $(this).closest('tr');
+		var myRow = $tr.index();
+
+		var data = mainTable.row(myRow).data();
+
+		var gene_pair = data[0];
+
+		var url = "chimerseq_link.cdb?gene_pair=" + gene_pair;
+		window.open(url, 'ChimerSeq', 'window settings');
+		return false;
+	});
 
 	showJournalDataFromNcbi( mainTable.row(0).data() );
 });
