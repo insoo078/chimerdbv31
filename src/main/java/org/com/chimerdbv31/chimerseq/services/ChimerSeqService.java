@@ -88,7 +88,8 @@ public class ChimerSeqService {
 
 				// Find Pfam domains by gene information
 				obj.setpFamDomainList( this.getPfamDomainInfo( obj ) );
-				obj.setReads( reads );
+
+				if( reads != null )	obj.setReads( reads );
 
 				fusionGene.addGene( loc[i], obj );
 			}

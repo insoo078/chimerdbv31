@@ -315,34 +315,35 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptAlignedReads = 
 
 		var reads = config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].reads
 		
-		console.log( reads );
+		if( typeof reads !== "undefined") {
+			var posStart = exonPos.exons[ exons[0].elementIndex ];
+			var posEnd = exonPos.exons[ exons[exons.length-1].elementIndex ];
 
-		var posStart = exonPos.exons[ exons[0].elementIndex ];
-		var posEnd = exonPos.exons[ exons[exons.length-1].elementIndex ];
+			var transcript_region = {start:exons[0].start, end:exons[exons.length-1].end };
+			if( config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].strand === '-' ) {
+				transcript_region = {start:exons[exons.length-1].start, end:exons[0].start};
+			}
 
-		var transcript_region = {start:exons[0].start, end:exons[exons.length-1].end };
-		if( config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].strand === '-' ) {
-			transcript_region = {start:exons[exons.length-1].start, end:exons[0].start};
-		}
+			var unit = ((posEnd.x1+posEnd.width) - posStart.x1) / (transcript_region.end - transcript_region.start + 1);
 
-		var unit = ((posEnd.x1+posEnd.width) - posStart.x1) / (transcript_region.end - transcript_region.start + 1);
-		
-		for(var j=0; j<reads.length; j++) {
-			var diff = reads[j].start - transcript_region.start;
 
-			if( config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].strand === '-' )
-				diff = transcript_region.end - reads[j].end;
-				
-			var x1 = posStart.x1 + (diff*unit);
-			var width = (reads[j].end - reads[j].start + 1) * unit;
-	
-			readsGroup.append("rect")
-						.classed("read-feature-rect", true)
-						.attr("fill", read_color[i])
-						.attr("x", x1)
-						.attr("y", yPos + (j*5))
-						.attr("width", width)
-						.attr("height", 3);
+			for(var j=0; j<reads.length; j++) {
+				var diff = reads[j].start - transcript_region.start;
+
+				if( config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].strand === '-' )
+					diff = transcript_region.end - reads[j].end;
+
+				var x1 = posStart.x1 + (diff*unit);
+				var width = (reads[j].end - reads[j].start + 1) * unit;
+
+				readsGroup.append("rect")
+							.classed("read-feature-rect", true)
+							.attr("fill", read_color[i])
+							.attr("x", x1)
+							.attr("y", yPos + (j*5))
+							.attr("width", width)
+							.attr("height", 3);
+			}
 		}
 	}
 };
