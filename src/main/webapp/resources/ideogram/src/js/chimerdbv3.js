@@ -313,7 +313,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptAlignedReads = 
 		var yPos = d3.select("#fused-transcript-backbone-line-"+obj.type).attr("y1");
 		yPos = parseFloat(yPos) + (config.EXON_HEIGHT/2) + 2;
 
-		var reads = config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].reads
+		var reads = config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].reads;
 		
 		if( typeof reads !== "undefined") {
 			var posStart = exonPos.exons[ exons[0].elementIndex ];
@@ -326,7 +326,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptAlignedReads = 
 
 			var unit = ((posEnd.x1+posEnd.width) - posStart.x1) / (transcript_region.end - transcript_region.start + 1);
 
-
+			if( i === 1 ) {
 			for(var j=0; j<reads.length; j++) {
 				var diff = reads[j].start - transcript_region.start;
 
@@ -343,6 +343,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptAlignedReads = 
 							.attr("y", yPos + (j*5))
 							.attr("width", width)
 							.attr("height", 3);
+			}
 			}
 		}
 	}
