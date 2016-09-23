@@ -38,35 +38,66 @@
                     <div class="templatemo-panels">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <span style="font-size: 20px; font-weight: bold;">Direction of ChimerDB3.0 Web Page</span>
+                                <span style="font-size: 20px; font-weight: bold;">Help</span>
                             </div>
                             <div class="panel-body">
                                 <table class="table table-striped table-hover">
-                                    <thead>
                                       <tr>
-                                          <th>Reference of ChimerDB3.0</th>
+                                          <th>1. Dataset of ChimerDB 3.0</th>
                                       </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr> <td> BLCA http://www.nature.com/nature/journal/vaop/ncurrent/full/nature12965.html </td> </tr>
-                                      <tr> <td> BRCA http://www.nature.com/nature/journal/v490/n7418/full/nature11412.html </td> </tr>
-                                      <tr> <td> CLL http://www.nature.com/nature/journal/v505/n7484/full/nature12912.html </td> </tr>
-                                      <tr> <td> COAD http://www.nature.com/nature/journal/v487/n7407/full/nature11252.html </td> </tr>
-                                      <tr> <td> CRC http://www.nature.com/nature/journal/v505/n7484/full/nature12912.html </td> </tr>
-                                      <tr> <td> DLBCL http://www.nature.com/nature/journal/v505/n7484/full/nature12912.html </td> </tr>
-                                      <tr> <td> ESO http://www.nature.com/nature/journal/v505/n7484/full/nature12912.html </td> </tr>
-                                      <tr> <td> GBM http://www.sciencedirect.com/science/article/pii/S0092867413012087 </td> </tr>
-                                      <tr> <td> HNSC https://www.sciencemag.org/content/333/6046/1157 </td> </tr>
-                                      <tr> <td> KIRC http://www.nature.com/nature/journal/v499/n7456/full/nature12222.html </td> </tr>
-                                      <tr> <td> LAML http://www.nejm.org/doi/full/10.1056/NEJMoa1301689 </td> </tr>
-                                      <tr> <td> LUAD http://www.sciencedirect.com/science/article/pii/S0092867412010227 </td> </tr>
-                                      <tr> <td> LUSC http://www.nature.com/nature/journal/v489/n7417/full/nature11404.html </td> </tr>
-                                      <tr> <td> MEL http://www.nature.com/nature/journal/v505/n7484/full/nature12912.html </td> </tr>
-                                      <tr> <td> MM http://www.nature.com/nature/journal/v505/n7484/full/nature12912.html </td> </tr>
-                                      <tr> <td> OV http://www.nature.com/nature/journal/v474/n7353/full/nature10166.html </td> </tr>
-                                      <tr> <td> PRAD http://www.nature.com/nature/journal/v505/n7484/full/nature12912.html </td> </tr>
-                                      <tr> <td> UCEC http://www.nature.com/nature/journal/v497/n7447/full/nature12113.html </td> </tr>
-                                    </tbody>
+                                      <tr>
+										  <td>1.1 ChimerKB</td>
+									  </tr>
+									  <tr>
+										  <td>1.2 ChimerPub</td>
+									  </tr>
+									  <tr>
+										  <td>1.3 ChimerSeq</td>
+									  </tr>
+									  <tr>
+										  <td>1.3.1 Data processing</td>
+									  </tr>
+									  <tr>
+										  <td>1.3.2 FusionScan</td>
+									  </tr>
+									  <tr>
+                                          <th>2. ChimerKB Menu</th>
+                                      </tr>
+                                      <tr>
+										  <td>2.1 How-to search</td>
+									  </tr>
+									  <tr>
+										  <td>2.2 Search result: Brief information & detailed information</td>
+									  </tr>
+									  <tr>
+										  <td>3 ChimerPub Menu</td>
+									  </tr>
+									  <tr>
+										  <td>3.1 How-to search</td>
+									  </tr>
+									  <tr>
+										  <td>3.2 Search result: Brief information and Abstract highlights</td>
+									  </tr>
+									
+									
+									<!--
+1. Dataset of ChimerDB 3.0
+1.1 ChimerKB
+1.2 ChimerPub
+1.3 ChimerSeq
+1.3.1 Data processing
+1.3.2 FusionScan
+2. ChimerKB Menu
+2.1 How-to search
+2.2 Search result: Brief information & detailed information
+3. ChimerPub Menu
+3.1 How-to search
+3.2 Search result: Brief information and Abstract highlights 
+4. ChimerSeq Menu
+4.1 How-to search
+4.2 Search result: Brief information & detailed information
+4.3 Search result: Fusion Structure 
+		 -->
                                 </table>
                             </div>
                         </div>
