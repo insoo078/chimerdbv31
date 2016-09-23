@@ -300,8 +300,51 @@ text.text-hover {
 	font-size:18px;font-weight:bold;
 }
 
+.hilight_text {
+	font-weight:bold;
+}
+.h_gene_highlight{
+	color:black;
+}
+
+.t_gene_highlight{
+	color:black;
+}
+
+.validation_highlight{
+	background-color:#A0A4FF;
+}
+
+.disease_highlight{
+	background-color:#FF80A8;
+}
+
+.highlight_main_sentence{
+	background-color:yellow;
+}
+
 .colored-abstract-text{
 	font-weight:bold;color:#7D4B38;
+}
+
+.fixed-span-50{
+	display:inline-block;width:80px;text-align:center;
+}
+
+#abstract_legend{
+	width:230px;border:1px solid gray;
+}
+
+#abstract_legend th{
+	border:1px solid gray;background:lightgray;
+}
+
+#abstract_legend td.colored-td{
+	width:80px;border:1px solid gray;
+}
+
+#abstract_legend td.desc-td{
+	width:150px;border:1px solid gray;text-indent: 5px;
 }
 
 .author_info_expand{

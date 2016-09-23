@@ -128,6 +128,8 @@
 												<td><c:out value="${chimerpubLst.getH_gene()}" /></td>
 												<td><c:out value="${chimerpubLst.getT_gene()}" /></td>
 												<td><c:out value="${chimerpubLst.getSentence_highlight()}" /></td>
+												<td><c:out value="${chimerpubLst.getDisease_highlight()}" /></td>
+												<td><c:out value="${chimerpubLst.getValidation_highlight()}" /></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -171,6 +173,32 @@
 										</tr>
 										<tr>
 											<td id="article_abstract"></td>
+										</tr>
+										<tr>
+											<td>
+												<table id="abstract_legend">
+													<tr>
+														<th class="colored-td" style="text-align: center;">Type</th>
+														<th class="desc-td" style="text-align: center;">Description</th>
+													</tr>
+													<tr>
+														<td class="colored-td"><span class="fixed-span-50 hilight_text">Text</span></td>
+														<td class="desc-td">Fusion gene</td>
+													</tr>
+													<tr>
+														<td class="colored-td"><span class="fixed-span-50 highlight_main_sentence">Text</span></td>
+														<td class="desc-td">Main sentence</td>
+													</tr>
+													<tr>
+														<td class="colored-td"><span class="fixed-span-50 disease_highlight">Disease</span></td>
+														<td class="desc-td">Related disease</td>
+													</tr>
+													<tr>
+														<td class="colored-td"><span class="fixed-span-50 validation_highlight">Validation</span></td>
+														<td class="desc-td">Validation method</td>
+													</tr>
+												</table>
+											</td>
 										</tr>
 									</table>
 								</div>

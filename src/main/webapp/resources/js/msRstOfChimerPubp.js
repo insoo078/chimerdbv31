@@ -16,6 +16,8 @@ $(document).ready(function () {
             { 'targets': [6], 'visible': false, 'searchable': false }
             ,{ 'targets': [7], 'visible': false, 'searchable': false }
 			,{ 'targets': [8], 'visible': false, 'searchable': false }
+			,{ 'targets': [9], 'visible': false, 'searchable': false }	// disease_highlight
+			,{ 'targets': [10], 'visible': false, 'searchable': false }	// validation_highlight;
         ],
          "scrollX":true,
          "tableTools":{"sSwfPath": "./resources/swf/copy_csv_xls_pdf.swf"},
@@ -116,8 +118,10 @@ function showJournalDataFromNcbi(rowObj) {
 		type : 'POST',
 		success: function(jData) {
 			var pubmedObj = {};
-
-			pubmedObj.pmid = rowObj[5];
+			
+			var pmid = rowObj[5].split(">")[1].split("<")[0];
+			
+			pubmedObj.pmid = pmid;
 			pubmedObj.title = $(jData).find("ArticleTitle").text();
 			pubmedObj.journalTitle = $(jData).find("Article").find("Journal").find("Title").text();
 			pubmedObj.journalTitleAbbr = $(jData).find("Article").find("Journal").find("ISOAbbreviation").text();
@@ -126,6 +130,8 @@ function showJournalDataFromNcbi(rowObj) {
 			pubmedObj.issuedYear = $(jData).find("Article").find("Journal").find("JournalIssue").find("PubDate").find("Year").text();
 			pubmedObj.issedMonth = $(jData).find("Article").find("Journal").find("JournalIssue").find("PubDate").find("Month").text();
 			pubmedObj.pagination = $(jData).find("Article").find("Pagination").find("MedlinePgn").text();
+			pubmedObj.validation = rowObj[10].split("/");
+			pubmedObj.disease = rowObj[9].split("/");
 
 			var authors = [];
 			var author = $(jData).find("Article").find("AuthorList").find("Author");
@@ -161,6 +167,7 @@ function showJournalDataFromNcbi(rowObj) {
 }
 
 function printArticle(pubmedObj, hilight_sentences, gene1, gene2) {
+	console.log( pubmedObj );
 	var issue_info = pubmedObj.journalTitleAbbr + " " + pubmedObj.issuedYear + " " + pubmedObj.issedMonth + ";" + pubmedObj.volume + "(" + pubmedObj.issue + "):" + pubmedObj.pagination;
 	$("#journal_issue_info").text( issue_info );
 	$("#article_title").html( "<a href='http://www.ncbi.nlm.nih.gov/pubmed/"+ pubmedObj.pmid +"'>" + pubmedObj.title + "</a>" );
@@ -197,10 +204,24 @@ function printArticle(pubmedObj, hilight_sentences, gene1, gene2) {
 
 	for(var i=0; i<hilight_sentence.length; i++) {
 		var sentence = hilight_sentence[i].trim().replace("..", "");
-		abstract = abstract.replace(sentence, "<span style='background-color:yellow;'>" + sentence + "</span>");
+		abstract = abstract.replace(sentence, "<span class='highlight_main_sentence'>" + sentence + "</span>");
 	}
-	abstract = replaceAll(abstract, gene1.trim(), "<span style='font-weight:bold;'>" + gene1.trim() + "</span>");
-	abstract = replaceAll(abstract, gene2.trim(), "<span style='font-weight:bold;'>" + gene2.trim() + "</span>");
+	abstract = replaceAll(abstract, gene1.trim(), "<span class='h_gene_highlight hilight_text'>" + gene1.trim() + "</span>");
+	abstract = replaceAll(abstract, gene2.trim(), "<span class='t_gene_highlight hilight_text'>" + gene2.trim() + "</span>");
+	
+	for( var i=0; i<pubmedObj.disease.length; i++) {
+		var sentence = pubmedObj.disease[i].trim();
+		if( sentence !== "" ) {
+			abstract = replaceAll(abstract, sentence, "<span class='disease_highlight'>" + sentence + "</span>");
+		}
+	}
+	
+	for( var i=0; i<pubmedObj.validation.length; i++) {
+		var sentence = pubmedObj.validation[i].trim();
+		if( sentence !== "" ) {
+			abstract = replaceAll(abstract, sentence, "<span class='validation_highlight'>" + sentence + "</span>");
+		}
+	}
 	
 	$("#article_abstract").html( abstract );
  }
