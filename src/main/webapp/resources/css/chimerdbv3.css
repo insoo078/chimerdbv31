@@ -374,3 +374,9 @@ text.text-hover {
 .seq-option-tool-table td.seq-tool-option-value{
 	width:100px;
 }
+
+
+
+ol.help_main{
+	list-style:none;
+}
