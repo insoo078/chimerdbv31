@@ -313,7 +313,9 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptAlignedReads = 
 		var yPos = d3.select("#fused-transcript-backbone-line-"+obj.type).attr("y1");
 		yPos = parseFloat(yPos) + (config.EXON_HEIGHT/2) + 2;
 
-		var reads = config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].reads;
+		var reads = config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].reads
+		
+		console.log( reads );
 
 		var posStart = exonPos.exons[ exons[0].elementIndex ];
 		var posEnd = exonPos.exons[ exons[exons.length-1].elementIndex ];

@@ -17,6 +17,7 @@ import org.com.chimerdbv31.chimerseq.obj.TranscriptObj;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqDetailVo;
+import org.com.chimerdbv31.chimerseq.vo.FusionScanReadVo;
 import org.com.chimerdbv31.chimerseq.vo.PfamVo;
 import org.com.chimerdbv31.chimerseq.vo.ReadVo;
 import org.com.chimerdbv31.chimerseq.vo.SynonymVo;
@@ -64,7 +65,13 @@ public class ChimerSeqService {
 		String[] chromosomes = new String[]{chimerSeqRecord.getH_chr(), chimerSeqRecord.getT_chr()};
 		String[] loc = new String[]{ FusionGeneObj._5P_GENE, FusionGeneObj._3P_GENE };
 
-		List<ReadVo> reads = this.chimerSeqMapper.getReads(null);
+		FusionScanReadVo fusionScanReads = this.chimerSeqMapper.getReads( chimerSeqRecord.getId() );
+
+		List<ReadVo> reads = null;
+		if( fusionScanReads != null ) {
+			reads = ReadVo.makeReadList(fusionScanReads);
+		}
+
 		FusionGeneObj fusionGene = new FusionGeneObj( chimerSeqRecord );
 		for( int i=0; i<genes.length; i++ ) {
 			// Find gene info by gene symbol

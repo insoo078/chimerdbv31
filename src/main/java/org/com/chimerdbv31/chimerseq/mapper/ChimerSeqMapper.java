@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqDetailVo;
 import org.com.chimerdbv31.chimerseq.vo.ChimerSeqVo;
+import org.com.chimerdbv31.chimerseq.vo.FusionScanReadVo;
 import org.com.chimerdbv31.chimerseq.vo.GeneInfoVo;
 import org.com.chimerdbv31.chimerseq.vo.Gff3Vo;
 import org.com.chimerdbv31.chimerseq.vo.PfamVo;
@@ -31,5 +32,5 @@ public interface ChimerSeqMapper {
 	public List<PfamVo> getPfamDomainInfo(Map<String, Object> param);
 	
 	public List<SynonymVo> getSynonym();
-	public List<ReadVo> getReads(Map<String, String> param);
+	public FusionScanReadVo getReads(@Param("id") int id);
 }

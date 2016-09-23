@@ -436,8 +436,14 @@
 		FROM I1_Gene_Info
 	</select>
 	
-	<select id="getReads" parameterType="java.util.Map" resultType="org.com.chimerdbv31.chimerseq.vo.ReadVo">
-		SELECT id, gene_pair, type, chr, start, end FROM I1_AlignedReads
+	<select id="getReads" parameterType="java.util.Map" resultType="org.com.chimerdbv31.chimerseq.vo.FusionScanReadVo">
+		SELECT 
+			id
+			, Fusion_pair as gene_pair
+			, H_alignment as h_alignment
+			, T_alignment as t_alignment
+		FROM FusionScanAlign
+		WHERE id=${id}
 	</select>
 </mapper>
 
