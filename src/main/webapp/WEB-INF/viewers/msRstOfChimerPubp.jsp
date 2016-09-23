@@ -180,22 +180,27 @@
 													<tr>
 														<th class="colored-td" style="text-align: center;">Type</th>
 														<th class="desc-td" style="text-align: center;">Description</th>
+														<th><input id='chk_all_highlight' type='checkbox' checked value='on'/></th>
 													</tr>
 													<tr>
 														<td class="colored-td"><span class="fixed-span-50 hilight_text">Text</span></td>
 														<td class="desc-td">Fusion gene</td>
+														<td> <input id='chk_fusion_gene_highlight' class='chk-legend' type="checkbox" checked value="on"/></td>
 													</tr>
 													<tr>
 														<td class="colored-td"><span class="fixed-span-50 highlight_main_sentence">Text</span></td>
 														<td class="desc-td">Main sentence</td>
+														<td> <input id='chk_main_sentence_gene_highlight' class='chk-legend' type="checkbox" checked value="on"/></td>
 													</tr>
 													<tr>
 														<td class="colored-td"><span class="fixed-span-50 disease_highlight">Disease</span></td>
 														<td class="desc-td">Related disease</td>
+														<td> <input id='chk_disease_gene_highlight' class='chk-legend' type="checkbox" checked value="on"/></td>
 													</tr>
 													<tr>
 														<td class="colored-td"><span class="fixed-span-50 validation_highlight">Validation</span></td>
 														<td class="desc-td">Validation method</td>
+														<td> <input id='chk_validation_gene_highlight' class='chk-legend' type="checkbox" checked value="on"/></td>
 													</tr>
 												</table>
 											</td>

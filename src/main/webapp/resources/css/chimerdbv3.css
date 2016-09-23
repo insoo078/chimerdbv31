@@ -339,12 +339,16 @@ text.text-hover {
 	border:1px solid gray;background:lightgray;
 }
 
+#abstract_legend td{
+	border:1px solid gray;
+}
+
 #abstract_legend td.colored-td{
-	width:80px;border:1px solid gray;
+	width:80px;
 }
 
 #abstract_legend td.desc-td{
-	width:150px;border:1px solid gray;text-indent: 5px;
+	width:130px;text-indent: 5px;
 }
 
 .author_info_expand{

@@ -204,7 +204,7 @@ function printArticle(pubmedObj, hilight_sentences, gene1, gene2) {
 
 	for(var i=0; i<hilight_sentence.length; i++) {
 		var sentence = hilight_sentence[i].trim().replace("..", "");
-		abstract = abstract.replace(sentence, "<span class='highlight_main_sentence'>" + sentence + "</span>");
+		abstract = abstract.replace(sentence, "<span class='main_sentence highlight_main_sentence'>" + sentence + "</span>");
 	}
 	abstract = replaceAll(abstract, gene1.trim(), "<span class='h_gene_highlight hilight_text'>" + gene1.trim() + "</span>");
 	abstract = replaceAll(abstract, gene2.trim(), "<span class='t_gene_highlight hilight_text'>" + gene2.trim() + "</span>");
@@ -212,18 +212,63 @@ function printArticle(pubmedObj, hilight_sentences, gene1, gene2) {
 	for( var i=0; i<pubmedObj.disease.length; i++) {
 		var sentence = pubmedObj.disease[i].trim();
 		if( sentence !== "" ) {
-			abstract = replaceAll(abstract, sentence, "<span class='disease_highlight'>" + sentence + "</span>");
+			abstract = replaceAll(abstract, sentence, "<span class='disease-text disease_highlight'>" + sentence + "</span>");
 		}
 	}
 	
 	for( var i=0; i<pubmedObj.validation.length; i++) {
 		var sentence = pubmedObj.validation[i].trim();
 		if( sentence !== "" ) {
-			abstract = replaceAll(abstract, sentence, "<span class='validation_highlight'>" + sentence + "</span>");
+			abstract = replaceAll(abstract, sentence, "<span class='validation-text validation_highlight'>" + sentence + "</span>");
 		}
 	}
 	
 	$("#article_abstract").html( abstract );
+	
+	
+	$("#chk_all_highlight").change(function(){
+		if( $(this).is(":checked") === true ) {
+			$(".chk-legend").prop("checked", true);
+			$(".chk-legend").change();
+		}else{
+			$(".chk-legend").prop("checked", false);
+			$(".chk-legend").change();
+		}
+	});
+	
+	$("#chk_fusion_gene_highlight").change(function(){
+		if( $(this).is(":checked") === true ) {
+			$(".h_gene_highlight").addClass("hilight_text");
+			$(".t_gene_highlight").addClass("hilight_text");
+		}else{
+			$(".h_gene_highlight").removeClass("hilight_text");
+			$(".t_gene_highlight").removeClass("hilight_text");
+		}
+	});
+
+	$("#chk_main_sentence_gene_highlight").change(function(){
+		if( $(this).is(":checked") === true ) {
+			$(".main_sentence").addClass("highlight_main_sentence");
+		}else{
+			$(".main_sentence").removeClass("highlight_main_sentence");
+		}
+	});
+
+	$("#chk_disease_gene_highlight").change(function(){
+		if( $(this).is(":checked") === true ) {
+			$(".disease-text").addClass("disease_highlight");
+		}else{
+			$(".disease-text").removeClass("disease_highlight");
+		}
+	});
+
+	$("#chk_validation_gene_highlight").change(function(){
+		if( $(this).is(":checked") === true ) {
+			$(".validation-text").addClass("validation_highlight");
+		}else{
+			$(".validation-text").removeClass("validation_highlight");
+		}
+	});
  }
  
 function replaceAll(str, searchStr, replaceStr) {
