@@ -43,38 +43,38 @@
                             <div class="panel-body">
 								<ol class="help_main_menu">
 									<li>
-										<span>1. DataSet of ChimerDB 3.0</span>
+										<span class='menu_btn' id='btn_1'>1. DataSet of ChimerDB 3.0</span>
 										<ol class="help_main_menu">
-											<li><span>1.1 ChimerKB</span></li>
-											<li><span>1.2 ChimerPub</span></li>
-											<li><span>1.3 ChimerSeq</span>
+											<li><span class='menu_btn' id='btn_1_1'>1.1 ChimerKB</span></li>
+											<li><span class='menu_btn' id='btn_1_2'>1.2 ChimerPub</span></li>
+											<li><span class='menu_btn' id='btn_1_3'>1.3 ChimerSeq</span>
 												<ol class="help_main_menu">
-													<li><span>1.3.1 Data processing</span></li>
-													<li><span>1.3.2 FusionScan</span></li>
+													<li><span class='menu_btn' id='btn_1_3_1'>1.3.1 Data processing</span></li>
+													<li><span class='menu_btn' id='btn_1_3_1'>1.3.2 FusionScan</span></li>
 												</ol>
 											</li>
 										</ol>
 									</li>
 									<li>
-										<span>2. ChimerKB Menu</span> 
+										<span class='menu_btn' id='btn_2'>2. ChimerKB Menu</span> 
 										<ol class="help_main_menu">
-											<li><span>2.1 How-to search</span></li>
-											<li><span>2.2 Search result: Brief information & detailed information</span></li>
+											<li><span class='menu_btn' id='btn_2_1'>2.1 How-to search</span></li>
+											<li><span class='menu_btn' id='btn_2_2'>2.2 Search result: Brief information & detailed information</span></li>
 										</ol>
 									</li>
 									<li>
-										<span>3. ChimerPub Menu</span>
+										<span class='menu_btn' id='btn_3'>3. ChimerPub Menu</span>
 										<ol class="help_main_menu">
-											<li><span>3.1 How-to search</span></li>
-											<li><span>3.2 Search result: Brief information & detailed information</span></li>
+											<li><span class='menu_btn' id='btn_3_1'>3.1 How-to search</span></li>
+											<li><span class='menu_btn' id='btn_3_2'>3.2 Search result: Brief information & detailed information</span></li>
 										</ol>
 									</li>
 									<li>
-										<span>4. ChimerSeq Menu</span>
+										<span class='menu_btn' id='btn_4'>4. ChimerSeq Menu</span>
 										<ol class="help_main_menu">
-											<li><span>4.1 How-to search</span></li>
-											<li><span>4.2 Search result: Brief information & detailed information</span></li>
-											<li><span>4.3 Search result: Fusion Structure</span></li>
+											<li><span class='menu_btn' id='btn_4_1'>4.1 How-to search</span></li>
+											<li><span class='menu_btn' id='btn_4_2'>4.2 Search result: Brief information & detailed information</span></li>
+											<li><span class='menu_btn' id='btn_4_3'>4.3 Search result: Fusion Structure</span></li>
 										</ol>
 									</li>
 								</ol>
@@ -83,10 +83,10 @@
 								
 								<table id='help_main_table'>
 									<tr>
-										<td class='title-header'>1. Dataset of ChimerDB 3.0</td>
+										<td id='top_1' class='title-header'>1. Dataset of ChimerDB 3.0</td>
 									</tr>
 									<tr>
-										<td class='first-sub-title-header'>1.1 ChimerKB</td>
+										<td id='top_1_1' class='first-sub-title-header'>1.1 ChimerKB</td>
 									</tr>
 									<tr>
 										<td class='first-sub-content'>
@@ -123,7 +123,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 
 									<tr class='blank' style="height:50px;"><td></td></tr>
 									<tr>
-										<td class='first-sub-title-header'>1.2 ChimerPub</td>
+										<td  id='top_1_2'class='first-sub-title-header'>1.2 ChimerPub</td>
 									</tr>
 									<tr>
 										<td class='first-sub-content'>
@@ -157,7 +157,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 									</tr>
 									<tr class='blank' style="height:50px;"><td></td></tr>
 									<tr>
-										<td class='first-sub-title-header'>1.3 ChimerSeq</td>
+										<td  id='top_1_3' class='first-sub-title-header'>1.3 ChimerSeq</td>
 									</tr>
 									<tr>
 										<td class='first-sub-content'>The raw RNA-seq data were downloaded from the TCGA data portal with the dbGAP permission. 
@@ -180,7 +180,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 									</tr>
 									<tr class='blank' style="height:50px;"><td></td></tr>
 									<tr>
-										<td class='second-sub-title-header'>1.3.1 Data processings</td>
+										<td id='top_1_3_1' class='second-sub-title-header'>1.3.1 Data processings</td>
 									</tr>
 									<tr>
 										<td class='second-sub-title-header'>TopHat-Fusion</td>
@@ -204,7 +204,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 									</tr>
 									<tr class='blank' style="height:50px;"><td></td></tr>
 									<tr>
-										<td class='second-sub-title-header'>1.3.2 FusionScan</td>
+										<td id='top_1_3_2' class='second-sub-title-header'>1.3.2 FusionScan</td>
 									</tr>
 									<tr>
 										<td class='second-sub-title-header'>TopHat-Fusion</td>
@@ -240,10 +240,10 @@ All entries were manually curated for disease, sequences, break points, and expe
 									
 									<tr class='blank' style="height:50px;"><td></td></tr>
 									<tr>
-										<td class='title-header'>2. ChimerKB Menu</td>
+										<td id='top_2' class='title-header'>2. ChimerKB Menu</td>
 									</tr>
 									<tr>
-										<td class='first-sub-title-header'>2.1 How-to search</td>
+										<td id='top_2_1' class='first-sub-title-header'>2.1 How-to search</td>
 									</tr>
 									<tr>
 										<td class='first-sub-content'>
@@ -261,7 +261,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 										<td class='first-sub-content'>Select the filter conditions. (Data Source, Breakpoint Type, Validation Method, Function, Chromosome Type, Supporting Information) 
 											Specify the criteria to use to filter the displayed data.</td>
 									<tr>
-										<td class='first-sub-title-header'>2.2 Search result: Brief information & detailed information</td>
+										<td id='top_2_2' class='first-sub-title-header'>2.2 Search result: Brief information & detailed information</td>
 									</tr>
 									<tr>
 										<td class='first-sub-content'>Output GUI consists of a table of summary with search hits, detailed information on a specific fusion event. 
@@ -278,10 +278,10 @@ All entries were manually curated for disease, sequences, break points, and expe
 									
 									<tr class='blank' style="height:50px;"><td></td></tr>
 									<tr>
-										<td class='title-header'>3. ChimerPub Menu</td>
+										<td id='top_3' class='title-header'>3. ChimerPub Menu</td>
 									</tr>
 									<tr>
-										<td class='first-sub-title-header'>3.1 How-to search</td>
+										<td id='top_3_1' class='first-sub-title-header'>3.1 How-to search</td>
 									</tr>
 									<tr>
 										<td class='first-sub-content'>The ChimerPub search is taken in the same manner as mentioned above. Characteristically, the number of publications and text mining score were added to the filters.</td>
@@ -295,7 +295,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 										</td>
 									</tr>
 									<tr>
-										<td class='first-sub-title-header'>3.2 Search result: Brief information and Abstract highlights</td>
+										<td id='top_3_2' class='first-sub-title-header'>3.2 Search result: Brief information and Abstract highlights</td>
 									</tr>
 									<tr>
 										<td class='first-sub-content'>There were six data fields as fusion gene, translocation, function, disease, supporting Information, 
@@ -308,10 +308,10 @@ All entries were manually curated for disease, sequences, break points, and expe
 									
 									<tr class='blank' style="height:50px;"><td></td></tr>
 									<tr>
-										<td class='title-header'>4. ChimerSeq Menu</td>
+										<td id='top_4' class='title-header'>4. ChimerSeq Menu</td>
 									</tr>
 									<tr>
-										<td class='first-sub-title-header'>4.1 How-to search</td>
+										<td id='top_4_1' class='first-sub-title-header'>4.1 How-to search</td>
 									</tr>
 									<tr>
 										<td class='first-sub-content'>We support diverse types of search including gene, gene pair, chromosome locus, and disease types. 
@@ -323,7 +323,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 									</tr>
 									<tr class='blank' style="height:20px;"><td></td></tr>
 									<tr>
-										<td class='first-sub-title-header'>4.2 Search result: Brief information & detailed information</td>
+										<td id='top_4_2' class='first-sub-title-header'>4.2 Search result: Brief information & detailed information</td>
 									</tr>
 									<tr>
 										<td>Output GUI consists of a table of summary with search hits, a graphic illustration of fusion structure, 
@@ -338,7 +338,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 									</tr>
 									<tr class='blank' style="height:20px;"><td></td></tr>
 									<tr>
-										<td class='first-sub-title-header'>4.3 Search result: Fusion Structure</td>
+										<td id='top_4_3' class='first-sub-title-header'>4.3 Search result: Fusion Structure</td>
 									</tr>
 									<tr>
 										<td class='first-sub-content'>Click on each entry activates the graphic window of fusion gene structure. 
@@ -369,6 +369,10 @@ All entries were manually curated for disease, sequences, break points, and expe
     </div>
 </div>
 
+
+<div class='top_pop_scroll'>
+	<span>Top</span>	
+</div>
 
 <!-- content -->
 <%@include file="part/footer.jsp" %>
