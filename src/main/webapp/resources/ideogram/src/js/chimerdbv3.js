@@ -295,6 +295,62 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptLabel= function
 		.attr("y", function(d){return d.startY + d.height/2;} )
 		.text( function(d){return d.name;} );
 };
+//
+//ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptAlignedReads = function( config, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
+//	var fusedExons = config.fusionInfo.fusedExons;
+//	var read_color = ["gray", "lightgray"];
+//	for( var i=0; i<config.fusion_genes.length;i++) {
+//		var obj = config.fusion_genes[i];
+//		
+//		var exons = fusedExons[obj.type==='5pGene'?"5'":"3'"];
+//				
+//		var exonPos = config.fusedExonsOnScreen[obj.type];
+//
+//		var parentGroup = d3.select("#fused-transcript-backbone-"+obj.type);
+//
+//		var readsGroup = parentGroup.append("g").attr("class", "fused-transcript-reads-group-"+obj.type);
+//
+//		var yPos = d3.select("#fused-transcript-backbone-line-"+obj.type).attr("y1");
+//		yPos = parseFloat(yPos) + (config.EXON_HEIGHT/2) + 2;
+//
+//		var reads = config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].reads;
+//		
+//		if( typeof reads !== "undefined") {
+//			var posStart = exonPos.exons[ exons[0].elementIndex ];
+//			var posEnd = exonPos.exons[ exons[exons.length-1].elementIndex ];
+//
+//			var transcript_region = {start:exons[0].start, end:exons[exons.length-1].end };
+//			if( config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].strand === '-' ) {
+//				transcript_region = {start:exons[exons.length-1].start, end:exons[0].start};
+//			}
+//
+//			var unit = ((posEnd.x1+posEnd.width) - posStart.x1) / (transcript_region.end - transcript_region.start + 1);
+//
+////			if( i === 1 ) {
+//			for(var j=0; j<reads.length; j++) {
+//				var diff = reads[j].start - transcript_region.start;
+//				
+//				diff = (transcript_region.end - transcript_region.start + 1);
+//
+//				if( config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].strand === '-' )
+//					diff = transcript_region.end - reads[j].end;
+//
+//				var x1 = posStart.x1 + (diff*unit);
+//				var width = (reads[j].end - reads[j].start + 1) * unit;
+//
+//				readsGroup.append("rect")
+//							.classed("read-feature-rect", true)
+//							.attr("fill", read_color[i])
+//							.attr("x", x1)
+//							.attr("y", yPos + (j*5))
+//							.attr("width", width)
+//							.attr("height", 3);
+//			}
+////			}
+//		}
+//	}
+//};
+
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptAlignedReads = function( config, isAllowedReverse, isPacked, isConservedPfamDomainColor ) {
 	var fusedExons = config.fusionInfo.fusedExons;
@@ -319,23 +375,16 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptAlignedReads = 
 			var posStart = exonPos.exons[ exons[0].elementIndex ];
 			var posEnd = exonPos.exons[ exons[exons.length-1].elementIndex ];
 
-			var transcript_region = {start:exons[0].start, end:exons[exons.length-1].end };
-			if( config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].strand === '-' ) {
-				transcript_region = {start:exons[exons.length-1].start, end:exons[0].start};
-			}
-
-			var unit = ((posEnd.x1+posEnd.width) - posStart.x1) / (transcript_region.end - transcript_region.start + 1);
-
-			if( i === 1 ) {
+			var unit = config.final_unit_nt_size;
+			
 			for(var j=0; j<reads.length; j++) {
-				var diff = reads[j].start - transcript_region.start;
-
-				if( config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].strand === '-' )
-					diff = transcript_region.end - reads[j].end;
-
-				var x1 = posStart.x1 + (diff*unit);
 				var width = (reads[j].end - reads[j].start + 1) * unit;
 
+				var x1 = (posEnd.x1 + posEnd.width) - width;
+				
+				if( config.fusionInfo.genes[ obj.type==='5pGene'?"5'":"3'" ].strand === '-' ) {
+					x1 = posStart.x1;
+				}
 				readsGroup.append("rect")
 							.classed("read-feature-rect", true)
 							.attr("fill", read_color[i])
@@ -343,7 +392,6 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptAlignedReads = 
 							.attr("y", yPos + (j*5))
 							.attr("width", width)
 							.attr("height", 3);
-			}
 			}
 		}
 	}
@@ -505,6 +553,9 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptExons = functio
 
 		var exonPos = {};
 		var INTRON_UNIT_WIDTH = (1 * no_of_intron_size) * final_unit_nt_size;
+		
+		
+		config.final_unit_nt_size = final_unit_nt_size;
 
 		var exonGroup = transcriptGroup.append("g").attr("class", "fused-transcript-exon-group-"+type);
 		var x1 = startX + INTRON_UNIT_WIDTH;
@@ -1869,7 +1920,16 @@ function relativeOffsetX(current, base) {
 function isOverlapped( fragment, exon ) {
 	var sum = (fragment.end - fragment.start + 1) + (exon.end - exon.start+1);
 	var max = Math.max(fragment.end, exon.relativeEnd) - Math.min(fragment.start, exon.relativeStart) + 1;
+
+	if( sum > max )	return true;
 	
+	return false;
+}
+
+function isOverlappedOriginal( fragment, exon ) {
+	var sum = (fragment.end - fragment.start + 1) + (exon.end - exon.start+1);
+	var max = Math.max(fragment.end, exon.end) - Math.min(fragment.start, exon.start) + 1;
+
 	if( sum > max )	return true;
 	
 	return false;
@@ -1879,6 +1939,15 @@ function isOverlappedPoint( range, point ) {
 	if( range.start <= point && range.end >= point )	return true;
 	
 	return false;
+}
+
+function getRange( array ) {
+	var range = 0;
+	for(var i=0; i<array.length; i++) {
+		range += (array[i].end - array[i].start + 1);
+	}
+	
+	return range;
 }
 
 //function dragged(d) {
