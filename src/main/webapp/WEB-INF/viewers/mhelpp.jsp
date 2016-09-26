@@ -284,39 +284,26 @@ All entries were manually curated for disease, sequences, break points, and expe
 										<td class='first-sub-title-header'>3.1 How-to search</td>
 									</tr>
 									<tr>
-										<td>The ChimerPub search is taken in the same manner as mentioned above. Characteristically, the number of publications and text mining score were added to the filters.</td>
+										<td class='first-sub-content'>The ChimerPub search is taken in the same manner as mentioned above. Characteristically, the number of publications and text mining score were added to the filters.</td>
 									</tr>
 									<tr>
-										<td><img alt="" src="resources/images/help/chimerkb2-1.png" style="width: 60%; height: 60%;" /></td>
+										<td><img alt="" src="resources/images/help/chimerkb2-1.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
 									</tr>
 									<tr>
-										<td>Select the filter conditions. (Data Source, Breakpoint Type, Validation Method, Function, Chromosome Type, Supporting Information) 
-											Specify the criteria to use to filter the displayed data.</td>
-									<tr>
-										<td>3.2 Search result: Brief information & detailed information</td>
+										<td class='first-sub-content'>Select the filter conditions. (Data Source, Breakpoint Type, Validation Method, Function, Chromosome Type, Supporting Information) 
+											Specify the criteria to use to filter the displayed data.
+										</td>
 									</tr>
 									<tr>
-										<td>Output GUI consists of a table of summary with search hits, detailed information on a specific fusion event. 
-											The output table supports many features of searching, sorting, exporting, and link outs to external resources. 
-											There were ten data fields as fusion gene, 5’gene junction, 3’gene junction, breakpoint type, disease, frame, 
-											chromosome information, data source, supporting Information, PubMed ID. 
-											Click a row to show the detailed information about interested fusion gene. 
-											The table below describes the selected fusion gene. 
-											The PubMed Id links is connected and go to the ChimerSeq, ChimerPub that the supporting Information link is connected to.</td>
+										<td class='first-sub-title-header'>3.2 Search result: Brief information and Abstract highlights</td>
 									</tr>
 									<tr>
-										<td><img alt="" src="resources/images/help/chimerpub3-1.png" style="width: 60%; height: 60%;" /></td>
-									</tr>
-									<tr>
-										<td>3.2 Search result: Brief information and Abstract highlights</td>
-									</tr>
-									<tr>
-										<td>There were six data fields as fusion gene, translocation, function, disease, supporting Information, 
+										<td class='first-sub-content'>There were six data fields as fusion gene, translocation, function, disease, supporting Information, 
 											PubMed ID. Click a row to show the abstract information about interested fusion gene. 
 											The table below describes the extracted fusion gene using text mining from literature.</td>
 									</tr>
 									<tr>
-										<td><img alt="" src="resources/images/help/chimerpub3-2.png" style="width: 60%; height: 60%;" /></td>
+										<td><img alt="" src="resources/images/help/chimerpub3-2.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
 									</tr>
 									
 									<tr class='blank' style="height:50px;"><td></td></tr>
@@ -327,18 +314,18 @@ All entries were manually curated for disease, sequences, break points, and expe
 										<td class='first-sub-title-header'>4.1 How-to search</td>
 									</tr>
 									<tr>
-										<td>We support diverse types of search including gene, gene pair, chromosome locus, and disease types. 
+										<td class='first-sub-content'>We support diverse types of search including gene, gene pair, chromosome locus, and disease types. 
 											In ChimerSeq search, users may select the data source, cancer type, and prediction tools with optional parameters. 
 											With ample annotations, we support diverse filtering options such as function filter for kinase, oncogene, tumor suppressor, receptor, transcription factor genes.</td>
 									</tr>
 									<tr>
-										<td><img alt="" src="resources/images/help/chimerseq4-1.png" style="width: 60%; height: 60%;" /></td>
+										<td><img alt="" src="resources/images/help/chimerseq4-1.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
 									</tr>
 									<tr>
-										<td>Select the filter conditions. (Data Source, Breakpoint Type, Validation Method, Function, Chromosome Type, Supporting Information) 
+										<td class='first-sub-content'>Select the filter conditions. (Data Source, Breakpoint Type, Validation Method, Function, Chromosome Type, Supporting Information) 
 											Specify the criteria to use to filter the displayed data.</td>
 									<tr>
-										<td>4.2 Search result: Brief information & detailed information</td>
+										<td class='first-sub-title-header'>4.2 Search result: Brief information & detailed information</td>
 									</tr>
 									<tr>
 										<td>Output GUI consists of a table of summary with search hits, a graphic illustration of fusion structure, 
@@ -349,13 +336,13 @@ All entries were manually curated for disease, sequences, break points, and expe
 											Click on each entry activates the detailed information table.</td>
 									</tr>
 									<tr>
-										<td><img alt="" src="resources/images/help/chimerseq4-2.png" style="width: 60%; height: 60%;" /></td>
+										<td><img alt="" src="resources/images/help/chimerseq4-2.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
 									</tr>
 									<tr>
-										<td>4.3 Search result: Fusion Structure</td>
+										<td class='first-sub-title-header'>4.3 Search result: Fusion Structure</td>
 									</tr>
 									<tr>
-										<td>Click on each entry activates the graphic window of fusion gene structure. 
+										<td class='first-sub-content'>Click on each entry activates the graphic window of fusion gene structure. 
 											The fusion gene graphic window shows readily the exons, domains, and the break point before 
 											and after the fusion event. 
 											This should be the most insightful picture for deducing functional significance of fusion event. 
@@ -366,7 +353,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 											so that they can examine the detailed gene structure and alignment.</td>
 									</tr>
 									<tr>
-										<td><img alt="" src="resources/images/help/chimerseq4-3.png" style="width: 60%; height: 60%;" /></td>
+										<td><img alt="" src="resources/images/help/chimerseq4-3.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
 									</tr>
 								</table>
 								
