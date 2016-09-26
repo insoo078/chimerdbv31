@@ -321,9 +321,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 									<tr>
 										<td><img alt="" src="resources/images/help/chimerseq4-1.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
 									</tr>
-									<tr>
-										<td class='first-sub-content'>Select the filter conditions. (Data Source, Breakpoint Type, Validation Method, Function, Chromosome Type, Supporting Information) 
-											Specify the criteria to use to filter the displayed data.</td>
+									<tr class='blank' style="height:20px;"><td></td></tr>
 									<tr>
 										<td class='first-sub-title-header'>4.2 Search result: Brief information & detailed information</td>
 									</tr>
@@ -338,6 +336,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 									<tr>
 										<td><img alt="" src="resources/images/help/chimerseq4-2.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
 									</tr>
+									<tr class='blank' style="height:20px;"><td></td></tr>
 									<tr>
 										<td class='first-sub-title-header'>4.3 Search result: Fusion Structure</td>
 									</tr>
