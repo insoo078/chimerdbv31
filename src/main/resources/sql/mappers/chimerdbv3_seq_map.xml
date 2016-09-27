@@ -352,6 +352,7 @@
 		SELECT text FROM I2_AutocompleteTable
 		WHERE service=#{service} AND type=${type}
 		AND MATCH(text) AGAINST('${text}*' IN BOOLEAN MODE)
+		AND text LIKE CONCAT('%', #{text},'%')
 	</select>
 	
 	<select id="getTcgaCancerTypes" resultType="java.lang.String">
