@@ -92,7 +92,7 @@ $(document).ready(function () {
 
 				var line = canvas.append('g').attr('class', 'current-score');
 				
-				line.append("line")
+				var lineRect = line.append("line")
 					.attr('x1', function(d){
 						return xScale(value);
 					})
@@ -106,18 +106,30 @@ $(document).ready(function () {
 						return HEIGHT - PADDING;
 					})
 					.attr("style", "stroke:#ff0000;stroke-width:2;");
-
+				
+				var label = canvas.append("text")
+					.attr('x', 380)
+					.attr('y', 60)
+					.attr("text-anchor", "left")
+					.attr("dominant-baseline", "central")
+					.text( "No. of pubmed : " + findFrequencyByScore(dataset, value) );
 
 				var drag = d3.behavior.drag()
 				.on("drag", function(d) {
 					var av = d3.event.dx;
-			
-			canvas.call(drag);
-			
-			console.log( av );
+
+					value = parseInt(value) + parseInt(av);
+
+					label.text( "No. of pubmed : " + findFrequencyByScore(dataset, value) );
+	
+					var xPos = xScale(value);
+					lineRect.attr('x1', xPos);
+					lineRect.attr('x2', xPos);
+					
+					$("#txt_mining_score_txt").val( value );
 				});
-			
-			console.log( line );
+				
+				canvas.call(drag);
 			}
 		});
 	});
@@ -359,4 +371,11 @@ function addAutocompleteField ( selector, type ) {
 		},
 		minLength:2
 	});
+}
+
+function findFrequencyByScore(dataset, value) {
+	for(var i=0; i<dataset.length; i++) {
+		if( parseInt(dataset[i][0]) === parseInt(value) ) return dataset[i][1];
+	}
+	return 0;
 }
