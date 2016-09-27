@@ -4,6 +4,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import org.com.chimerdbv31.chimerpub.mapper.ChimerPubMapper;
 import org.com.chimerdbv31.chimerpub.vo.ChimerPubVo;
+import org.com.chimerdbv31.chimerpub.vo.DistributionVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,4 +49,7 @@ public class ChimerPubService {
         return result;
     }
     
+	public List<DistributionVo> getChimerPubScoreDistribution() {
+		return this.chimerPubMapper.getChimerPubScoreDistribution();
+	}
 }

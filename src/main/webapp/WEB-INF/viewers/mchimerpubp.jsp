@@ -16,6 +16,7 @@
 <link type="text/css" rel="stylesheet" href="resources/css/chimerdbv3.css"/>
 <link type="text/css" rel="stylesheet" href="resources/css/index_main.css"/>
 
+<script src="http://d3js.org/d3.v3.min.js"></script>
 <script type="text/javascript" src="resources/js/jq/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources/js/jqui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
@@ -136,6 +137,9 @@
                                             <td>
                                                 <input class="form-control" id="txt_mining_score_txt" value="10" style="width: 70px; height: 25px;" onfocus="clearText(this);" onblur="clearText(this);">
                                             </td>
+											<td>
+												<input id='btn_dist' type='button' style='margin-left:20px;' value='Distribution'/>
+											</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -273,25 +277,18 @@
 <div class="modal-content">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-<h4 class="modal-title">ChimerDB 3.0</h4>
+<h4 class="modal-title">ChimerPub score distribution - ChimerDB 3.0</h4>
 </div>
 <div class="modal-body">
-    <table style="width: 100%;">
-        <tr>
-            <td style="text-align: center;">
-                <span style="font-size: 23px; font-weight: bold; color: #fbb450;">Please enter your data.</span>
-            </td>
-        </tr>
-    </table>
+	<div id='distribution_graph'></div>
 </div>
 <div class="modal-footer">
+<button id='score_apply' type="button" class="btn btn-default">Apply</button>
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 </div>
 </div>
 </div>
 </div>
-
-    
     
 
 <%@include file="part/footer.jsp" %>

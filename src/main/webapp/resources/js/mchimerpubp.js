@@ -18,8 +18,101 @@ $(document).ready(function () {
 	addAutocompleteField( "#by_gene_txt",		1);
 	addAutocompleteField( "#by_gene_pair_txt",	2);
 	addAutocompleteField( "#by_disease_txt",	4);
-});
+	
+	$("#btn_dist").click(function(){
+		$("#chimerdb_empty_data").modal('show');
 
+		$.ajax({
+			type: 'post',
+			url: 'chimerpub_dist.cdb',
+			dataType: 'json',
+			success:function(data) {
+				d3.select("svg").remove();
+
+				var dataset = [];
+				for(var i=0; i<data.length; i++) {
+					dataset.push( [data[i].score, data[i].frequency] );
+				}
+
+				var WIDTH = 550;
+				var HEIGHT = 400;
+				var PADDING = 40;
+
+				var  canvas = d3.select('#distribution_graph')
+				.append("svg")
+				.attr("id", "canvas")
+				.attr("width", WIDTH)
+				.attr("height", HEIGHT);
+		
+				var yScale = d3.scale.linear()
+						.domain( [d3.min(dataset, (d)=> d[1]), d3.max(dataset, (d)=> d[1])] )
+						.range([HEIGHT - (PADDING), PADDING]);
+				
+				var xScale = d3.scale.linear()
+						.domain( [d3.min(dataset, (d)=> d[0]), d3.max(dataset, (d)=> d[0])] )
+						.range([PADDING, (WIDTH-PADDING)]);
+				
+				var yAxis = d3.svg.axis()
+						.orient('left')
+						.scale(yScale)
+						.ticks(10);
+				
+				var xAxis = d3.svg.axis()
+						.orient('bottom')
+						.scale(xScale)
+						.ticks(10);
+				
+				canvas.append('g')
+						.attr('class', 'axis')
+						.attr('transform', 'translate(' + (PADDING) + ', 0)')
+						.call(yAxis);
+				
+				canvas.append('g')
+						.attr('class', 'axis')
+						.attr("transform", "translate(0, " + (HEIGHT-PADDING) + ")")
+						.call(xAxis);
+				
+				
+				var circle = canvas.append('g').attr('class', 'dataset').selectAll('circle')
+					.data(dataset);
+
+				circle.enter()
+					.append('circle')
+					.attr('cx', function(d){
+						return xScale(d[0]);
+					})
+					.attr('cy', function(d){
+						return yScale(d[1]);
+					})
+					.attr('r', function(d){
+						return '2';
+					});
+
+				var value = $("#txt_mining_score_txt").val();
+
+				var line = canvas.append('g').attr('class', 'current-score');
+				
+				line.append("line")
+					.attr('x1', function(d){
+						return xScale(value);
+					})
+					.attr('y1', function(d){
+						return PADDING;
+					})
+					.attr('x2', function(d){
+						return xScale(value);
+					})
+					.attr('y2', function(d){
+						return HEIGHT - PADDING;
+					})
+					.attr("style", "stroke:#ff0000;stroke-width:1;");
+			
+			
+			console.log( line );
+			}
+		});
+	});
+});
 
 
 //-----------

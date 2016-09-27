@@ -165,6 +165,19 @@
     </select>
 
 
+	<select id="getChimerPubScoreDistribution" resultType="org.com.chimerdbv31.chimerpub.vo.DistributionVo">
+		SELECT 
+			score, COUNT(PMID) AS frequency 
+		FROM (
+			SELECT 
+				MAX(Score) AS Score
+				, PMID 
+			FROM ChimerPub 
+			GROUP BY PMID
+		) maxPub
+		GROUP BY maxPub.Score
+		ORDER BY CONVERT(Score, decimal)
+	</select>
 
     
 </mapper>

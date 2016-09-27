@@ -428,3 +428,9 @@ div.sep-bar{
 .top_pop_scroll{
 	width:50px;height:25px;position:fixed;background:red;line-height:25px;text-align:center;font-weight:bold;color:white;cursor:pointer;
 }
+
+
+
+#distribution_view{
+	background:red;width:200px;height:30px;position:absolute;
+}

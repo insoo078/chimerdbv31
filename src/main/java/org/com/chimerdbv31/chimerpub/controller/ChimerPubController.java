@@ -1,12 +1,15 @@
 package org.com.chimerdbv31.chimerpub.controller;
 
+import com.google.gson.Gson;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.com.chimerdbv31.chimerpub.newpackage.obj.DistObj;
 import org.com.chimerdbv31.chimerpub.services.ChimerPubService;
 import org.com.chimerdbv31.chimerpub.vo.ChimerPubVo;
+import org.com.chimerdbv31.chimerpub.vo.DistributionVo;
 import org.com.chimerdbv31.common.vo.ParamVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,16 +38,16 @@ public class ChimerPubController {
 
         
         
-        @RequestMapping(value="chimerpubdiseaselst",method=RequestMethod.GET)
-        @ResponseBody
-        public String getDiseaseList( HttpServletRequest request )throws RuntimeException{
-            String keyStr = request.getParameter("term");
-            //JSONObject jsonData = new JSONObject();
-            List<String> mainList = this.chimerPubService.getDiseaseList(keyStr);
-            JSONArray jsonArray = null;
-            jsonArray = JSONArray.fromObject(mainList);
-            return jsonArray.toString();
-        }
+	@RequestMapping(value="chimerpubdiseaselst",method=RequestMethod.GET)
+	@ResponseBody
+	public String getDiseaseList( HttpServletRequest request )throws RuntimeException{
+		String keyStr = request.getParameter("term");
+		//JSONObject jsonData = new JSONObject();
+		List<String> mainList = this.chimerPubService.getDiseaseList(keyStr);
+		JSONArray jsonArray = null;
+		jsonArray = JSONArray.fromObject(mainList);
+		return jsonArray.toString();
+	}
 
 	@RequestMapping(value="chimerpub_from_others",method=RequestMethod.GET)
 	public ModelAndView rstChimerPubFromOthers( HttpServletRequest request ) throws RuntimeException{
@@ -328,4 +331,38 @@ public class ChimerPubController {
 //        public String getEutil() {
 ////			https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=10702393
 //		}
+		
+		
+	@RequestMapping(value="chimerpub_dist",method=RequestMethod.POST)
+	@ResponseBody
+	public String  chimerPubDistribution( HttpServletRequest request ) throws RuntimeException{
+		List<DistributionVo> scoreList = this.chimerPubService.getChimerPubScoreDistribution();
+		
+//		int minScore = Integer.MAX_VALUE;
+//		int maxScore = Integer.MIN_VALUE;
+//		int minFreq = Integer.MAX_VALUE;
+//		int maxFreq = Integer.MIN_VALUE;
+//
+//		for(DistributionVo vo:scoreList) {
+//			int score = vo.getScore();
+//			int frequency = vo.getFrequency();
+//			
+//			if( score > minScore ) minScore = score;
+//			if( score < maxScore ) maxScore = score;
+//			if( frequency > minFreq ) minFreq = frequency;
+//			if( frequency < maxFreq ) maxFreq = frequency;
+//		}
+//
+//		
+//		DistObj obj = new DistObj();
+//		obj.setList(scoreList);
+//		obj.setMinScore(minScore);
+//		obj.setMaxScore(maxScore);
+//		obj.setMinFreq(minFreq);
+//		obj.setMaxFreq(maxFreq);
+
+		Gson gson = new Gson();
+
+		return gson.toJson(scoreList);
+	}
 }
