@@ -105,8 +105,17 @@ $(document).ready(function () {
 					.attr('y2', function(d){
 						return HEIGHT - PADDING;
 					})
-					.attr("style", "stroke:#ff0000;stroke-width:1;");
+					.attr("style", "stroke:#ff0000;stroke-width:2;");
+
+
+				var drag = d3.behavior.drag()
+				.on("drag", function(d) {
+					var av = d3.event.dx;
 			
+			canvas.call(drag);
+			
+			console.log( av );
+				});
 			
 			console.log( line );
 			}
