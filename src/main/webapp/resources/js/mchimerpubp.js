@@ -3,6 +3,9 @@
  * and open the template in the editor.
  */
 
+var dist = {
+	score:10
+};
 
 $(document).ready(function () {
     check_m_state("mmchimerpubbtn");
@@ -18,6 +21,11 @@ $(document).ready(function () {
 	addAutocompleteField( "#by_gene_txt",		1);
 	addAutocompleteField( "#by_gene_pair_txt",	2);
 	addAutocompleteField( "#by_disease_txt",	4);
+	
+	
+	$("#score_apply").click(function(){
+		$("#txt_mining_score_txt").val( dist.score );
+	});
 	
 	$("#btn_dist").click(function(){
 		$("#chimerdb_empty_data").modal('show');
@@ -118,15 +126,15 @@ $(document).ready(function () {
 				.on("drag", function(d) {
 					var av = d3.event.dx;
 
-					value = parseInt(value) + parseInt(av);
+					value = xScale.invert( xScale(value) + parseInt(av) );
 
 					label.text( "No. of pubmed : " + findFrequencyByScore(dataset, value) );
 	
 					var xPos = xScale(value);
 					lineRect.attr('x1', xPos);
 					lineRect.attr('x2', xPos);
-					
-					$("#txt_mining_score_txt").val( value );
+
+					dist.score = value;
 				});
 				
 				canvas.call(drag);
