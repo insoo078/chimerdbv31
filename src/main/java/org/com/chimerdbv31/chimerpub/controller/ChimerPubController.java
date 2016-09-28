@@ -144,13 +144,13 @@ public class ChimerPubController {
                                     }
                                 };break;
                                 case "fish":{
-                                    queryStr.append(" 'RT-PCR, Sanger sequencing' ");
+                                    queryStr.append(" 'FISH;PCR;RT-PCR ', 'FISH ', 'FISH;PCR', 'PCR;ISH', 'FISH;RT-PCR ', 'ISH' ");
                                     if( i < (dataArr.length -1) ){
                                         queryStr.append(",");
                                     }
                                 };break;
                                 case "rtpcr":{
-                                    queryStr.append(" 'RT-PCR' ");
+                                    queryStr.append(" 'FISH;PCR;RT-PCR ', 'FISH;PCR', 'PCR', 'PCR;RT-PCR', 'PCR;ISH', 'RT-PCR', 'FISH;RT-PCR ' ");
                                     if( i < (dataArr.length -1) ){
                                         queryStr.append(",");
                                     }

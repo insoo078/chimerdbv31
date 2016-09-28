@@ -35,4 +35,23 @@ $(document).ready(function () {
 			$('.top_pop_scroll').fadeOut();
         }
     });
+	
+	imgSize();
+	
+	$(window).resize(function(){
+		imgSize();
+	});
 });
+
+function imgSize() {
+	var width = $('.help-image').width();
+		
+	var FIXED_SIZE = 640;
+	if(width > FIXED_SIZE) {
+		var ratio = (FIXED_SIZE / $('.help-image').parent().width()) * 100;
+
+		$('.help-image').css("width", ratio+"%");
+		$('.help-image').css("height", ratio+"%");
+		$('.help-image').css("margin-left", ((100-ratio)/2)+"%");
+	}
+}
