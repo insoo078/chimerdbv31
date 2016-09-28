@@ -383,6 +383,6 @@ $(document).ready(function () {
 		container: "#chimerSeqTbl",
 		data: $("#queryFormData").val()
 	};
-	
+
 	var chimerSeqResult = new ChimerSeqResult(config);
 });

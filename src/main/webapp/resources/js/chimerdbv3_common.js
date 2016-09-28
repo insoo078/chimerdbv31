@@ -6,7 +6,8 @@
 
 $(document).ready(function () {
 	$(".chimer-pub-icon").click(function(){
-		var gene_pair = $("#srt_td_5gene_nm").text() + "_" + $("#srt_td_3gene_nm").text();
+		var tr = $(this).parent().parent();
+		var gene_pair = $(tr).children('td').slice(0, 1).text();
 		
 		var url = "chimerpub_from_others.cdb?key_data_for_search_type=" + gene_pair;
 		window.open(url, 'ChimerPub', 'window settings');
@@ -14,7 +15,8 @@ $(document).ready(function () {
 	});
 	
 	$(".chimer-kb-icon").click(function(){
-		var gene_pair = $("#srt_td_5gene_nm").text() + "_" + $("#srt_td_3gene_nm").text();
+		var tr = $(this).parent().parent();
+		var gene_pair = $(tr).children('td').slice(0, 1).text();
 
 		var url = "chimerkb_from_others.cdb?key_data_for_search_type=" + gene_pair;
 		window.open(url, 'ChimerKb', 'window settings');
@@ -22,7 +24,10 @@ $(document).ready(function () {
 	});
 	
 	$(".chimer-seq-icon").click(function(){
-		var gene_pair = $("#srt_td_5gene_nm").text() + "_" + $("#srt_td_3gene_nm").text();
+//		var gene_pair = $("#srt_td_5gene_nm").text() + "_" + $("#srt_td_3gene_nm").text();
+
+		var tr = $(this).parent().parent();
+		var gene_pair = $(tr).children('td').slice(0, 1).text();
 
 		var url = "chimerseq_link.cdb?gene_pair=" + gene_pair;
 		window.open(url, 'ChimerSeq', 'window settings');

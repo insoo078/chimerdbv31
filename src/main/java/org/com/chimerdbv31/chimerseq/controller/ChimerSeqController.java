@@ -201,16 +201,49 @@ public class ChimerSeqController {
 		return resultJson;
 	}
 	
+//	@RequestMapping(value="chimerseq_link",method=RequestMethod.GET)
+//	@ResponseBody
+//	public String linkToChimerSeq( HttpServletRequest request) throws Exception{
+//		ChimerSeqQueryForm form = new ChimerSeqQueryForm();
+//		String gene_pair = request.getParameter("gene_pair");
+////
+////		model.setByGenePairTxt(gene_pair);
+////
+////		return this.searchChimerSeq(model, request);
+//
+//		ModelAndView result = new ModelAndView("msRstOfChimerSeqp");
+//
+//		Gson gson = new Gson();
+//
+//		// 사용자가 입력한 조회 조건값을 조회 완료 페이지로 첨부한 뒤
+//		// jQuery를 이용해 DB를 다시 조회해야 하므로
+//		// 입력 Form 데이터를 그대로 전달함
+//		String json = gson.toJson( form );
+//
+//		result.addObject("queryForm", json );
+//		return result;
+//    }
+	
 	
 	@RequestMapping(value="chimerseq_link",method=RequestMethod.GET)
-	@ResponseBody
-	public String linkToChimerSeq( HttpServletRequest request) throws Exception{
-		ChimerSeqQueryForm model = new ChimerSeqQueryForm();
+	public ModelAndView linkToChimerSeq( HttpServletRequest request) throws Exception{
+		ChimerSeqQueryForm form = new ChimerSeqQueryForm();
 		String gene_pair = request.getParameter("gene_pair");
 
-		model.setByGenePairTxt(gene_pair);
+		form.setSearchType("byGenePair");
+		form.setByGenePairTxt(gene_pair);
 
-		return this.searchChimerSeq(model, request);
+		ModelAndView result = new ModelAndView("msRstOfChimerSeqp");
+
+//		String json = this.searchChimerSeq(form, request);
+		Gson gson = new Gson();
+
+		// 사용자가 입력한 조회 조건값을 조회 완료 페이지로 첨부한 뒤
+		// jQuery를 이용해 DB를 다시 조회해야 하므로
+		// 입력 Form 데이터를 그대로 전달함
+		String json = gson.toJson( form );
+		result.addObject("queryForm", json );
+		return result;
     }
 
 	/**
