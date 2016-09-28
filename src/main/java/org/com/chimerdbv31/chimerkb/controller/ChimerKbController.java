@@ -215,7 +215,7 @@ public class ChimerKbController {
                                         }
                                     };break;
                                     case "fish":{
-                                        queryStr.append(" 'RT-PCR, Sanger sequencing' ");
+                                        queryStr.append(" 'RT-PCR;Sanger sequencing' ");
                                         if( i < (dataArr.length -1) ){
                                             queryStr.append(",");
                                         }

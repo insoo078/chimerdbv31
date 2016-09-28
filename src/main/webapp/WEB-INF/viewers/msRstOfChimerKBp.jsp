@@ -193,7 +193,7 @@
                     <div class="templatemo-panels">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <span style="font-size: 20px; font-weight: bold;">Fusion Gene(5'_3') : </span>
+                                <span style="font-size: 20px; font-weight: bold;">Detailed information : </span>
                                 <span id="selectedrowtitle" style="font-size: 20px; font-weight: bold;"></span>
                             </div>
                             <div class="panel-body" id="selectedrowcontent">

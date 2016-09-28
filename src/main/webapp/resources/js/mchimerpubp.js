@@ -21,12 +21,11 @@ $(document).ready(function () {
 	addAutocompleteField( "#by_gene_txt",		1);
 	addAutocompleteField( "#by_gene_pair_txt",	2);
 	addAutocompleteField( "#by_disease_txt",	4);
-	
-	
+
 	$("#score_apply").click(function(){
-		$("#txt_mining_score_txt").val( dist.score );
+		$("#txt_mining_score_txt").val( parseInt(dist.score) );
 	});
-	
+
 	$("#btn_dist").click(function(){
 		$("#chimerdb_empty_data").modal('show');
 
@@ -113,14 +112,25 @@ $(document).ready(function () {
 					.attr('y2', function(d){
 						return HEIGHT - PADDING;
 					})
-					.attr("style", "stroke:#ff0000;stroke-width:2;");
-				
+					.attr("style", "stroke:#ff0000;stroke-width:2;");			
+			
+				var areaRect = canvas.append("rect")
+							.attr('x', xScale(value))
+							.attr('y', PADDING)
+							.attr('width', xScale(d3.max(dataset, (d)=> d[0])) - xScale(value))
+							.attr('height', HEIGHT-(2*PADDING))
+							.attr('style', 'fill: rgba(255, 0, 0, 0.2);');
+					
+					
 				var label = canvas.append("text")
-					.attr('x', 380)
+					.attr('x', 280)
 					.attr('y', 60)
 					.attr("text-anchor", "left")
 					.attr("dominant-baseline", "central")
-					.text( "No. of pubmed : " + findFrequencyByScore(dataset, value) );
+					.attr('font-weight', 'bold')
+					.attr('font-size', '16px')
+					.text( "No. of PubMed articles : " + findFrequencyByScore(dataset, value) );
+
 
 				var drag = d3.behavior.drag()
 				.on("drag", function(d) {
@@ -128,11 +138,14 @@ $(document).ready(function () {
 
 					value = xScale.invert( xScale(value) + parseInt(av) );
 
-					label.text( "No. of pubmed : " + findFrequencyByScore(dataset, value) );
+					label.text( "No. of PubMed articles : " + findFrequencyByScore(dataset, value) );
 	
 					var xPos = xScale(value);
 					lineRect.attr('x1', xPos);
 					lineRect.attr('x2', xPos);
+					
+					areaRect.attr('x', xPos)
+							.attr('width', xScale(d3.max(dataset, (d)=> d[0])) - xPos);
 
 					dist.score = value;
 				});
@@ -144,11 +157,14 @@ $(document).ready(function () {
 					
 					value = xScale.invert( parseInt(coords[0]) );
 
-					label.text( "No. of pubmed : " + findFrequencyByScore(dataset, value) );
+					label.text( "No. of PubMed articles : " + findFrequencyByScore(dataset, value) );
 	
 					var xPos = xScale(value);
 					lineRect.attr('x1', xPos);
 					lineRect.attr('x2', xPos);
+					
+					areaRect.attr('x', xPos)
+							.attr('width', xScale(d3.max(dataset, (d)=> d[0])) - xPos);
 
 					dist.score = value;
 				});
@@ -396,8 +412,10 @@ function addAutocompleteField ( selector, type ) {
 }
 
 function findFrequencyByScore(dataset, value) {
+	var sum = 0;
 	for(var i=0; i<dataset.length; i++) {
-		if( parseInt(dataset[i][0]) === parseInt(value) ) return dataset[i][1];
+		if( parseInt(dataset[i][0]) >= parseInt(value) ) 
+			sum += dataset[i][1];
 	}
-	return 0;
+	return sum;
 }

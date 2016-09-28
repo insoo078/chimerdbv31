@@ -167,7 +167,11 @@ public class ChimerSeqService {
 		List<ReadVo> reads = ReadVo.makeReadList(fusionScanReads);
 		
 		String line = "browser position "+chr+":"+start+"-"+end+"\n";
-		line += "track name="+geneSymbol+" description='Aligned read list' visibility=2\n";
+		line += "browser hide all\n";
+		line += "browser dense knownGene\n";
+		line += "browser dense refGene\n";
+		line += "browser dense ucscGenePfam\n";
+		line += "track name=Custom_Track_" + geneSymbol+"_From_"+fusionScanReads.getGene_pair()+" description=\"Aligned read list\" visibility=2\n";
 
 		for(ReadVo vo : reads ) {
 			if( vo.getType().equals(type) ) {
