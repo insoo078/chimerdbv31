@@ -2,10 +2,17 @@ package org.com.chimerdbv31.chimerseq.controller;
 
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.com.chimerdbv31.chimerseq.com.Utilities;
 import org.com.chimerdbv31.chimerseq.obj.ChimerSeqQueryForm;
 
@@ -253,39 +260,86 @@ public class ChimerSeqController {
 	}
 	
 	@RequestMapping(value="/bed", method = RequestMethod.GET)
-	@ResponseBody
-//	public String getBed(HttpServletRequest request, HttpServletResponse response) throws IOException{
-	public String getBed(HttpServletRequest request ) throws IOException{
-		String gene = request.getParameter("gene");
+	public void getBed(HttpServletRequest request, HttpServletResponse response ) throws IOException{
+		String id		= request.getParameter("id");
+		String type		= request.getParameter("type");
+		String chr		= request.getParameter("chr");
+		String start	= request.getParameter("start");
+		String end		= request.getParameter("end");
 
 //		response.sendRedirect("resources/data/bed/bedfile_EML4ALK.bed");
-		String line = "browser position chr2:42396490-42559688\n";
-		line += "track name=EML4 description='Aligned read list' visibility=2\n";
-		line += "chr2   42396490 42492091\n";
-		line += "chr2   42396491 42492091\n";
-		line += "chr2   42396491 42492091\n";
-		line += "chr2   42396492 42492091\n";
-		line += "chr2   42396493 42492091\n";
-		line += "chr2   42396494 42492091\n";
-		line += "chr2   42396495 42492091\n";
-		line += "chr2   42396496 42492091\n";
-		line += "chr2   42396497 42492091\n";
-		line += "chr2   42396498 42492091\n";
-		line += "chr2   42396499 42492091\n";
-		line += "chr2   42396500 42492091\n";
-		line += "chr2   42396510 42492091\n";
-		line += "chr2   42396514 42492091\n";
-		line += "chr2   42396515 42492091\n";
-		line += "chr2   42396520 42492091\n";
-		line += "chr2   42396529 42492091\n";
-		line += "chr2   42396530 42492091\n";
-		line += "chr2   42396530 42492091\n";
-		line += "chr2   42396538 42492091\n";	
-		line += "chr2   42396540 42492091\n";
-		line += "chr2   42396547 42492091\n";
-		line += "chr2   42396550 42492091\n";
-		line += "chr2   42396550 42492091\n";
-		
-		return line;
+//		String line = "browser position "+chr+":"+start+"-"+end+"\n";
+//		line += "track name=EML4 description='Aligned read list' visibility=2\n";
+//		line += "chr2   42396490 42492091\n";
+//		line += "chr2   42396491 42492091\n";
+//		line += "chr2   42396491 42492091\n";
+//		line += "chr2   42396492 42492091\n";
+//		line += "chr2   42396493 42492091\n";
+//		line += "chr2   42396494 42492091\n";
+//		line += "chr2   42396495 42492091\n";
+//		line += "chr2   42396496 42492091\n";
+//		line += "chr2   42396497 42492091\n";
+//		line += "chr2   42396498 42492091\n";
+//		line += "chr2   42396499 42492091\n";
+//		line += "chr2   42396500 42492091\n";
+//		line += "chr2   42396510 42492091\n";
+//		line += "chr2   42396514 42492091\n";
+//		line += "chr2   42396515 42492091\n";
+//		line += "chr2   42396520 42492091\n";
+//		line += "chr2   42396529 42492091\n";
+//		line += "chr2   42396530 42492091\n";
+//		line += "chr2   42396530 42492091\n";
+//		line += "chr2   42396538 42492091\n";	
+//		line += "chr2   42396540 42492091\n";
+//		line += "chr2   42396547 42492091\n";
+//		line += "chr2   42396550 42492091\n";
+//		line += "chr2   42396550 42492091\n";
+
+		ServletContext context = request.getSession().getServletContext();
+        String appPath = context.getRealPath("");
+//        System.out.println("appPath = " + appPath);
+
+		// construct the complete absolute path of the file
+        String fullPath = appPath + "/resources/data/bed_" + id + "_"+type+".bd";
+        File downloadFile = new File(fullPath);
+
+		if( !downloadFile.exists() ) {
+			BufferedWriter out = new BufferedWriter(new FileWriter(downloadFile));
+			out.write( this.chimerSeqService.getBED4AlignedReads(id, type, chr, start, end) );
+			out.close();
+		}
+		FileInputStream inputStream = new FileInputStream(downloadFile);
+
+		// get MIME type of the file
+		String mimeType = context.getMimeType(fullPath);
+		if (mimeType == null) {
+			// set to binary type if MIME mapping not found
+			mimeType = "application/octet-stream";
+		}
+//			System.out.println("MIME type: " + mimeType);
+
+		// set content attributes for the response
+		response.setContentType(mimeType);
+		response.setContentLength((int) downloadFile.length());
+
+		// set headers for the response
+		String headerKey = "Content-Disposition";
+		String headerValue = String.format("attachment; filename=\"%s\"", downloadFile.getName());
+		response.setHeader(headerKey, headerValue);
+
+		// get output stream of the response
+		OutputStream outStream = response.getOutputStream();
+
+		int BUFFER_SIZE = 1024;
+		byte[] buffer = new byte[BUFFER_SIZE];
+		int bytesRead = -1;
+
+		// write bytes read from the input stream into the output stream
+		while ((bytesRead = inputStream.read(buffer)) != -1) {
+			outStream.write(buffer, 0, bytesRead);
+		}
+
+		inputStream.close();
+		outStream.close();
 	}
 }

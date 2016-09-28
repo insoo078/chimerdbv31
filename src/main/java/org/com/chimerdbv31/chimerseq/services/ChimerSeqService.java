@@ -157,4 +157,24 @@ public class ChimerSeqService {
 
 		return lst;
 	}
+	
+	public String getBED4AlignedReads(String id, String type, String chr, String start, String end) {
+		FusionScanReadVo fusionScanReads = this.chimerSeqMapper.getReads( Integer.valueOf( id ) );
+
+		String geneSymbol = fusionScanReads.getGene_pair().split("_")[0];
+		if( type.equals("3p") ) geneSymbol = fusionScanReads.getGene_pair().split("_")[1];
+
+		List<ReadVo> reads = ReadVo.makeReadList(fusionScanReads);
+		
+		String line = "browser position "+chr+":"+start+"-"+end+"\n";
+		line += "track name="+geneSymbol+" description='Aligned read list' visibility=2\n";
+
+		for(ReadVo vo : reads ) {
+			if( vo.getType().equals(type) ) {
+				line += vo.getChr() + "\t" + vo.getStart() + "\t" + vo.getEnd() + "\n";
+			}
+		}
+
+		return line;
+	}
 }
