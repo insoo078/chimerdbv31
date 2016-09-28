@@ -138,6 +138,20 @@ $(document).ready(function () {
 				});
 				
 				canvas.call(drag);
+				
+				canvas.on('click', function(){
+					var coords = d3.mouse(this);
+					
+					value = xScale.invert( parseInt(coords[0]) );
+
+					label.text( "No. of pubmed : " + findFrequencyByScore(dataset, value) );
+	
+					var xPos = xScale(value);
+					lineRect.attr('x1', xPos);
+					lineRect.attr('x2', xPos);
+
+					dist.score = value;
+				});
 			}
 		});
 	});
