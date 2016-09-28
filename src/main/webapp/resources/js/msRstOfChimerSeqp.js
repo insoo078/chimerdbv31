@@ -47,13 +47,19 @@ ChimerSeqResult.prototype.initUcscSettings = function( rowdata ) {
 	var id = rowdata.id;
 
 	$("#ucsc_5pGene").click(function(){
-		var url = "https://genome.ucsc.edu/cgi-bin/hgTracks?org=human&db=hg19&position="+gene5p.chromosome+"%3A"+gene5p.start+"%2D"+gene5p.end+"&hideTracks=1&knownGene=dense&refGene=dense&ucscGenePfam=dense&hgt.custom='http://ercsb.ewha.ac.kr/fusiongene/bed.cdb?id=" + id + "&type=5p&chr="+gene5p.chromosome+"&start="+gene5p.start+"&end=" + gene5p.end + "'";
+		var file_url = "data/bed/bed_"+id+"_5p_"+gene5p.chromosome+"_"+gene5p.start+"_"+gene5p.end;
+		
+		var url = "https://genome.ucsc.edu/cgi-bin/hgTracks?org=human&db=hg19&position="+gene5p.chromosome+"%3A"+gene5p.start+"%2D"+gene5p.end+"&hideTracks=1&knownGene=dense&refGene=dense&ucscGenePfam=dense&hgt.custom='http://ercsb.ewha.ac.kr/fusiongene/" + file_url;
+		
+//		console.log( url );
 
 		window.open(url, 'UCSC Genome Browser', 'window settings');
 	});
 
 	$("#ucsc_3pGene").click(function(){
-		var url = "https://genome.ucsc.edu/cgi-bin/hgTracks?org=human&db=hg19&position="+gene3p.chromosome+"%3A"+gene3p.start+"%2D"+gene3p.end+"&hideTracks=1&knownGene=dense&refGene=dense&ucscGenePfam=dense&hgt.custom='http://ercsb.ewha.ac.kr/fusiongene/bed.cdb?id=" + id + "&type=3p&chr="+gene3p.chromosome+"&start="+gene3p.start+"&end=" + gene3p.end + "'";
+		var file_url = "data/bed/bed_"+id+"_3p_"+gene3p.chromosome+"_"+gene3p.start+"_"+gene3p.end;
+
+		var url = "https://genome.ucsc.edu/cgi-bin/hgTracks?org=human&db=hg19&position="+gene3p.chromosome+"%3A"+gene3p.start+"%2D"+gene3p.end+"&hideTracks=1&knownGene=dense&refGene=dense&ucscGenePfam=dense&hgt.custom='http://ercsb.ewha.ac.kr/fusiongene/" + file_url;
 		window.open(url, 'UCSC Genome Browser', 'window settings');
 	});
 };

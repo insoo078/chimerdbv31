@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -259,6 +260,62 @@ public class ChimerSeqController {
 		return result;
 	}
 	
+	@RequestMapping(value="/data/bed/{bedId}", method = RequestMethod.GET)
+	public void getBedFile(@PathVariable String bedId, HttpServletRequest request, HttpServletResponse response ) throws IOException{
+		ServletContext context = request.getSession().getServletContext();
+        String appPath = context.getRealPath("");
+
+		String[] div = bedId.split("_");
+		String id = div[1];
+		String type = div[2];
+		String chr = div[3];
+		String start = div[4];
+		String end = div[5];
+
+		// construct the complete absolute path of the file
+        String fullPath = appPath + "/resources/data/bed_" + id + "_"+type+"_"+chr+"_"+start+"_"+end+"_.bd";
+        File downloadFile = new File(fullPath);
+
+		if( !downloadFile.exists() ) {
+			BufferedWriter out = new BufferedWriter(new FileWriter(downloadFile));
+			out.write( this.chimerSeqService.getBED4AlignedReads(id, type, chr, start, end) );
+			out.close();
+		}
+		FileInputStream inputStream = new FileInputStream(downloadFile);
+
+		// get MIME type of the file
+		String mimeType = context.getMimeType(fullPath);
+		if (mimeType == null) {
+			// set to binary type if MIME mapping not found
+			mimeType = "application/octet-stream";
+		}
+//			System.out.println("MIME type: " + mimeType);
+
+		// set content attributes for the response
+		response.setContentType(mimeType);
+		response.setContentLength((int) downloadFile.length());
+
+		// set headers for the response
+		String headerKey = "Content-Disposition";
+		String headerValue = String.format("attachment; filename=\"%s\"", downloadFile.getName());
+		response.setHeader(headerKey, headerValue);
+
+		// get output stream of the response
+		OutputStream outStream = response.getOutputStream();
+
+		int BUFFER_SIZE = 1024;
+		byte[] buffer = new byte[BUFFER_SIZE];
+		int bytesRead = -1;
+
+		// write bytes read from the input stream into the output stream
+		while ((bytesRead = inputStream.read(buffer)) != -1) {
+			outStream.write(buffer, 0, bytesRead);
+		}
+
+		inputStream.close();
+		outStream.close();
+	}
+	
 	@RequestMapping(value="/bed", method = RequestMethod.GET)
 	public void getBed(HttpServletRequest request, HttpServletResponse response ) throws IOException{
 		String id		= request.getParameter("id");
@@ -341,5 +398,12 @@ public class ChimerSeqController {
 
 		inputStream.close();
 		outStream.close();
+// 
+//        // construct the complete absolute path of the file
+//        String fullPath = appPath + filePath;      
+//        File downloadFile = new File(fullPath);
+//        FileInputStream inputStream = new FileInputStream(downloadFile);
+//
+//		return this.chimerSeqService.getBED4AlignedReads(id, type, chr, start, end);
 	}
 }
