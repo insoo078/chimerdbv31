@@ -185,8 +185,8 @@ ChimerSeqResult.prototype.initChimerSeqResultjQueryDataTables = function() {
 			var pubIcon = "<span class='chimer-pub-icon chimerdb-icon'>Pub</span>";
 			var kbIcon = "<span class='chimer-kb-icon chimerdb-icon'>KB</span>";
 			
-			if( tmp[0]==='1' ) imgTag += pubIcon;
-			if( tmp[1]==='1' ) imgTag += kbIcon;
+			if( tmp[1]==='1' ) imgTag += pubIcon;
+			if( tmp[0]==='1' ) imgTag += kbIcon;
 			
 			$('td:eq(8)', nRow).html(imgTag); // where 4 is the zero-origin visible column in the HTML
 
