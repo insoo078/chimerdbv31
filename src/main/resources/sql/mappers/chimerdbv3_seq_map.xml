@@ -405,7 +405,7 @@
 			, IF( Receptor='NA', '', Receptor )							AS receptor
 			, IF( Oncogene='NA', '', Oncogene )							AS oncogene
 			, IF( Transcription_Factor='NA', '', Transcription_Factor )	AS transcription_Factor
-			, IF( Disease='NA', '', Disease )							AS disease
+			, REPLACE(IF( Disease='NA', '', Disease ), ';', ', ')		AS disease
 		FROM ChimerDB3.ChimerSeq
 		WHERE id=${id}
 	</select>

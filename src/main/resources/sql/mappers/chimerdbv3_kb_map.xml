@@ -36,7 +36,7 @@
         , if(Breakpoint_Type = "NA", "", Breakpoint_Type) as Breakpoint_Type
         , Genome_Build_Version
         , if(PMID = "NA","",PMID) as PMID
-        , if(Disease = "NA","",Disease) as Disease
+        , REPLACE(if(Disease = "NA","",Disease), ';', ', ') as Disease
         , if(Validation = "NA","", Validation) as Validation
         , if(Frame = "NA","",Frame) as Frame
         , if(Chr_info = "NA","",Chr_info) as Chr_info

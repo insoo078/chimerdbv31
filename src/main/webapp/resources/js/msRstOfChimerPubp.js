@@ -12,6 +12,7 @@ $(document).ready(function () {
     
     mainTable =  mainTable = $("#chimerPubTbl").DataTable({
         "dom":"Tfrt<'row'<'col-md-2'l><'col-md-5'i><'col-md-5'p>>",
+		"order": [[ 1, "desc" ]],
         "columnDefs": [
             { 'targets': [6], 'visible': false, 'searchable': false }
             ,{ 'targets': [7], 'visible': false, 'searchable': false }

@@ -249,7 +249,7 @@
 												<span style="font-size: 15px; font-weight:bold;">&ndash;&nbsp;&nbsp;Supporting information</span>
 											</div>
 											<div class="col-md-9">
-												<label class="checkbox-inline" id="chimrKb_fbySupot_chimrSeqS_lvl"><form:checkbox path="chkChimerKbSupport" value="on"/>ChimerSeq supported</label>
+												<label class="checkbox-inline" id="chimrKb_fbySupot_chimrSeqS_lvl"><form:checkbox path="chkChimerKbSupport" value="on"/>ChimerKB supported</label>
 												<label class="checkbox-inline" id="chimrKb_fbySupot_chimrPubS_lvl"><form:checkbox path="chkChimerPubSupport" value="on"/>ChimerPub supported</label>
 											</div>
 										</div>

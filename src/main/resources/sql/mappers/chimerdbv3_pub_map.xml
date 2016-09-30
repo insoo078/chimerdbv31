@@ -25,7 +25,7 @@
             , t1.T_gene as T_gene
             , t1.PMID as PMID
             , t1.Score as Score
-            , t1.Disease as Disease
+            , REPLACE(t1.Disease, ';', ', ') as Disease
             , t1.Validation as Validation
             , t1.Kinase as Kinase
             , t1.Oncogene as Oncogene
@@ -122,7 +122,7 @@
         <if test="queryForValidationMtd != null and queryForValidationMtd != ''"> and t1.Validation in (${queryForValidationMtd}) </if>
         <if test="queryForFilterByFunc != null and queryForFilterByFunc != ''"> and (${queryForFilterByFunc}) </if>
         <if test="queryForSupInfo != null and queryForSupInfo != ''"> and (${queryForSupInfo}) </if>
-		ORDER BY t1.Fusion_pair
+		ORDER BY t1.Translocation DESC, t1.fusion_pair;
     </select>
 
 
