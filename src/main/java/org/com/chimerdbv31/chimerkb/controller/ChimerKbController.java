@@ -211,19 +211,19 @@ public class ChimerKbController {
                             for(int i = 0; i < dataArr.length; i++){
                                 switch( dataArr[i] ){                                    
                                     case "sanger":{
-                                        queryStr.append(" 'Sanger sequencing' ");
+                                        queryStr.append(" 'Sanger sequencing', 'RT-PCR;Sanger sequencing' ");
                                         if( i < (dataArr.length -1) ){
                                             queryStr.append(",");
                                         }
                                     };break;
                                     case "fish":{
-                                        queryStr.append(" 'RT-PCR;Sanger sequencing' ");
+                                        queryStr.append(" 'FISH' ");
                                         if( i < (dataArr.length -1) ){
                                             queryStr.append(",");
                                         }
                                     };break;
                                     case "rtpcr":{
-                                        queryStr.append(" 'RT-PCR' ");
+                                        queryStr.append(" 'RT-PCR', 'RT-PCR;Sanger sequencing' ");
                                         if( i < (dataArr.length -1) ){
                                             queryStr.append(",");
                                         }

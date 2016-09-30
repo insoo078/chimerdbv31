@@ -67,9 +67,9 @@ public class ChimerPubController {
 		sParam.setNumOfPub(1);
 		sParam.setTxtMiningScore(10);
 		
-		StringBuffer queryStr = new StringBuffer();
-		queryStr.append(" 'Sanger sequencing', 'RT-PCR, Sanger sequencing', 'RT-PCR', 'NA' ");
-		sParam.setQueryForValidationMtd(queryStr.toString());
+//		StringBuffer queryStr = new StringBuffer();
+//		queryStr.append(" 'Sanger sequencing', 'RT-PCR, Sanger sequencing', 'RT-PCR', 'NA' ");
+//		sParam.setQueryForValidationMtd(queryStr.toString());
 		
 		List<ChimerPubVo> chimerpublst = this.chimerPubService.getChimerPubResult(sParam);
 		result.addObject("chimerpub_lst", chimerpublst);

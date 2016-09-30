@@ -18,7 +18,9 @@
     
     <select id="getChimerKBResult" parameterType="org.com.chimerdbv31.common.vo.ParamVo" resultType="org.com.chimerdbv31.chimerkb.vo.ChimerKbVo">
         select distinct
-          id, ChimerDB_Type, Source, webSource
+          id, ChimerDB_Type
+		, CASE WHEN Source LIKE 'Cosmic_%' THEN 'COSMIC' ELSE Source END Source
+		, webSource
         , Fusion_pair
         , if( instr(5Gene_Junction, "NA") > 0, if(  substring_index(5Gene_Junction,":",-1) = "NA", "", substring_index(5Gene_Junction,":",-1) )  , 5Gene_Junction ) as gene5Junc 
         , if( instr(3Gene_Junction, "NA") > 0, if(  substring_index(3Gene_Junction,":",-1) = "NA", "", substring_index(3Gene_Junction,":",-1) ) , 3Gene_Junction ) as gene3Junc

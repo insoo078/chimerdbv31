@@ -12,7 +12,8 @@ $(document).ready(function () {
     mainTable = $("#chimerKbTbl").DataTable({
         "dom":"Tfrt<'row'<'col-md-2'l><'col-md-5'i><'col-md-5'p>>",
         "columnDefs": [
-            { 'targets': [10], 'visible': false, 'searchable': false }
+			{ 'targets': [5], 'visible': false, 'searchable': false }
+            ,{ 'targets': [10], 'visible': false, 'searchable': false }
             ,{ 'targets': [11], 'visible': false, 'searchable': false }
             ,{ 'targets': [12], 'visible': false, 'searchable': false }
             ,{ 'targets': [13], 'visible': false, 'searchable': false }
