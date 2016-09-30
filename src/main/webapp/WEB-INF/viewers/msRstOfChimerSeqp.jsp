@@ -122,7 +122,6 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <span style="font-size: 20px; font-weight: bold;">Fusion structure</span>
-                                <span id="selectedrowtitle" style="font-size: 20px; font-weight: bold;"></span>
                             </div>
 							<div class="panel-body" style="text-align: left;">
 								<div id="chimer-seq-viewer-controller">
@@ -183,7 +182,7 @@
 											<td id="srt_td_3g_chr_nm" style="text-align: center;"></td>
 										</tr>
 										<tr>
-											<td>Junction(Exon BreakPoint)</td>
+											<td>Junction<span id='junction_type'></span></td>
 											<td id="srt_td_5g_junc_point" style="text-align: center;"></td>
 											<td id="srt_td_3g_junc_point" style="text-align: center;"></td>
 										</tr>

@@ -143,6 +143,12 @@ function showDesc(popupdataobj){
 //    }
 
 
+	if( popupdataobj[3] === 'Exonic' )
+		$("#junction_type").text(' (Exon BreakPoint)');
+	else if( popupdataobj[3] === 'Genomic' )
+		$("#junction_type").text(' (Genomic BreakPoint)');
+
+
     $("#srt_td_5g_3g_func").text( selectedFuncStr );
     
     $("#srt_td_chimerdb_type").text( popupdataobj[11] );

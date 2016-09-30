@@ -273,8 +273,6 @@ function searching(){
                     if( $("input:checkbox[id='chimrKb_2_exon_chk']").is(":checked") == true ){
                         keyVal += ","+"exon";
                     }
-                    
-                    
                 }
                 $("#key_kb_selt_the_breakpoint").val( keyVal );
                 

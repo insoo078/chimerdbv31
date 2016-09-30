@@ -85,7 +85,7 @@
                                             </label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;" onclick="checkbtnofradio('by_disease');">
+                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;" value='acute myeloid leukemia' onclick="checkbtnofradio('by_disease');">
                                         </div>
                                     </div>
                                 </div>

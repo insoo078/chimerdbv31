@@ -214,7 +214,7 @@
                                             <td id="srt_td_3g_chr_nm" style="text-align: center;"></td>
                                         </tr>
                                         <tr>
-                                            <td>Junction(Exon BreakPoint)</td>
+                                            <td>Junction<span id='junction_type'></span></td>
                                             <td id="srt_td_5g_junc_point" style="text-align: center;"></td>
                                             <td id="srt_td_3g_junc_point" style="text-align: center;"></td>
                                         </tr>

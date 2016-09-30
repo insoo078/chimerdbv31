@@ -267,8 +267,8 @@ public class ChimerPubController {
                                                 queryStr.append("or");
                                             }
                                         };break;
-                                        case "chimrPub":{
-                                            queryStr.append(" t1.ChimerPub != '0' ");
+                                        case "chimrKb":{
+                                            queryStr.append(" t1.ChimerKb != '0' ");
                                             if( i < (dataArr.length -1) ){
                                                 queryStr.append("or");
                                             }

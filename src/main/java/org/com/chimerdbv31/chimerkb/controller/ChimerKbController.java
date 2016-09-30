@@ -166,7 +166,8 @@ public class ChimerKbController {
                     queryStr = new StringBuffer();
 
                     if(data.indexOf("none") > -1){                    
-                        sParam.setQueryForBreakPointType(" 'NA' ");
+//                        sParam.setQueryForBreakPointType(" 'NA' ");
+						sParam.setQueryForBreakPointType(null);
                     }else{
                         dataArr = data.split(",");
                         if(dataArr != null && dataArr.length > 0){
@@ -201,7 +202,8 @@ public class ChimerKbController {
                     queryStr = new StringBuffer();
 
                     if(data.indexOf("none") > -1){                    
-                        sParam.setQueryForValidationMtd(" 'NA' ");
+//                        sParam.setQueryForValidationMtd(" 'NA' ");
+						sParam.setQueryForValidationMtd(null);
                     }else{
                         dataArr = data.split(",");
                         if(dataArr != null && dataArr.length > 0){

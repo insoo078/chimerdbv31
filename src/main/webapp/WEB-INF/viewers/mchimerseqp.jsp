@@ -83,7 +83,7 @@
 													</label>
 												</div>
 												<div class="col-md-8">
-													<form:input path="byDiseaseTxt" value="Adenocarcinoma (CA ad)." class="form-control"/>
+													<form:input path="byDiseaseTxt" value="acute myeloid leukemia" class="form-control"/>
 												</div>
 											</div>
 										</div>

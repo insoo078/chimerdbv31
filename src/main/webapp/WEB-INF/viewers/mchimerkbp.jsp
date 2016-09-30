@@ -87,7 +87,7 @@
                                             </label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;" onclick="checkbtnofradio('by_disease');">
+                                            <input id="by_disease_txt" class="form-control" title="type &quot;T&quot;" style="width: 90%;" value='acute myeloid leukemia' onclick="checkbtnofradio('by_disease');">
                                         </div>
                                     </div>
                                 </div>
@@ -228,18 +228,18 @@
 <form id="resultmain_form" method="POST" action="msrstofchimerkb.cdb">
 
 
-    <input id="key_a_search_type" type="hidden" name="key_a_search_type" />
-    <input id="key_data_for_search_type" type="hidden" name="key_data_for_search_type" />
+    <input id="key_a_search_type" type="text" name="key_a_search_type" />
+    <input id="key_data_for_search_type" type="text" name="key_data_for_search_type" />
 
-    <input id="key_selt_the_websource" type="hidden" name="key_selt_the_websource" />
+    <input id="key_selt_the_websource" type="text" name="key_selt_the_websource" />
 
-    <input id="key_kb_selt_the_source" type="hidden" name="key_kb_selt_the_source" />
-    <input id="key_kb_selt_the_breakpoint" type="hidden" name="key_kb_selt_the_breakpoint" />
-    <input id="key_kb_selt_the_validtn_mtd" type="hidden" name="key_kb_selt_the_validtn_mtd" />
+<!--    <input id="key_kb_selt_the_source" type="text" name="key_kb_selt_the_source" />-->
+    <input id="key_kb_selt_the_breakpoint" type="text" name="key_kb_selt_the_breakpoint" />
+    <input id="key_kb_selt_the_validtn_mtd" type="text" name="key_kb_selt_the_validtn_mtd" />
 
-    <input id="key_flt_by_func" type="hidden" name="key_flt_by_func" />
-    <input id="key_flt_by_fusn_type" type="hidden" name="key_flt_by_fusn_type" />
-    <input id="key_flt_by_supted_info" type="hidden" name="key_flt_by_supted_info" />
+    <input id="key_flt_by_func" type="text" name="key_flt_by_func" />
+    <input id="key_flt_by_fusn_type" type="text" name="key_flt_by_fusn_type" />
+    <input id="key_flt_by_supted_info" type="text" name="key_flt_by_supted_info" />
 
 </form>
             

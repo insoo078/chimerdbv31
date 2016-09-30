@@ -313,6 +313,14 @@ ChimerSeqResult.prototype.showDetailInfo = function(rowdata) {
 				else				func += (", "+d);
 			});
 
+			$("#selectedrowtitle").text( jData.fusion_pair );
+			
+			
+			if( jData.breakpoint_Type === 'Exonic' )
+				$("#junction_type").text(' (Exon BreakPoint)');
+			else if( jData.breakpoint_Type === 'Genomic' )
+				$("#junction_type").text(' (Genomic BreakPoint)');
+
 			$("#srt_td_5g_3g_func").text( func );
 			$("#srt_td_chimerdb_type").text( jData.chimerDB_Type);
 			$("#srt_td_source").text( jData.source );
