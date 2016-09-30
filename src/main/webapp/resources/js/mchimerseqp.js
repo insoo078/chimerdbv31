@@ -25,6 +25,17 @@ var ChimerSeqForm = {
 		this.addAutocompleteField( "#byGenePairTxt",	2);
 		this.addAutocompleteField( "#byChrLocusTxt",	3);
 		this.addAutocompleteField( "#byDiseaseTxt",		4);
+		
+		
+		$("input[name='byGeneTxt']").click(function() {
+			$("input[name='searchType']:input[value='byGene']").prop('checked', true);
+		});
+		$("input[name='byGenePairTxt']").click(function() {
+			$("input[name='searchType']:input[value='byGenePair']").prop('checked', true);
+		});
+		$("input[name='byDiseaseTxt']").click(function() {
+			$("input[name='searchType']:input[value='byDisease']").prop('checked', true);
+		});
 
 		// If user choose one radio button, then other radios are disabled
 		// and active filed is moving their text filed
