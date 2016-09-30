@@ -269,7 +269,8 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 			  }
 		},
 		error: function(e, status) {
-			alert(status);
+			console.log( e );
+//			alert(status);
 		}
 	});
 };

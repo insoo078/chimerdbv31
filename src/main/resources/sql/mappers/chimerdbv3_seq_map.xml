@@ -95,7 +95,7 @@
 				AND (H_locus LIKE CONCAT(#{byChrLocusTxt}, '%') OR T_locus LIKE CONCAT(#{byChrLocusTxt}, '%'))
 			</when>
 			<when test="searchType == 'byDisease'">
-				AND Disease LIKE CONCAT(CONCAT('%', #{byDiseaseTxt}), '%')
+				AND Disease LIKE CONCAT('%', #{byDiseaseTxt}, '%')
 			</when>
 		</choose>
 
@@ -198,7 +198,7 @@
 				AND (H_locus LIKE CONCAT(#{byChrLocusTxt}, '%') OR T_locus LIKE CONCAT(#{byChrLocusTxt}, '%'))
 			</when>
 			<when test="searchType == 'byDisease'">
-				AND Disease LIKE CONCAT(CONCAT('%', #{byDiseaseTxt}), '%')
+				AND Disease LIKE CONCAT('%', #{byDiseaseTxt}, '%')
 			</when>
 		</choose>
 
