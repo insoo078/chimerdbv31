@@ -99,17 +99,18 @@
 			</when>
 		</choose>
 
-		<if test="chkTcgaOption == 'on'">
-			<choose>
-				<when test="cancerTypes != null and cancerTypes.size != 0">
-					AND Cancertype IN
-					<foreach collection="cancerTypes" item="cancer" separator="," open="(" close=")">
-						#{cancer}
-					</foreach>
-				</when>
-			</choose>
-		</if>
 		<trim prefix="AND (" suffix=")" prefixOverrides="AND|OR">
+			<if test="chkTcgaOption == 'on'">
+				<choose>
+					<when test="cancerTypes != null and cancerTypes.size != 0">
+						Cancertype IN
+						<foreach collection="cancerTypes" item="cancer" separator="," open="(" close=")">
+							#{cancer}
+						</foreach>
+					</when>
+				</choose>
+			</if>
+			
 			<if test="chkFusionScan == 'on' and noOfSeedReads >= 0">
 				OR (Source = 'FusionScan' AND Seed_reads_num >= ${noOfSeedReads})
 			</if>
@@ -202,17 +203,18 @@
 			</when>
 		</choose>
 
-		<if test="chkTcgaOption == 'on'">
-			<choose>
-				<when test="cancerTypes != null and cancerTypes.size != 0">
-					AND Cancertype IN
-					<foreach collection="cancerTypes" item="cancer" separator="," open="(" close=")">
-						#{cancer}
-					</foreach>
-				</when>
-			</choose>
-		</if>
 		<trim prefix="AND (" suffix=")" prefixOverrides="AND|OR">
+			<if test="chkTcgaOption == 'on'">
+				<choose>
+					<when test="cancerTypes != null and cancerTypes.size != 0">
+						Cancertype IN
+						<foreach collection="cancerTypes" item="cancer" separator="," open="(" close=")">
+							#{cancer}
+						</foreach>
+					</when>
+				</choose>
+			</if>
+			
 			<if test="chkFusionScan == 'on' and noOfSeedReads >= 0">
 				OR (Source = 'FusionScan' AND Seed_reads_num >= ${noOfSeedReads})
 			</if>
