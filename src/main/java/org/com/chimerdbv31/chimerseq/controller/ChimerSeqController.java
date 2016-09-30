@@ -98,17 +98,15 @@ public class ChimerSeqController {
 		Gson gson = new Gson();
 		
 		String queryGenes = request.getParameter("data");
-		
-		ChimerSeqVo chimerSeqRecord = gson.fromJson(queryGenes, ChimerSeqVo.class);
-
 		String json = "";
 		try {
+			ChimerSeqVo chimerSeqRecord = gson.fromJson(queryGenes, ChimerSeqVo.class);
+
 			json = gson.toJson( this.chimerSeqService.getGeneInfo( chimerSeqRecord ) );
 		}catch(Exception e) {
 			e.printStackTrace();
-			json = null;
+			json = "";
 		}
-
 		return json;
 	}
 	

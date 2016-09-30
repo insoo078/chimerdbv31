@@ -232,6 +232,8 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 	var data = JSON.stringify(rowdata);
 
 	var chimerSeqResult = this;
+	
+	chimerSeqResult.showDetailInfo( rowdata );
 
 	$.ajax({
 		url: "getGeneInfo.cdb",
@@ -242,8 +244,6 @@ ChimerSeqResult.prototype.getGeneInformation = function (rowdata) {
 			var container = "#chimer-seq-viewer-content";
 
 			d3.selectAll('svg').remove();
-			
-			chimerSeqResult.showDetailInfo( jData );
 
 			jData.fusionGene5p = jData.genes["5'"];
 			jData.fusionGene3p = jData.genes["3'"];
