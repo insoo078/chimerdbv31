@@ -65,6 +65,17 @@
 									<div><a href="resources/data/dump/ChimerDB3.0_ChimerSeq.sql">ChimerDB : ChimerSeq</a></div>
 								</div>
 							</div>
+
+							<div class="row margin-bottom-15">
+								<span style="font-size: 15px; font-weight:bold;">&ndash;&nbsp;&nbsp;Excel format data files</span>
+							</div>
+							<div class="row margin-bottom-15">
+								<div class="col-md-11 col-md-offset-1">
+									<div><a href="resources/data/dump/ChimerDB3.0_ChimerKB.xlsx">ChimerDB : ChimerKB</a></div>
+									<div><a href="resources/data/dump/ChimerDB3.0_ChimerPub.xlsx">ChimerDB : ChimerPub</a></div>
+									<div><a href="resources/data/dump/ChimerDB3.0_ChimerSeq.xlsx">ChimerDB : ChimerSeq</a></div>
+								</div>
+							</div>
 						</div>
 				</div>
 				<div class="col-md-1"></div>
