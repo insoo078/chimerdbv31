@@ -98,7 +98,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 									</tr>
 									<tr>
 										<td>
-											<img alt="" class='help-image' src="resources/images/help/chimerkb1.png" style="width: 80%; height: 80%;margin-left:10%;" />
+											<img alt="" class='help-image chimer-image' src="resources/images/help/chimerkb1.png" style="width: 80%; height: 80%;margin-left:10%;" />
 										</td>
 									</tr>
 									<tr>
@@ -143,7 +143,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 									</tr>
 									<tr>
 										<td>
-											<img alt="" class='help-image' src="resources/images/help/chimerpub1.png" style="width: 80%; height: 80%; margin-left:10%;" />
+											<img alt="" class='help-image chimer-image' src="resources/images/help/chimerpub1.png" style="width: 80%; height: 80%; margin-left:10%;" />
 										</td>
 									</tr>
 									<tr class='blank' style="height:40px;"><td></td></tr>
@@ -152,7 +152,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 									</tr>
 									<tr>
 										<td>
-											<img alt="" class='help-image' src="resources/images/help/chimerpub2.png" style="width: 80%; height: 80%; margin-left:10%;" />
+											<img alt="" class='help-image chimer-image' src="resources/images/help/chimerpub2.png" style="width: 80%; height: 80%; margin-left:10%;" />
 										</td>
 									</tr>
 									<tr class='blank' style="height:50px;"><td></td></tr>
@@ -200,7 +200,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 										<td class='first-sub-content'>python Run_FusionScan.py TCGA-PK-A5HB-01A_1.fastq,TCGA-PK-A5HB-01A_2.fastq TCGA-PK-A5HB-01A 48 10.10.20.106:8652 --phred33 -P 8 -ms 2</td>
 									</tr>
 									<tr>
-										<td><img alt="" class='help-image' src="resources/images/help/chimerseq1.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
+										<td><img alt="" class='help-image chimer-image' src="resources/images/help/chimerseq1.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
 									</tr>
 									<tr class='blank' style="height:50px;"><td></td></tr>
 									<tr>
@@ -217,7 +217,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 										</td>
 									</tr>
 									<tr>
-										<td><img alt="" class='help-image' src="resources/images/help/chimerseq2.png"  style="width: 80%; height: 80%; margin-left:10%;" /></td>
+										<td><img alt="" class='help-image chimer-image' src="resources/images/help/chimerseq2.png"  style="width: 80%; height: 80%; margin-left:10%;" /></td>
 									</tr>
 									
 									<tr class='blank' style="height:50px;"><td></td></tr>
@@ -226,7 +226,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 										<td style='text-align:center;'>Summary of known fusion genes detected by each tool and the comparison statistics.</td>
 									</tr>
 									<tr>
-										<td><img alt="" class='help-image' src="resources/images/help/chimerseq3.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
+										<td><img alt="" class='help-image chimer-image' src="resources/images/help/chimerseq3.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
 									</tr>
 									<tr>
 										<td style='padding:10px;text-indent:90px;'><a href='resources/data/documents/FusionScan.pdf'>FusionScan Documentation</a></td>
@@ -255,7 +255,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 										</td>
 									</tr>
 									<tr>
-										<td><img alt="" class='help-image' src="resources/images/help/chimerkb2-1.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
+										<td><img alt="" class='help-image chimer-image' src="resources/images/help/chimerkb2-1.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
 									</tr>
 									<tr>
 										<td class='first-sub-content'>Select the filter conditions. (Data Source, Breakpoint Type, Validation Method, Function, Chromosome Type, Supporting Information) 
@@ -273,7 +273,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 											The PubMed Id links is connected and go to the ChimerSeq, ChimerPub that the supporting Information link is connected to.</td>
 									</tr>
 									<tr>
-										<td><img alt="" class='help-image' src="resources/images/help/chimerkb2-2.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
+										<td><img alt="" class='help-image chimer-image' src="resources/images/help/chimerkb2-2.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
 									</tr>
 									
 									<tr class='blank' style="height:50px;"><td></td></tr>
@@ -303,7 +303,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 											The table below describes the extracted fusion gene using text mining from literature.</td>
 									</tr>
 									<tr>
-										<td><img alt="" class='help-image' src="resources/images/help/chimerpub3-2.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
+										<td><img alt="" class='help-image chimer-image' src="resources/images/help/chimerpub3-2.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
 									</tr>
 									
 									<tr class='blank' style="height:50px;"><td></td></tr>
@@ -319,7 +319,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 											With ample annotations, we support diverse filtering options such as function filter for kinase, oncogene, tumor suppressor, receptor, transcription factor genes.</td>
 									</tr>
 									<tr>
-										<td><img alt="" class='help-image' src="resources/images/help/chimerseq4-1.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
+										<td><img alt="" class='help-image chimer-image' src="resources/images/help/chimerseq4-1.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
 									</tr>
 									<tr class='blank' style="height:20px;"><td></td></tr>
 									<tr>
@@ -334,7 +334,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 											Click on each entry activates the detailed information table.</td>
 									</tr>
 									<tr>
-										<td><img alt="" class='help-image' src="resources/images/help/chimerseq4-2.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
+										<td><img alt="" class='help-image chimer-image' src="resources/images/help/chimerseq4-2.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
 									</tr>
 									<tr class='blank' style="height:20px;"><td></td></tr>
 									<tr>
@@ -352,7 +352,7 @@ All entries were manually curated for disease, sequences, break points, and expe
 											so that they can examine the detailed gene structure and alignment.</td>
 									</tr>
 									<tr>
-										<td><img alt="" class='help-image' src="resources/images/help/chimerseq4-3.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
+										<td><img alt="" class='help-image chimer-image' src="resources/images/help/chimerseq4-3.png" style="width: 80%; height: 80%; margin-left:10%;" /></td>
 									</tr>
 								</table>
 								

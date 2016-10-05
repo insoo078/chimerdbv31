@@ -50,13 +50,13 @@
 									</tr>
 									<tr>
 										<td>
-											<img alt="" class='stat-image' src="resources/images/chimerdbv3_statistics_table.png" style="width: 70%; height: 70%; margin-left:15%" />
+											<img alt="" class='stat-image chimer-image' src="resources/images/chimerdbv3_statistics_table.png" style="width: 70%; height: 70%; margin-left:15%" />
 										</td>
 									</tr>
 									<tr class='blank' style="height:20px;"><td></td></tr>
 									<tr>
 										<td>
-											<img alt="" class='stat-image' src="resources/images/chimerdbv3_statistics_diagram_p1.png" style="width: 40%;margin-left:30%;" />
+											<img alt="" class='stat-image chimer-image' src="resources/images/chimerdbv3_statistics_diagram_p1.png" style="width: 40%;margin-left:30%;" />
 										</td>
 									</tr>
 									<tr>
@@ -79,7 +79,7 @@
 									</tr>
 									<tr>
 										<td>
-											<img alt="" class='stat-image' src="resources/images/chimerdbv3_statistics_diagram_p2.png" style="width: 40%;margin-left:30%;" />
+											<img alt="" class='stat-image chimer-image' src="resources/images/chimerdbv3_statistics_diagram_p2.png" style="width: 40%;margin-left:30%;" />
 										</td>
 									</tr>
 									<tr>
@@ -92,7 +92,7 @@
 									</tr>
 									<tr>
 										<td>
-											<img alt="" class='stat-image' src="resources/images/Chimerpubrel.png" style="width: 60%; margin-left:20%;" />
+											<img alt="" class='stat-image chimer-image' src="resources/images/Chimerpubrel.png" style="width: 60%; margin-left:20%;" />
 										</td>
 									</tr>
 									<tr>
@@ -107,7 +107,7 @@
 									</tr>
 									<tr>
 										<td>
-											<img alt="" class='stat-image' src="resources/images/cancertype.png" style="width: 65%; margin-left:17.25%;" />
+											<img alt="" class='stat-image chimer-image' src="resources/images/cancertype.png" style="width: 65%; margin-left:17.25%;" />
 										</td>
 									</tr>
 									<tr>

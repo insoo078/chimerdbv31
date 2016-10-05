@@ -39,3 +39,16 @@
     </div>
   </div>
 </nav>
+
+
+<div id="myImgModal" class="img-modal">
+
+  <!-- The Close Button -->
+  <span class="img-close" onclick="document.getElementById('myImgModal').style.display='none'">&times;</span>
+
+  <!-- Modal Content (The Image) -->
+  <img class="img-modal-content" id="img01">
+
+  <!-- Modal Caption (Image Text) -->
+  <div id="img-caption"></div>
+</div>
