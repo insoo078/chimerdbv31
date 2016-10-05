@@ -517,9 +517,24 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptExons = functio
 	
 	var startX = config.sideMargin - config.currentXPos;
 	
-	var heightVal5p = d3.select(".fused-domain-group-5pGene").node().getBBox().y + d3.select(".fused-domain-group-5pGene").node().getBBox().height + d3.select(".fused-gene-exon-group-5pGene").node().getBBox().height + (3*config.sideMargin);
-	var heightVal3p = d3.select(".fused-domain-group-3pGene").node().getBBox().y + d3.select(".fused-domain-group-3pGene").node().getBBox().height + d3.select(".fused-gene-exon-group-3pGene").node().getBBox().height + (3*config.sideMargin);
-	
+//	var heightVal5p = d3.select(".fused-domain-group-5pGene").node().getBBox().y + d3.select(".fused-domain-group-5pGene").node().getBBox().height + d3.select(".fused-gene-exon-group-5pGene").node().getBBox().height + (3*config.sideMargin);
+//	var heightVal3p = d3.select(".fused-domain-group-3pGene").node().getBBox().y + d3.select(".fused-domain-group-3pGene").node().getBBox().height + d3.select(".fused-gene-exon-group-3pGene").node().getBBox().height + (3*config.sideMargin);
+//	
+//	var height = Math.max( heightVal5p, heightVal3p );
+//
+//	var y = height + config.MARGIN_BETWEEN_BACKBONES;
+
+	var basePrevRect5p = d3.select(".fused-domain-group-5pGene").node().getBBox();
+	var basePrevRect3p = d3.select(".fused-domain-group-3pGene").node().getBBox();
+
+//	var add5p = basePrevRect5p.height===0?30:basePrevRect5p.height;
+//	var add3p = basePrevRect3p.height===0?30:basePrevRect3p.height;
+
+	var basePrevRect = d3.select("#fused-gene-backbone-group").node().getBBox();
+
+	var heightVal5p = basePrevRect.y + basePrevRect.height + 0 + d3.select(".fused-gene-exon-group-5pGene").node().getBBox().height + (3*config.sideMargin);
+	var heightVal3p = basePrevRect.y + basePrevRect.height + 0 + d3.select(".fused-gene-exon-group-3pGene").node().getBBox().height + (3*config.sideMargin);
+
 	var height = Math.max( heightVal5p, heightVal3p );
 
 	var y = height + config.MARGIN_BETWEEN_BACKBONES;
@@ -635,7 +650,6 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptExons = functio
 
 ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptBackbone = function( config ) {
 	var canvas = config.drawingSvg;
-	var canvasRect = canvas.node().getBBox();
 
 	var fusedExons = config.fusionInfo.fusedExons;
 
@@ -662,8 +676,16 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptBackbone = func
 		
 	var backbone = canvas.append("g").attr("id", "fused-transcript-backbone-group");
 
-	var heightVal5p = d3.select(".fused-domain-group-5pGene").node().getBBox().y + d3.select(".fused-domain-group-5pGene").node().getBBox().height + d3.select(".fused-gene-exon-group-5pGene").node().getBBox().height + (3*config.sideMargin);
-	var heightVal3p = d3.select(".fused-domain-group-3pGene").node().getBBox().y + d3.select(".fused-domain-group-3pGene").node().getBBox().height + d3.select(".fused-gene-exon-group-3pGene").node().getBBox().height + (3*config.sideMargin);
+	var basePrevRect5p = d3.select(".fused-domain-group-5pGene").node().getBBox();
+	var basePrevRect3p = d3.select(".fused-domain-group-3pGene").node().getBBox();
+
+//	var add5p = basePrevRect5p.height===0?30:basePrevRect5p.height;
+//	var add3p = basePrevRect3p.height===0?30:basePrevRect3p.height;
+
+	var basePrevRect = d3.select("#fused-gene-backbone-group").node().getBBox();
+
+	var heightVal5p = basePrevRect.y + basePrevRect.height + 0 + d3.select(".fused-gene-exon-group-5pGene").node().getBBox().height + (3*config.sideMargin);
+	var heightVal3p = basePrevRect.y + basePrevRect.height + 0 + d3.select(".fused-gene-exon-group-3pGene").node().getBBox().height + (3*config.sideMargin);
 
 	var height = Math.max( heightVal5p, heightVal3p );
 
@@ -683,7 +705,7 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptBackbone = func
 
 		var backboneLine = backbone.append("g").attr("id", "fused-transcript-backbone-" + type);
 
-		var lineObj = backboneLine.append('line')
+		backboneLine.append('line')
 		.attr("id", "fused-transcript-backbone-line-" + type)
 		.attr('x1', startX)
 		.attr('y1', y)
@@ -1561,26 +1583,35 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawBreakPointInGeneStructure = fun
 
 			previous = exon;
 		}
-		
-		var breakPoint = backbone.select("#fusion-gene-backbone-" + obj.type).append("g");
-		breakPoint.append("line")
-				.attr("id", "breakpoint-line-" + obj.type)
-				.attr("x1", breakPointX)
-				.attr("y1", config.GENE_BACKBONE_Y - 50)
-				.attr("x2", breakPointX)
-				.attr("y2", config.GENE_BACKBONE_Y - 12)
-				.attr("style", "stroke:#555;stroke-width:1;")
-				.attr("marker-end", "url(#arrow)");
-		;
 
-		breakPoint.append("text")
-		.attr("class", "break-point-label")
-		.style("font-size", "14px")
-		.attr("text-anchor", "middle")
-		.attr("dominant-baseline", "bottom")
-		.attr('x', breakPointX)
-		.attr('y', config.GENE_BACKBONE_Y - 60)
-		.text( obj.gene.chromosome + ":" + point );
+		// 만약 breakpoint가 gene structure를 벗어나는 경우에는
+		// 현재 position을 -9999로 세팅해서 계산함
+		var canDraw = true;
+		if( breakPointX < exonPos.exons[1].x1 || breakPointX > exonPos.exons[Object.keys(exonPos.exons).length].x1 ) {
+			breakPointX = -9999;
+		}
+
+		if( canDraw ) {
+			var breakPoint = backbone.select("#fusion-gene-backbone-" + obj.type).append("g");
+			breakPoint.append("line")
+					.attr("id", "breakpoint-line-" + obj.type)
+					.attr("x1", breakPointX)
+					.attr("y1", config.GENE_BACKBONE_Y - 50)
+					.attr("x2", breakPointX)
+					.attr("y2", config.GENE_BACKBONE_Y - 12)
+					.attr("style", "stroke:#555;stroke-width:1;")
+					.attr("marker-end", "url(#arrow)");
+			;
+
+			breakPoint.append("text")
+			.attr("class", "break-point-label")
+			.style("font-size", "14px")
+			.attr("text-anchor", "middle")
+			.attr("dominant-baseline", "bottom")
+			.attr('x', breakPointX)
+			.attr('y', config.GENE_BACKBONE_Y - 60)
+			.text( obj.gene.chromosome + ":" + point );
+		}
 	}
 };
 
