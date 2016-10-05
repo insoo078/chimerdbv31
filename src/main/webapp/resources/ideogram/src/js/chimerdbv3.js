@@ -549,8 +549,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptExons = functio
 		var gene_length = (type==='5pGene')?lenJunction5p:lenJunction3p;
 		var gene_length_ratio = gene_length / gene_total_length;
 
-		var stable_length = ((geneBackbonLength/2) * 0.6);
-		var variable_length = (((geneBackbonLength/2) * 0.4) * 2) * gene_length_ratio;
+		var stable_length = ((geneBackbonLength/2) * 0.7);
+		var variable_length = (((geneBackbonLength/2) * 0.3) * 2) * gene_length_ratio;
 
 		var final_screen_gene_length = stable_length + variable_length;
 
@@ -958,8 +958,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneExons = function( con
 		var gene_length = (type==='5pGene')?lenJunction5p:lenJunction3p;
 		var gene_length_ratio = gene_length / gene_total_length;
 
-		var stable_length = ((geneBackbonLength/2) * 0.6);
-		var variable_length = (((geneBackbonLength/2) * 0.4) * 2) * gene_length_ratio;
+		var stable_length = ((geneBackbonLength/2) * 0.7);
+		var variable_length = (((geneBackbonLength/2) * 0.3) * 2) * gene_length_ratio;
 
 		var final_screen_gene_length = stable_length + variable_length;
 
