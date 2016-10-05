@@ -31,6 +31,103 @@
 <div id="main-wrapper">
     <div class="template-page-wrapper">
         <div class="templatemo-content-wrapper">
+            
+            <div class="row margin-bottom-30" style="margin-top: 30px;">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    
+                    <div class="templatemo-panels">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <span style="font-size: 20px; font-weight: bold;">Help</span>
+                            </div>
+                            <div class="panel-body">
+								<table id='statistics_main_table'>
+									<tr>
+										<td class='border'>
+											1. Overall distribution of ChimerDB 3.0 fusion genes
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<img alt="" class='stat-image' src="resources/images/chimerdbv3_statistics_table.png" style="width: 70%; height: 70%; margin-left:15%" />
+										</td>
+									</tr>
+									<tr class='blank' style="height:20px;"><td></td></tr>
+									<tr>
+										<td>
+											<img alt="" class='stat-image' src="resources/images/chimerdbv3_statistics_diagram_p1.png" style="width: 40%;margin-left:30%;" />
+										</td>
+									</tr>
+									<tr>
+										<td class='paper-ref'>ChimerDB 3.0 is composed of three main data sources of fusion genes which are ChimerKB, ChimerSeq, ChimerPub. 
+											ChimerKB include manually curated and 1,066 fusion genes with experimental evidences from COSMIC, GenBank, OMIM, Mitelman, TICdb, and ChimerDB 2.0.</td>
+									</tr>
+									<tr>
+										<td class='paper-ref'>ChimerSeq is a collection of 30,001 fusion transcripts that we have analyzed the 
+											TCGA transcriptome sequencing data using fusion gene predicting programs FusionScan and TopHat-Fusion. 
+											About 8000 PRADA analysis results and ~16000 curated fusion cases from ChiTaRS were also included in ChimerSeq database.</td>
+									</tr>
+									<tr>
+										<td class='paper-ref'>Venn diagram (a) show the detail fusion gene distribution of ChimerDB 3.0 according to each source 
+											ChimerKB, ChimerPub, ChimerSeq. As shown as the first Venn diagram,
+											there were 33,316 unique fusion gene pairs and 104 common gene pairs among all sources in ChimerDB 3.o.</td>
+									</tr>
+									<tr class='blank' style="height:50px;"><td></td></tr>
+									<tr>
+										<td class='border'>2. Overall distribution of ChimerDB 3.0 fusion genes</td>
+									</tr>
+									<tr>
+										<td>
+											<img alt="" class='stat-image' src="resources/images/chimerdbv3_statistics_diagram_p2.png" style="width: 40%;margin-left:30%;" />
+										</td>
+									</tr>
+									<tr>
+										<td class='paper-ref'>Venn diagram(b) describes that comparison of overlapped fusion genes between TCGA fusion gene analysis algorithm. 
+											Top-hat-fusion has the smallest number of total fusion genes among three programs.</td>
+									</tr>
+									<tr class='blank' style="height:50px;"><td></td></tr>
+									<tr>
+										<td class='border'>3. Reliability of ChimerPub text-mining result</td>
+									</tr>
+									<tr>
+										<td>
+											<img alt="" class='stat-image' src="resources/images/Chimerpubrel.png" style="width: 60%; margin-left:20%;" />
+										</td>
+									</tr>
+									<tr>
+										<td class='paper-ref'>The graph indicates the cumulative probability of including entries of each resources. 
+											GoldStandard and PsudoNeg are the sets of sentences used in the training process. 
+											ChimerKB entries are pseudo-positive sentences containing gene names of genuine the fusion genes from CHimerKB.</td>
+									</tr>
+
+									<tr class='blank' style="height:50px;"><td></td></tr>
+									<tr>
+										<td class='border'>4. Distribution of fusion transcripts for each cancer type</td>
+									</tr>
+									<tr>
+										<td>
+											<img alt="" class='stat-image' src="resources/images/cancertype.png" style="width: 65%; margin-left:17.25%;" />
+										</td>
+									</tr>
+									<tr>
+										<td class='paper-ref'>This bar chart depicts the number of fusion transcripts from each algorithm uses in ChimerSeq. 
+											The blue one indicates Fusion Scan results, Orange bar is the results of Top-Hat-Fusion and green bar shows the act of fusion cases with PRADA algorithm. 
+											The largest number of fusion transcripts were produced by PRADA from Cervical cancer. The average number of transcripts is 293.</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--
+<div id="main-wrapper">
+    <div class="template-page-wrapper">
+        <div class="templatemo-content-wrapper">
 			
 			<div class="row margin-bottom-30" style="margin-top: 30px;">
                 <div class="col-md-1"></div>
@@ -100,7 +197,7 @@
 
 		</div>
 	</div>
-</div>
+</div>-->
 
 <!--
 <div id="main-wrapper">
