@@ -485,6 +485,8 @@ div.sep-bar{
     display: block;
     width: 80%;
     max-width: 700px;
+	background:white;
+	border:20px solid white;
 }
 
 /* Caption of Modal Image (Image Text) - Same Width as the Image */

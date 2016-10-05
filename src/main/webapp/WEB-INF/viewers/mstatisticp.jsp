@@ -50,7 +50,7 @@
 									</tr>
 									<tr>
 										<td>
-											<img alt="" class='stat-image chimer-image' src="resources/images/chimerdbv3_statistics_table.png" style="width: 70%; height: 70%; margin-left:15%" />
+											<img alt="" class='stat-image chimer-image' src="resources/images/chimerdbv3_statistics_table.png" style="width: 60%; margin-left:20%" />
 										</td>
 									</tr>
 									<tr class='blank' style="height:20px;"><td></td></tr>
