@@ -585,8 +585,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionTranscriptExons = functio
 					var realExonLength = d.end - d.start + 1;
 
 					var ratio = realExonLength/(wholeExonLength/exons.length);
-					var stable_length = (wholeExonLength / exons.length) * 0.7;
-					var variable_length = ((wholeExonLength / exons.length) * 0.3) * ratio;
+					var stable_length = (wholeExonLength / exons.length) * 0.6;
+					var variable_length = ((wholeExonLength / exons.length) * 0.4) * ratio;
 
 					var onlyLength = stable_length + variable_length;
 
@@ -993,8 +993,8 @@ ChimeraDbV3ViewerWithOutChromosome.prototype.drawFusionGeneExons = function( con
 					var realExonLength = d.end - d.start + 1;
 
 					var ratio = realExonLength/(wholeExonLength/exons.length);
-					var stable_length = (wholeExonLength / exons.length) * 0.7;
-					var variable_length = ((wholeExonLength / exons.length) * 0.3) * ratio;
+					var stable_length = (wholeExonLength / exons.length) * 0.6;
+					var variable_length = ((wholeExonLength / exons.length) * 0.4) * ratio;
 
 					var onlyLength = stable_length + variable_length;
 
