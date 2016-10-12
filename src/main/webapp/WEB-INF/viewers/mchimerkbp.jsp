@@ -201,6 +201,23 @@
                 </div>
                 <div class="col-md-1"></div>
             </div>
+			
+			
+			<div class="row margin-bottom-30">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+					<div class="row">
+                        <div class="col-md-11 col-md-offset-1">
+                            <div class="row margin-bottom-15">
+                                <div class="col-md-11">
+                                    We can give you <span class='no_of_result'></span> results by these options or filters
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
             
             <div class="row margin-bottom-30">
                 <div class="col-md-1"></div>
